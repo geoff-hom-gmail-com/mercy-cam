@@ -86,6 +86,12 @@
                                     </segue>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="&quot;Wait 2 seconds, then take 3 photos.&quot;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gvh-U8-4HD">
+                                <rect key="frame" x="306" y="410" width="283" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -225,11 +231,27 @@ photo</string>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="ASC-Mi-8aD">
+                                <rect key="frame" x="206" y="788" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                <state key="normal" title="last saved photo">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="viewPhotos" destination="2ll-qK-FHt" eventType="touchUpInside" id="MoK-8d-fsr"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="take delayed photo: simple" id="jiP-RF-W4L"/>
                     <connections>
+                        <outlet property="cameraRollButton" destination="ASC-Mi-8aD" id="xoE-QY-Wiz"/>
                         <outlet property="videoPreviewView" destination="7CB-eU-aBL" id="bJD-Fc-HIp"/>
                     </connections>
                 </viewController>
@@ -294,6 +316,30 @@ photo</string>
             <point key="canvasLocation" x="-122" y="931"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="GGKCamViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKCamViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="takePhoto"/>
+            </relationships>
+        </class>
+        <class className="GGKOverlayViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKOverlayViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelPhoto"/>
+                <relationship kind="action" name="takePhoto"/>
+            </relationships>
+        </class>
+        <class className="GGKSimpleDelayedPhotoViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKSimpleDelayedPhotoViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="takePhoto"/>
+                <relationship kind="action" name="viewPhotos"/>
+                <relationship kind="outlet" name="cameraRollButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="videoPreviewView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
