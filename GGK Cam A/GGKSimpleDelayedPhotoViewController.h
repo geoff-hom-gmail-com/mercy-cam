@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GGKSimpleDelayedPhotoViewController : UIViewController
+@interface GGKSimpleDelayedPhotoViewController : UIViewController <UITextFieldDelegate>
 
 // Tap to see camera roll. This button shows the most-recent photo in the roll. 
 @property (weak, nonatomic) IBOutlet UIButton *cameraRollButton;
@@ -18,6 +18,12 @@
 
 // Take photo(s).
 - (IBAction)takePhoto;
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField;
+// So, note which text field is being edited. (To know whether to shift the screen up when the keyboard shows.)
+
+- (void)textFieldDidEndEditing:(UITextField *)textField;
+// So, note that no text field is being edited.
 
 // View camera roll.
 - (IBAction)viewPhotos;
