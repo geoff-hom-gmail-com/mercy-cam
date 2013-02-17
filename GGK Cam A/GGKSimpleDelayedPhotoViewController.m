@@ -17,8 +17,14 @@
 
 @property (strong, nonatomic) AVCaptureSession *captureSession;
 
+// Number of photos to take for a given push of the shutter.
+@property (assign, nonatomic) NSInteger numberOfPhotosToTake;
+
+// Number of seconds to wait before taking first photo.
+@property (assign, nonatomic) CGFloat numberOfSecondsToInitiallyWait;
+
 -(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
-// So, update the image in the button for showing the camera roll.
+// So, update the image in the button for showing the camera roll. If another photo is supposed to be taken, do it.
 
 - (void)keyboardWillHide:(NSNotification *)theNotification;
 // So, shift the view back to normal.
@@ -29,9 +35,17 @@
 // Show most-recent photo on button for showing camera roll.
 - (void)showMostRecentPhotoOnButton;
 
+// Start taking photos, immediately.
+- (void)startTakingPhotos;
+
 @end
 
 @implementation GGKSimpleDelayedPhotoViewController
+
+- (IBAction)cancelTimer {
+    
+    NSLog(@"SDPVC cancelTimer not implemented yet");
+}
 
 - (void)dealloc {
     
@@ -47,8 +61,18 @@
 }
 
 -(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-    
+
+    NSLog(@"SDPVC image:didFinishSavingWithError called");
     [self showMostRecentPhotoOnButton];
+    if (self.numberOfPhotosToTake > 0) {
+        
+        [self takePhoto];
+    } else {
+        
+        self.startTimerButton.enabled = YES;
+        self.timerStartedLabel.hidden = YES;
+        self.cancelTimerButton.enabled = NO;
+    }
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -135,24 +159,69 @@
     }];
 }
 
-- (IBAction)takePhoto {
+- (void)startTakingPhotos {
+
+//    NSLog(@"SDPVC startTakingPhotos called");
+    if (self.numberOfPhotosToTake > 0) {
+        
+        [self takePhoto];
+    }
+}
+
+- (IBAction)startTimer {
+
+    NSLog(@"SDPVC startTimer called");
+    self.startTimerButton.enabled = NO;
+    self.timerStartedLabel.hidden = NO;
+    self.cancelTimerButton.enabled = YES;
     
-//    NSLog(@"takePhoto called");
+    // need validator/formatter?
+    
+    self.numberOfSecondsToInitiallyWait = [self.numberOfSecondsToInitiallyWaitTextField.text floatValue];
+    self.numberOfPhotosToTake = [self.numberOfPhotosToTakeTextField.text integerValue];
+    
+    NSTimeInterval initialWaitTimeInterval = self.numberOfSecondsToInitiallyWait;
+    [NSTimer scheduledTimerWithTimeInterval:initialWaitTimeInterval target:self selector:@selector(startTakingPhotos) userInfo:nil repeats:NO];
+    NSLog(@"SDPVC startTimer finished");
+}
+
+- (void)takePhoto {
+    
+    NSLog(@"SDPVC takePhoto called");
+    self.numberOfPhotosToTake -= 1;
     AVCaptureStillImageOutput *aCaptureStillImageOutput = (AVCaptureStillImageOutput *)self.captureSession.outputs[0];
     AVCaptureConnection *aCaptureConnection = [aCaptureStillImageOutput connectionWithMediaType:AVMediaTypeVideo];
     
-    [aCaptureStillImageOutput captureStillImageAsynchronouslyFromConnection:aCaptureConnection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
+    // Give visual feedback that photo was taken: Flash the screen.
+    UIView *aFlashView = [[UIView alloc] initWithFrame:self.videoPreviewView.frame];
+    aFlashView.backgroundColor = [UIColor whiteColor];
+    aFlashView.alpha = 0.8f;
+    [self.view addSubview:aFlashView];
+    [UIView animateWithDuration:0.6f animations:^{
         
-        if (imageDataSampleBuffer != NULL) {
-            
-            NSData *theImageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
-            UIImage *theImage = [[UIImage alloc] initWithData:theImageData];
-            UIImageWriteToSavedPhotosAlbum(theImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-        }
+        aFlashView.alpha = 0.0f;
+    } completion:^(BOOL finished) {
+        
+        [aFlashView removeFromSuperview];
     }];
-//    NSLog(@"takePhoto2 called");
+    
+    if (aCaptureConnection != nil) {
+        
+        [aCaptureStillImageOutput captureStillImageAsynchronouslyFromConnection:aCaptureConnection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
+            
+            if (imageDataSampleBuffer != NULL) {
+                
+                NSData *theImageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
+                UIImage *theImage = [[UIImage alloc] initWithData:theImageData];
+                UIImageWriteToSavedPhotosAlbum(theImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+            }
+        }];
+    } else {
+        
+        NSLog(@"GGK warning: aCaptureConnection nil");
+        UIImageWriteToSavedPhotosAlbum(nil, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    }
 }
-
 
 - (void)textFieldDidBeginEditing:(UITextField *)theTextField {
     
@@ -167,7 +236,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-//    NSLog(@"SDPVC vDL called");
+    NSLog(@"SDPVC vDL called");
     
     AVCaptureSession *aCaptureSession = [[AVCaptureSession alloc] init];
 //    AVCaptureSession *aCaptureSession = //get from another class
@@ -179,7 +248,7 @@
     if (!aCameraCaptureDeviceInput) {
         
         // handle error
-        NSLog(@"Warning: error getting camera input.");
+        NSLog(@"GGK Warning: error getting camera input.");
     }
     if ([aCaptureSession canAddInput:aCameraCaptureDeviceInput]) {
         
@@ -214,6 +283,9 @@
     // Observe keyboard notifications to shift the screen up/down appropriately.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    self.timerStartedLabel.hidden = YES;
+    self.cancelTimerButton.enabled = NO;
 }
 
 - (IBAction)viewPhotos {

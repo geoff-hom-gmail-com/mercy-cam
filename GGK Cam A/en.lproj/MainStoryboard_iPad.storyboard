@@ -16,7 +16,7 @@
                                 <rect key="frame" x="20" y="388" width="278" height="67"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                <state key="normal" title="take delayed photo: simple">
+                                <state key="normal" title="take delayed photos: simple">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -31,7 +31,7 @@
                                 <rect key="frame" x="29" y="501" width="239" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="take delayed photo: advanced">
+                                <state key="normal" title="take delayed photos: advanced">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -201,7 +201,7 @@
             </objects>
             <point key="canvasLocation" x="1386" y="423"/>
         </scene>
-        <!--Simple Delayed Photo View Controller - take delayed photo: simple-->
+        <!--Simple Delayed Photo View Controller - take delayed photos: simple-->
         <scene sceneID="uVa-qF-Ilh">
             <objects>
                 <viewController id="2ll-qK-FHt" customClass="GGKSimpleDelayedPhotoViewController" sceneMemberID="viewController">
@@ -210,20 +210,23 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="jJL-aE-Vqa">
-                                <rect key="frame" x="668" y="682" width="100" height="65"/>
+                                <rect key="frame" x="668" y="627" width="100" height="120"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal">
-                                    <string key="title">take
-photo</string>
+                                    <string key="title">start
+timer</string>
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="takePhoto" destination="2ll-qK-FHt" eventType="touchUpInside" id="Nj8-wI-nZw"/>
+                                    <action selector="startTimer" destination="2ll-qK-FHt" eventType="touchUpInside" id="CDX-x5-bg1"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" id="7CB-eU-aBL">
@@ -232,7 +235,7 @@ photo</string>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="ASC-Mi-8aD">
-                                <rect key="frame" x="668" y="811" width="80" height="80"/>
+                                <rect key="frame" x="688" y="881" width="80" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                 <state key="normal" title="last saved photo">
@@ -285,12 +288,43 @@ photo</string>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="timer started" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OpK-Rz-7nq">
+                                <rect key="frame" x="668" y="598" width="100" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="5Qx-RQ-TiL">
+                                <rect key="frame" x="708" y="754" width="60" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="cancel">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelTimer" destination="2ll-qK-FHt" eventType="touchUpInside" id="QXF-f4-CDD"/>
+                                    <action selector="startTimer" destination="2ll-qK-FHt" eventType="touchUpInside" id="y5b-SJ-eTf"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="take delayed photo: simple" id="jiP-RF-W4L"/>
+                    <navigationItem key="navigationItem" title="take delayed photos: simple" id="jiP-RF-W4L"/>
                     <connections>
                         <outlet property="cameraRollButton" destination="ASC-Mi-8aD" id="xoE-QY-Wiz"/>
+                        <outlet property="cancelTimerButton" destination="5Qx-RQ-TiL" id="Gyb-ii-ZA8"/>
+                        <outlet property="numberOfPhotosToTakeTextField" destination="OxC-nq-duy" id="ibR-lg-kPx"/>
+                        <outlet property="numberOfSecondsToInitiallyWaitTextField" destination="cLP-P2-6Vg" id="wp6-0S-L8x"/>
+                        <outlet property="startTimerButton" destination="jJL-aE-Vqa" id="hhm-nD-8Hh"/>
+                        <outlet property="timerStartedLabel" destination="OpK-Rz-7nq" id="42o-pE-Dlc"/>
                         <outlet property="videoPreviewView" destination="7CB-eU-aBL" id="bJD-Fc-HIp"/>
                     </connections>
                 </viewController>
@@ -321,7 +355,7 @@ photo</string>
             </objects>
             <point key="canvasLocation" x="1669" y="2156"/>
         </scene>
-        <!--View Controller - take delayed photo: advanced-->
+        <!--View Controller - take delayed photos: advanced-->
         <scene sceneID="GzP-fh-hYs">
             <objects>
                 <viewController id="RoA-pF-Ojp" sceneMemberID="viewController">
@@ -330,7 +364,7 @@ photo</string>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="take delayed photo: advanced" id="Jx3-Gj-AYm"/>
+                    <navigationItem key="navigationItem" title="take delayed photos: advanced" id="Jx3-Gj-AYm"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S4a-1h-q5N" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -355,30 +389,6 @@ photo</string>
             <point key="canvasLocation" x="-122" y="931"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="GGKCamViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKCamViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="takePhoto"/>
-            </relationships>
-        </class>
-        <class className="GGKOverlayViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKOverlayViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="cancelPhoto"/>
-                <relationship kind="action" name="takePhoto"/>
-            </relationships>
-        </class>
-        <class className="GGKSimpleDelayedPhotoViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKSimpleDelayedPhotoViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="takePhoto"/>
-                <relationship kind="action" name="viewPhotos"/>
-                <relationship kind="outlet" name="cameraRollButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="videoPreviewView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
