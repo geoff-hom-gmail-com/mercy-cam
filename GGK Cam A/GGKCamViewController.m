@@ -8,6 +8,7 @@
 
 #import "GGKCamViewController.h"
 #import "GGKOverlayViewController.h"
+#import "GGKSimpleDelayedPhotoViewController.h"
 
 @interface GGKCamViewController ()
 
@@ -28,7 +29,7 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     NSLog(@"imagePickerController:didFinishPickingMediaWithInfo called");
-    UIImage *theImage = (UIImage *)[info objectForKey:UIImagePickerControllerOriginalImage];
+    UIImage *theImage = (UIImage *)info[UIImagePickerControllerOriginalImage];
     UIImageWriteToSavedPhotosAlbum(theImage, nil, nil, nil);
 }
 
@@ -71,10 +72,39 @@
     }
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+    
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+        
+    // Update labels in case they changed.
+    
+    NSNumber *takeDelayedPhotosNumberOfSecondsToInitiallyWaitNumber = [[NSUserDefaults standardUserDefaults] objectForKey:GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString];
+    if (takeDelayedPhotosNumberOfSecondsToInitiallyWaitNumber == nil) {
+        
+        takeDelayedPhotosNumberOfSecondsToInitiallyWaitNumber = @(GGKTakeDelayedPhotosDefaultNumberOfSecondsToInitiallyWaitInteger);
+    }
+    NSNumber *takeDelayedPhotosNumberOfPhotosNumber = [[NSUserDefaults standardUserDefaults] objectForKey:GGKTakeDelayedPhotosNumberOfPhotosKeyString];
+    if (takeDelayedPhotosNumberOfPhotosNumber == nil) {
+        
+        takeDelayedPhotosNumberOfPhotosNumber = @(GGKTakeDelayedPhotosDefaultNumberOfPhotosInteger);
+    }
+    
+    NSString *aSecondsString = @"seconds";
+    if ([takeDelayedPhotosNumberOfSecondsToInitiallyWaitNumber intValue] == 1) {
+        
+        aSecondsString = @"second";
+    }
+    NSString *aPhotosString = @"photos";
+    if ([takeDelayedPhotosNumberOfPhotosNumber intValue] == 1) {
+        
+        aPhotosString = @"photo";
+    }
+    self.takeDelayedPhotosExampleLabel.text = [NSString stringWithFormat:@"\"Wait %@ %@, then take %@ %@.\"", takeDelayedPhotosNumberOfSecondsToInitiallyWaitNumber, aSecondsString, takeDelayedPhotosNumberOfPhotosNumber, aPhotosString];
 }
 
 @end

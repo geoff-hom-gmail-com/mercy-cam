@@ -10,6 +10,14 @@
 #import <AVFoundation/AVFoundation.h>
 #import "GGKSimpleDelayedPhotoViewController.h"
 
+const NSInteger GGKTakeDelayedPhotosDefaultNumberOfPhotosInteger = 3;
+
+const NSInteger GGKTakeDelayedPhotosDefaultNumberOfSecondsToInitiallyWaitInteger = 2;
+
+NSString *GGKTakeDelayedPhotosNumberOfPhotosKeyString = @"Take delayed photos: number of photos";
+
+NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take delayed photos: number of seconds to initially wait";
+
 @interface GGKSimpleDelayedPhotoViewController ()
 
 // The text field currently being edited.
@@ -22,6 +30,9 @@
 
 // Number of seconds to wait before taking first photo.
 @property (assign, nonatomic) CGFloat numberOfSecondsToInitiallyWait;
+
+// Adjust "Wait X seconds, then take Y photos," for whether the values are singular or plural.
+- (void)adjustStringsForPlurals;
 
 -(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
 // So, update the image in the button for showing the camera roll. If another photo is supposed to be taken, do it.
@@ -41,6 +52,25 @@
 @end
 
 @implementation GGKSimpleDelayedPhotoViewController
+
+- (void)adjustStringsForPlurals {
+    
+    // "second(s), then take"
+    NSString *aSecondsString = @"seconds";
+    if ([self.numberOfSecondsToInitiallyWaitTextField.text intValue] == 1) {
+        
+        aSecondsString = @"second";
+    }
+    self.secondsLabel.text = [NSString stringWithFormat:@"%@, then take", aSecondsString];
+    
+    // "photo(s)."
+    NSString *aPhotosString = @"photos";
+    if ([self.numberOfPhotosToTakeTextField.text intValue] == 1) {
+        
+        aPhotosString = @"photo";
+    }
+    self.photosLabel.text = [NSString stringWithFormat:@"%@.", aPhotosString];
+}
 
 - (IBAction)cancelTimer {
     
@@ -90,7 +120,7 @@
     newFrame.origin.y = 0;
     
     NSDictionary* theUserInfo = [theNotification userInfo];
-    NSTimeInterval keyboardAnimationDurationTimeInterval = [ [theUserInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue ];
+    NSTimeInterval keyboardAnimationDurationTimeInterval = [ theUserInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue ];
     [UIView animateWithDuration:keyboardAnimationDurationTimeInterval animations:^{
         
         self.view.frame = newFrame;
@@ -102,7 +132,7 @@
     // Shift the view so that the active text field can be seen above the keyboard. We do this by comparing where the keyboard will end up vs. where the text field is. If a shift is needed, we shift the entire view up, synced with the keyboard shifting into place.
     
     NSDictionary *theUserInfo = [theNotification userInfo];
-    CGRect keyboardFrameEndRect = [[theUserInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGRect keyboardFrameEndRect = [theUserInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
 	keyboardFrameEndRect = [self.view convertRect:keyboardFrameEndRect fromView:nil];
     CGFloat keyboardTop = keyboardFrameEndRect.origin.y;
     CGFloat activeTextFieldBottom = CGRectGetMaxY(self.activeTextField.frame);
@@ -113,7 +143,7 @@
         
         CGRect newFrame = self.view.frame;
         newFrame.origin.y = newFrame.origin.y - amountToShift;
-        NSTimeInterval keyboardAnimationDurationTimeInterval = [ [theUserInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue ];
+        NSTimeInterval keyboardAnimationDurationTimeInterval = [ theUserInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue ];
         [UIView animateWithDuration:keyboardAnimationDurationTimeInterval animations:^{
             
             self.view.frame = newFrame;
@@ -228,8 +258,53 @@
     self.activeTextField = theTextField;
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField {
+- (void)textFieldDidEndEditing:(UITextField *)theTextField {
     
+    // Behavior depends on which text field was edited. Regardless, check the entered value. If not okay, set to an appropriate value. Store the value.
+    
+    NSString *theKey;
+    id okayValue;
+    
+    if (theTextField == self.numberOfSecondsToInitiallyWaitTextField) {
+        
+        theKey = GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString;
+        okayValue = @([theTextField.text integerValue]);
+        
+        // number of seconds to initially wait should be an integer, 0 to 99.
+        NSInteger okayValueInteger = [okayValue integerValue];
+        if (okayValueInteger < 0) {
+            
+            okayValue = @0;
+        } else if (okayValueInteger > 99) {
+            
+            okayValue = @99;
+        }
+    } else if (theTextField == self.numberOfPhotosToTakeTextField) {
+        
+        theKey = GGKTakeDelayedPhotosNumberOfPhotosKeyString;
+        okayValue = @([theTextField.text integerValue]);
+        
+        // number of photos should be from 1 to 99
+        NSInteger okayValueInteger = [okayValue integerValue];
+        if (okayValueInteger < 1) {
+            
+            okayValue = @1;
+        } else if (okayValueInteger > 99) {
+            
+            okayValue = @99;
+        }
+    }
+    
+    // Since the entered value may have been converted, show the converted value.
+    theTextField.text = [okayValue stringValue];
+    
+    if (theTextField == self.numberOfSecondsToInitiallyWaitTextField || theTextField == self.numberOfPhotosToTakeTextField) {
+        
+        [self adjustStringsForPlurals];
+    }
+    
+    [[NSUserDefaults standardUserDefaults] setObject:okayValue forKey:theKey];
+        
     self.activeTextField = nil;
 }
 
@@ -286,6 +361,24 @@
     
     self.timerStartedLabel.hidden = YES;
     self.cancelTimerButton.enabled = NO;
+    
+    // Set parameters to most-recent.
+    
+    NSNumber *numberOfSecondsToInitiallyWaitNumber = [[NSUserDefaults standardUserDefaults] objectForKey:GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString];
+    if (numberOfSecondsToInitiallyWaitNumber == nil) {
+        
+        numberOfSecondsToInitiallyWaitNumber = @(GGKTakeDelayedPhotosDefaultNumberOfSecondsToInitiallyWaitInteger);
+    }
+    self.numberOfSecondsToInitiallyWaitTextField.text = [numberOfSecondsToInitiallyWaitNumber stringValue];
+    
+    NSNumber *numberOfPhotosNumber = [[NSUserDefaults standardUserDefaults] objectForKey:GGKTakeDelayedPhotosNumberOfPhotosKeyString];
+    if (numberOfPhotosNumber == nil) {
+        
+        numberOfPhotosNumber = @(GGKTakeDelayedPhotosDefaultNumberOfPhotosInteger);
+    }
+    self.numberOfPhotosToTakeTextField.text = [numberOfPhotosNumber stringValue];
+    
+    [self adjustStringsForPlurals];
 }
 
 - (IBAction)viewPhotos {

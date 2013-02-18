@@ -12,4 +12,7 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
+- (void)applicationDidEnterBackground:(UIApplication *)application;
+// So, save user defaults.
+
 @end
