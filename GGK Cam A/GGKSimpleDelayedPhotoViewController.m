@@ -296,6 +296,7 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     }
     
     // Since the entered value may have been converted, show the converted value.
+    //don't need this line?
     theTextField.text = [okayValue stringValue];
     
     if (theTextField == self.numberOfSecondsToInitiallyWaitTextField || theTextField == self.numberOfPhotosToTakeTextField) {

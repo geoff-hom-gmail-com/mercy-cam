@@ -117,13 +117,13 @@
 		93306A4516C1D19A00F22B0A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				93306A4616C1D19A00F22B0A /* GGK Cam A-Info.plist */,
-				93306A4716C1D19A00F22B0A /* InfoPlist.strings */,
-				93306A4A16C1D19A00F22B0A /* main.m */,
-				93306A4C16C1D19A00F22B0A /* GGK Cam A-Prefix.pch */,
 				93306A5016C1D19A00F22B0A /* Default.png */,
 				93306A5216C1D19A00F22B0A /* Default@2x.png */,
 				93306A5416C1D19A00F22B0A /* Default-568h@2x.png */,
+				93306A4616C1D19A00F22B0A /* GGK Cam A-Info.plist */,
+				93306A4C16C1D19A00F22B0A /* GGK Cam A-Prefix.pch */,
+				93306A4716C1D19A00F22B0A /* InfoPlist.strings */,
+				93306A4A16C1D19A00F22B0A /* main.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -334,7 +334,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "83F99BF7-54F5-4093-9036-4155499B7033";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9EECF008-0834-4B71-9B8C-6ECD58640DCA";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -373,6 +373,7 @@
 				93306A6516C1D26700F22B0A /* user testing */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
