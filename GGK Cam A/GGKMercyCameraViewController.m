@@ -1,22 +1,22 @@
 //
-//  GGKCamViewController.m
+//  GGKMercyCameraViewController.m
 //  GGK Cam A
 //
 //  Created by Geoff Hom on 2/5/13.
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import "GGKCamViewController.h"
+#import "GGKMercyCameraViewController.h"
 #import "GGKOverlayViewController.h"
 #import "GGKSimpleDelayedPhotoViewController.h"
 
-@interface GGKCamViewController ()
+@interface GGKMercyCameraViewController ()
 
 @property (strong, nonatomic) GGKOverlayViewController *overlayViewController;
 
 @end
 
-@implementation GGKCamViewController
+@implementation GGKMercyCameraViewController
 
 
 - (void)didReceiveMemoryWarning
@@ -46,31 +46,31 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)takePhoto {
-    
-    NSLog(@"takePhoto called");
-    BOOL cameraIsAvailable = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
-    if (cameraIsAvailable) {
-        
-        UIImagePickerController *anImagePickerController = [[UIImagePickerController alloc] init];
-        anImagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-        anImagePickerController.delegate = self;
-        // if default controls are shown, then it has the retake/preview screen, which we don't want
-        // Also, taking multiple photos requires hiding the default controls (see Apple docs).
-        anImagePickerController.showsCameraControls = NO;
-        GGKOverlayViewController *anOverlayViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"OverlayViewController"];
-        anOverlayViewController.delegate = self;
-        anOverlayViewController.imagePickerController = anImagePickerController;
-        anImagePickerController.cameraOverlayView = anOverlayViewController.view;
-        // need to retain the view or vc
-        self.overlayViewController = anOverlayViewController;
-        [self.navigationController presentViewController:anImagePickerController animated:YES completion:nil];
-//        self.imagePickerController = anImagePickerController;
-    } else {
-        
-        NSLog(@"Warning: camera not available.");
-    }
-}
+//- (IBAction)takePhoto {
+//    
+//    NSLog(@"takePhoto called");
+//    BOOL cameraIsAvailable = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
+//    if (cameraIsAvailable) {
+//        
+//        UIImagePickerController *anImagePickerController = [[UIImagePickerController alloc] init];
+//        anImagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+//        anImagePickerController.delegate = self;
+//        // if default controls are shown, then it has the retake/preview screen, which we don't want
+//        // Also, taking multiple photos requires hiding the default controls (see Apple docs).
+//        anImagePickerController.showsCameraControls = NO;
+//        GGKOverlayViewController *anOverlayViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"OverlayViewController"];
+//        anOverlayViewController.delegate = self;
+//        anOverlayViewController.imagePickerController = anImagePickerController;
+//        anImagePickerController.cameraOverlayView = anOverlayViewController.view;
+//        // need to retain the view or vc
+//        self.overlayViewController = anOverlayViewController;
+//        [self.navigationController presentViewController:anImagePickerController animated:YES completion:nil];
+////        self.imagePickerController = anImagePickerController;
+//    } else {
+//        
+//        NSLog(@"Warning: camera not available.");
+//    }
+//}
 
 - (void)viewDidLoad {
     

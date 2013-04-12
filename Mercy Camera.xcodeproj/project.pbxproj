@@ -18,7 +18,7 @@
 		93306A5516C1D19A00F22B0A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93306A5416C1D19A00F22B0A /* Default-568h@2x.png */; };
 		93306A5816C1D19A00F22B0A /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93306A5616C1D19A00F22B0A /* MainStoryboard_iPhone.storyboard */; };
 		93306A5B16C1D19A00F22B0A /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93306A5916C1D19A00F22B0A /* MainStoryboard_iPad.storyboard */; };
-		93306A5E16C1D19A00F22B0A /* GGKCamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93306A5D16C1D19A00F22B0A /* GGKCamViewController.m */; };
+		93306A5E16C1D19A00F22B0A /* GGKMercyCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93306A5D16C1D19A00F22B0A /* GGKMercyCameraViewController.m */; };
 		93306A6D16C339B300F22B0A /* GGKOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93306A6C16C339B300F22B0A /* GGKOverlayViewController.m */; };
 		93306A7016C4702200F22B0A /* GGKSimpleDelayedPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93306A6F16C4702200F22B0A /* GGKSimpleDelayedPhotoViewController.m */; };
 		93306A7216C472E000F22B0A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93306A7116C472E000F22B0A /* AVFoundation.framework */; };
@@ -41,8 +41,8 @@
 		93306A5416C1D19A00F22B0A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		93306A5716C1D19A00F22B0A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		93306A5A16C1D19A00F22B0A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
-		93306A5C16C1D19A00F22B0A /* GGKCamViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GGKCamViewController.h; sourceTree = "<group>"; };
-		93306A5D16C1D19A00F22B0A /* GGKCamViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GGKCamViewController.m; sourceTree = "<group>"; };
+		93306A5C16C1D19A00F22B0A /* GGKMercyCameraViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GGKMercyCameraViewController.h; sourceTree = "<group>"; };
+		93306A5D16C1D19A00F22B0A /* GGKMercyCameraViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GGKMercyCameraViewController.m; sourceTree = "<group>"; };
 		93306A6B16C339B300F22B0A /* GGKOverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKOverlayViewController.h; sourceTree = "<group>"; };
 		93306A6C16C339B300F22B0A /* GGKOverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKOverlayViewController.m; sourceTree = "<group>"; };
 		93306A6E16C4702100F22B0A /* GGKSimpleDelayedPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKSimpleDelayedPhotoViewController.h; sourceTree = "<group>"; };
@@ -101,8 +101,8 @@
 			children = (
 				93306A4D16C1D19A00F22B0A /* GGKCamAppDelegate.h */,
 				93306A4E16C1D19A00F22B0A /* GGKCamAppDelegate.m */,
-				93306A5C16C1D19A00F22B0A /* GGKCamViewController.h */,
-				93306A5D16C1D19A00F22B0A /* GGKCamViewController.m */,
+				93306A5C16C1D19A00F22B0A /* GGKMercyCameraViewController.h */,
+				93306A5D16C1D19A00F22B0A /* GGKMercyCameraViewController.m */,
 				93306A6B16C339B300F22B0A /* GGKOverlayViewController.h */,
 				93306A6C16C339B300F22B0A /* GGKOverlayViewController.m */,
 				93306A6E16C4702100F22B0A /* GGKSimpleDelayedPhotoViewController.h */,
@@ -198,7 +198,7 @@
 			files = (
 				93306A4B16C1D19A00F22B0A /* main.m in Sources */,
 				93306A4F16C1D19A00F22B0A /* GGKCamAppDelegate.m in Sources */,
-				93306A5E16C1D19A00F22B0A /* GGKCamViewController.m in Sources */,
+				93306A5E16C1D19A00F22B0A /* GGKMercyCameraViewController.m in Sources */,
 				93306A6D16C339B300F22B0A /* GGKOverlayViewController.m in Sources */,
 				93306A7016C4702200F22B0A /* GGKSimpleDelayedPhotoViewController.m in Sources */,
 			);
