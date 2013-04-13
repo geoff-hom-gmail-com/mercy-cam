@@ -248,6 +248,7 @@
     
     if (self.appWillEnterForegroundNotificationIsBeingObserved) {
         
+        // this isn't right; docs say to remove the observer object. So I can save the object as an id, check whether it's nil, and then remove that
         [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
         self.appWillEnterForegroundNotificationIsBeingObserved = NO;
     }
