@@ -13,10 +13,12 @@
 
 @interface GGKTakePhotoViewController ()
 
-@property (assign, nonatomic) BOOL appWillEnterForegroundNotificationIsBeingObserved;
+// For removing the observer later.
+@property (strong, nonatomic) id appWillEnterForegroundObserver;
 
 @property (strong, nonatomic) AVCaptureSession *captureSession;
 
+// For retaining the popover and its content view controller.
 @property (strong, nonatomic) UIPopoverController *savedPhotosPopoverController;
 
 // For playing sound.
@@ -25,7 +27,7 @@
 -(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
 // So, update the image in the button for showing the camera roll. If another photo is supposed to be taken, do it.
 
-// Show most-recent photo on button for showing camera roll.
+// Show most-recent photo from camera roll on button for viewing camera roll.
 - (void)showMostRecentPhotoOnButton;
 
 @end
@@ -46,7 +48,6 @@
 -(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
 {    
     [self showMostRecentPhotoOnButton];
-//        self.startTimerButton.enabled = YES;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -150,8 +151,9 @@
     
     self.soundModel = [[GGKSoundModel alloc] init];
     
-    AVCaptureSession *aCaptureSession = [[AVCaptureSession alloc] init];
     //    AVCaptureSession *aCaptureSession = //get from another class
+    
+    AVCaptureSession *aCaptureSession = [[AVCaptureSession alloc] init];
     
     AVCaptureDevice *aCameraCaptureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     
@@ -189,15 +191,10 @@
     [anOperationQueue addOperationWithBlock:^{
         [aCaptureSession startRunning];
     }];
-    
-    self.appWillEnterForegroundNotificationIsBeingObserved = NO;
-    
 }
 
 - (IBAction)viewPhotos
-{    
-    NSLog(@"viewPhotos called");
-    
+{
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]) {
         
         // UIImagePickerController browser on iPad must be presented in a popover.
@@ -212,45 +209,30 @@
         [aPopoverController presentPopoverFromRect:self.cameraRollButton.bounds inView:self.cameraRollButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         self.savedPhotosPopoverController = aPopoverController;
     }
-    
-    
 }
-
-// Do what we do in -viewWillAppear (except adding the observer that calls this method).
-
-// Story: View will appear to user. User sees updated view.
-// Whether the view appears from another view in this app or from the app entering the foreground, the user should see an updated view. -viewWillAppear should call this method, and -viewWillAppear should listen for UIApplicationWillEnterForegroundNotification; when that notification  the app wthe notification
-
-
-// UIViewController override. Start visible updates. Check for app coming from background/lock.
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    // If the app returns from background/lock to this view, then -viewWillAppear isn't called. However, the user expects the same behavior. So, we'll listen for the appropriate notification.
-    if (!self.appWillEnterForegroundNotificationIsBeingObserved) {
+    if (self.appWillEnterForegroundObserver == nil) {
         
-        [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillEnterForegroundNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+        self.appWillEnterForegroundObserver = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillEnterForegroundNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
             
             [self viewWillAppear:animated];
         }];
-        self.appWillEnterForegroundNotificationIsBeingObserved = YES;
     }
     
     [self showMostRecentPhotoOnButton];
 }
 
-// UIViewController override. Stop anything from -viewWillAppear.
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
-    if (self.appWillEnterForegroundNotificationIsBeingObserved) {
+    if (self.appWillEnterForegroundObserver != nil) {
         
-        // this isn't right; docs say to remove the observer object. So I can save the object as an id, check whether it's nil, and then remove that
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
-        self.appWillEnterForegroundNotificationIsBeingObserved = NO;
+        [[NSNotificationCenter defaultCenter] removeObserver:self.appWillEnterForegroundObserver name:UIApplicationWillEnterForegroundNotification object:nil];
     }
 }
 

@@ -10,14 +10,8 @@
 
 @interface GGKTakePhotoViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
-// Tap to see camera roll. This button shows the most-recent photo in the roll.
+// Tap to see camera roll. This button is labeled with the most-recent photo in the roll.
 @property (weak, nonatomic) IBOutlet UIButton *cameraRollButton;
-
-// Tap to start the timer for taking photos.
-//@property (weak, nonatomic) IBOutlet UIButton *startTimerButton;
-
-// To let user know, visually, that the timer started.
-//@property (weak, nonatomic) IBOutlet UILabel *timerStartedLabel;
 
 // Camera input is shown here.
 @property (weak, nonatomic) IBOutlet UIView *videoPreviewView;
@@ -35,7 +29,12 @@
 // So, let the user view the taken photos and (optionally) remove them.
 - (IBAction)viewPhotos;
 
-// UIViewController override.
+// Story: View will appear to user. User sees updated view.
+// UIViewController override. Listen for app coming from background/lock. Update view.
+// Whether the view appears from another view in this app or from the app entering the foreground, the user should see an updated view. -viewWillAppear: is called for the former but not the latter. So, we listen for UIApplicationWillEnterForegroundNotification (and stop listening in -viewWillDisappear:).
 - (void)viewWillAppear:(BOOL)animated;
+
+// UIViewController override. Undo anything from -viewWillAppear:.
+- (void)viewWillDisappear:(BOOL)animated;
 
 @end
