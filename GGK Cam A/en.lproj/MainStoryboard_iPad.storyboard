@@ -64,6 +64,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="playButtonSound" destination="2" eventType="touchDown" id="lFw-uK-jpp"/>
                                     <segue destination="BXz-Hw-S72" kind="push" id="LKO-uS-8W0"/>
                                 </connections>
                             </button>
@@ -80,11 +81,11 @@
                                 </state>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gvh-U8-4HD">
-                                <rect key="frame" x="353" y="377" width="395" height="56"/>
+                                <rect key="frame" x="353" y="382" width="395" height="56"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">"Wait 29 seconds,
-then take 39 photos."</string>
+                                <string key="text">"Wait 89 seconds,
+then take 98 photos."</string>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="22"/>
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -116,8 +117,8 @@ with 324 hours between each photo."</string>
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Select what you want to do" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="L9H-FU-Zri">
-                                <rect key="frame" x="111" y="50" width="546" height="44"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Hi! Select what you want to do." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="L9H-FU-Zri">
+                                <rect key="frame" x="92" y="50" width="584" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="37"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -149,13 +150,17 @@ with 324 hours between each photo."</string>
             </objects>
             <point key="canvasLocation" x="726" y="931"/>
         </scene>
-        <!--View Controller - Mercy Camera: Take a photo-->
+        <!--Take Photo View Controller - Mercy Camera: Take a photo-->
         <scene sceneID="tpc-po-hHf">
             <objects>
-                <viewController id="BXz-Hw-S72" sceneMemberID="viewController">
+                <viewController id="BXz-Hw-S72" customClass="GGKTakePhotoViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yA7-sQ-ved">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <userGuides>
+                            <userLayoutGuide location="874" affinity="minY"/>
+                            <userLayoutGuide location="821" affinity="minY"/>
+                        </userGuides>
                         <subviews>
                             <view contentMode="scaleToFill" id="Sin-J3-zg2">
                                 <rect key="frame" x="0.0" y="0.0" width="675" height="900"/>
@@ -163,7 +168,7 @@ with 324 hours between each photo."</string>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="UdW-v1-5td">
-                                <rect key="frame" x="682" y="620" width="80" height="218"/>
+                                <rect key="frame" x="682" y="50" width="80" height="772"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <state key="normal">
@@ -179,16 +184,17 @@ photo</string>
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="startTimer" destination="2ll-qK-FHt" eventType="touchUpInside" id="zDF-Oz-YvH"/>
+                                    <action selector="playButtonSound" destination="BXz-Hw-S72" eventType="touchDown" id="Ipf-Yx-fwM"/>
+                                    <action selector="takePhoto" destination="BXz-Hw-S72" eventType="touchUpInside" id="V3K-Vh-2PU"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="5Vn-Fv-i1w">
                                 <rect key="frame" x="682" y="872" width="80" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <state key="normal">
-                                    <string key="title">last-saved
-photo</string>
+                                    <string key="title">Saved
+photos</string>
                                     <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -196,13 +202,18 @@ photo</string>
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="viewPhotos" destination="2ll-qK-FHt" eventType="touchUpInside" id="rip-hA-d7c"/>
+                                    <action selector="playButtonSound" destination="BXz-Hw-S72" eventType="touchDown" id="qzt-7q-RV9"/>
+                                    <action selector="viewPhotos" destination="BXz-Hw-S72" eventType="touchUpInside" id="3S7-nc-YB3"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.33739183010000001" green="0.75520663600000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Mercy Camera: Take a photo" id="Sby-Wb-kNp"/>
+                    <connections>
+                        <outlet property="cameraRollButton" destination="5Vn-Fv-i1w" id="UhE-V6-iSF"/>
+                        <outlet property="videoPreviewView" destination="Sin-J3-zg2" id="Xc4-8i-K1v"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vQV-4J-HJi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -366,6 +377,7 @@ photo</string>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="EfH-Kh-Duc">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="0.0" green="0.49803921569999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -381,6 +393,8 @@ photo</string>
         <class className="GGKMercyCameraViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKMercyCameraViewController.h"/>
             <relationships>
+                <relationship kind="action" name="playButtonSound"/>
+                <relationship kind="outlet" name="takeAdvancedDelayedPhotosExampleLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="takeDelayedPhotosExampleLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
@@ -398,6 +412,16 @@ photo</string>
                 <relationship kind="outlet" name="secondsLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="startTimerButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="timerStartedLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="videoPreviewView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="GGKTakePhotoViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKTakePhotoViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="playButtonSound"/>
+                <relationship kind="action" name="takePhoto"/>
+                <relationship kind="action" name="viewPhotos"/>
+                <relationship kind="outlet" name="cameraRollButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="videoPreviewView" candidateClass="UIView"/>
             </relationships>
         </class>

@@ -11,7 +11,7 @@
 @protocol GGKOverlayViewControllerDelegate
 
 // Sent after the user tapped Cancel.
-- (void)overlayViewControllerDidFinishWithCamera;
+//- (void)overlayViewControllerDidFinishWithCamera;
 
 @end
 

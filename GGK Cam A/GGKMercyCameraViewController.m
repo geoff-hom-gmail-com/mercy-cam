@@ -7,17 +7,22 @@
 //
 
 #import "GGKMercyCameraViewController.h"
-#import "GGKOverlayViewController.h"
+//#import "GGKOverlayViewController.h"
 #import "GGKSimpleDelayedPhotoViewController.h"
+
+//BOOL GGKCreateLaunchImages = YES;
+BOOL GGKCreateLaunchImages = NO;
 
 @interface GGKMercyCameraViewController ()
 
-@property (strong, nonatomic) GGKOverlayViewController *overlayViewController;
+//@property (strong, nonatomic) GGKOverlayViewController *overlayViewController;
+
+// For playing sound.
+@property (strong, nonatomic) GGKSoundModel *soundModel;
 
 @end
 
 @implementation GGKMercyCameraViewController
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -40,47 +45,34 @@
 //    [self dismissViewControllerAnimated:self.imagePickerController completion:nil];
 }
 
-- (void)overlayViewControllerDidFinishWithCamera {
-    
-    NSLog(@"overlayViewControllerDidFinishWithCamera called");
-    [self dismissViewControllerAnimated:YES completion:nil];
+- (IBAction)playButtonSound
+{
+    [self.soundModel playButtonTapSound];
 }
 
-//- (IBAction)takePhoto {
-//    
-//    NSLog(@"takePhoto called");
-//    BOOL cameraIsAvailable = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
-//    if (cameraIsAvailable) {
-//        
-//        UIImagePickerController *anImagePickerController = [[UIImagePickerController alloc] init];
-//        anImagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-//        anImagePickerController.delegate = self;
-//        // if default controls are shown, then it has the retake/preview screen, which we don't want
-//        // Also, taking multiple photos requires hiding the default controls (see Apple docs).
-//        anImagePickerController.showsCameraControls = NO;
-//        GGKOverlayViewController *anOverlayViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"OverlayViewController"];
-//        anOverlayViewController.delegate = self;
-//        anOverlayViewController.imagePickerController = anImagePickerController;
-//        anImagePickerController.cameraOverlayView = anOverlayViewController.view;
-//        // need to retain the view or vc
-//        self.overlayViewController = anOverlayViewController;
-//        [self.navigationController presentViewController:anImagePickerController animated:YES completion:nil];
-////        self.imagePickerController = anImagePickerController;
-//    } else {
-//        
-//        NSLog(@"Warning: camera not available.");
-//    }
-//}
-
-- (void)viewDidLoad {
-    
+- (void)viewDidLoad
+{    
     [super viewDidLoad];
+    
+    // Make UI blank so we can make launch images via screenshot.
+    if (GGKCreateLaunchImages) {
+        
+        self.navigationItem.title = @"";
+        for (UIView *aSubView in self.view.subviews) {
+            
+            aSubView.hidden = YES;
+        }
+    } else {
+        
+        self.soundModel = [[GGKSoundModel alloc] init];
+    }
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    
+- (void)viewWillAppear:(BOOL)animated
+{    
     [super viewWillAppear:animated];
-        
+    
+    // move to sub-method
     // Update labels in case they changed.
     
     NSNumber *takeDelayedPhotosNumberOfSecondsToInitiallyWaitNumber = [[NSUserDefaults standardUserDefaults] objectForKey:GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString];

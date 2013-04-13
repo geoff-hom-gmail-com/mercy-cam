@@ -17,7 +17,7 @@
 - (IBAction)cancelPhoto {
     
     NSLog(@"cancelPhoto called");
-    [self.delegate overlayViewControllerDidFinishWithCamera];
+//    [self.delegate overlayViewControllerDidFinishWithCamera];
 }
 
 - (void)didReceiveMemoryWarning
