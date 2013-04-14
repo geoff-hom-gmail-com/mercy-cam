@@ -10,6 +10,19 @@
 
 @implementation GGKCaptureManager
 
+- (void)focusAtPoint:(CGPoint)thePoint
+{
+    NSError *anError;
+    BOOL aDeviceMayBeConfigured = [self.device lockForConfiguration:&anError];
+    if (aDeviceMayBeConfigured) {
+        
+        // To lock the focus at a point, we set the POI, then do an auto-focus.
+        self.device.focusPointOfInterest = thePoint;
+        self.device.focusMode = AVCaptureFocusModeAutoFocus;
+        [self.device unlockForConfiguration];
+    }
+}
+
 - (id)init
 {
     self = [super init];
@@ -47,6 +60,17 @@
     aCaptureSession.sessionPreset = AVCaptureSessionPresetPhoto;
     
     self.session = aCaptureSession;
+}
+
+- (void)unlockFocus
+{
+    NSError *anError;
+    BOOL aDeviceMayBeConfigured = [self.device lockForConfiguration:&anError];
+    if (aDeviceMayBeConfigured) {
+        
+        self.device.focusMode = AVCaptureFocusModeContinuousAutoFocus;
+        [self.device unlockForConfiguration];
+    }
 }
 
 @end

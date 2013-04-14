@@ -15,10 +15,18 @@
 
 @property (strong, nonatomic) AVCaptureSession *session;
 
+// Focus at the given point (in device space).
+// including exp/wb?
+- (void)focusAtPoint:(CGPoint)thePoint;
+
 // Designated initializer.
 - (id)init;
 
 // Create and assign the capture session.
 - (void)setUpSession;
+
+// Set focus to be continuous.
+// including exp/wb?
+- (void)unlockFocus;
 
 @end

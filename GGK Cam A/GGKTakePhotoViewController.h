@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 @interface GGKTakePhotoViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 // Tap to see camera roll. This button is labeled with the most-recent photo in the roll.
