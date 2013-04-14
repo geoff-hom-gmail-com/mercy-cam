@@ -27,6 +27,7 @@
 		93B776571718899E009CB475 /* tap.aif in Resources */ = {isa = PBXBuildFile; fileRef = 93B776561718899E009CB475 /* tap.aif */; };
 		93B7765A1718AC3A009CB475 /* GGKTakePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B776591718AC3A009CB475 /* GGKTakePhotoViewController.m */; };
 		93B7765C17192B31009CB475 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93B7765B17192B31009CB475 /* MobileCoreServices.framework */; };
+		93B7765F171B5B24009CB475 /* GGKCaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B7765E171B5B24009CB475 /* GGKCaptureManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,8 @@
 		93B776581718AC3A009CB475 /* GGKTakePhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKTakePhotoViewController.h; sourceTree = "<group>"; };
 		93B776591718AC3A009CB475 /* GGKTakePhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKTakePhotoViewController.m; sourceTree = "<group>"; };
 		93B7765B17192B31009CB475 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		93B7765D171B5B24009CB475 /* GGKCaptureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKCaptureManager.h; sourceTree = "<group>"; };
+		93B7765E171B5B24009CB475 /* GGKCaptureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKCaptureManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +116,8 @@
 			children = (
 				93306A4D16C1D19A00F22B0A /* GGKCamAppDelegate.h */,
 				93306A4E16C1D19A00F22B0A /* GGKCamAppDelegate.m */,
+				93B7765D171B5B24009CB475 /* GGKCaptureManager.h */,
+				93B7765E171B5B24009CB475 /* GGKCaptureManager.m */,
 				93306A5C16C1D19A00F22B0A /* GGKMercyCameraViewController.h */,
 				93306A5D16C1D19A00F22B0A /* GGKMercyCameraViewController.m */,
 				93306A6B16C339B300F22B0A /* GGKOverlayViewController.h */,
@@ -229,6 +234,7 @@
 				93306A7016C4702200F22B0A /* GGKSimpleDelayedPhotoViewController.m in Sources */,
 				93471CB51718843800E20F65 /* GGKSoundModel.m in Sources */,
 				93B7765A1718AC3A009CB475 /* GGKTakePhotoViewController.m in Sources */,
+				93B7765F171B5B24009CB475 /* GGKCaptureManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
