@@ -14,6 +14,9 @@
 // Camera input is shown here.
 @property (weak, nonatomic) IBOutlet UIView *videoPreviewView;
 
+// (For testing.) Report whether currently exposing.
+@property (strong, nonatomic) IBOutlet UILabel *exposingLabel;
+
 // (For testing.) Report the current exposure mode.
 @property (strong, nonatomic) IBOutlet UILabel *exposureModeLabel;
 
@@ -26,8 +29,14 @@
 // (For testing.) Report the current focus point-of-interest.
 @property (strong, nonatomic) IBOutlet UILabel *focusPointOfInterestLabel;
 
+// (For testing.) Report whether currently focusing.
+@property (strong, nonatomic) IBOutlet UILabel *focusingLabel;
+
 // (For testing.) Report the current white-balance mode.
 @property (strong, nonatomic) IBOutlet UILabel *whiteBalanceModeLabel;
+
+// (For testing.) Report whether currently white balancing.
+@property (strong, nonatomic) IBOutlet UILabel *whiteBalancingLabel;
 
 // UIViewController override. For stopping the capture session.
 - (void)dealloc;

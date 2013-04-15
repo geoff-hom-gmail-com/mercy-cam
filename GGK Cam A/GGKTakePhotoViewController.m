@@ -216,6 +216,15 @@ BOOL GGKDebugCamera = YES;
     }
     self.whiteBalanceModeLabel.text = [NSString stringWithFormat:@"WB mode: %@", aString];
     
+    aString = (aCaptureDevice.adjustingFocus) ? @"Yes" : @"No";
+    self.focusingLabel.text = [NSString stringWithFormat:@"Focusing: %@", aString];
+    
+    aString = (aCaptureDevice.adjustingExposure) ? @"Yes" : @"No";
+    self.exposingLabel.text = [NSString stringWithFormat:@"Exposing: %@", aString];
+    
+    aString = (aCaptureDevice.adjustingWhiteBalance) ? @"Yes" : @"No";
+    self.whiteBalancingLabel.text = [NSString stringWithFormat:@"Wh. balancing: %@", aString];
+    
     // Show points of interest, rounded to decimal (0.1).
     CGPoint aPoint = aCaptureDevice.focusPointOfInterest;
     self.focusPointOfInterestLabel.text = [NSString stringWithFormat:@"Foc. POI: {%.1f, %.1f}", aPoint.x, aPoint.y];
@@ -259,6 +268,9 @@ BOOL GGKDebugCamera = YES;
         self.focusModeLabel.hidden = YES;
         self.exposureModeLabel.hidden = YES;
         self.whiteBalanceModeLabel.hidden = YES;
+        self.focusingLabel.hidden = YES;
+        self.exposingLabel.hidden = YES;
+        self.whiteBalancingLabel.hidden = YES;
         self.focusPointOfInterestLabel.hidden = YES;
         self.exposurePointOfInterestLabel.hidden = YES;
     } else {
@@ -268,17 +280,18 @@ BOOL GGKDebugCamera = YES;
             [self updateCameraDebugLabels];
             
             // Tried adding observer to self.captureManager.device, but it didn't work.
+            // need only one observer if I change them all the time, or if specific one always changes (e.g. focusmode)
             [self addObserver:self forKeyPath:@"captureManager.device.focusMode" options:NSKeyValueObservingOptionNew context:nil];
             [self addObserver:self forKeyPath:@"captureManager.device.exposureMode" options:NSKeyValueObservingOptionNew context:nil];
             [self addObserver:self forKeyPath:@"captureManager.device.whiteBalanceMode" options:NSKeyValueObservingOptionNew context:nil];
             [self addObserver:self forKeyPath:@"captureManager.device.focusPointOfInterest" options:NSKeyValueObservingOptionNew context:nil];
             [self addObserver:self forKeyPath:@"captureManager.device.exposurePointOfInterest" options:NSKeyValueObservingOptionNew context:nil];
+            [self addObserver:self forKeyPath:@"captureManager.device.adjustingFocus" options:NSKeyValueObservingOptionNew context:nil];
+            [self addObserver:self forKeyPath:@"captureManager.device.adjustingExposure" options:NSKeyValueObservingOptionNew context:nil];
+            [self addObserver:self forKeyPath:@"captureManager.device.adjustingWhiteBalance" options:NSKeyValueObservingOptionNew context:nil];
         }
     }
 }
-
-
-
 
 - (IBAction)viewPhotos
 {
@@ -326,12 +339,16 @@ BOOL GGKDebugCamera = YES;
 // Story: User taps on object. Focus locks there. User taps again in view. Focus returns to continuous.
 - (void)handleUserTappedInCameraView:(UITapGestureRecognizer *)theTapGestureRecognizer
 {
-    if (self.captureManager.device == nil) {
+    AVCaptureDevice *aCaptureDevice = self.captureManager.device;
+    if (aCaptureDevice == nil) {
         
         NSLog(@"GGK warning: No capture-device input.");
     } else {
         
-        if (self.captureManager.device.focusMode != AVCaptureFocusModeLocked) {
+        if (aCaptureDevice.focusMode != AVCaptureFocusModeLocked &&
+            aCaptureDevice.exposureMode != AVCaptureExposureModeLocked &&
+            aCaptureDevice.whiteBalanceMode != AVCaptureWhiteBalanceModeLocked) {
+//        if (aCaptureDevice.focusMode != AVCaptureFocusModeLocked) {
             
             CGPoint theTapPoint = [theTapGestureRecognizer locationInView:self.videoPreviewView];
             CGPoint theConvertedTapPoint = [self.captureVideoPreviewLayer captureDevicePointOfInterestForPoint:theTapPoint];
@@ -346,10 +363,10 @@ BOOL GGKDebugCamera = YES;
 // ?
 - (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    NSLog(@"TPVC oVFKP: %@", theKeyPath);
-    if ([theKeyPath isEqualToString:@"captureManager.device.focusMode"] || [theKeyPath isEqualToString:@"captureManager.device.exposureMode"] || [theKeyPath isEqualToString:@"captureManager.device.whiteBalanceMode"] || [theKeyPath isEqualToString:@"captureManager.device.focusPointOfInterest"] || [theKeyPath isEqualToString:@"captureManager.device.exposurePointOfInterest"]) {
+    if ([theKeyPath isEqualToString:@"captureManager.device.focusMode"] || [theKeyPath isEqualToString:@"captureManager.device.exposureMode"] || [theKeyPath isEqualToString:@"captureManager.device.whiteBalanceMode"] || [theKeyPath isEqualToString:@"captureManager.device.focusPointOfInterest"] || [theKeyPath isEqualToString:@"captureManager.device.exposurePointOfInterest"] || [theKeyPath isEqualToString:@"captureManager.device.adjustingFocus"] || [theKeyPath isEqualToString:@"captureManager.device.adjustingExposure"] || [theKeyPath isEqualToString:@"captureManager.device.adjustingWhiteBalance"]) {
         
-        NSLog(@"TPVC oVFKP2");
+        NSLog(@"TPVC oVFKP: %@", theKeyPath);
+        
         [self updateCameraDebugLabels];
     } else {
         

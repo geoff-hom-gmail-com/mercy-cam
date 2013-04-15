@@ -206,29 +206,29 @@ photos</string>
                                     <action selector="viewPhotos" destination="BXz-Hw-S72" eventType="touchUpInside" id="3S7-nc-YB3"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tip: To focus an object, tap it. (To unlock focus, tap again.)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JBy-3S-HOX">
-                                <rect key="frame" x="20" y="919" width="477" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tip: To focus on an object, tap it." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JBy-3S-HOX">
+                                <rect key="frame" x="20" y="919" width="278" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Foc. mode: auto." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jof-po-PWC">
-                                <rect key="frame" x="535" y="901" width="98" height="21"/>
+                                <rect key="frame" x="321" y="900" width="98" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Exp. mode: auto." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Nhh-kh-QaM">
-                                <rect key="frame" x="535" y="919" width="98" height="21"/>
+                                <rect key="frame" x="321" y="918" width="98" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="WB mode: auto." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="87z-5y-chb">
-                                <rect key="frame" x="535" y="939" width="98" height="21"/>
+                                <rect key="frame" x="321" y="938" width="98" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -248,18 +248,42 @@ photos</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Focusing: Yes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OYC-aF-2MU">
+                                <rect key="frame" x="445" y="900" width="88" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Exposing: Yes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AYj-we-zZO">
+                                <rect key="frame" x="445" y="918" width="88" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Wh. balancing: Yes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jny-pb-JCz">
+                                <rect key="frame" x="445" y="938" width="116" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.33739183010000001" green="0.75520663600000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Mercy Camera: Take a photo" id="Sby-Wb-kNp"/>
                     <connections>
                         <outlet property="cameraRollButton" destination="5Vn-Fv-i1w" id="UhE-V6-iSF"/>
+                        <outlet property="exposingLabel" destination="AYj-we-zZO" id="DYU-ma-jdA"/>
                         <outlet property="exposureModeLabel" destination="Nhh-kh-QaM" id="Xfc-c7-1DE"/>
                         <outlet property="exposurePointOfInterestLabel" destination="dHh-Qa-m5x" id="SbD-jW-fva"/>
                         <outlet property="focusModeLabel" destination="jof-po-PWC" id="3yk-iB-sEB"/>
                         <outlet property="focusPointOfInterestLabel" destination="FwH-iM-D9c" id="i8Z-Xc-sCM"/>
+                        <outlet property="focusingLabel" destination="OYC-aF-2MU" id="qQc-a2-Bu9"/>
                         <outlet property="videoPreviewView" destination="Sin-J3-zg2" id="Xc4-8i-K1v"/>
                         <outlet property="whiteBalanceModeLabel" destination="87z-5y-chb" id="zAR-5k-5SL"/>
+                        <outlet property="whiteBalancingLabel" destination="jny-pb-JCz" id="nrc-dt-lpn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vQV-4J-HJi" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -436,6 +460,51 @@ photo</string>
             <point key="canvasLocation" x="-122" y="931"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="GGKMercyCameraViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKMercyCameraViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="playButtonSound"/>
+                <relationship kind="outlet" name="takeAdvancedDelayedPhotosExampleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="takeDelayedPhotosExampleLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="GGKSimpleDelayedPhotoViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKSimpleDelayedPhotoViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelTimer"/>
+                <relationship kind="action" name="startTimer"/>
+                <relationship kind="action" name="viewPhotos"/>
+                <relationship kind="outlet" name="cameraRollButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="cancelTimerButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="numberOfPhotosToTakeTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="numberOfSecondsToInitiallyWaitTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="photosLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="secondsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="startTimerButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="timerStartedLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="videoPreviewView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="GGKTakePhotoViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKTakePhotoViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="playButtonSound"/>
+                <relationship kind="action" name="takePhoto"/>
+                <relationship kind="action" name="viewPhotos"/>
+                <relationship kind="outlet" name="cameraRollButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="exposingLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="exposureModeLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="exposurePointOfInterestLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="focusModeLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="focusPointOfInterestLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="focusingLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="videoPreviewView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="whiteBalanceModeLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="whiteBalancingLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
