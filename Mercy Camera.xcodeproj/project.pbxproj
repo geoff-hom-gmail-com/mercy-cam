@@ -28,6 +28,7 @@
 		93B7765A1718AC3A009CB475 /* GGKTakePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B776591718AC3A009CB475 /* GGKTakePhotoViewController.m */; };
 		93B7765C17192B31009CB475 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93B7765B17192B31009CB475 /* MobileCoreServices.framework */; };
 		93B7765F171B5B24009CB475 /* GGKCaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B7765E171B5B24009CB475 /* GGKCaptureManager.m */; };
+		93B77661171E09E4009CB475 /* GGKMercyCameraDescription.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 93B77660171E09E4009CB475 /* GGKMercyCameraDescription.rtf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		93B7765B17192B31009CB475 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		93B7765D171B5B24009CB475 /* GGKCaptureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKCaptureManager.h; sourceTree = "<group>"; };
 		93B7765E171B5B24009CB475 /* GGKCaptureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKCaptureManager.m; sourceTree = "<group>"; };
+		93B77660171E09E4009CB475 /* GGKMercyCameraDescription.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = GGKMercyCameraDescription.rtf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +145,7 @@
 				93306A5416C1D19A00F22B0A /* Default-568h@2x.png */,
 				93306A4616C1D19A00F22B0A /* GGK Cam A-Info.plist */,
 				93306A4C16C1D19A00F22B0A /* GGK Cam A-Prefix.pch */,
+				93B77660171E09E4009CB475 /* GGKMercyCameraDescription.rtf */,
 				93306A4716C1D19A00F22B0A /* InfoPlist.strings */,
 				93306A4A16C1D19A00F22B0A /* main.m */,
 				93B776551718897C009CB475 /* sounds */,
@@ -217,6 +220,7 @@
 				93306A5816C1D19A00F22B0A /* MainStoryboard_iPhone.storyboard in Resources */,
 				93306A5B16C1D19A00F22B0A /* MainStoryboard_iPad.storyboard in Resources */,
 				93B776571718899E009CB475 /* tap.aif in Resources */,
+				93B77661171E09E4009CB475 /* GGKMercyCameraDescription.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
