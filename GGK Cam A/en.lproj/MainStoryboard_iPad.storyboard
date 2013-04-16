@@ -207,28 +207,28 @@ photos</string>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tip: To focus on an object, tap it." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JBy-3S-HOX">
-                                <rect key="frame" x="20" y="919" width="278" height="21"/>
+                                <rect key="frame" x="33" y="919" width="608" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Foc. mode: auto." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jof-po-PWC">
-                                <rect key="frame" x="321" y="900" width="98" height="21"/>
+                                <rect key="frame" x="7" y="900" width="98" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Exp. mode: auto." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Nhh-kh-QaM">
-                                <rect key="frame" x="321" y="918" width="98" height="21"/>
+                                <rect key="frame" x="7" y="918" width="98" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="WB mode: auto." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="87z-5y-chb">
-                                <rect key="frame" x="321" y="938" width="98" height="21"/>
+                                <rect key="frame" x="7" y="938" width="98" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -249,21 +249,21 @@ photos</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Focusing: Yes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OYC-aF-2MU">
-                                <rect key="frame" x="445" y="900" width="88" height="21"/>
+                                <rect key="frame" x="558" y="900" width="88" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Exposing: Yes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AYj-we-zZO">
-                                <rect key="frame" x="445" y="918" width="88" height="21"/>
+                                <rect key="frame" x="558" y="918" width="88" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Wh. balancing: Yes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jny-pb-JCz">
-                                <rect key="frame" x="445" y="938" width="116" height="21"/>
+                                <rect key="frame" x="558" y="938" width="116" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -281,6 +281,7 @@ photos</string>
                         <outlet property="focusModeLabel" destination="jof-po-PWC" id="3yk-iB-sEB"/>
                         <outlet property="focusPointOfInterestLabel" destination="FwH-iM-D9c" id="i8Z-Xc-sCM"/>
                         <outlet property="focusingLabel" destination="OYC-aF-2MU" id="qQc-a2-Bu9"/>
+                        <outlet property="tipLabel" destination="JBy-3S-HOX" id="YMS-5O-R35"/>
                         <outlet property="videoPreviewView" destination="Sin-J3-zg2" id="Xc4-8i-K1v"/>
                         <outlet property="whiteBalanceModeLabel" destination="87z-5y-chb" id="zAR-5k-5SL"/>
                         <outlet property="whiteBalancingLabel" destination="jny-pb-JCz" id="nrc-dt-lpn"/>
@@ -499,6 +500,7 @@ photo</string>
                 <relationship kind="outlet" name="focusModeLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="focusPointOfInterestLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="focusingLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="tipLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="videoPreviewView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="whiteBalanceModeLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="whiteBalancingLabel" candidateClass="UILabel"/>

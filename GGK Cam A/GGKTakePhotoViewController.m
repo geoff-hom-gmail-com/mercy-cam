@@ -11,13 +11,21 @@
 #import "GGKCaptureManager.h"
 #import "GGKTakePhotoViewController.h"
 
+// Story: User sees tip. User learns how to focus on an object.
+NSString *const ToFocusTipString = @"Tip: To focus on an object, tap it.";
+
+// Story: User sees tip. User learns the focus is locked. User learns how to unlock.
+NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, tap anywhere in the view.";
+
 @interface GGKTakePhotoViewController ()
 
 // For removing the observer later.
 @property (strong, nonatomic) id appWillEnterForegroundObserver;
 
+// For creating the session and managing the capture device.
 @property (strong, nonatomic) GGKCaptureManager *captureManager;
 
+// For converting the tap point to device space.
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
 
 // For retaining the popover and its content view controller.
@@ -51,13 +59,15 @@
 - (void)dealloc
 {
     [self.captureManager.session stopRunning];
+    [self removeObserver:self forKeyPath:@"captureManager.device.focusMode"];
+    [self removeObserver:self forKeyPath:@"captureManager.device.exposureMode"];
     
     if (GGKDebugCamera) {
         
         if (self.captureManager.device != nil) {
             
-            [self removeObserver:self forKeyPath:@"captureManager.device.focusMode"];
-            [self removeObserver:self forKeyPath:@"captureManager.device.exposureMode"];
+//            [self removeObserver:self forKeyPath:@"captureManager.device.focusMode"];
+//            [self removeObserver:self forKeyPath:@"captureManager.device.exposureMode"];
             [self removeObserver:self forKeyPath:@"captureManager.device.whiteBalanceMode"];
             [self removeObserver:self forKeyPath:@"captureManager.device.focusPointOfInterest"];
             [self removeObserver:self forKeyPath:@"captureManager.device.exposurePointOfInterest"];
@@ -111,17 +121,33 @@
 
 - (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    // To keep this simple, if any of our properties change, then report all of them.
-    if ([theKeyPath isEqualToString:@"captureManager.device.focusMode"] ||
-        [theKeyPath isEqualToString:@"captureManager.device.exposureMode"] ||
-        [theKeyPath isEqualToString:@"captureManager.device.whiteBalanceMode"] ||
-        [theKeyPath isEqualToString:@"captureManager.device.focusPointOfInterest"] ||
-        [theKeyPath isEqualToString:@"captureManager.device.exposurePointOfInterest"] ||
-        [theKeyPath isEqualToString:@"captureManager.device.adjustingFocus"] ||
-        [theKeyPath isEqualToString:@"captureManager.device.adjustingExposure"] ||
-        [theKeyPath isEqualToString:@"captureManager.device.adjustingWhiteBalance"]) {
+    if (GGKDebugCamera) {
         
-        [self updateCameraDebugLabels];
+        // To keep this simple, if any of our properties change, then report all of them.
+        if ([theKeyPath isEqualToString:@"captureManager.device.focusMode"] ||
+            [theKeyPath isEqualToString:@"captureManager.device.exposureMode"] ||
+            [theKeyPath isEqualToString:@"captureManager.device.whiteBalanceMode"] ||
+            [theKeyPath isEqualToString:@"captureManager.device.focusPointOfInterest"] ||
+            [theKeyPath isEqualToString:@"captureManager.device.exposurePointOfInterest"] ||
+            [theKeyPath isEqualToString:@"captureManager.device.adjustingFocus"] ||
+            [theKeyPath isEqualToString:@"captureManager.device.adjustingExposure"] ||
+            [theKeyPath isEqualToString:@"captureManager.device.adjustingWhiteBalance"]) {
+            
+            [self updateCameraDebugLabels];
+        }
+    }
+    
+    if ([theKeyPath isEqualToString:@"captureManager.device.focusMode"] ||
+        [theKeyPath isEqualToString:@"captureManager.device.exposureMode"]) {
+        
+        AVCaptureDevice *aCaptureDevice = self.captureManager.device;
+        if (aCaptureDevice.focusMode == AVCaptureFocusModeLocked && aCaptureDevice.exposureMode == AVCaptureExposureModeLocked) {
+            
+            self.tipLabel.text = ToUnlockFocusTipString;
+        } else {
+            
+            self.tipLabel.text = ToFocusTipString;
+        }
     } else {
         
         [super observeValueForKeyPath:theKeyPath ofObject:object change:change context:context];
@@ -321,6 +347,11 @@
     aSingleTapGestureRecognizer.numberOfTapsRequired = 1;
     [self.videoPreviewView addGestureRecognizer:aSingleTapGestureRecognizer];
     
+    // Set up the tip label.
+    self.tipLabel.text = ToFocusTipString;
+    [self addObserver:self forKeyPath:@"captureManager.device.focusMode" options:NSKeyValueObservingOptionNew context:nil];
+    [self addObserver:self forKeyPath:@"captureManager.device.exposureMode" options:NSKeyValueObservingOptionNew context:nil];
+    
     // If not debugging, hide those labels. (They're shown by default so we can see them in the storyboard.) If debugging, set up KVO.
     if (!GGKDebugCamera) {
         
@@ -339,8 +370,8 @@
             [self updateCameraDebugLabels];
             
             // Tried adding observer to self.captureManager.device, but it didn't work.
-            [self addObserver:self forKeyPath:@"captureManager.device.focusMode" options:NSKeyValueObservingOptionNew context:nil];
-            [self addObserver:self forKeyPath:@"captureManager.device.exposureMode" options:NSKeyValueObservingOptionNew context:nil];
+//            [self addObserver:self forKeyPath:@"captureManager.device.focusMode" options:NSKeyValueObservingOptionNew context:nil];
+//            [self addObserver:self forKeyPath:@"captureManager.device.exposureMode" options:NSKeyValueObservingOptionNew context:nil];
             [self addObserver:self forKeyPath:@"captureManager.device.whiteBalanceMode" options:NSKeyValueObservingOptionNew context:nil];
             [self addObserver:self forKeyPath:@"captureManager.device.focusPointOfInterest" options:NSKeyValueObservingOptionNew context:nil];
             [self addObserver:self forKeyPath:@"captureManager.device.exposurePointOfInterest" options:NSKeyValueObservingOptionNew context:nil];

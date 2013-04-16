@@ -32,6 +32,9 @@
 // (For testing.) Report whether currently focusing.
 @property (strong, nonatomic) IBOutlet UILabel *focusingLabel;
 
+// For displaying a context-sensitive tip.
+@property (nonatomic, strong) IBOutlet UILabel *tipLabel;
+
 // (For testing.) Report the current white-balance mode.
 @property (strong, nonatomic) IBOutlet UILabel *whiteBalanceModeLabel;
 

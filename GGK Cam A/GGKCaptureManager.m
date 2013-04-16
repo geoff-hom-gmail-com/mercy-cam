@@ -8,8 +8,8 @@
 
 #import "GGKCaptureManager.h"
 
-BOOL GGKDebugCamera = YES;
-//BOOL GGKDebugCamera = NO;
+//BOOL GGKDebugCamera = YES;
+BOOL GGKDebugCamera = NO;
 
 @interface GGKCaptureManager ()
 
