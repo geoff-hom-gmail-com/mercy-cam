@@ -38,9 +38,6 @@
 // (For testing.) Report whether currently white balancing.
 @property (strong, nonatomic) IBOutlet UILabel *whiteBalancingLabel;
 
-// UIViewController override. For stopping the capture session.
-- (void)dealloc;
-
 // Story: User taps on a button (touch down). User hears a sound, giving her more feedback that she pressed it.
 - (IBAction)playButtonSound;
 

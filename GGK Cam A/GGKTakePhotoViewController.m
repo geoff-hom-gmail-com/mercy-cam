@@ -7,13 +7,9 @@
 //
 
 #import <AssetsLibrary/AssetsLibrary.h>
-
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "GGKCaptureManager.h"
 #import "GGKTakePhotoViewController.h"
-
-BOOL GGKDebugCamera = YES;
-//BOOL GGKDebugCamera = NO;
 
 @interface GGKTakePhotoViewController ()
 
@@ -30,8 +26,17 @@ BOOL GGKDebugCamera = YES;
 // For playing sound.
 @property (strong, nonatomic) GGKSoundModel *soundModel;
 
+// UIViewController override. For stopping the capture session. And removing observers.
+- (void)dealloc;
+
+// Story: User taps on object. Focus and exposure auto-adjust and lock there. User taps again in view. Focus and exposure return to continuous. (If the user taps again before both focus and exposure lock, then the new tap will be the POI and both will relock.)
+- (void)handleUserTappedInCameraView:(UITapGestureRecognizer *)theTapGestureRecognizer;
+
 -(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
 // So, update the image in the button for showing the camera roll. If another photo is supposed to be taken, do it.
+
+// (For camera debugging.) KVO. We want to see the camera's status in real-time.
+- (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
 
 // Show most-recent photo from camera roll on button for viewing camera roll.
 - (void)showMostRecentPhotoOnButton;
@@ -46,12 +51,48 @@ BOOL GGKDebugCamera = YES;
 - (void)dealloc
 {
     [self.captureManager.session stopRunning];
+    
+    if (GGKDebugCamera) {
+        
+        if (self.captureManager.device != nil) {
+            
+            [self removeObserver:self forKeyPath:@"captureManager.device.focusMode"];
+            [self removeObserver:self forKeyPath:@"captureManager.device.exposureMode"];
+            [self removeObserver:self forKeyPath:@"captureManager.device.whiteBalanceMode"];
+            [self removeObserver:self forKeyPath:@"captureManager.device.focusPointOfInterest"];
+            [self removeObserver:self forKeyPath:@"captureManager.device.exposurePointOfInterest"];
+            [self removeObserver:self forKeyPath:@"captureManager.device.adjustingFocus"];
+            [self removeObserver:self forKeyPath:@"captureManager.device.adjustingExposure"];
+            [self removeObserver:self forKeyPath:@"captureManager.device.adjustingWhiteBalance"];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)handleUserTappedInCameraView:(UITapGestureRecognizer *)theTapGestureRecognizer
+{
+    AVCaptureDevice *aCaptureDevice = self.captureManager.device;
+    if (aCaptureDevice == nil) {
+        
+        NSLog(@"GGK warning: No capture-device input.");
+    } else {
+        
+        if (aCaptureDevice.focusMode != AVCaptureFocusModeLocked ||
+            aCaptureDevice.exposureMode != AVCaptureExposureModeLocked) {
+            
+            CGPoint theTapPoint = [theTapGestureRecognizer locationInView:self.videoPreviewView];
+            CGPoint theConvertedTapPoint = [self.captureVideoPreviewLayer captureDevicePointOfInterestForPoint:theTapPoint];
+            [self.captureManager focusAtPoint:theConvertedTapPoint];
+        } else {
+            
+            [self.captureManager unlockFocus];
+        }
+    }
 }
 
 -(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
@@ -66,6 +107,25 @@ BOOL GGKDebugCamera = YES;
         // Custom initialization
     }
     return self;
+}
+
+- (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    // To keep this simple, if any of our properties change, then report all of them.
+    if ([theKeyPath isEqualToString:@"captureManager.device.focusMode"] ||
+        [theKeyPath isEqualToString:@"captureManager.device.exposureMode"] ||
+        [theKeyPath isEqualToString:@"captureManager.device.whiteBalanceMode"] ||
+        [theKeyPath isEqualToString:@"captureManager.device.focusPointOfInterest"] ||
+        [theKeyPath isEqualToString:@"captureManager.device.exposurePointOfInterest"] ||
+        [theKeyPath isEqualToString:@"captureManager.device.adjustingFocus"] ||
+        [theKeyPath isEqualToString:@"captureManager.device.adjustingExposure"] ||
+        [theKeyPath isEqualToString:@"captureManager.device.adjustingWhiteBalance"]) {
+        
+        [self updateCameraDebugLabels];
+    } else {
+        
+        [super observeValueForKeyPath:theKeyPath ofObject:object change:change context:context];
+    }
 }
 
 - (IBAction)playButtonSound
@@ -119,9 +179,8 @@ BOOL GGKDebugCamera = YES;
 
 - (IBAction)takePhoto
 {    
-//    NSLog(@"SDPVC takePhoto called");
-    AVCaptureStillImageOutput *aCaptureStillImageOutput = (AVCaptureStillImageOutput *)self.captureVideoPreviewLayer.session.outputs[0];
-//    AVCaptureStillImageOutput *aCaptureStillImageOutput = (AVCaptureStillImageOutput *)self.captureSession.outputs[0];
+    NSLog(@"SDPVC takePhoto called");
+    AVCaptureStillImageOutput *aCaptureStillImageOutput = (AVCaptureStillImageOutput *)self.captureManager.session.outputs[0];
     AVCaptureConnection *aCaptureConnection = [aCaptureStillImageOutput connectionWithMediaType:AVMediaTypeVideo];
     
     // Give visual feedback that photo was taken: Flash the screen.
@@ -280,7 +339,6 @@ BOOL GGKDebugCamera = YES;
             [self updateCameraDebugLabels];
             
             // Tried adding observer to self.captureManager.device, but it didn't work.
-            // need only one observer if I change them all the time, or if specific one always changes (e.g. focusmode)
             [self addObserver:self forKeyPath:@"captureManager.device.focusMode" options:NSKeyValueObservingOptionNew context:nil];
             [self addObserver:self forKeyPath:@"captureManager.device.exposureMode" options:NSKeyValueObservingOptionNew context:nil];
             [self addObserver:self forKeyPath:@"captureManager.device.whiteBalanceMode" options:NSKeyValueObservingOptionNew context:nil];
@@ -333,44 +391,6 @@ BOOL GGKDebugCamera = YES;
     if (self.appWillEnterForegroundObserver != nil) {
         
         [[NSNotificationCenter defaultCenter] removeObserver:self.appWillEnterForegroundObserver name:UIApplicationWillEnterForegroundNotification object:nil];
-    }
-}
-
-// Story: User taps on object. Focus locks there. User taps again in view. Focus returns to continuous.
-- (void)handleUserTappedInCameraView:(UITapGestureRecognizer *)theTapGestureRecognizer
-{
-    AVCaptureDevice *aCaptureDevice = self.captureManager.device;
-    if (aCaptureDevice == nil) {
-        
-        NSLog(@"GGK warning: No capture-device input.");
-    } else {
-        
-        if (aCaptureDevice.focusMode != AVCaptureFocusModeLocked &&
-            aCaptureDevice.exposureMode != AVCaptureExposureModeLocked &&
-            aCaptureDevice.whiteBalanceMode != AVCaptureWhiteBalanceModeLocked) {
-//        if (aCaptureDevice.focusMode != AVCaptureFocusModeLocked) {
-            
-            CGPoint theTapPoint = [theTapGestureRecognizer locationInView:self.videoPreviewView];
-            CGPoint theConvertedTapPoint = [self.captureVideoPreviewLayer captureDevicePointOfInterestForPoint:theTapPoint];
-            [self.captureManager focusAtPoint:theConvertedTapPoint];
-        } else {
-            
-            [self.captureManager unlockFocus];
-        }
-    }
-}
-
-// ?
-- (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    if ([theKeyPath isEqualToString:@"captureManager.device.focusMode"] || [theKeyPath isEqualToString:@"captureManager.device.exposureMode"] || [theKeyPath isEqualToString:@"captureManager.device.whiteBalanceMode"] || [theKeyPath isEqualToString:@"captureManager.device.focusPointOfInterest"] || [theKeyPath isEqualToString:@"captureManager.device.exposurePointOfInterest"] || [theKeyPath isEqualToString:@"captureManager.device.adjustingFocus"] || [theKeyPath isEqualToString:@"captureManager.device.adjustingExposure"] || [theKeyPath isEqualToString:@"captureManager.device.adjustingWhiteBalance"]) {
-        
-        NSLog(@"TPVC oVFKP: %@", theKeyPath);
-        
-        [self updateCameraDebugLabels];
-    } else {
-        
-        [super observeValueForKeyPath:theKeyPath ofObject:object change:change context:context];
     }
 }
 

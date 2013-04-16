@@ -8,6 +8,8 @@
 
 // This manages a capture session for taking photos from the rear camera: Input is the rear camera; output is a still image.
 
+extern BOOL GGKDebugCamera;
+
 @interface GGKCaptureManager : NSObject
 
 // The input capture device. I.e., the rear camera.
@@ -15,7 +17,7 @@
 
 @property (strong, nonatomic) AVCaptureSession *session;
 
-// Focus at the given point (in device space). Also lock exposure and white balance.
+// Focus at the given point (in device space). Also lock exposure.
 - (void)focusAtPoint:(CGPoint)thePoint;
 
 // Designated initializer.
