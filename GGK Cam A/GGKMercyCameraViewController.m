@@ -15,6 +15,9 @@ BOOL GGKCreateLaunchImages = NO;
 
 @interface GGKMercyCameraViewController ()
 
+// Whether the landscape view is currently showing.
+@property (nonatomic, assign) BOOL isShowingLandscapeView;
+
 //@property (strong, nonatomic) GGKOverlayViewController *overlayViewController;
 
 // For playing sound.
@@ -23,6 +26,84 @@ BOOL GGKCreateLaunchImages = NO;
 @end
 
 @implementation GGKMercyCameraViewController
+
+// ?
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    NSLog(@"MCVC aFN");
+    self.isShowingLandscapeView = NO;
+//    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOrientationChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+}
+//
+//// ?
+//- (void)dealloc
+//{
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
+//    [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
+//}
+//
+//// ?
+//- (void)handleOrientationChange:(NSNotification *)theNotification
+//{
+//    UIDeviceOrientation theDeviceOrientation = [UIDevice currentDevice].orientation;
+//    if (UIDeviceOrientationIsLandscape(theDeviceOrientation) && !self.isShowingLandscapeView) {
+//        
+//        [self performSegueWithIdentifier:@"DisplayLandscapeView" sender:self];
+//        self.isShowingLandscapeView = YES;
+//    } else if (UIDeviceOrientationIsPortrait(theDeviceOrientation) && self.isShowingLandscapeView) {
+//        
+//        [self dismissViewControllerAnimated:YES completion:nil];
+//        self.isShowingLandscapeView = NO;
+//    }
+//}
+
+// ?
+- (void)updateLayoutForLandscape
+{
+    //testing
+    self.takeDelayedPhotosExampleLabel.text = @"this is now landscape mode";
+    self.rateThisAppButton.frame = CGRectMake(831, 516, 173, 60);
+}
+
+//??
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    
+    NSLog(@"MCVC vWLS");
+    
+    // using device orientation
+//    UIDeviceOrientation theDeviceOrientation = [UIDevice currentDevice].orientation;
+//    if (UIDeviceOrientationIsLandscape(theDeviceOrientation) && !self.isShowingLandscapeView) {
+//        
+//        NSLog(@"MCVC vWLS theDeviceOrientation set things to landscape");
+//        [self updateLayoutForLandscape];
+//        self.isShowingLandscapeView = YES;
+//    } else if (UIDeviceOrientationIsPortrait(theDeviceOrientation) && self.isShowingLandscapeView) {
+//        
+//        NSLog(@"MCVC vWLS theDeviceOrientation set things to portrait");
+//        // it may set things to be portrait automatically sometimes, like returning to foreground? test by implementing landscape changes, then do some sim tests involving home button
+//        self.isShowingLandscapeView = NO;
+//    }
+    
+    // using status-bar orientation
+    UIInterfaceOrientation theInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
+    if (UIInterfaceOrientationIsLandscape(theInterfaceOrientation) && !self.isShowingLandscapeView) {
+        
+        NSLog(@"MCVC vWLS theInterfaceOrientation set things to landscape");
+        [self updateLayoutForLandscape];
+        self.isShowingLandscapeView = YES;
+    } else if (UIInterfaceOrientationIsPortrait(theInterfaceOrientation) && self.isShowingLandscapeView) {
+        
+        NSLog(@"MCVC vWLS theInterfaceOrientation set things to portrait");
+        // it may set things to be portrait automatically sometimes, like returning to foreground? test by implementing landscape changes, then do some sim tests involving home button
+        // no; only during app launch
+        self.isShowingLandscapeView = NO;
+    }
+}
 
 - (void)didReceiveMemoryWarning
 {
