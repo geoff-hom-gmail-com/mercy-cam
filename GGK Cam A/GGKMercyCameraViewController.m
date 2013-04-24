@@ -7,7 +7,6 @@
 //
 
 #import "GGKMercyCameraViewController.h"
-//#import "GGKOverlayViewController.h"
 #import "GGKSimpleDelayedPhotoViewController.h"
 
 //BOOL GGKCreateLaunchImages = YES;
@@ -15,94 +14,42 @@ BOOL GGKCreateLaunchImages = NO;
 
 @interface GGKMercyCameraViewController ()
 
+// Story: The overall orientation (device/status-bar) is checked against the orientation of this app's UI. The user sees the UI in the correct orientation.
 // Whether the landscape view is currently showing.
 @property (nonatomic, assign) BOOL isShowingLandscapeView;
 
-//@property (strong, nonatomic) GGKOverlayViewController *overlayViewController;
-
 // For playing sound.
 @property (strong, nonatomic) GGKSoundModel *soundModel;
+
+// UIViewController override.
+- (void)awakeFromNib;
+
+// Story: When the user should see the UI in landscape, she does.
+- (void)updateLayoutForLandscape;
+
+// Story: When the user should see the UI in portrait, she does.
+- (void)updateLayoutForPortrait;
+
+// UIViewController override.
+- (void)viewDidLoad;
+
+// UIViewController override.
+- (void)viewWillAppear:(BOOL)animated;
+
+// UIViewController override.
+// Story: Whether user rotates device in the app, or from the home screen, this method will be called. User sees UI in correct orientation.
+- (void)viewWillLayoutSubviews;
 
 @end
 
 @implementation GGKMercyCameraViewController
 
-// ?
 - (void)awakeFromNib
 {
     [super awakeFromNib];
     
-    NSLog(@"MCVC aFN");
+//    NSLog(@"MCVC aFN");
     self.isShowingLandscapeView = NO;
-//    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOrientationChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
-}
-//
-//// ?
-//- (void)dealloc
-//{
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
-//    [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
-//}
-//
-//// ?
-//- (void)handleOrientationChange:(NSNotification *)theNotification
-//{
-//    UIDeviceOrientation theDeviceOrientation = [UIDevice currentDevice].orientation;
-//    if (UIDeviceOrientationIsLandscape(theDeviceOrientation) && !self.isShowingLandscapeView) {
-//        
-//        [self performSegueWithIdentifier:@"DisplayLandscapeView" sender:self];
-//        self.isShowingLandscapeView = YES;
-//    } else if (UIDeviceOrientationIsPortrait(theDeviceOrientation) && self.isShowingLandscapeView) {
-//        
-//        [self dismissViewControllerAnimated:YES completion:nil];
-//        self.isShowingLandscapeView = NO;
-//    }
-//}
-
-// ?
-- (void)updateLayoutForLandscape
-{
-    //testing
-    self.takeDelayedPhotosExampleLabel.text = @"this is now landscape mode";
-    self.rateThisAppButton.frame = CGRectMake(831, 516, 173, 60);
-}
-
-//??
-- (void)viewWillLayoutSubviews
-{
-    [super viewWillLayoutSubviews];
-    
-    NSLog(@"MCVC vWLS");
-    
-    // using device orientation
-//    UIDeviceOrientation theDeviceOrientation = [UIDevice currentDevice].orientation;
-//    if (UIDeviceOrientationIsLandscape(theDeviceOrientation) && !self.isShowingLandscapeView) {
-//        
-//        NSLog(@"MCVC vWLS theDeviceOrientation set things to landscape");
-//        [self updateLayoutForLandscape];
-//        self.isShowingLandscapeView = YES;
-//    } else if (UIDeviceOrientationIsPortrait(theDeviceOrientation) && self.isShowingLandscapeView) {
-//        
-//        NSLog(@"MCVC vWLS theDeviceOrientation set things to portrait");
-//        // it may set things to be portrait automatically sometimes, like returning to foreground? test by implementing landscape changes, then do some sim tests involving home button
-//        self.isShowingLandscapeView = NO;
-//    }
-    
-    // using status-bar orientation
-    UIInterfaceOrientation theInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
-    if (UIInterfaceOrientationIsLandscape(theInterfaceOrientation) && !self.isShowingLandscapeView) {
-        
-        NSLog(@"MCVC vWLS theInterfaceOrientation set things to landscape");
-        [self updateLayoutForLandscape];
-        self.isShowingLandscapeView = YES;
-    } else if (UIInterfaceOrientationIsPortrait(theInterfaceOrientation) && self.isShowingLandscapeView) {
-        
-        NSLog(@"MCVC vWLS theInterfaceOrientation set things to portrait");
-        // it may set things to be portrait automatically sometimes, like returning to foreground? test by implementing landscape changes, then do some sim tests involving home button
-        // no; only during app launch
-        self.isShowingLandscapeView = NO;
-    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -111,29 +58,92 @@ BOOL GGKCreateLaunchImages = NO;
     // Dispose of any resources that can be recreated.
 }
 
-// gets called after "use" but not before "retake"
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    
-    NSLog(@"imagePickerController:didFinishPickingMediaWithInfo called");
-    UIImage *theImage = (UIImage *)info[UIImagePickerControllerOriginalImage];
-    UIImageWriteToSavedPhotosAlbum(theImage, nil, nil, nil);
-}
-
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    
-    NSLog(@"imagePickerControllerDidCancel called");
-    [self dismissViewControllerAnimated:YES completion:nil];
-//    [self dismissViewControllerAnimated:self.imagePickerController completion:nil];
-}
-
 - (IBAction)playButtonSound
 {
     [self.soundModel playButtonTapSound];
 }
 
+- (void)updateLayoutForLandscape
+{
+    CGSize aSize = self.hiLabel.frame.size;
+    self.hiLabel.frame = CGRectMake(92, 30, aSize.width, aSize.height);
+    
+    CGFloat anX1 = 20;
+    aSize = self.takeAPhotoButton.frame.size;
+    self.takeAPhotoButton.frame = CGRectMake(anX1, 101, aSize.width, aSize.height);
+    
+    aSize = self.exampleLabel.frame.size;
+    self.exampleLabel.frame = CGRectMake(472, 131, aSize.width, aSize.height);
+    
+    CGFloat anX2 = 353;
+    aSize = self.takeAPhotoExampleLabel.frame.size;
+    self.takeAPhotoExampleLabel.frame = CGRectMake(anX2, 166, aSize.width, aSize.height);
+    
+    aSize = self.takeDelayedPhotosButton.frame.size;
+    self.takeDelayedPhotosButton.frame = CGRectMake(anX1, 331, aSize.width, aSize.height);
+    
+    aSize = self.takeDelayedPhotosExampleLabel.frame.size;
+    self.takeDelayedPhotosExampleLabel.frame = CGRectMake(anX2, 363, aSize.width, aSize.height);
+    
+    aSize = self.takeAdvancedDelayedPhotosButton.frame.size;
+    self.takeAdvancedDelayedPhotosButton.frame = CGRectMake(anX1, 501, aSize.width, aSize.height);
+    
+    aSize = self.takeAdvancedDelayedPhotosExampleLabel.frame.size;
+    self.takeAdvancedDelayedPhotosExampleLabel.frame = CGRectMake(anX2, 511, aSize.width, aSize.height);
+    
+    UIFont *aFont = [UIFont boldSystemFontOfSize:18];
+    self.rateThisAppButton.titleLabel.font = aFont;
+    CGFloat anX3 = 831;
+    aSize = CGSizeMake(173, 60);
+    self.rateThisAppButton.frame = CGRectMake(anX3, 516, aSize.width, aSize.height);
+    
+    self.helpTheCreatorsButton.titleLabel.font = aFont;
+    self.helpTheCreatorsButton.frame = CGRectMake(anX3, 615, aSize.width, aSize.height);
+}
+
+- (void)updateLayoutForPortrait
+{
+    CGSize aSize = self.hiLabel.frame.size;
+    self.hiLabel.frame = CGRectMake(92, 50, aSize.width, aSize.height);
+    
+    CGFloat anX1 = 20;
+    aSize = self.takeAPhotoButton.frame.size;
+    self.takeAPhotoButton.frame = CGRectMake(anX1, 120, aSize.width, aSize.height);
+    
+    aSize = self.exampleLabel.frame.size;
+    self.exampleLabel.frame = CGRectMake(472, 151, aSize.width, aSize.height);
+    
+    CGFloat anX2 = 353;
+    aSize = self.takeAPhotoExampleLabel.frame.size;
+    self.takeAPhotoExampleLabel.frame = CGRectMake(anX2, 186, aSize.width, aSize.height);
+    
+    aSize = self.takeDelayedPhotosButton.frame.size;
+    self.takeDelayedPhotosButton.frame = CGRectMake(anX1, 350, aSize.width, aSize.height);
+    
+    aSize = self.takeDelayedPhotosExampleLabel.frame.size;
+    self.takeDelayedPhotosExampleLabel.frame = CGRectMake(anX2, 382, aSize.width, aSize.height);
+    
+    aSize = self.takeAdvancedDelayedPhotosButton.frame.size;
+    self.takeAdvancedDelayedPhotosButton.frame = CGRectMake(anX1, 520, aSize.width, aSize.height);
+    
+    aSize = self.takeAdvancedDelayedPhotosExampleLabel.frame.size;
+    self.takeAdvancedDelayedPhotosExampleLabel.frame = CGRectMake(anX2, 530, aSize.width, aSize.height);
+    
+    UIFont *aFont = [UIFont boldSystemFontOfSize:22];
+    self.rateThisAppButton.titleLabel.font = aFont;
+    CGFloat anX3 = 538;
+    aSize = CGSizeMake(210, 60);
+    self.rateThisAppButton.frame = CGRectMake(anX3, 743, aSize.width, aSize.height);
+    
+    self.helpTheCreatorsButton.titleLabel.font = aFont;
+    self.helpTheCreatorsButton.frame = CGRectMake(anX3, 851, aSize.width, aSize.height);
+}
+
 - (void)viewDidLoad
 {    
     [super viewDidLoad];
+    
+//    NSLog(@"MCVC vdL");
     
     // Make UI blank so we can make launch images via screenshot.
     if (GGKCreateLaunchImages) {
@@ -146,6 +156,7 @@ BOOL GGKCreateLaunchImages = NO;
     } else {
         
         self.soundModel = [[GGKSoundModel alloc] init];
+        [self updateLayoutForPortrait];
     }
 }
 
@@ -178,6 +189,27 @@ BOOL GGKCreateLaunchImages = NO;
         aPhotosString = @"photo";
     }
     self.takeDelayedPhotosExampleLabel.text = [NSString stringWithFormat:@"\"Wait %@ %@,\nthen take %@ %@.\"", takeDelayedPhotosNumberOfSecondsToInitiallyWaitNumber, aSecondsString, takeDelayedPhotosNumberOfPhotosNumber, aPhotosString];
+}
+
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    
+    //    NSLog(@"MCVC vWLS");
+    
+    // Using status-bar orientation, not device orientation. Seems to work. 
+    UIInterfaceOrientation theInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
+    if (UIInterfaceOrientationIsLandscape(theInterfaceOrientation) && !self.isShowingLandscapeView) {
+        
+//        NSLog(@"MCVC vWLS theInterfaceOrientation set things to landscape");
+        [self updateLayoutForLandscape];
+        self.isShowingLandscapeView = YES;
+    } else if (UIInterfaceOrientationIsPortrait(theInterfaceOrientation) && self.isShowingLandscapeView) {
+        
+//        NSLog(@"MCVC vWLS theInterfaceOrientation set things to portrait");
+        [self updateLayoutForPortrait];
+        self.isShowingLandscapeView = NO;
+    }
 }
 
 @end

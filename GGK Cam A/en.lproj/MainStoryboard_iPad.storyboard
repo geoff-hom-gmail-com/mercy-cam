@@ -13,7 +13,6 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <userGuides>
                             <userLayoutGuide location="301" affinity="minY"/>
-                            <userLayoutGuide location="615" affinity="minY"/>
                             <userLayoutGuide location="471" affinity="minY"/>
                             <userLayoutGuide location="522" affinity="minY"/>
                             <userLayoutGuide location="30" affinity="minY"/>
@@ -73,7 +72,7 @@
                                 </state>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PjY-MJ-uS5">
-                                <rect key="frame" x="353" y="362" width="395" height="56"/>
+                                <rect key="frame" x="353" y="363" width="395" height="56"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">"Wait 89 seconds,
@@ -97,7 +96,7 @@ then take 98 photos."</string>
                                 </state>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eqI-Cy-GT8">
-                                <rect key="frame" x="353" y="510" width="395" height="99"/>
+                                <rect key="frame" x="353" y="511" width="395" height="99"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">"Wait 322 days, 
@@ -281,7 +280,15 @@ with 324 hours between each photo."</string>
                         <barButtonItem key="backBarButtonItem" title="Main" id="h7C-H0-Qkw"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="exampleLabel" destination="Mbm-vb-KOH" id="2wN-1K-LC5"/>
+                        <outlet property="helpTheCreatorsButton" destination="g0Y-3k-bcL" id="NF7-lh-be4"/>
+                        <outlet property="hiLabel" destination="L9H-FU-Zri" id="k4Y-wi-5mG"/>
                         <outlet property="rateThisAppButton" destination="gRw-vS-mZp" id="HXI-E1-K3Y"/>
+                        <outlet property="takeAPhotoButton" destination="Vj6-SR-SCJ" id="ffP-kB-SPE"/>
+                        <outlet property="takeAPhotoExampleLabel" destination="xQg-Jz-xW5" id="20h-vZ-ipF"/>
+                        <outlet property="takeAdvancedDelayedPhotosButton" destination="zFq-uv-gJl" id="l1w-Jj-lu7"/>
+                        <outlet property="takeAdvancedDelayedPhotosExampleLabel" destination="Zls-6G-c7B" id="Xwk-9m-DST"/>
+                        <outlet property="takeDelayedPhotosButton" destination="bLd-Ae-KXn" id="61z-9C-IWj"/>
                         <outlet property="takeDelayedPhotosExampleLabel" destination="gvh-U8-4HD" id="Wa7-hq-j2f"/>
                     </connections>
                 </viewController>
@@ -605,8 +612,15 @@ photo</string>
             <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKMercyCameraViewController.h"/>
             <relationships>
                 <relationship kind="action" name="playButtonSound"/>
+                <relationship kind="outlet" name="exampleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="helpTheCreatorsButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="hiLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="rateThisAppButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="takeAPhotoButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="takeAPhotoExampleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="takeAdvancedDelayedPhotosButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="takeAdvancedDelayedPhotosExampleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="takeDelayedPhotosButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="takeDelayedPhotosExampleLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
