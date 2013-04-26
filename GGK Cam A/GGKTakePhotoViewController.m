@@ -28,11 +28,18 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
 // For converting the tap point to device space.
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
 
+// Story: The overall orientation (device/status-bar) is checked against the orientation of this app's UI. The user sees the UI in the correct orientation.
+// Whether the landscape view is currently showing.
+@property (nonatomic, assign) BOOL isShowingLandscapeView;
+
 // For retaining the popover and its content view controller.
 @property (strong, nonatomic) UIPopoverController *savedPhotosPopoverController;
 
 // For playing sound.
 @property (strong, nonatomic) GGKSoundModel *soundModel;
+
+// UIViewController override.
+- (void)awakeFromNib;
 
 // UIViewController override. For stopping the capture session. And removing observers.
 - (void)dealloc;
@@ -52,12 +59,38 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
 // (For testing.) Show the current camera settings.
 - (void)updateCameraDebugLabels;
 
+// Story: When the user should see the UI in landscape, she does.
+- (void)updateLayoutForLandscape;
+
+// Story: When the user should see the UI in portrait, she does.
+- (void)updateLayoutForPortrait;
+
+// Story: View will appear to user. User sees updated view.
+// UIViewController override. Listen for app coming from background/lock. Update view.
+// Whether the view appears from another view in this app or from the app entering the foreground, the user should see an updated view. -viewWillAppear: is called for the former but not the latter. So, we listen for UIApplicationWillEnterForegroundNotification (and stop listening in -viewWillDisappear:).
+- (void)viewWillAppear:(BOOL)animated;
+
+// UIViewController override. Undo anything from -viewWillAppear:.
+- (void)viewWillDisappear:(BOOL)animated;
+
+// UIViewController override.
+// Story: Whether user rotates device in the app, or from the home screen, this method will be called. User sees UI in correct orientation.
+- (void)viewWillLayoutSubviews;
+
 @end
 
 @implementation GGKTakePhotoViewController
 
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    self.isShowingLandscapeView = NO;
+}
+
 - (void)dealloc
 {
+    NSLog(@"TPVC dealloc");
     [self.captureManager.session stopRunning];
     [self removeObserver:self forKeyPath:@"captureManager.device.focusMode"];
     [self removeObserver:self forKeyPath:@"captureManager.device.exposureMode"];
@@ -121,6 +154,7 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
 
 - (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
+    BOOL wasHandledSeparately = NO;
     if (GGKDebugCamera) {
         
         // To keep this simple, if any of our properties change, then report all of them.
@@ -134,6 +168,7 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
             [theKeyPath isEqualToString:@"captureManager.device.adjustingWhiteBalance"]) {
             
             [self updateCameraDebugLabels];
+            wasHandledSeparately = YES;
         }
     }
     
@@ -148,7 +183,7 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
             
             self.tipLabel.text = ToFocusTipString;
         }
-    } else {
+    } else if (!wasHandledSeparately) {
         
         [super observeValueForKeyPath:theKeyPath ofObject:object change:change context:context];
     }
@@ -172,6 +207,7 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
         
         CGImageRef aPhotoThumbnailImageRef = [photoAsset thumbnail];
         UIImage *aPhotoImage = [UIImage imageWithCGImage:aPhotoThumbnailImageRef];
+//        NSLog(@"TPVC sMRPOB image size: %@", NSStringFromCGSize(aPhotoImage.size));
         [self.cameraRollButton setImage:aPhotoImage forState:UIControlStateNormal];
         
         // If we don't the title to nil, it still shows along the edge.
@@ -311,10 +347,128 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
     self.whiteBalancingLabel.text = [NSString stringWithFormat:@"Wh. balancing: %@", aString];
     
     // Show points of interest, rounded to decimal (0.1).
+    // Depending on the interface orientation, the coordinates may be reversed, mirrored, etc. However, tap-to-focus seems to be working, so I haven't worried about reporting the coordinates correctly.
     CGPoint aPoint = aCaptureDevice.focusPointOfInterest;
     self.focusPointOfInterestLabel.text = [NSString stringWithFormat:@"Foc. POI: {%.1f, %.1f}", aPoint.x, aPoint.y];
     aPoint = aCaptureDevice.exposurePointOfInterest;
     self.exposurePointOfInterestLabel.text = [NSString stringWithFormat:@"Exp. POI: {%.1f, %.1f}", aPoint.x, aPoint.y];
+}
+
+- (void)updateLayoutForLandscape
+{
+    CGPoint aPoint = self.videoPreviewView.frame.origin;
+    self.videoPreviewView.frame = CGRectMake(aPoint.x, aPoint.y, 883, 662);
+    
+    CGFloat anX1 = 20;
+    CGSize aSize = self.tipLabel.frame.size;
+    self.tipLabel.frame = CGRectMake(anX1, 673, aSize.width, aSize.height);
+    
+    CGFloat anX2 = 891;
+    CGFloat aWidth = 125;
+    self.takePhotoButton.frame = CGRectMake(anX2, 8, aWidth, 513);
+    
+    self.cameraRollButton.frame = CGRectMake(anX2, 571, aWidth, aWidth);
+    
+    CGFloat anX3 = 530;
+    CGFloat aY1 = 645;
+    aSize = self.focusModeLabel.frame.size;
+    self.focusModeLabel.frame = CGRectMake(anX3, aY1, aSize.width, aSize.height);
+
+    CGFloat aY2 = 663;
+    aSize = self.exposureModeLabel.frame.size;
+    self.exposureModeLabel.frame = CGRectMake(anX3, aY2, aSize.width, aSize.height);
+
+    CGFloat aY3 = 683;
+    aSize = self.whiteBalanceModeLabel.frame.size;
+    self.whiteBalanceModeLabel.frame = CGRectMake(anX3, aY3, aSize.width, aSize.height);
+
+    CGFloat anX4 = 649;
+    aSize = self.focusingLabel.frame.size;
+    self.focusingLabel.frame = CGRectMake(anX4, aY1, aSize.width, aSize.height);
+
+    aSize = self.exposingLabel.frame.size;
+    self.exposingLabel.frame = CGRectMake(anX4, aY2, aSize.width, aSize.height);
+
+    aSize = self.whiteBalancingLabel.frame.size;
+    self.whiteBalancingLabel.frame = CGRectMake(anX4, aY3, aSize.width, aSize.height);
+
+    CGFloat anX5 = 773;
+    aSize = self.focusPointOfInterestLabel.frame.size;
+    self.focusPointOfInterestLabel.frame = CGRectMake(anX5, 649, aSize.width, aSize.height);
+
+    aSize = self.exposurePointOfInterestLabel.frame.size;
+    self.exposurePointOfInterestLabel.frame = CGRectMake(anX5, 678, aSize.width, aSize.height);
+    
+    // Rotate video preview and resize.
+    AVCaptureVideoOrientation aCaptureVideoOrientation;
+    UIInterfaceOrientation theInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
+    if (theInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
+        
+        aCaptureVideoOrientation = AVCaptureVideoOrientationLandscapeLeft;
+    } else {
+        
+        aCaptureVideoOrientation = AVCaptureVideoOrientationLandscapeRight;
+    }
+    self.captureVideoPreviewLayer.connection.videoOrientation = aCaptureVideoOrientation;
+    self.captureVideoPreviewLayer.frame = self.videoPreviewView.bounds;
+}
+
+- (void)updateLayoutForPortrait
+{
+    CGPoint aPoint = self.videoPreviewView.frame.origin;
+    self.videoPreviewView.frame = CGRectMake(aPoint.x, aPoint.y, 675, 900);
+    
+    CGSize aSize = self.tipLabel.frame.size;
+    self.tipLabel.frame = CGRectMake(33, 919, aSize.width, aSize.height);
+    
+    CGFloat anX1 = 682;
+    CGFloat aWidth = 80;
+    self.takePhotoButton.frame = CGRectMake(anX1, 8, aWidth, 814);
+    
+    self.cameraRollButton.frame = CGRectMake(anX1, 872, aWidth, aWidth);
+    
+    CGFloat anX2 = 7;
+    CGFloat aY1 = 900;
+    aSize = self.focusModeLabel.frame.size;
+    self.focusModeLabel.frame = CGRectMake(anX2, aY1, aSize.width, aSize.height);
+    
+    CGFloat aY2 = 918;
+    aSize = self.exposureModeLabel.frame.size;
+    self.exposureModeLabel.frame = CGRectMake(anX2, aY2, aSize.width, aSize.height);
+    
+    CGFloat aY3 = 938;
+    aSize = self.whiteBalanceModeLabel.frame.size;
+    self.whiteBalanceModeLabel.frame = CGRectMake(anX2, aY3, aSize.width, aSize.height);
+    
+    CGFloat anX4 = 558;
+    aSize = self.focusingLabel.frame.size;
+    self.focusingLabel.frame = CGRectMake(anX4, aY1, aSize.width, aSize.height);
+    
+    aSize = self.exposingLabel.frame.size;
+    self.exposingLabel.frame = CGRectMake(anX4, aY2, aSize.width, aSize.height);
+    
+    aSize = self.whiteBalancingLabel.frame.size;
+    self.whiteBalancingLabel.frame = CGRectMake(anX4, aY3, aSize.width, aSize.height);
+    
+    CGFloat anX5 = 655;
+    aSize = self.focusPointOfInterestLabel.frame.size;
+    self.focusPointOfInterestLabel.frame = CGRectMake(anX5, 821, aSize.width, aSize.height);
+    
+    aSize = self.exposurePointOfInterestLabel.frame.size;
+    self.exposurePointOfInterestLabel.frame = CGRectMake(anX5, 850, aSize.width, aSize.height);
+    
+    // Rotate video preview and resize.
+    AVCaptureVideoOrientation aCaptureVideoOrientation;
+    UIInterfaceOrientation theInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
+    if (theInterfaceOrientation == UIInterfaceOrientationPortrait) {
+        
+        aCaptureVideoOrientation = AVCaptureVideoOrientationPortrait;
+    } else {
+        
+        aCaptureVideoOrientation = AVCaptureVideoOrientationPortraitUpsideDown;
+    }
+    self.captureVideoPreviewLayer.connection.videoOrientation = aCaptureVideoOrientation;
+    self.captureVideoPreviewLayer.frame = self.videoPreviewView.bounds;
 }
 
 - (void)viewDidLoad
@@ -322,6 +476,7 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
     [super viewDidLoad];
     
     self.soundModel = [[GGKSoundModel alloc] init];
+    [self updateLayoutForPortrait];
     
     // Set up the camera.
     GGKCaptureManager *theCaptureManager = [[GGKCaptureManager alloc] init];
@@ -422,6 +577,23 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
     if (self.appWillEnterForegroundObserver != nil) {
         
         [[NSNotificationCenter defaultCenter] removeObserver:self.appWillEnterForegroundObserver name:UIApplicationWillEnterForegroundNotification object:nil];
+    }
+}
+
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    
+    // Using status-bar orientation, not device orientation. Seems to work.
+    UIInterfaceOrientation theInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
+    if (UIInterfaceOrientationIsLandscape(theInterfaceOrientation) && !self.isShowingLandscapeView) {
+        
+        [self updateLayoutForLandscape];
+        self.isShowingLandscapeView = YES;
+    } else if (UIInterfaceOrientationIsPortrait(theInterfaceOrientation) && self.isShowingLandscapeView) {
+        
+        [self updateLayoutForPortrait];
+        self.isShowingLandscapeView = NO;
     }
 }
 

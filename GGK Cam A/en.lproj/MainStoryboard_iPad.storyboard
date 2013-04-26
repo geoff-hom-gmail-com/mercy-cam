@@ -304,7 +304,7 @@ with 324 hours between each photo."</string>
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <userGuides>
-                            <userLayoutGuide location="874" affinity="minY"/>
+                            <userLayoutGuide location="875" affinity="minY"/>
                             <userLayoutGuide location="821" affinity="minY"/>
                         </userGuides>
                         <subviews>
@@ -427,6 +427,7 @@ photos</string>
                         <outlet property="focusModeLabel" destination="jof-po-PWC" id="3yk-iB-sEB"/>
                         <outlet property="focusPointOfInterestLabel" destination="FwH-iM-D9c" id="i8Z-Xc-sCM"/>
                         <outlet property="focusingLabel" destination="OYC-aF-2MU" id="qQc-a2-Bu9"/>
+                        <outlet property="takePhotoButton" destination="UdW-v1-5td" id="iU6-kG-Gw6"/>
                         <outlet property="tipLabel" destination="JBy-3S-HOX" id="YMS-5O-R35"/>
                         <outlet property="videoPreviewView" destination="Sin-J3-zg2" id="Xc4-8i-K1v"/>
                         <outlet property="whiteBalanceModeLabel" destination="87z-5y-chb" id="zAR-5k-5SL"/>
@@ -435,7 +436,7 @@ photos</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vQV-4J-HJi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1633" y="-186"/>
+            <point key="canvasLocation" x="1725" y="-1038"/>
         </scene>
         <!--Simple Delayed Photo View Controller - Mercy Camera: Take delayed photos-->
         <scene sceneID="uVa-qF-Ilh">
@@ -606,6 +607,150 @@ photo</string>
             </objects>
             <point key="canvasLocation" x="-122" y="931"/>
         </scene>
+        <!--Take Photo View Controller - Mercy Camera: Take a photo-->
+        <scene sceneID="HZL-aa-EUN">
+            <objects>
+                <viewController id="Ptl-Qr-JK0" customClass="GGKTakePhotoViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kJQ-dd-e1n">
+                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <userGuides>
+                            <userLayoutGuide location="572" affinity="minY"/>
+                            <userLayoutGuide location="520" affinity="minY"/>
+                        </userGuides>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="CIE-Kx-GhZ">
+                                <rect key="frame" x="0.0" y="0.0" width="883" height="662"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="afl-kp-zrm">
+                                <rect key="frame" x="891" y="8" width="125" height="513"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <state key="normal">
+                                    <string key="title">Take
+photo</string>
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="playButtonSound" destination="Ptl-Qr-JK0" eventType="touchDown" id="QZX-jc-Pyu"/>
+                                    <action selector="takePhoto" destination="Ptl-Qr-JK0" eventType="touchUpInside" id="Z4r-1Q-xPP"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="Abg-Lo-wfI">
+                                <rect key="frame" x="891" y="571" width="125" height="125"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <state key="normal">
+                                    <string key="title">Saved
+photos</string>
+                                    <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="playButtonSound" destination="Ptl-Qr-JK0" eventType="touchDown" id="8Jd-gn-Viu"/>
+                                    <action selector="viewPhotos" destination="Ptl-Qr-JK0" eventType="touchUpInside" id="ROD-ZR-uYC"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tip: To focus on an object, tap it." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pNV-8Q-9mk">
+                                <rect key="frame" x="20" y="673" width="608" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Foc. mode: auto." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6A2-3d-qe1">
+                                <rect key="frame" x="530" y="645" width="98" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Exp. mode: auto." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mi4-U3-S7D">
+                                <rect key="frame" x="530" y="663" width="98" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="WB mode: auto." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VEi-WB-mEp">
+                                <rect key="frame" x="530" y="683" width="98" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Focusing: Yes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="HRz-pp-LGC">
+                                <rect key="frame" x="649" y="645" width="88" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Exposing: Yes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="x6b-kd-7J7">
+                                <rect key="frame" x="649" y="663" width="88" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Wh. balancing: Yes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7uU-Oa-0ET">
+                                <rect key="frame" x="649" y="683" width="116" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Foc. POI: {0.5, 0.3}" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sTr-gC-hTe">
+                                <rect key="frame" x="773" y="649" width="108" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Exp. POI: {1.0, 0.0}" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Dz5-4s-wYx">
+                                <rect key="frame" x="773" y="678" width="109" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.33739183010000001" green="0.75520663600000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Mercy Camera: Take a photo" id="fNj-Ek-FZF"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <connections>
+                        <outlet property="cameraRollButton" destination="Abg-Lo-wfI" id="N4R-lf-oTO"/>
+                        <outlet property="exposingLabel" destination="x6b-kd-7J7" id="axI-Gw-ziK"/>
+                        <outlet property="exposureModeLabel" destination="mi4-U3-S7D" id="jRA-5E-4AA"/>
+                        <outlet property="exposurePointOfInterestLabel" destination="Dz5-4s-wYx" id="B41-oP-7nc"/>
+                        <outlet property="focusModeLabel" destination="6A2-3d-qe1" id="IwW-ZO-ih5"/>
+                        <outlet property="focusPointOfInterestLabel" destination="sTr-gC-hTe" id="bEy-UL-vfL"/>
+                        <outlet property="focusingLabel" destination="HRz-pp-LGC" id="3uf-Ht-1S2"/>
+                        <outlet property="tipLabel" destination="pNV-8Q-9mk" id="eS1-fz-0J0"/>
+                        <outlet property="videoPreviewView" destination="CIE-Kx-GhZ" id="gKm-zQ-3Rp"/>
+                        <outlet property="whiteBalanceModeLabel" destination="VEi-WB-mEp" id="1K1-Vg-H1b"/>
+                        <outlet property="whiteBalancingLabel" destination="7uU-Oa-0ET" id="zVT-Ft-aFN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HUK-V0-vJC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1725" y="72"/>
+        </scene>
     </scenes>
     <classes>
         <class className="GGKMercyCameraViewController" superclassName="UIViewController">
@@ -654,6 +799,7 @@ photo</string>
                 <relationship kind="outlet" name="focusModeLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="focusPointOfInterestLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="focusingLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="takePhotoButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="tipLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="videoPreviewView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="whiteBalanceModeLabel" candidateClass="UILabel"/>

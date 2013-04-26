@@ -11,9 +11,6 @@
 // Tap to see camera roll. This button is labeled with the most-recent photo in the roll.
 @property (weak, nonatomic) IBOutlet UIButton *cameraRollButton;
 
-// Camera input is shown here.
-@property (weak, nonatomic) IBOutlet UIView *videoPreviewView;
-
 // (For testing.) Report whether currently exposing.
 @property (strong, nonatomic) IBOutlet UILabel *exposingLabel;
 
@@ -32,8 +29,14 @@
 // (For testing.) Report whether currently focusing.
 @property (strong, nonatomic) IBOutlet UILabel *focusingLabel;
 
+// Tap to take a photo.
+@property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
+
 // For displaying a context-sensitive tip.
 @property (nonatomic, strong) IBOutlet UILabel *tipLabel;
+
+// Camera input is shown here.
+@property (weak, nonatomic) IBOutlet UIView *videoPreviewView;
 
 // (For testing.) Report the current white-balance mode.
 @property (strong, nonatomic) IBOutlet UILabel *whiteBalanceModeLabel;
@@ -50,13 +53,5 @@
 // Story: User took photos. User viewed photos. User decided to delete some photos.
 // So, let the user view the taken photos and (optionally) remove them.
 - (IBAction)viewPhotos;
-
-// Story: View will appear to user. User sees updated view.
-// UIViewController override. Listen for app coming from background/lock. Update view.
-// Whether the view appears from another view in this app or from the app entering the foreground, the user should see an updated view. -viewWillAppear: is called for the former but not the latter. So, we listen for UIApplicationWillEnterForegroundNotification (and stop listening in -viewWillDisappear:).
-- (void)viewWillAppear:(BOOL)animated;
-
-// UIViewController override. Undo anything from -viewWillAppear:.
-- (void)viewWillDisappear:(BOOL)animated;
 
 @end
