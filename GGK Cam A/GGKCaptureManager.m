@@ -8,8 +8,8 @@
 
 #import "GGKCaptureManager.h"
 
-BOOL GGKDebugCamera = YES;
-//BOOL GGKDebugCamera = NO;
+//BOOL GGKDebugCamera = YES;
+BOOL GGKDebugCamera = NO;
 
 @interface GGKCaptureManager ()
 
@@ -212,6 +212,26 @@ BOOL GGKDebugCamera = YES;
     aCaptureSession.sessionPreset = AVCaptureSessionPresetPhoto;
     
     self.session = aCaptureSession;
+}
+
+- (AVCaptureVideoOrientation)theCorrectCaptureVideoOrientation
+{
+    AVCaptureVideoOrientation aCaptureVideoOrientation;
+    UIInterfaceOrientation theInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
+    if (theInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
+        
+        aCaptureVideoOrientation = AVCaptureVideoOrientationLandscapeLeft;
+    } else if (theInterfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+        
+        aCaptureVideoOrientation = AVCaptureVideoOrientationLandscapeRight;
+    } else if (theInterfaceOrientation == UIInterfaceOrientationPortrait) {
+        
+        aCaptureVideoOrientation = AVCaptureVideoOrientationPortrait;
+    } else {
+        
+        aCaptureVideoOrientation = AVCaptureVideoOrientationPortraitUpsideDown;
+    }
+    return aCaptureVideoOrientation;
 }
 
 - (void)unlockFocus

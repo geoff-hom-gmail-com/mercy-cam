@@ -240,7 +240,7 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
 }
 
 - (IBAction)takePhoto
-{    
+{
     NSLog(@"SDPVC takePhoto called");
     AVCaptureStillImageOutput *aCaptureStillImageOutput = (AVCaptureStillImageOutput *)self.captureManager.session.outputs[0];
     AVCaptureConnection *aCaptureConnection = [aCaptureStillImageOutput connectionWithMediaType:AVMediaTypeVideo];
@@ -259,6 +259,8 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
     }];
     
     if (aCaptureConnection != nil) {
+        
+        aCaptureConnection.videoOrientation = [self.captureManager theCorrectCaptureVideoOrientation];
         
         [aCaptureStillImageOutput captureStillImageAsynchronouslyFromConnection:aCaptureConnection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
             
@@ -400,16 +402,7 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
     self.exposurePointOfInterestLabel.frame = CGRectMake(anX5, 678, aSize.width, aSize.height);
     
     // Rotate video preview and resize.
-    AVCaptureVideoOrientation aCaptureVideoOrientation;
-    UIInterfaceOrientation theInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
-    if (theInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
-        
-        aCaptureVideoOrientation = AVCaptureVideoOrientationLandscapeLeft;
-    } else {
-        
-        aCaptureVideoOrientation = AVCaptureVideoOrientationLandscapeRight;
-    }
-    self.captureVideoPreviewLayer.connection.videoOrientation = aCaptureVideoOrientation;
+    self.captureVideoPreviewLayer.connection.videoOrientation = [self.captureManager theCorrectCaptureVideoOrientation];;
     self.captureVideoPreviewLayer.frame = self.videoPreviewView.bounds;
 }
 
@@ -458,16 +451,7 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
     self.exposurePointOfInterestLabel.frame = CGRectMake(anX5, 850, aSize.width, aSize.height);
     
     // Rotate video preview and resize.
-    AVCaptureVideoOrientation aCaptureVideoOrientation;
-    UIInterfaceOrientation theInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
-    if (theInterfaceOrientation == UIInterfaceOrientationPortrait) {
-        
-        aCaptureVideoOrientation = AVCaptureVideoOrientationPortrait;
-    } else {
-        
-        aCaptureVideoOrientation = AVCaptureVideoOrientationPortraitUpsideDown;
-    }
-    self.captureVideoPreviewLayer.connection.videoOrientation = aCaptureVideoOrientation;
+    self.captureVideoPreviewLayer.connection.videoOrientation = [self.captureManager theCorrectCaptureVideoOrientation];;
     self.captureVideoPreviewLayer.frame = self.videoPreviewView.bounds;
 }
 

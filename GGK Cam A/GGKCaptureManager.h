@@ -26,6 +26,9 @@ extern BOOL GGKDebugCamera;
 // Create and assign the capture session.
 - (void)setUpSession;
 
+// Return the capture-video orientation that matches the current interface orientation.
+- (AVCaptureVideoOrientation)theCorrectCaptureVideoOrientation;
+
 // Set focus, exposure and white balance to be continuous. (And reset points of interest.)
 - (void)unlockFocus;
 
