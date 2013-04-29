@@ -17,6 +17,12 @@ extern BOOL GGKDebugCamera;
 
 @property (strong, nonatomic) AVCaptureSession *session;
 
+// Add a video preview, with tap-to-focus, to the given view.
+- (void)addPreviewLayerToView:(UIView *)theView;
+
+// Rotate the video preview to the status-bar orientation. Resize for the given view.
+- (void)correctThePreviewOrientation:(UIView *)theView;
+
 // Focus at the given point (in device space). Also lock exposure.
 - (void)focusAtPoint:(CGPoint)thePoint;
 
@@ -25,6 +31,9 @@ extern BOOL GGKDebugCamera;
 
 // Create and assign the capture session.
 - (void)setUpSession;
+
+// Start the session. Asychronous.
+- (void)startSession;
 
 // Return the capture-video orientation that matches the current interface orientation.
 - (AVCaptureVideoOrientation)theCorrectCaptureVideoOrientation;

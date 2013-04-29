@@ -7,8 +7,10 @@
 //
 
 #import <AssetsLibrary/AssetsLibrary.h>
-#import <AVFoundation/AVFoundation.h>
-#import "GGKSimpleDelayedPhotoViewController.h"
+//#import <AVFoundation/AVFoundation.h>
+#import "GGKCaptureManager.h"
+#import "GGKSavedPhotosManager.h"
+#import "GGKTakeDelayedPhotosViewController.h"
 
 const NSInteger GGKTakeDelayedPhotosDefaultNumberOfPhotosInteger = 3;
 
@@ -18,18 +20,28 @@ NSString *GGKTakeDelayedPhotosNumberOfPhotosKeyString = @"Take delayed photos: n
 
 NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take delayed photos: number of seconds to initially wait";
 
-@interface GGKSimpleDelayedPhotoViewController ()
+@interface GGKTakeDelayedPhotosViewController ()
 
 // The text field currently being edited.
 @property (strong, nonatomic) UITextField *activeTextField;
 
-@property (strong, nonatomic) AVCaptureSession *captureSession;
+// For removing the observer later.
+@property (strong, nonatomic) id appWillEnterForegroundObserver;
+
+// For creating the session and managing the capture device.
+@property (strong, nonatomic) GGKCaptureManager *captureManager;
 
 // Number of photos to take for a given push of the shutter.
 @property (assign, nonatomic) NSInteger numberOfPhotosToTake;
 
 // Number of seconds to wait before taking first photo.
 @property (assign, nonatomic) CGFloat numberOfSecondsToInitiallyWait;
+
+// For working with photos in the camera roll.
+@property (nonatomic, strong) GGKSavedPhotosManager *savedPhotosManager;
+
+// For playing sound.
+@property (strong, nonatomic) GGKSoundModel *soundModel;
 
 // Adjust "Wait X seconds, then take Y photos," for whether the values are singular or plural.
 - (void)adjustStringsForPlurals;
@@ -43,15 +55,23 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 - (void)keyboardWillShow:(NSNotification *)theNotification;
 // So, shift the view up, if necessary.
 
-// Show most-recent photo on button for showing camera roll.
-- (void)showMostRecentPhotoOnButton;
-
 // Start taking photos, immediately.
 - (void)startTakingPhotos;
 
+// Story: When the user should see the UI in portrait, she does.
+- (void)updateLayoutForPortrait;
+
+// Story: View will appear to user. User sees updated view.
+// UIViewController override. Listen for app coming from background/lock. Update view.
+// Whether the view appears from another view in this app or from the app entering the foreground, the user should see an updated view. -viewWillAppear: is called for the former but not the latter. So, we listen for UIApplicationWillEnterForegroundNotification (and stop listening in -viewWillDisappear:).
+- (void)viewWillAppear:(BOOL)animated;
+
+// UIViewController override. Undo anything from -viewWillAppear:.
+- (void)viewWillDisappear:(BOOL)animated;
+
 @end
 
-@implementation GGKSimpleDelayedPhotoViewController
+@implementation GGKTakeDelayedPhotosViewController
 
 - (void)adjustStringsForPlurals {
     
@@ -79,7 +99,9 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 
 - (void)dealloc {
     
-    [self.captureSession stopRunning];
+    [self.captureManager.session stopRunning];
+    [self removeObserver:self forKeyPath:@"captureManager.device.focusMode"];
+    [self removeObserver:self forKeyPath:@"captureManager.device.exposureMode"];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
@@ -93,7 +115,7 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 -(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
 
     NSLog(@"SDPVC image:didFinishSavingWithError called");
-    [self showMostRecentPhotoOnButton];
+    [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
     if (self.numberOfPhotosToTake > 0) {
         
         [self takePhoto];
@@ -151,42 +173,9 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     } 
 }
 
-- (void)showMostRecentPhotoOnButton {
-    
-    // Show thumbnail on button for showing camera roll.
-    void (^showPhotoOnButton)(ALAsset *, NSUInteger, BOOL *) = ^(ALAsset *photoAsset, NSUInteger index, BOOL *stop) {
-        
-        // End of enumeration is signalled by asset == nil.
-        if (photoAsset == nil) {
-            
-            return;
-        }
-        
-        CGImageRef aPhotoThumbnailImageRef = [photoAsset thumbnail];
-        UIImage *aPhotoImage = [UIImage imageWithCGImage:aPhotoThumbnailImageRef];
-        [self.cameraRollButton setImage:aPhotoImage forState:UIControlStateNormal];
-    };
-    
-    // Show thumbnail of most-recent photo in group on button for showing camera roll.
-    void (^showMostRecentPhotoInGroupOnButton)(ALAssetsGroup *, BOOL *) = ^(ALAssetsGroup *group, BOOL *stop) {
-        
-        // If no photos, skip.
-        [ group setAssetsFilter:[ALAssetsFilter allPhotos] ];
-        NSInteger theNumberOfPhotos = [group numberOfAssets];
-        if (theNumberOfPhotos < 1) {
-            
-            return;
-        }
-        
-        NSIndexSet *theMostRecentPhotoIndexSet = [NSIndexSet indexSetWithIndex:(theNumberOfPhotos - 1)];
-        [group enumerateAssetsAtIndexes:theMostRecentPhotoIndexSet options:0 usingBlock:showPhotoOnButton];
-    };
-    
-    ALAssetsLibrary *theAssetsLibrary = [[ALAssetsLibrary alloc] init];
-    [theAssetsLibrary enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:showMostRecentPhotoInGroupOnButton failureBlock:^(NSError *error) {
-        
-        NSLog(@"Warning: Couldn't see saved photos.");
-    }];
+- (IBAction)playButtonSound
+{
+    [self.soundModel playButtonTapSound];
 }
 
 - (void)startTakingPhotos {
@@ -219,7 +208,7 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     
     NSLog(@"SDPVC takePhoto called");
     self.numberOfPhotosToTake -= 1;
-    AVCaptureStillImageOutput *aCaptureStillImageOutput = (AVCaptureStillImageOutput *)self.captureSession.outputs[0];
+    AVCaptureStillImageOutput *aCaptureStillImageOutput = (AVCaptureStillImageOutput *)self.captureManager.session.outputs[0];
     AVCaptureConnection *aCaptureConnection = [aCaptureStillImageOutput connectionWithMediaType:AVMediaTypeVideo];
     
     // Give visual feedback that photo was taken: Flash the screen.
@@ -309,59 +298,36 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     self.activeTextField = nil;
 }
 
+- (void)updateLayoutForPortrait
+{
+}
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    NSLog(@"SDPVC vDL called");
     
-    AVCaptureSession *aCaptureSession = [[AVCaptureSession alloc] init];
-//    AVCaptureSession *aCaptureSession = //get from another class
+    self.soundModel = [[GGKSoundModel alloc] init];
+    self.savedPhotosManager = [[GGKSavedPhotosManager alloc] init];
+    [self updateLayoutForPortrait];
     
-    AVCaptureDevice *aCameraCaptureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    // Set up the camera.
+    GGKCaptureManager *theCaptureManager = [[GGKCaptureManager alloc] init];
+    [theCaptureManager setUpSession];
+    [theCaptureManager addPreviewLayerToView:self.videoPreviewView];
+    [theCaptureManager startSession];
+    self.captureManager = theCaptureManager;
     
-    NSError *error = nil;
-    AVCaptureDeviceInput *aCameraCaptureDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:aCameraCaptureDevice error:&error];
-    if (!aCameraCaptureDeviceInput) {
-        
-        // handle error
-        NSLog(@"GGK Warning: error getting camera input.");
-    }
-    if ([aCaptureSession canAddInput:aCameraCaptureDeviceInput]) {
-        
-        [aCaptureSession addInput:aCameraCaptureDeviceInput];
-    }
+    // Set up the focusing label. Though we report only focus mode, we actually lock both focus and exposure.
+    self.focusLabel.text = @"Focus:\n  Continuous";
+    [self addObserver:self forKeyPath:@"captureManager.device.focusMode" options:NSKeyValueObservingOptionNew context:nil];
+    [self addObserver:self forKeyPath:@"captureManager.device.exposureMode" options:NSKeyValueObservingOptionNew context:nil];
     
-    AVCaptureStillImageOutput *aCaptureStillImageOutput = [[AVCaptureStillImageOutput alloc] init];
-    if ([aCaptureSession canAddOutput:aCaptureStillImageOutput]) {
-        
-        [aCaptureSession addOutput:aCaptureStillImageOutput];
-    }
-    
-    aCaptureSession.sessionPreset = AVCaptureSessionPresetPhoto;
-    
-    // Add camera preview.
-    AVCaptureVideoPreviewLayer *aCaptureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:aCaptureSession];
-    aCaptureVideoPreviewLayer.frame = self.videoPreviewView.bounds;
-    aCaptureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspect;
-    CALayer *viewLayer = self.videoPreviewView.layer;
-    [viewLayer addSublayer:aCaptureVideoPreviewLayer];
-    
-    self.captureSession = aCaptureSession;
-    
-    // Start the session. This is done asychronously since -startRunning doesn't return until the session is running.
-    NSOperationQueue *anOperationQueue = [[NSOperationQueue alloc] init];
-    [anOperationQueue addOperationWithBlock:^{
-        [aCaptureSession startRunning];
-    }];
-    
-    [self showMostRecentPhotoOnButton];
+    self.timerStartedLabel.hidden = YES;
+    self.cancelTimerButton.enabled = NO;
     
     // Observe keyboard notifications to shift the screen up/down appropriately.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    
-    self.timerStartedLabel.hidden = YES;
-    self.cancelTimerButton.enabled = NO;
     
     // Set parameters to most-recent.
     
@@ -385,6 +351,31 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 - (IBAction)viewPhotos {
     
     NSLog(@"viewPhotos called");
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if (self.appWillEnterForegroundObserver == nil) {
+        
+        self.appWillEnterForegroundObserver = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillEnterForegroundNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+            
+            [self viewWillAppear:animated];
+        }];
+    }
+    
+    [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    if (self.appWillEnterForegroundObserver != nil) {
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self.appWillEnterForegroundObserver name:UIApplicationWillEnterForegroundNotification object:nil];
+    }
 }
 
 @end

@@ -16,6 +16,9 @@ BOOL GGKDebugCamera = NO;
 // For tracking whether the observer exists or was removed (or never added). Don't want to over-add or over-remove it.
 @property (nonatomic, assign) BOOL adjustingExposureObserverExists;
 
+// For converting the tap point to device space.
+@property (strong, nonatomic) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
+
 // For invalidating the timer if the exposure is adjusted.
 @property (nonatomic, strong) NSTimer *exposureUnadjustedTimer;
 
@@ -27,6 +30,9 @@ BOOL GGKDebugCamera = NO;
 
 // So, lock the exposure. We don't need to monitor exposure adjustment anymore, so remove the observer.
 - (void)handleExposureLockRequestedAndExposureIsSteady:(NSTimer *)theTimer;
+
+// Story: User taps on object. Focus and exposure auto-adjust and lock there. User taps again in view. Focus and exposure return to continuous. (If the user taps again before both focus and exposure lock, then the new tap will be the POI and both will relock.)
+- (void)handleUserTappedInCameraView:(UITapGestureRecognizer *)theTapGestureRecognizer;
 
 // KVO. After setting the exposure POI, we want to know when the exposure is steady, so we can lock it. If the device's exposure stops adjusting, then we see if it stays steady long enough (via a timer). If so, the timer will lock the exposure.
 - (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
@@ -49,6 +55,28 @@ BOOL GGKDebugCamera = NO;
             NSLog(@"CM: device.adjustingExposure observer added.");
         }
     }
+}
+
+- (void)addPreviewLayerToView:(UIView *)theView
+{
+    AVCaptureVideoPreviewLayer *aCaptureVideoPreviewLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.session];
+    aCaptureVideoPreviewLayer.frame = theView.bounds;
+    aCaptureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspect;
+    CALayer *viewLayer = theView.layer;
+    [viewLayer addSublayer:aCaptureVideoPreviewLayer];
+    
+    // Story: User taps on object. Focus locks there. User taps again in view. Focus returns to continuous.
+    UITapGestureRecognizer *aSingleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleUserTappedInCameraView:)];
+    aSingleTapGestureRecognizer.numberOfTapsRequired = 1;
+    [theView addGestureRecognizer:aSingleTapGestureRecognizer];
+    
+    self.captureVideoPreviewLayer = aCaptureVideoPreviewLayer;
+}
+
+- (void)correctThePreviewOrientation:(UIView *)theView
+{
+    self.captureVideoPreviewLayer.connection.videoOrientation = [self theCorrectCaptureVideoOrientation];
+    self.captureVideoPreviewLayer.frame = theView.bounds;
 }
 
 - (void)dealloc
@@ -115,6 +143,27 @@ BOOL GGKDebugCamera = NO;
         }
         
         [self.device unlockForConfiguration];
+    }
+}
+
+- (void)handleUserTappedInCameraView:(UITapGestureRecognizer *)theTapGestureRecognizer
+{
+    AVCaptureDevice *aCaptureDevice = self.device;
+    if (aCaptureDevice == nil) {
+        
+        NSLog(@"GGK warning: No capture-device input.");
+    } else {
+        
+        if (aCaptureDevice.focusMode != AVCaptureFocusModeLocked ||
+            aCaptureDevice.exposureMode != AVCaptureExposureModeLocked) {
+            
+            CGPoint theTapPoint = [theTapGestureRecognizer locationInView:theTapGestureRecognizer.view];
+            CGPoint theConvertedTapPoint = [self.captureVideoPreviewLayer captureDevicePointOfInterestForPoint:theTapPoint];
+            [self focusAtPoint:theConvertedTapPoint];
+        } else {
+            
+            [self unlockFocus];
+        }
     }
 }
 
@@ -212,6 +261,15 @@ BOOL GGKDebugCamera = NO;
     aCaptureSession.sessionPreset = AVCaptureSessionPresetPhoto;
     
     self.session = aCaptureSession;
+}
+
+- (void)startSession
+{
+    // This is done asychronously since -startRunning doesn't return until the session is running.
+    NSOperationQueue *anOperationQueue = [[NSOperationQueue alloc] init];
+    [anOperationQueue addOperationWithBlock:^{
+        [self.session startRunning];
+    }];
 }
 
 - (AVCaptureVideoOrientation)theCorrectCaptureVideoOrientation

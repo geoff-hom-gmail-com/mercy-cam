@@ -7,7 +7,7 @@
 //
 
 #import "GGKMercyCameraViewController.h"
-#import "GGKSimpleDelayedPhotoViewController.h"
+#import "GGKTakeDelayedPhotosViewController.h"
 
 //BOOL GGKCreateLaunchImages = YES;
 BOOL GGKCreateLaunchImages = NO;

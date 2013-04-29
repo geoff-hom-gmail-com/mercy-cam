@@ -6,9 +6,10 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import <AssetsLibrary/AssetsLibrary.h>
+//#import <AssetsLibrary/AssetsLibrary.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "GGKCaptureManager.h"
+#import "GGKSavedPhotosManager.h"
 #import "GGKTakePhotoViewController.h"
 
 // Story: User sees tip. User learns how to focus on an object.
@@ -25,12 +26,12 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
 // For creating the session and managing the capture device.
 @property (strong, nonatomic) GGKCaptureManager *captureManager;
 
-// For converting the tap point to device space.
-@property (strong, nonatomic) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
-
 // Story: The overall orientation (device/status-bar) is checked against the orientation of this app's UI. The user sees the UI in the correct orientation.
 // Whether the landscape view is currently showing.
 @property (nonatomic, assign) BOOL isShowingLandscapeView;
+
+// For working with photos in the camera roll.
+@property (nonatomic, strong) GGKSavedPhotosManager *savedPhotosManager;
 
 // For retaining the popover and its content view controller.
 @property (strong, nonatomic) UIPopoverController *savedPhotosPopoverController;
@@ -44,17 +45,11 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
 // UIViewController override. For stopping the capture session. And removing observers.
 - (void)dealloc;
 
-// Story: User taps on object. Focus and exposure auto-adjust and lock there. User taps again in view. Focus and exposure return to continuous. (If the user taps again before both focus and exposure lock, then the new tap will be the POI and both will relock.)
-- (void)handleUserTappedInCameraView:(UITapGestureRecognizer *)theTapGestureRecognizer;
-
 -(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
 // So, update the image in the button for showing the camera roll. If another photo is supposed to be taken, do it.
 
-// (For camera debugging.) KVO. We want to see the camera's status in real-time.
+// KVO. We want to see the camera's status in real-time.
 - (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
-
-// Show most-recent photo from camera roll on button for viewing camera roll.
-- (void)showMostRecentPhotoOnButton;
 
 // (For testing.) Show the current camera settings.
 - (void)updateCameraDebugLabels;
@@ -90,7 +85,7 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
 
 - (void)dealloc
 {
-    NSLog(@"TPVC dealloc");
+//    NSLog(@"TPVC dealloc");
     [self.captureManager.session stopRunning];
     [self removeObserver:self forKeyPath:@"captureManager.device.focusMode"];
     [self removeObserver:self forKeyPath:@"captureManager.device.exposureMode"];
@@ -117,30 +112,9 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
     // Dispose of any resources that can be recreated.
 }
 
-- (void)handleUserTappedInCameraView:(UITapGestureRecognizer *)theTapGestureRecognizer
-{
-    AVCaptureDevice *aCaptureDevice = self.captureManager.device;
-    if (aCaptureDevice == nil) {
-        
-        NSLog(@"GGK warning: No capture-device input.");
-    } else {
-        
-        if (aCaptureDevice.focusMode != AVCaptureFocusModeLocked ||
-            aCaptureDevice.exposureMode != AVCaptureExposureModeLocked) {
-            
-            CGPoint theTapPoint = [theTapGestureRecognizer locationInView:self.videoPreviewView];
-            CGPoint theConvertedTapPoint = [self.captureVideoPreviewLayer captureDevicePointOfInterestForPoint:theTapPoint];
-            [self.captureManager focusAtPoint:theConvertedTapPoint];
-        } else {
-            
-            [self.captureManager unlockFocus];
-        }
-    }
-}
-
 -(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
-{    
-    [self showMostRecentPhotoOnButton];
+{
+    [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -192,51 +166,6 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
 - (IBAction)playButtonSound
 {
     [self.soundModel playButtonTapSound];
-}
-
-- (void)showMostRecentPhotoOnButton
-{    
-    // Show thumbnail on button for showing camera roll.
-    void (^showPhotoOnButton)(ALAsset *, NSUInteger, BOOL *) = ^(ALAsset *photoAsset, NSUInteger index, BOOL *stop) {
-        
-        // End of enumeration is signalled by asset == nil.
-        if (photoAsset == nil) {
-            
-            return;
-        }
-        
-        CGImageRef aPhotoThumbnailImageRef = [photoAsset thumbnail];
-        UIImage *aPhotoImage = [UIImage imageWithCGImage:aPhotoThumbnailImageRef];
-//        NSLog(@"TPVC sMRPOB image size: %@", NSStringFromCGSize(aPhotoImage.size));
-        [self.cameraRollButton setImage:aPhotoImage forState:UIControlStateNormal];
-        
-        // If we don't the title to nil, it still shows along the edge.
-        [self.cameraRollButton setTitle:nil forState:UIControlStateNormal];
-    };
-    
-    // Show thumbnail of most-recent photo in group on button for showing camera roll.
-    void (^showMostRecentPhotoInGroupOnButton)(ALAssetsGroup *, BOOL *) = ^(ALAssetsGroup *group, BOOL *stop) {
-        
-        // If no photos, skip.
-        [ group setAssetsFilter:[ALAssetsFilter allPhotos] ];
-        NSInteger theNumberOfPhotos = [group numberOfAssets];
-        if (theNumberOfPhotos < 1) {
-            
-            return;
-        }
-        
-        NSIndexSet *theMostRecentPhotoIndexSet = [NSIndexSet indexSetWithIndex:(theNumberOfPhotos - 1)];
-        [group enumerateAssetsAtIndexes:theMostRecentPhotoIndexSet options:0 usingBlock:showPhotoOnButton];
-    };
-    
-    // If no photos, show this text.
-    [self.cameraRollButton setTitle:@"Saved photos" forState:UIControlStateNormal];
-    
-    ALAssetsLibrary *theAssetsLibrary = [[ALAssetsLibrary alloc] init];
-    [theAssetsLibrary enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:showMostRecentPhotoInGroupOnButton failureBlock:^(NSError *error) {
-        
-        NSLog(@"Warning: Couldn't see saved photos.");
-    }];
 }
 
 - (IBAction)takePhoto
@@ -360,6 +289,7 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
 {
     CGPoint aPoint = self.videoPreviewView.frame.origin;
     self.videoPreviewView.frame = CGRectMake(aPoint.x, aPoint.y, 883, 662);
+    [self.captureManager correctThePreviewOrientation:self.videoPreviewView];
     
     CGFloat anX1 = 20;
     CGSize aSize = self.tipLabel.frame.size;
@@ -400,16 +330,13 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
 
     aSize = self.exposurePointOfInterestLabel.frame.size;
     self.exposurePointOfInterestLabel.frame = CGRectMake(anX5, 678, aSize.width, aSize.height);
-    
-    // Rotate video preview and resize.
-    self.captureVideoPreviewLayer.connection.videoOrientation = [self.captureManager theCorrectCaptureVideoOrientation];;
-    self.captureVideoPreviewLayer.frame = self.videoPreviewView.bounds;
 }
 
 - (void)updateLayoutForPortrait
 {
     CGPoint aPoint = self.videoPreviewView.frame.origin;
     self.videoPreviewView.frame = CGRectMake(aPoint.x, aPoint.y, 675, 900);
+    [self.captureManager correctThePreviewOrientation:self.videoPreviewView];
     
     CGSize aSize = self.tipLabel.frame.size;
     self.tipLabel.frame = CGRectMake(33, 919, aSize.width, aSize.height);
@@ -449,10 +376,6 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
     
     aSize = self.exposurePointOfInterestLabel.frame.size;
     self.exposurePointOfInterestLabel.frame = CGRectMake(anX5, 850, aSize.width, aSize.height);
-    
-    // Rotate video preview and resize.
-    self.captureVideoPreviewLayer.connection.videoOrientation = [self.captureManager theCorrectCaptureVideoOrientation];;
-    self.captureVideoPreviewLayer.frame = self.videoPreviewView.bounds;
 }
 
 - (void)viewDidLoad
@@ -460,31 +383,15 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
     [super viewDidLoad];
     
     self.soundModel = [[GGKSoundModel alloc] init];
+    self.savedPhotosManager = [[GGKSavedPhotosManager alloc] init];
     [self updateLayoutForPortrait];
     
     // Set up the camera.
     GGKCaptureManager *theCaptureManager = [[GGKCaptureManager alloc] init];
     [theCaptureManager setUpSession];
+    [theCaptureManager addPreviewLayerToView:self.videoPreviewView];
+    [theCaptureManager startSession];
     self.captureManager = theCaptureManager;
-        
-    // Add camera preview.
-    AVCaptureVideoPreviewLayer *aCaptureVideoPreviewLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.captureManager.session];
-    aCaptureVideoPreviewLayer.frame = self.videoPreviewView.bounds;
-    aCaptureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspect;
-    CALayer *viewLayer = self.videoPreviewView.layer;
-    [viewLayer addSublayer:aCaptureVideoPreviewLayer];
-    self.captureVideoPreviewLayer = aCaptureVideoPreviewLayer;
-    
-    // Start the session. This is done asychronously since -startRunning doesn't return until the session is running.
-    NSOperationQueue *anOperationQueue = [[NSOperationQueue alloc] init];
-    [anOperationQueue addOperationWithBlock:^{
-        [self.captureManager.session startRunning];
-    }];
-    
-    // Story: User taps on object. Focus locks there. User taps again in view. Focus returns to continuous.
-    UITapGestureRecognizer *aSingleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleUserTappedInCameraView:)];
-    aSingleTapGestureRecognizer.numberOfTapsRequired = 1;
-    [self.videoPreviewView addGestureRecognizer:aSingleTapGestureRecognizer];
     
     // Set up the tip label.
     self.tipLabel.text = ToFocusTipString;
@@ -551,7 +458,7 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
         }];
     }
     
-    [self showMostRecentPhotoOnButton];
+    [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

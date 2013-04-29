@@ -20,13 +20,16 @@ extern NSString *GGKTakeDelayedPhotosNumberOfPhotosKeyString;
 // Key for storing the number of seconds to initially wait.
 extern NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString;
 
-@interface GGKSimpleDelayedPhotoViewController : UIViewController <UITextFieldDelegate>
+@interface GGKTakeDelayedPhotosViewController : UIViewController <UITextFieldDelegate>
 
 // Tap to see camera roll. This button shows the most-recent photo in the roll. 
 @property (weak, nonatomic) IBOutlet UIButton *cameraRollButton;
 
 // Tap to cancel the timer for taking photos.
 @property (weak, nonatomic) IBOutlet UIButton *cancelTimerButton;
+
+// For displaying when the focus is continuous or locked. (Displays "locked" only when both focus and exposure are locked. Otherwise, displays "continuous" or "locking.")
+@property (nonatomic, strong) IBOutlet UILabel *focusLabel;
 
 // Number of photos to take for a given tap of the shutter button.
 @property (weak, nonatomic) IBOutlet UITextField *numberOfPhotosToTakeTextField;
@@ -51,6 +54,9 @@ extern NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString;
 
 // Cancel the timer and don't take any more photos.
 - (IBAction)cancelTimer;
+
+// Story: User taps on a button (touch down). User hears a sound, giving her more feedback that she pressed it.
+- (IBAction)playButtonSound;
 
 // Start the timer to take photos.
 - (IBAction)startTimer;

@@ -169,6 +169,7 @@ with 324 hours between each photo."</string>
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="playButtonSound" destination="2" eventType="touchDown" id="4oe-af-FbJ"/>
                                     <segue destination="2ll-qK-FHt" kind="push" id="6ar-Ew-fqv"/>
                                 </connections>
                             </button>
@@ -186,6 +187,7 @@ with 324 hours between each photo."</string>
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="playButtonSound" destination="2" eventType="touchDown" id="8xQ-gk-Lge"/>
                                     <segue destination="RoA-pF-Ojp" kind="push" id="0lT-Gh-iXB"/>
                                 </connections>
                             </button>
@@ -216,6 +218,9 @@ with 324 hours between each photo."</string>
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="playButtonSound" destination="2" eventType="touchDown" id="vA3-l1-MZk"/>
+                                </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gvh-U8-4HD">
                                 <rect key="frame" x="353" y="382" width="395" height="56"/>
@@ -272,6 +277,9 @@ with 324 hours between each photo."</string>
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="playButtonSound" destination="2" eventType="touchDown" id="yH0-CB-ThL"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.33739183010000001" green="0.75520663600000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -438,10 +446,10 @@ photos</string>
             </objects>
             <point key="canvasLocation" x="1725" y="-1038"/>
         </scene>
-        <!--Simple Delayed Photo View Controller - Mercy Camera: Take delayed photos-->
+        <!--Take Delayed Photos View Controller - Mercy Camera: Take delayed photos-->
         <scene sceneID="uVa-qF-Ilh">
             <objects>
-                <viewController id="2ll-qK-FHt" customClass="GGKSimpleDelayedPhotoViewController" sceneMemberID="viewController">
+                <viewController id="2ll-qK-FHt" customClass="GGKTakeDelayedPhotosViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3JC-Z9-zsJ">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -587,6 +595,7 @@ photos</string>
                     <connections>
                         <outlet property="cameraRollButton" destination="ASC-Mi-8aD" id="xoE-QY-Wiz"/>
                         <outlet property="cancelTimerButton" destination="5Qx-RQ-TiL" id="Gyb-ii-ZA8"/>
+                        <outlet property="focusLabel" destination="3Qa-B5-2Rd" id="ToD-Xq-JkB"/>
                         <outlet property="numberOfPhotosToTakeTextField" destination="OxC-nq-duy" id="ibR-lg-kPx"/>
                         <outlet property="numberOfSecondsToInitiallyWaitTextField" destination="cLP-P2-6Vg" id="wp6-0S-L8x"/>
                         <outlet property="photosLabel" destination="DRY-lJ-Icz" id="ODw-gr-md8"/>
@@ -795,14 +804,16 @@ photos</string>
                 <relationship kind="outlet" name="takeDelayedPhotosExampleLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
-        <class className="GGKSimpleDelayedPhotoViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKSimpleDelayedPhotoViewController.h"/>
+        <class className="GGKTakeDelayedPhotosViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKTakeDelayedPhotosViewController.h"/>
             <relationships>
                 <relationship kind="action" name="cancelTimer"/>
+                <relationship kind="action" name="playButtonSound"/>
                 <relationship kind="action" name="startTimer"/>
                 <relationship kind="action" name="viewPhotos"/>
                 <relationship kind="outlet" name="cameraRollButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="cancelTimerButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="focusLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="numberOfPhotosToTakeTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="numberOfSecondsToInitiallyWaitTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="photosLabel" candidateClass="UILabel"/>
