@@ -37,8 +37,8 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 // Number of seconds to wait before taking first photo.
 @property (nonatomic, assign) CGFloat numberOfSecondsToInitiallyWait;
 
-// Story: User taps "Cancel." Timer is stopped.
-@property (nonatomic, strong) NSTimer *numberOfSecondsToInitiallyWaitTimer;
+// This timer goes off every second, so the user can get visual feedback. When it's time to take photos, we need this to invalidate the timer.
+@property (nonatomic, strong) NSTimer *oneSecondRepeatingTimer;
 
 // For working with photos in the camera roll.
 @property (nonatomic, strong) GGKSavedPhotosManager *savedPhotosManager;
@@ -48,6 +48,9 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 
 // Adjust "Wait X seconds, then take Y photos," for whether the values are singular or plural.
 - (void)adjustStringsForPlurals;
+
+// So, show the user how many seconds have passed. If enough have passed, start taking photos.
+- (void)handleOneSecondTimerFired;
 
 //-(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
 // So, update the image in the button for showing the camera roll. If another photo is supposed to be taken, do it.
@@ -106,8 +109,8 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 
 - (IBAction)cancelTimer {
     
-    [self.numberOfSecondsToInitiallyWaitTimer invalidate];
-    self.numberOfSecondsToInitiallyWaitTimer = nil;
+    [self.oneSecondRepeatingTimer invalidate];
+    self.oneSecondRepeatingTimer = nil;
     self.numberOfPhotosToTake = 0;
     [self updateForAllowingStartTimer];
 }
@@ -137,6 +140,18 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)handleOneSecondTimerFired
+{
+    NSNumber *theSecondsWaitedNumber = @([self.numberOfSecondsWaitedLabel.text integerValue] + 1);
+    self.numberOfSecondsWaitedLabel.text = [theSecondsWaitedNumber stringValue];
+    if ([theSecondsWaitedNumber floatValue] >= self.numberOfSecondsToInitiallyWait) {
+        
+        [self.oneSecondRepeatingTimer invalidate];
+        self.oneSecondRepeatingTimer = nil;
+        [self startTakingPhotos];
+    }
 }
 
 
@@ -233,27 +248,29 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     [self.soundModel playButtonTapSound];
 }
 
-- (void)startTakingPhotos {
-
-//    NSLog(@"SDPVC startTakingPhotos called");
+- (void)startTakingPhotos
+{
     if (self.numberOfPhotosToTake > 0) {
         
-//        [self.captureManager takePhoto];
         [self takePhoto];
     }
 }
 
 - (IBAction)startTimer
 {
-//    NSLog(@"SDPVC startTimer called");
     [self updateForAllowingCancelTimer];
     
     self.numberOfSecondsToInitiallyWait = [self.numberOfSecondsToInitiallyWaitTextField.text floatValue];
     self.numberOfPhotosToTake = [self.numberOfPhotosToTakeTextField.text integerValue];
     
-    NSTimeInterval initialWaitTimeInterval = self.numberOfSecondsToInitiallyWait;
-    NSTimer *aTimer = [NSTimer scheduledTimerWithTimeInterval:initialWaitTimeInterval target:self selector:@selector(startTakingPhotos) userInfo:nil repeats:NO];
-    self.numberOfSecondsToInitiallyWaitTimer = aTimer;
+    if (self.numberOfSecondsToInitiallyWait == 0) {
+        
+        [self startTakingPhotos];
+    } else {
+        
+        NSTimer *aTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(handleOneSecondTimerFired) userInfo:nil repeats:YES];
+        self.oneSecondRepeatingTimer = aTimer;
+    }
 }
 
 - (void)takePhoto {
@@ -332,7 +349,7 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
         theKey = GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString;
         okayValue = @([theTextField.text integerValue]);
         
-        // number of seconds to initially wait should be an integer, 0 to 99.
+        // The number of seconds to initially wait should be an integer, 0 to 99. If not, fix.
         NSInteger okayValueInteger = [okayValue integerValue];
         if (okayValueInteger < 0) {
             
@@ -358,7 +375,6 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     }
     
     // Since the entered value may have been converted, show the converted value.
-    //don't need this line?
     theTextField.text = [okayValue stringValue];
     
     if (theTextField == self.numberOfSecondsToInitiallyWaitTextField || theTextField == self.numberOfPhotosToTakeTextField) {
@@ -381,6 +397,7 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 {
     self.numberOfSecondsToInitiallyWaitTextField.enabled = NO;
     self.numberOfPhotosToTakeTextField.enabled = NO;
+    self.numberOfSecondsWaitedLabel.text = @"0";
     self.numberOfSecondsWaitedLabel.hidden = NO;
     self.startTimerButton.enabled = NO;
     self.cancelTimerButton.enabled = YES;

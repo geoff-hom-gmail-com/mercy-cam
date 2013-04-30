@@ -31,11 +31,11 @@ BOOL GGKDebugCamera = NO;
 - (void)handleExposureLockRequestedAndExposureIsSteady:(NSTimer *)theTimer;
 // So, lock the exposure. We don't need to monitor exposure adjustment anymore, so remove the observer.
 
-- (void)handlePhotoWasTaken;
-// So, notify delegate.
-
 // Story: User taps on object. Focus and exposure auto-adjust and lock there. User taps again in view. Focus and exposure return to continuous. (If the user taps again before both focus and exposure lock, then the new tap will be the POI and both will relock.)
 - (void)handleUserTappedInCameraView:(UITapGestureRecognizer *)theTapGestureRecognizer;
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
+// So, notify delegate.
 
 // KVO. After setting the exposure POI, we want to know when the exposure is steady, so we can lock it. If the device's exposure stops adjusting, then we see if it stays steady long enough (via a timer). If so, the timer will lock the exposure.
 - (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
@@ -154,11 +154,6 @@ BOOL GGKDebugCamera = NO;
     }
 }
 
-- (void)handlePhotoWasTaken
-{
-    [self.delegate captureManagerDidTakePhoto:self];
-}
-
 - (void)handleUserTappedInCameraView:(UITapGestureRecognizer *)theTapGestureRecognizer
 {
     AVCaptureDevice *aCaptureDevice = self.device;
@@ -178,6 +173,11 @@ BOOL GGKDebugCamera = NO;
             [self unlockFocus];
         }
     }
+}
+
+-(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
+{
+    [self.delegate captureManagerDidTakePhoto:self];
 }
 
 - (id)init
@@ -288,7 +288,7 @@ BOOL GGKDebugCamera = NO;
 
 - (void)takePhoto {
     
-//    NSLog(@"takePhoto called");
+    NSLog(@"CM takePhoto called");
     AVCaptureStillImageOutput *aCaptureStillImageOutput = (AVCaptureStillImageOutput *)self.session.outputs[0];
     AVCaptureConnection *aCaptureConnection = [aCaptureStillImageOutput connectionWithMediaType:AVMediaTypeVideo];
     
@@ -300,13 +300,13 @@ BOOL GGKDebugCamera = NO;
                 
                 NSData *theImageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
                 UIImage *theImage = [[UIImage alloc] initWithData:theImageData];
-                UIImageWriteToSavedPhotosAlbum(theImage, self, @selector(handlePhotoWasTaken), nil);
+                UIImageWriteToSavedPhotosAlbum(theImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
             }
         }];
     } else {
         
         NSLog(@"GGK warning: aCaptureConnection nil");
-        UIImageWriteToSavedPhotosAlbum(nil, self, @selector(handlePhotoWasTaken), nil);
+        UIImageWriteToSavedPhotosAlbum(nil, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
     }
 }
 
