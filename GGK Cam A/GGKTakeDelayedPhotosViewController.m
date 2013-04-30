@@ -23,19 +23,22 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 @interface GGKTakeDelayedPhotosViewController ()
 
 // The text field currently being edited.
-@property (strong, nonatomic) UITextField *activeTextField;
+@property (nonatomic, strong) UITextField *activeTextField;
 
 // For removing the observer later.
-@property (strong, nonatomic) id appWillEnterForegroundObserver;
+@property (nonatomic, strong) id appWillEnterForegroundObserver;
 
 // For creating the session and managing the capture device.
-@property (strong, nonatomic) GGKCaptureManager *captureManager;
+@property (nonatomic, strong) GGKCaptureManager *captureManager;
 
 // Number of photos to take for a given push of the shutter.
-@property (assign, nonatomic) NSInteger numberOfPhotosToTake;
+@property (nonatomic, assign) NSInteger numberOfPhotosToTake;
 
 // Number of seconds to wait before taking first photo.
-@property (assign, nonatomic) CGFloat numberOfSecondsToInitiallyWait;
+@property (nonatomic, assign) CGFloat numberOfSecondsToInitiallyWait;
+
+// Story: User taps "Cancel." Timer is stopped.
+@property (nonatomic, strong) NSTimer *numberOfSecondsToInitiallyWaitTimer;
 
 // For working with photos in the camera roll.
 @property (nonatomic, strong) GGKSavedPhotosManager *savedPhotosManager;
@@ -46,7 +49,7 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 // Adjust "Wait X seconds, then take Y photos," for whether the values are singular or plural.
 - (void)adjustStringsForPlurals;
 
--(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
+//-(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
 // So, update the image in the button for showing the camera roll. If another photo is supposed to be taken, do it.
 
 - (void)keyboardWillHide:(NSNotification *)theNotification;
@@ -60,6 +63,12 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 
 // Start taking photos, immediately.
 - (void)startTakingPhotos;
+
+// Story: User sees UI and knows to wait for photos to be taken, or to tap "Cancel."
+- (void)updateForAllowingCancelTimer;
+
+// Story: User sees UI and knows she can tap "Start timer."
+- (void)updateForAllowingStartTimer;
 
 // Story: When the user should see the UI in portrait, she does.
 - (void)updateLayoutForPortrait;
@@ -97,7 +106,23 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 
 - (IBAction)cancelTimer {
     
-    NSLog(@"SDPVC cancelTimer not implemented yet");
+    [self.numberOfSecondsToInitiallyWaitTimer invalidate];
+    self.numberOfSecondsToInitiallyWaitTimer = nil;
+    self.numberOfPhotosToTake = 0;
+    [self updateForAllowingStartTimer];
+}
+
+- (void)captureManagerDidTakePhoto:(id)sender
+{
+    NSLog(@"captureManagerDidTakePhoto");
+    [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
+    if (self.numberOfPhotosToTake > 0) {
+        
+        [self takePhoto];
+    } else {
+        
+        [self updateForAllowingStartTimer];
+    }
 }
 
 - (void)dealloc {
@@ -114,20 +139,19 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     // Dispose of any resources that can be recreated.
 }
 
--(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
 
-    NSLog(@"SDPVC image:didFinishSavingWithError called");
-    [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
-    if (self.numberOfPhotosToTake > 0) {
-        
-        [self takePhoto];
-    } else {
-        
-        self.startTimerButton.enabled = YES;
-        self.timerStartedLabel.hidden = YES;
-        self.cancelTimerButton.enabled = NO;
-    }
-}
+//-(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+//
+//    if (self.numberOfPhotosToTake > 0) {
+//        
+//        [self takePhoto];
+//    } else {
+//        
+//        self.startTimerButton.enabled = YES;
+//        self.timerStartedLabel.hidden = YES;
+//        self.cancelTimerButton.enabled = NO;
+//    }
+//}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -214,33 +238,30 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 //    NSLog(@"SDPVC startTakingPhotos called");
     if (self.numberOfPhotosToTake > 0) {
         
+//        [self.captureManager takePhoto];
         [self takePhoto];
     }
 }
 
-- (IBAction)startTimer {
-
-    NSLog(@"SDPVC startTimer called");
-    self.startTimerButton.enabled = NO;
-    self.timerStartedLabel.hidden = NO;
-    self.cancelTimerButton.enabled = YES;
-    
-    // need validator/formatter?
+- (IBAction)startTimer
+{
+//    NSLog(@"SDPVC startTimer called");
+    [self updateForAllowingCancelTimer];
     
     self.numberOfSecondsToInitiallyWait = [self.numberOfSecondsToInitiallyWaitTextField.text floatValue];
     self.numberOfPhotosToTake = [self.numberOfPhotosToTakeTextField.text integerValue];
     
     NSTimeInterval initialWaitTimeInterval = self.numberOfSecondsToInitiallyWait;
-    [NSTimer scheduledTimerWithTimeInterval:initialWaitTimeInterval target:self selector:@selector(startTakingPhotos) userInfo:nil repeats:NO];
-    NSLog(@"SDPVC startTimer finished");
+    NSTimer *aTimer = [NSTimer scheduledTimerWithTimeInterval:initialWaitTimeInterval target:self selector:@selector(startTakingPhotos) userInfo:nil repeats:NO];
+    self.numberOfSecondsToInitiallyWaitTimer = aTimer;
 }
 
 - (void)takePhoto {
     
-    NSLog(@"SDPVC takePhoto called");
+    NSLog(@"TDPVC takePhoto called");
     self.numberOfPhotosToTake -= 1;
-    AVCaptureStillImageOutput *aCaptureStillImageOutput = (AVCaptureStillImageOutput *)self.captureManager.session.outputs[0];
-    AVCaptureConnection *aCaptureConnection = [aCaptureStillImageOutput connectionWithMediaType:AVMediaTypeVideo];
+    
+    [self.captureManager takePhoto];
     
     // Give visual feedback that photo was taken: Flash the screen.
     UIView *aFlashView = [[UIView alloc] initWithFrame:self.videoPreviewView.frame];
@@ -254,24 +275,45 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
         
         [aFlashView removeFromSuperview];
     }];
-    
-    if (aCaptureConnection != nil) {
-        
-        [aCaptureStillImageOutput captureStillImageAsynchronouslyFromConnection:aCaptureConnection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
-            
-            if (imageDataSampleBuffer != NULL) {
-                
-                NSData *theImageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
-                UIImage *theImage = [[UIImage alloc] initWithData:theImageData];
-                UIImageWriteToSavedPhotosAlbum(theImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-            }
-        }];
-    } else {
-        
-        NSLog(@"GGK warning: aCaptureConnection nil");
-        UIImageWriteToSavedPhotosAlbum(nil, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-    }
 }
+
+//- (void)takePhoto {
+//    
+//    NSLog(@"SDPVC takePhoto called");
+//    self.numberOfPhotosToTake -= 1;
+//    AVCaptureStillImageOutput *aCaptureStillImageOutput = (AVCaptureStillImageOutput *)self.captureManager.session.outputs[0];
+//    AVCaptureConnection *aCaptureConnection = [aCaptureStillImageOutput connectionWithMediaType:AVMediaTypeVideo];
+//    
+//    // Give visual feedback that photo was taken: Flash the screen.
+//    UIView *aFlashView = [[UIView alloc] initWithFrame:self.videoPreviewView.frame];
+//    aFlashView.backgroundColor = [UIColor whiteColor];
+//    aFlashView.alpha = 0.8f;
+//    [self.view addSubview:aFlashView];
+//    [UIView animateWithDuration:0.6f animations:^{
+//        
+//        aFlashView.alpha = 0.0f;
+//    } completion:^(BOOL finished) {
+//        
+//        [aFlashView removeFromSuperview];
+//    }];
+//    
+//    if (aCaptureConnection != nil) {
+//        
+//        [aCaptureStillImageOutput captureStillImageAsynchronouslyFromConnection:aCaptureConnection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
+//            
+//            if (imageDataSampleBuffer != NULL) {
+//                
+//                NSData *theImageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
+//                UIImage *theImage = [[UIImage alloc] initWithData:theImageData];
+//                UIImageWriteToSavedPhotosAlbum(theImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+//            }
+//        }];
+//    } else {
+//        
+//        NSLog(@"GGK warning: aCaptureConnection nil");
+//        UIImageWriteToSavedPhotosAlbum(nil, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+//    }
+//}
 
 - (void)textFieldDidBeginEditing:(UITextField *)theTextField {
     
@@ -329,6 +371,31 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     self.activeTextField = nil;
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (void)updateForAllowingCancelTimer
+{
+    self.numberOfSecondsToInitiallyWaitTextField.enabled = NO;
+    self.numberOfPhotosToTakeTextField.enabled = NO;
+    self.numberOfSecondsWaitedLabel.hidden = NO;
+    self.startTimerButton.enabled = NO;
+    self.cancelTimerButton.enabled = YES;
+}
+
+- (void)updateForAllowingStartTimer
+{
+    self.numberOfSecondsToInitiallyWaitTextField.enabled = YES;
+    self.numberOfPhotosToTakeTextField.enabled = YES;
+    self.numberOfSecondsWaitedLabel.hidden = YES;
+    self.numberOfPhotosTakenLabel.hidden = YES;
+    self.startTimerButton.enabled = YES;
+    self.cancelTimerButton.enabled = NO;
+}
+
 - (void)updateLayoutForPortrait
 {
 }
@@ -346,14 +413,11 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     
     // Set up the camera.
     GGKCaptureManager *theCaptureManager = [[GGKCaptureManager alloc] init];
+    theCaptureManager.delegate = self;
     [theCaptureManager setUpSession];
     [theCaptureManager addPreviewLayerToView:self.videoPreviewView];
     [theCaptureManager startSession];
     self.captureManager = theCaptureManager;
-    
-    self.numberOfSecondsWaitedLabel.hidden = YES;
-    self.numberOfPhotosTakenLabel.hidden = YES;
-    self.cancelTimerButton.enabled = NO;
     
     // Observe keyboard notifications to shift the screen up/down appropriately.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -376,6 +440,8 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     self.numberOfPhotosToTakeTextField.text = [numberOfPhotosNumber stringValue];
     
     [self adjustStringsForPlurals];
+    
+    [self updateForAllowingStartTimer];
 }
 
 - (IBAction)viewPhotos {

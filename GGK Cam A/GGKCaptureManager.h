@@ -18,7 +18,16 @@ typedef enum {
     GGKCaptureManagerFocusAndExposureStatusLocked
 } GGKCaptureManagerFocusAndExposureStatus;
 
+@protocol GGKCaptureManagerDelegate
+
+// Sent after a photo was taken and saved (to the camera roll). If a photo couldn't be taken (e.g., no camera), this is still sent.
+- (void)captureManagerDidTakePhoto:(id)sender;
+
+@end
+
 @interface GGKCaptureManager : NSObject
+
+@property (weak, nonatomic) id <GGKCaptureManagerDelegate> delegate;
 
 // The input capture device. I.e., the rear camera.
 @property (nonatomic, strong) AVCaptureDevice *device;
@@ -44,6 +53,9 @@ typedef enum {
 
 // Start the session. Asychronous.
 - (void)startSession;
+
+// Take a photo.
+- (void)takePhoto;
 
 // Return the capture-video orientation that matches the current interface orientation.
 - (AVCaptureVideoOrientation)theCorrectCaptureVideoOrientation;

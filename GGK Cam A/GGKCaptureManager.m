@@ -28,8 +28,11 @@ BOOL GGKDebugCamera = NO;
 // For removing observers.
 - (void)dealloc;
 
-// So, lock the exposure. We don't need to monitor exposure adjustment anymore, so remove the observer.
 - (void)handleExposureLockRequestedAndExposureIsSteady:(NSTimer *)theTimer;
+// So, lock the exposure. We don't need to monitor exposure adjustment anymore, so remove the observer.
+
+- (void)handlePhotoWasTaken;
+// So, notify delegate.
 
 // Story: User taps on object. Focus and exposure auto-adjust and lock there. User taps again in view. Focus and exposure return to continuous. (If the user taps again before both focus and exposure lock, then the new tap will be the POI and both will relock.)
 - (void)handleUserTappedInCameraView:(UITapGestureRecognizer *)theTapGestureRecognizer;
@@ -149,6 +152,11 @@ BOOL GGKDebugCamera = NO;
         // We assume the focus is already locked, or will soon be locked so it won't affect the user.
         self.focusAndExposureStatus = GGKCaptureManagerFocusAndExposureStatusLocked;
     }
+}
+
+- (void)handlePhotoWasTaken
+{
+    [self.delegate captureManagerDidTakePhoto:self];
 }
 
 - (void)handleUserTappedInCameraView:(UITapGestureRecognizer *)theTapGestureRecognizer
@@ -276,6 +284,30 @@ BOOL GGKDebugCamera = NO;
     [anOperationQueue addOperationWithBlock:^{
         [self.session startRunning];
     }];
+}
+
+- (void)takePhoto {
+    
+//    NSLog(@"takePhoto called");
+    AVCaptureStillImageOutput *aCaptureStillImageOutput = (AVCaptureStillImageOutput *)self.session.outputs[0];
+    AVCaptureConnection *aCaptureConnection = [aCaptureStillImageOutput connectionWithMediaType:AVMediaTypeVideo];
+    
+    if (aCaptureConnection != nil) {
+        
+        [aCaptureStillImageOutput captureStillImageAsynchronouslyFromConnection:aCaptureConnection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
+            
+            if (imageDataSampleBuffer != NULL) {
+                
+                NSData *theImageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
+                UIImage *theImage = [[UIImage alloc] initWithData:theImageData];
+                UIImageWriteToSavedPhotosAlbum(theImage, self, @selector(handlePhotoWasTaken), nil);
+            }
+        }];
+    } else {
+        
+        NSLog(@"GGK warning: aCaptureConnection nil");
+        UIImageWriteToSavedPhotosAlbum(nil, self, @selector(handlePhotoWasTaken), nil);
+    }
 }
 
 - (AVCaptureVideoOrientation)theCorrectCaptureVideoOrientation

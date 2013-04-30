@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "GGKCaptureManager.h"
 
 // The default number of photos to take.
 extern const NSInteger GGKTakeDelayedPhotosDefaultNumberOfPhotosInteger;
@@ -20,7 +20,7 @@ extern NSString *GGKTakeDelayedPhotosNumberOfPhotosKeyString;
 // Key for storing the number of seconds to initially wait.
 extern NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString;
 
-@interface GGKTakeDelayedPhotosViewController : UIViewController <UITextFieldDelegate>
+@interface GGKTakeDelayedPhotosViewController : UIViewController <GGKCaptureManagerDelegate, UITextFieldDelegate>
 
 // Tap to see camera roll. This button shows the most-recent photo in the roll. 
 @property (weak, nonatomic) IBOutlet UIButton *cameraRollButton;
@@ -61,6 +61,9 @@ extern NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString;
 // Cancel the timer and don't take any more photos.
 - (IBAction)cancelTimer;
 
+- (void)captureManagerDidTakePhoto:(id)sender;
+// So, show the most-recent photo thumbnail. If more photos to be taken, do that.
+
 // Story: User taps on a button (touch down). User hears a sound, giving her more feedback that she pressed it.
 - (IBAction)playButtonSound;
 
@@ -72,6 +75,9 @@ extern NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString;
 
 - (void)textFieldDidEndEditing:(UITextField *)textField;
 // So, if an invalid value was entered, then use the previous value. Also, note that no text field is being edited now.
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField;
+// So, dismiss the keyboard.
 
 // View camera roll.
 - (IBAction)viewPhotos;

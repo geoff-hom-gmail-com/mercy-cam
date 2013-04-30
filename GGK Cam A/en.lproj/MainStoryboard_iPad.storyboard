@@ -522,7 +522,6 @@ photos</string>
                                 <connections>
                                     <action selector="cancelTimer" destination="2ll-qK-FHt" eventType="touchUpInside" id="QXF-f4-CDD"/>
                                     <action selector="playButtonSound" destination="2ll-qK-FHt" eventType="touchDown" id="C13-P8-sOS"/>
-                                    <action selector="startTimer" destination="2ll-qK-FHt" eventType="touchUpInside" id="y5b-SJ-eTf"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="seconds, then take" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nkc-09-1YZ">
