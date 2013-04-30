@@ -10,12 +10,22 @@
 
 extern BOOL GGKDebugCamera;
 
+// The combined status of the camera's focus and exposure. The assumption is that both are continuously adjusting, both are in the process of locking (one may be locked, and the other may be locking), or both are locked.
+typedef enum {
+    
+    GGKCaptureManagerFocusAndExposureStatusContinuous,
+    GGKCaptureManagerFocusAndExposureStatusLocking,
+    GGKCaptureManagerFocusAndExposureStatusLocked
+} GGKCaptureManagerFocusAndExposureStatus;
+
 @interface GGKCaptureManager : NSObject
 
 // The input capture device. I.e., the rear camera.
-@property (strong, nonatomic) AVCaptureDevice *device;
+@property (nonatomic, strong) AVCaptureDevice *device;
 
-@property (strong, nonatomic) AVCaptureSession *session;
+@property (nonatomic, assign) GGKCaptureManagerFocusAndExposureStatus focusAndExposureStatus;
+
+@property (nonatomic, strong) AVCaptureSession *session;
 
 // Add a video preview, with tap-to-focus, to the given view.
 - (void)addPreviewLayerToView:(UIView *)theView;

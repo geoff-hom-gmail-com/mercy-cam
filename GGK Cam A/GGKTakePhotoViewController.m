@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-//#import <AssetsLibrary/AssetsLibrary.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "GGKCaptureManager.h"
 #import "GGKSavedPhotosManager.h"
@@ -85,17 +84,15 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
 
 - (void)dealloc
 {
-//    NSLog(@"TPVC dealloc");
     [self.captureManager.session stopRunning];
-    [self removeObserver:self forKeyPath:@"captureManager.device.focusMode"];
-    [self removeObserver:self forKeyPath:@"captureManager.device.exposureMode"];
+    [self removeObserver:self forKeyPath:@"captureManager.focusAndExposureStatus"];
     
     if (GGKDebugCamera) {
         
         if (self.captureManager.device != nil) {
             
-//            [self removeObserver:self forKeyPath:@"captureManager.device.focusMode"];
-//            [self removeObserver:self forKeyPath:@"captureManager.device.exposureMode"];
+            [self removeObserver:self forKeyPath:@"captureManager.device.focusMode"];
+            [self removeObserver:self forKeyPath:@"captureManager.device.exposureMode"];
             [self removeObserver:self forKeyPath:@"captureManager.device.whiteBalanceMode"];
             [self removeObserver:self forKeyPath:@"captureManager.device.focusPointOfInterest"];
             [self removeObserver:self forKeyPath:@"captureManager.device.exposurePointOfInterest"];
@@ -146,17 +143,27 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
         }
     }
     
-    if ([theKeyPath isEqualToString:@"captureManager.device.focusMode"] ||
-        [theKeyPath isEqualToString:@"captureManager.device.exposureMode"]) {
+    if ([theKeyPath isEqualToString:@"captureManager.focusAndExposureStatus"]) {
         
-        AVCaptureDevice *aCaptureDevice = self.captureManager.device;
-        if (aCaptureDevice.focusMode == AVCaptureFocusModeLocked && aCaptureDevice.exposureMode == AVCaptureExposureModeLocked) {
-            
-            self.tipLabel.text = ToUnlockFocusTipString;
-        } else {
-            
-            self.tipLabel.text = ToFocusTipString;
+        NSString *aString = @"";
+        switch (self.captureManager.focusAndExposureStatus) {
+                
+            case GGKCaptureManagerFocusAndExposureStatusContinuous:
+                aString = ToFocusTipString;
+                break;
+                
+            case GGKCaptureManagerFocusAndExposureStatusLocking:
+                aString = @"Focusing…";
+                break;
+                
+            case GGKCaptureManagerFocusAndExposureStatusLocked:
+                aString = ToUnlockFocusTipString;
+                break;
+                
+            default:
+                break;
         }
+        self.tipLabel.text = aString;
     } else if (!wasHandledSeparately) {
         
         [super observeValueForKeyPath:theKeyPath ofObject:object change:change context:context];
@@ -386,17 +393,15 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
     self.savedPhotosManager = [[GGKSavedPhotosManager alloc] init];
     [self updateLayoutForPortrait];
     
+    // Report focus (and exposure) status in real time.
+    [self addObserver:self forKeyPath:@"captureManager.focusAndExposureStatus" options:NSKeyValueObservingOptionNew context:nil];
+    
     // Set up the camera.
     GGKCaptureManager *theCaptureManager = [[GGKCaptureManager alloc] init];
     [theCaptureManager setUpSession];
     [theCaptureManager addPreviewLayerToView:self.videoPreviewView];
     [theCaptureManager startSession];
     self.captureManager = theCaptureManager;
-    
-    // Set up the tip label.
-    self.tipLabel.text = ToFocusTipString;
-    [self addObserver:self forKeyPath:@"captureManager.device.focusMode" options:NSKeyValueObservingOptionNew context:nil];
-    [self addObserver:self forKeyPath:@"captureManager.device.exposureMode" options:NSKeyValueObservingOptionNew context:nil];
     
     // If not debugging, hide those labels. (They're shown by default so we can see them in the storyboard.) If debugging, set up KVO.
     if (!GGKDebugCamera) {
@@ -416,8 +421,8 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
             [self updateCameraDebugLabels];
             
             // Tried adding observer to self.captureManager.device, but it didn't work.
-//            [self addObserver:self forKeyPath:@"captureManager.device.focusMode" options:NSKeyValueObservingOptionNew context:nil];
-//            [self addObserver:self forKeyPath:@"captureManager.device.exposureMode" options:NSKeyValueObservingOptionNew context:nil];
+            [self addObserver:self forKeyPath:@"captureManager.device.focusMode" options:NSKeyValueObservingOptionNew context:nil];
+            [self addObserver:self forKeyPath:@"captureManager.device.exposureMode" options:NSKeyValueObservingOptionNew context:nil];
             [self addObserver:self forKeyPath:@"captureManager.device.whiteBalanceMode" options:NSKeyValueObservingOptionNew context:nil];
             [self addObserver:self forKeyPath:@"captureManager.device.focusPointOfInterest" options:NSKeyValueObservingOptionNew context:nil];
             [self addObserver:self forKeyPath:@"captureManager.device.exposurePointOfInterest" options:NSKeyValueObservingOptionNew context:nil];

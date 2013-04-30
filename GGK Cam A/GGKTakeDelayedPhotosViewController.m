@@ -55,6 +55,9 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 - (void)keyboardWillShow:(NSNotification *)theNotification;
 // So, shift the view up, if necessary.
 
+// KVO. Story: User can see when the focus/exposure is locked.
+- (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
+
 // Start taking photos, immediately.
 - (void)startTakingPhotos;
 
@@ -100,8 +103,7 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 - (void)dealloc {
     
     [self.captureManager.session stopRunning];
-    [self removeObserver:self forKeyPath:@"captureManager.device.focusMode"];
-    [self removeObserver:self forKeyPath:@"captureManager.device.exposureMode"];
+    [self removeObserver:self forKeyPath:@"captureManager.focusAndExposureStatus"];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
@@ -171,6 +173,35 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
             self.view.frame = newFrame;
         }];
     } 
+}
+
+- (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([theKeyPath isEqualToString:@"captureManager.focusAndExposureStatus"]) {
+        
+        NSString *aString = @"";
+        switch (self.captureManager.focusAndExposureStatus) {
+                
+            case GGKCaptureManagerFocusAndExposureStatusContinuous:
+                aString = @"Continuous";
+                break;
+                
+            case GGKCaptureManagerFocusAndExposureStatusLocking:
+                aString = @"Locking…";
+                break;
+                
+            case GGKCaptureManagerFocusAndExposureStatusLocked:
+                aString = @"Locked";
+                break;
+                
+            default:
+                break;
+        }
+        self.focusLabel.text = [NSString stringWithFormat:@"Focus:\n  %@", aString];
+    } else {
+        
+        [super observeValueForKeyPath:theKeyPath ofObject:object change:change context:context];
+    }
 }
 
 - (IBAction)playButtonSound
@@ -310,6 +341,9 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     self.savedPhotosManager = [[GGKSavedPhotosManager alloc] init];
     [self updateLayoutForPortrait];
     
+    // Report focus (and exposure) status in real time.
+    [self addObserver:self forKeyPath:@"captureManager.focusAndExposureStatus" options:NSKeyValueObservingOptionNew context:nil];
+    
     // Set up the camera.
     GGKCaptureManager *theCaptureManager = [[GGKCaptureManager alloc] init];
     [theCaptureManager setUpSession];
@@ -317,12 +351,8 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     [theCaptureManager startSession];
     self.captureManager = theCaptureManager;
     
-    // Set up the focusing label. Though we report only focus mode, we actually lock both focus and exposure.
-    self.focusLabel.text = @"Focus:\n  Continuous";
-    [self addObserver:self forKeyPath:@"captureManager.device.focusMode" options:NSKeyValueObservingOptionNew context:nil];
-    [self addObserver:self forKeyPath:@"captureManager.device.exposureMode" options:NSKeyValueObservingOptionNew context:nil];
-    
-    self.timerStartedLabel.hidden = YES;
+    self.numberOfSecondsWaitedLabel.hidden = YES;
+    self.numberOfPhotosTakenLabel.hidden = YES;
     self.cancelTimerButton.enabled = NO;
     
     // Observe keyboard notifications to shift the screen up/down appropriately.

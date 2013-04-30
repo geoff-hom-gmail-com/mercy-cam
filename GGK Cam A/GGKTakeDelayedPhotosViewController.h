@@ -31,11 +31,17 @@ extern NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString;
 // For displaying when the focus is continuous or locked. (Displays "locked" only when both focus and exposure are locked. Otherwise, displays "continuous" or "locking.")
 @property (nonatomic, strong) IBOutlet UILabel *focusLabel;
 
+// Story: User taps "Start timer." User sees label below appear and increment with each photo taken. User implicitly understands when photos are taken, how many photos remain, and how long it will take.
+@property (nonatomic, weak) IBOutlet UILabel *numberOfPhotosTakenLabel;
+
 // Number of photos to take for a given tap of the shutter button.
 @property (weak, nonatomic) IBOutlet UITextField *numberOfPhotosToTakeTextField;
 
 // Number of seconds to wait before taking the first photo.
 @property (weak, nonatomic) IBOutlet UITextField *numberOfSecondsToInitiallyWaitTextField;
+
+// Story: User taps "Start timer." User sees label below appear and increment with each second. User implicitly understands that the timer has started and when the first photo will be taken.
+@property (nonatomic, weak) IBOutlet UILabel *numberOfSecondsWaitedLabel;
 
 // In "Wait X seconds, then take Y photos," it's "photos." But may be singular or plural.
 @property (weak, nonatomic) IBOutlet UILabel *photosLabel;

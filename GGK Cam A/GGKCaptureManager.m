@@ -105,12 +105,14 @@ BOOL GGKDebugCamera = NO;
         if ([self.device isExposureModeSupported:AVCaptureExposureModeAutoExpose]) {
             
             self.device.exposureMode = AVCaptureExposureModeAutoExpose;
+            self.focusAndExposureStatus = GGKCaptureManagerFocusAndExposureStatusLocked;
         } else {
             
             // We lock the exposure, then add the observer. This way, device.adjustingExposure will start as NO, and the first trigger will be on YES.
             self.device.exposureMode = AVCaptureExposureModeLocked;
             [self addAdjustingExposureObserver];
             self.device.exposureMode = AVCaptureExposureModeContinuousAutoExposure;
+            self.focusAndExposureStatus = GGKCaptureManagerFocusAndExposureStatusLocking;
         }
         
         // Not changing white balance in this release.
@@ -143,6 +145,9 @@ BOOL GGKDebugCamera = NO;
         }
         
         [self.device unlockForConfiguration];
+        
+        // We assume the focus is already locked, or will soon be locked so it won't affect the user.
+        self.focusAndExposureStatus = GGKCaptureManagerFocusAndExposureStatusLocked;
     }
 }
 
@@ -234,6 +239,7 @@ BOOL GGKDebugCamera = NO;
         
         [aCaptureSession addInput:aCameraCaptureDeviceInput];
         self.device = aCameraCaptureDeviceInput.device;
+        self.focusAndExposureStatus = GGKCaptureManagerFocusAndExposureStatusContinuous;
         
 //        NSLog(@"CM sUS: capture-device model ID: %@", self.device.modelID);
         NSLog(@"CM sUS: capture-device localized name: %@", self.device.localizedName);
@@ -306,6 +312,7 @@ BOOL GGKDebugCamera = NO;
         self.device.exposureMode = AVCaptureExposureModeContinuousAutoExposure;
         self.device.whiteBalanceMode = AVCaptureWhiteBalanceModeContinuousAutoWhiteBalance;
         [self.device unlockForConfiguration];
+        self.focusAndExposureStatus = GGKCaptureManagerFocusAndExposureStatusContinuous;
     }
 }
 

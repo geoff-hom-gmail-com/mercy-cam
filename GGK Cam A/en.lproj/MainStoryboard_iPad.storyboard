@@ -478,6 +478,7 @@ timer</string>
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="playButtonSound" destination="2ll-qK-FHt" eventType="touchDown" id="CED-77-WiB"/>
                                     <action selector="startTimer" destination="2ll-qK-FHt" eventType="touchUpInside" id="CDX-x5-bg1"/>
                                 </connections>
                             </button>
@@ -500,6 +501,7 @@ photos</string>
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="playButtonSound" destination="2ll-qK-FHt" eventType="touchDown" id="ncm-bk-UJx"/>
                                     <action selector="viewPhotos" destination="2ll-qK-FHt" eventType="touchUpInside" id="MoK-8d-fsr"/>
                                 </connections>
                             </button>
@@ -519,6 +521,7 @@ photos</string>
                                 </state>
                                 <connections>
                                     <action selector="cancelTimer" destination="2ll-qK-FHt" eventType="touchUpInside" id="QXF-f4-CDD"/>
+                                    <action selector="playButtonSound" destination="2ll-qK-FHt" eventType="touchDown" id="C13-P8-sOS"/>
                                     <action selector="startTimer" destination="2ll-qK-FHt" eventType="touchUpInside" id="y5b-SJ-eTf"/>
                                 </connections>
                             </button>
@@ -536,6 +539,7 @@ photos</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                 <connections>
+                                    <action selector="playButtonSound" destination="2ll-qK-FHt" eventType="touchDown" id="5vl-JD-Hdm"/>
                                     <outlet property="delegate" destination="2ll-qK-FHt" id="X22-yP-f4V"/>
                                 </connections>
                             </textField>
@@ -553,6 +557,7 @@ photos</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                 <connections>
+                                    <action selector="playButtonSound" destination="2ll-qK-FHt" eventType="touchDown" id="wtX-7W-7z8"/>
                                     <outlet property="delegate" destination="2ll-qK-FHt" id="EGD-ET-fpa"/>
                                 </connections>
                             </textField>
@@ -596,8 +601,10 @@ photos</string>
                         <outlet property="cameraRollButton" destination="ASC-Mi-8aD" id="xoE-QY-Wiz"/>
                         <outlet property="cancelTimerButton" destination="5Qx-RQ-TiL" id="Gyb-ii-ZA8"/>
                         <outlet property="focusLabel" destination="3Qa-B5-2Rd" id="ToD-Xq-JkB"/>
+                        <outlet property="numberOfPhotosTakenLabel" destination="bJN-Lv-qeG" id="Djl-ur-jSF"/>
                         <outlet property="numberOfPhotosToTakeTextField" destination="OxC-nq-duy" id="ibR-lg-kPx"/>
                         <outlet property="numberOfSecondsToInitiallyWaitTextField" destination="cLP-P2-6Vg" id="wp6-0S-L8x"/>
+                        <outlet property="numberOfSecondsWaitedLabel" destination="Utp-CL-D4q" id="JGw-sD-erf"/>
                         <outlet property="photosLabel" destination="DRY-lJ-Icz" id="ODw-gr-md8"/>
                         <outlet property="secondsLabel" destination="nkc-09-1YZ" id="o25-lh-fnE"/>
                         <outlet property="startTimerButton" destination="jJL-aE-Vqa" id="hhm-nD-8Hh"/>
@@ -814,8 +821,10 @@ photos</string>
                 <relationship kind="outlet" name="cameraRollButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="cancelTimerButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="focusLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="numberOfPhotosTakenLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="numberOfPhotosToTakeTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="numberOfSecondsToInitiallyWaitTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="numberOfSecondsWaitedLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="photosLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="secondsLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="startTimerButton" candidateClass="UIButton"/>
