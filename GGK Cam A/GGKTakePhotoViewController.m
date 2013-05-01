@@ -44,9 +44,6 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
 // UIViewController override. For stopping the capture session. And removing observers.
 - (void)dealloc;
 
--(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
-// So, update the image in the button for showing the camera roll. If another photo is supposed to be taken, do it.
-
 // KVO. We want to see the camera's status in real-time.
 - (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
 
@@ -82,6 +79,12 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
     self.isShowingLandscapeView = NO;
 }
 
+- (void)captureManagerDidTakePhoto:(id)sender
+{
+    //    NSLog(@"captureManagerDidTakePhoto");
+    [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
+}
+
 - (void)dealloc
 {
     [self.captureManager.session stopRunning];
@@ -107,11 +110,6 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
--(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
-{
-    [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -176,10 +174,8 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
 }
 
 - (IBAction)takePhoto
-{
-    NSLog(@"SDPVC takePhoto called");
-    AVCaptureStillImageOutput *aCaptureStillImageOutput = (AVCaptureStillImageOutput *)self.captureManager.session.outputs[0];
-    AVCaptureConnection *aCaptureConnection = [aCaptureStillImageOutput connectionWithMediaType:AVMediaTypeVideo];
+{    
+    [self.captureManager takePhoto];
     
     // Give visual feedback that photo was taken: Flash the screen.
     UIView *aFlashView = [[UIView alloc] initWithFrame:self.videoPreviewView.frame];
@@ -193,25 +189,6 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
         
         [aFlashView removeFromSuperview];
     }];
-    
-    if (aCaptureConnection != nil) {
-        
-        aCaptureConnection.videoOrientation = [self.captureManager theCorrectCaptureVideoOrientation];
-        
-        [aCaptureStillImageOutput captureStillImageAsynchronouslyFromConnection:aCaptureConnection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
-            
-            if (imageDataSampleBuffer != NULL) {
-                
-                NSData *theImageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
-                UIImage *theImage = [[UIImage alloc] initWithData:theImageData];
-                UIImageWriteToSavedPhotosAlbum(theImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-            }
-        }];
-    } else {
-        
-        NSLog(@"GGK warning: aCaptureConnection nil");
-        UIImageWriteToSavedPhotosAlbum(nil, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-    }
 }
 
 - (void)updateCameraDebugLabels
@@ -398,6 +375,7 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
     
     // Set up the camera.
     GGKCaptureManager *theCaptureManager = [[GGKCaptureManager alloc] init];
+    theCaptureManager.delegate = self;
     [theCaptureManager setUpSession];
     [theCaptureManager addPreviewLayerToView:self.videoPreviewView];
     [theCaptureManager startSession];

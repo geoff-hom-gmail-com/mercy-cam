@@ -6,8 +6,7 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import <AssetsLibrary/AssetsLibrary.h>
-//#import <AVFoundation/AVFoundation.h>
+//#import <AssetsLibrary/AssetsLibrary.h>
 #import "GGKCaptureManager.h"
 #import "GGKSavedPhotosManager.h"
 #import "GGKTakeDelayedPhotosViewController.h"
@@ -51,9 +50,6 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 
 // So, show the user how many seconds have passed. If enough have passed, start taking photos.
 - (void)handleOneSecondTimerFired;
-
-//-(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
-// So, update the image in the button for showing the camera roll. If another photo is supposed to be taken, do it.
 
 - (void)keyboardWillHide:(NSNotification *)theNotification;
 // So, shift the view back to normal.
@@ -117,7 +113,7 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 
 - (void)captureManagerDidTakePhoto:(id)sender
 {
-    NSLog(@"captureManagerDidTakePhoto");
+//    NSLog(@"captureManagerDidTakePhoto");
     [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
     if (self.numberOfPhotosToTake > 0) {
         
@@ -153,20 +149,6 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
         [self startTakingPhotos];
     }
 }
-
-
-//-(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-//
-//    if (self.numberOfPhotosToTake > 0) {
-//        
-//        [self takePhoto];
-//    } else {
-//        
-//        self.startTimerButton.enabled = YES;
-//        self.timerStartedLabel.hidden = YES;
-//        self.cancelTimerButton.enabled = NO;
-//    }
-//}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -273,12 +255,22 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     }
 }
 
-- (void)takePhoto {
-    
-    NSLog(@"TDPVC takePhoto called");
+- (void)takePhoto
+{    
+//    NSLog(@"TDPVC takePhoto called");
     self.numberOfPhotosToTake -= 1;
     
+    [self playButtonSound];
     [self.captureManager takePhoto];
+    
+    // Show number of photos taken.
+    if (self.numberOfPhotosTakenLabel.hidden) {
+        
+        self.numberOfPhotosTakenLabel.text = @"0";
+        self.numberOfPhotosTakenLabel.hidden = NO;
+    }
+    NSNumber *theNumberOfPhotosTakenNumber = @([self.numberOfPhotosTakenLabel.text integerValue] + 1);
+    self.numberOfPhotosTakenLabel.text = [theNumberOfPhotosTakenNumber stringValue];
     
     // Give visual feedback that photo was taken: Flash the screen.
     UIView *aFlashView = [[UIView alloc] initWithFrame:self.videoPreviewView.frame];
@@ -293,44 +285,6 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
         [aFlashView removeFromSuperview];
     }];
 }
-
-//- (void)takePhoto {
-//    
-//    NSLog(@"SDPVC takePhoto called");
-//    self.numberOfPhotosToTake -= 1;
-//    AVCaptureStillImageOutput *aCaptureStillImageOutput = (AVCaptureStillImageOutput *)self.captureManager.session.outputs[0];
-//    AVCaptureConnection *aCaptureConnection = [aCaptureStillImageOutput connectionWithMediaType:AVMediaTypeVideo];
-//    
-//    // Give visual feedback that photo was taken: Flash the screen.
-//    UIView *aFlashView = [[UIView alloc] initWithFrame:self.videoPreviewView.frame];
-//    aFlashView.backgroundColor = [UIColor whiteColor];
-//    aFlashView.alpha = 0.8f;
-//    [self.view addSubview:aFlashView];
-//    [UIView animateWithDuration:0.6f animations:^{
-//        
-//        aFlashView.alpha = 0.0f;
-//    } completion:^(BOOL finished) {
-//        
-//        [aFlashView removeFromSuperview];
-//    }];
-//    
-//    if (aCaptureConnection != nil) {
-//        
-//        [aCaptureStillImageOutput captureStillImageAsynchronouslyFromConnection:aCaptureConnection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
-//            
-//            if (imageDataSampleBuffer != NULL) {
-//                
-//                NSData *theImageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
-//                UIImage *theImage = [[UIImage alloc] initWithData:theImageData];
-//                UIImageWriteToSavedPhotosAlbum(theImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-//            }
-//        }];
-//    } else {
-//        
-//        NSLog(@"GGK warning: aCaptureConnection nil");
-//        UIImageWriteToSavedPhotosAlbum(nil, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-//    }
-//}
 
 - (void)textFieldDidBeginEditing:(UITextField *)theTextField {
     
@@ -363,7 +317,7 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
         theKey = GGKTakeDelayedPhotosNumberOfPhotosKeyString;
         okayValue = @([theTextField.text integerValue]);
         
-        // number of photos should be from 1 to 99
+        // The number of photos should be from 1 to 99. If not, fix.
         NSInteger okayValueInteger = [okayValue integerValue];
         if (okayValueInteger < 1) {
             
@@ -417,8 +371,8 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 {
 }
 
-- (void)viewDidLoad {
-    
+- (void)viewDidLoad
+{    
     [super viewDidLoad];
     
     self.soundModel = [[GGKSoundModel alloc] init];
@@ -461,8 +415,8 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     [self updateForAllowingStartTimer];
 }
 
-- (IBAction)viewPhotos {
-    
+- (IBAction)viewPhotos
+{    
     NSLog(@"viewPhotos called");
 }
 

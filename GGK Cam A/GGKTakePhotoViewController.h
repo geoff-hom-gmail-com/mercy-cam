@@ -6,7 +6,9 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-@interface GGKTakePhotoViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+#import "GGKCaptureManager.h"
+
+@interface GGKTakePhotoViewController : UIViewController <GGKCaptureManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 // Tap to see camera roll. This button is labeled with the most-recent photo in the roll.
 @property (weak, nonatomic) IBOutlet UIButton *cameraRollButton;
@@ -43,6 +45,9 @@
 
 // (For testing.) Report whether currently white balancing.
 @property (strong, nonatomic) IBOutlet UILabel *whiteBalancingLabel;
+
+- (void)captureManagerDidTakePhoto:(id)sender;
+// So, show the most-recent photo thumbnail.
 
 // Story: User taps on a button (touch down). User hears a sound, giving her more feedback that she pressed it.
 - (IBAction)playButtonSound;
