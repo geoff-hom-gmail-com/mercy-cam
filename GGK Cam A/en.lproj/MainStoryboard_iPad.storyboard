@@ -279,6 +279,7 @@ with 324 hours between each photo."</string>
                                 </state>
                                 <connections>
                                     <action selector="playButtonSound" destination="2" eventType="touchDown" id="yH0-CB-ThL"/>
+                                    <action selector="rateOrReview" destination="2" eventType="touchUpInside" id="MTM-jL-HLV"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -964,6 +965,67 @@ photos</string>
             <point key="canvasLocation" x="2457" y="1126"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="GGKMercyCameraViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKMercyCameraViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="playButtonSound"/>
+                <relationship kind="action" name="rateOrReview"/>
+                <relationship kind="outlet" name="exampleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="helpTheCreatorsButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="hiLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="rateThisAppButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="takeAPhotoButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="takeAPhotoExampleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="takeAdvancedDelayedPhotosButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="takeAdvancedDelayedPhotosExampleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="takeDelayedPhotosButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="takeDelayedPhotosExampleLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="GGKTakeDelayedPhotosViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKTakeDelayedPhotosViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelTimer"/>
+                <relationship kind="action" name="playButtonSound"/>
+                <relationship kind="action" name="startTimer"/>
+                <relationship kind="action" name="viewPhotos"/>
+                <relationship kind="outlet" name="cameraRollButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="cancelTimerButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="focusLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="numberOfPhotosTakenLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="numberOfPhotosToTakeTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="numberOfSecondsToInitiallyWaitTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="numberOfSecondsWaitedLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="photosLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="secondsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="startTimerButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="timerStartedLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="videoPreviewView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="waitLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="GGKTakePhotoViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKTakePhotoViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="playButtonSound"/>
+                <relationship kind="action" name="takePhoto"/>
+                <relationship kind="action" name="viewPhotos"/>
+                <relationship kind="outlet" name="cameraRollButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="exposingLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="exposureModeLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="exposurePointOfInterestLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="focusModeLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="focusPointOfInterestLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="focusingLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="takePhotoButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="tipLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="videoPreviewView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="whiteBalanceModeLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="whiteBalancingLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
