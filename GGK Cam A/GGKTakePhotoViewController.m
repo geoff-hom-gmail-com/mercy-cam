@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import <MobileCoreServices/MobileCoreServices.h>
 #import "GGKCaptureManager.h"
 #import "GGKSavedPhotosManager.h"
 #import "GGKTakePhotoViewController.h"
@@ -31,9 +30,6 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
 
 // For working with photos in the camera roll.
 @property (nonatomic, strong) GGKSavedPhotosManager *savedPhotosManager;
-
-// For retaining the popover and its content view controller.
-@property (strong, nonatomic) UIPopoverController *savedPhotosPopoverController;
 
 // For playing sound.
 @property (strong, nonatomic) GGKSoundModel *soundModel;
@@ -413,20 +409,7 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
 
 - (IBAction)viewPhotos
 {
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]) {
-        
-        // UIImagePickerController browser on iPad must be presented in a popover.
-        
-        UIImagePickerController *anImagePickerController = [[UIImagePickerController alloc] init];
-        anImagePickerController.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-        anImagePickerController.mediaTypes = @[(NSString *)kUTTypeImage];
-        anImagePickerController.delegate = self;
-        anImagePickerController.allowsEditing = NO;
-        
-        UIPopoverController *aPopoverController = [[UIPopoverController alloc] initWithContentViewController:anImagePickerController];
-        [aPopoverController presentPopoverFromRect:self.cameraRollButton.bounds inView:self.cameraRollButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-        self.savedPhotosPopoverController = aPopoverController;
-    }
+    [self.savedPhotosManager viewPhotosViaButton:self.cameraRollButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated

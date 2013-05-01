@@ -8,6 +8,7 @@
 
 #import "GGKCaptureManager.h"
 
+// Not using UIImagePickerControllerDelegate now, but may if we let the user do more than view thumbnails.
 @interface GGKTakePhotoViewController : UIViewController <GGKCaptureManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 // Tap to see camera roll. This button is labeled with the most-recent photo in the roll.
@@ -57,6 +58,8 @@
 
 // Story: User took photos. User viewed photos. User decided to delete some photos.
 // So, let the user view the taken photos and (optionally) remove them.
+// (Oops: Can't delete saved photos like in Apple's camera app. Apple doesn't allow.)
+// New story: User took photos. User can check thumbnails quickly. Would probably like to tap a thumbnail and see a larger view. Can tap "Back" in popover to see thumbnails again.
 - (IBAction)viewPhotos;
 
 @end

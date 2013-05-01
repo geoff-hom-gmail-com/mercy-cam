@@ -247,7 +247,9 @@ BOOL GGKDebugCamera = NO;
         
         [aCaptureSession addInput:aCameraCaptureDeviceInput];
         self.device = aCameraCaptureDeviceInput.device;
-        self.focusAndExposureStatus = GGKCaptureManagerFocusAndExposureStatusContinuous;
+        
+        // Make sure the device has the default settings.
+        [self unlockFocus];
         
 //        NSLog(@"CM sUS: capture-device model ID: %@", self.device.modelID);
         NSLog(@"CM sUS: capture-device localized name: %@", self.device.localizedName);
@@ -288,11 +290,13 @@ BOOL GGKDebugCamera = NO;
 
 - (void)takePhoto {
     
-    NSLog(@"CM takePhoto called");
+//    NSLog(@"CM takePhoto called");
     AVCaptureStillImageOutput *aCaptureStillImageOutput = (AVCaptureStillImageOutput *)self.session.outputs[0];
     AVCaptureConnection *aCaptureConnection = [aCaptureStillImageOutput connectionWithMediaType:AVMediaTypeVideo];
     
     if (aCaptureConnection != nil) {
+        
+        aCaptureConnection.videoOrientation = [self theCorrectCaptureVideoOrientation];
         
         [aCaptureStillImageOutput captureStillImageAsynchronouslyFromConnection:aCaptureConnection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
             

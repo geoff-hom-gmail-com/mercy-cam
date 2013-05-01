@@ -13,4 +13,7 @@
 // Show most-recent photo from camera roll on the given button.
 - (void)showMostRecentPhotoOnButton:(UIButton *)theButton;
 
+// Show the camera roll in a popover presented from the given button.
+- (void)viewPhotosViaButton:(UIButton *)theButton;
+
 @end

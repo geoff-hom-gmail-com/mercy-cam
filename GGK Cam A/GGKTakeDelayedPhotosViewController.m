@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-//#import <AssetsLibrary/AssetsLibrary.h>
 #import "GGKCaptureManager.h"
 #import "GGKSavedPhotosManager.h"
 #import "GGKTakeDelayedPhotosViewController.h"
@@ -30,6 +29,10 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 // For creating the session and managing the capture device.
 @property (nonatomic, strong) GGKCaptureManager *captureManager;
 
+// Story: The overall orientation (device/status-bar) is checked against the orientation of this app's UI. The user sees the UI in the correct orientation.
+// Whether the landscape view is currently showing.
+@property (nonatomic, assign) BOOL isShowingLandscapeView;
+
 // Number of photos to take for a given push of the shutter.
 @property (nonatomic, assign) NSInteger numberOfPhotosToTake;
 
@@ -47,6 +50,9 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 
 // Adjust "Wait X seconds, then take Y photos," for whether the values are singular or plural.
 - (void)adjustStringsForPlurals;
+
+// UIViewController override.
+- (void)awakeFromNib;
 
 // So, show the user how many seconds have passed. If enough have passed, start taking photos.
 - (void)handleOneSecondTimerFired;
@@ -69,6 +75,9 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 // Story: User sees UI and knows she can tap "Start timer."
 - (void)updateForAllowingStartTimer;
 
+// Story: When the user should see the UI in landscape, she does.
+- (void)updateLayoutForLandscape;
+
 // Story: When the user should see the UI in portrait, she does.
 - (void)updateLayoutForPortrait;
 
@@ -79,6 +88,10 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 
 // UIViewController override. Undo anything from -viewWillAppear:.
 - (void)viewWillDisappear:(BOOL)animated;
+
+// UIViewController override.
+// Story: Whether user rotates device in the app, or from the home screen, this method will be called. User sees UI in correct orientation.
+- (void)viewWillLayoutSubviews;
 
 @end
 
@@ -101,6 +114,13 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
         aPhotosString = @"photo";
     }
     self.photosLabel.text = [NSString stringWithFormat:@"%@.", aPhotosString];
+}
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    self.isShowingLandscapeView = NO;
 }
 
 - (IBAction)cancelTimer {
@@ -367,8 +387,40 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     self.cancelTimerButton.enabled = NO;
 }
 
+- (void)updateLayoutForLandscape
+{
+    CGPoint aPoint = self.videoPreviewView.frame.origin;
+    self.videoPreviewView.frame = CGRectMake(aPoint.x, aPoint.y, 804, 603);
+    [self.captureManager correctThePreviewOrientation:self.videoPreviewView];
+    
+    self.focusLabel.font = [UIFont boldSystemFontOfSize:17.0];
+    self.focusLabel.frame = CGRectMake(765, 8, 113, 50);
+    
+    CGFloat anX1 = 886;
+    CGFloat aWidth = 130;
+    self.startTimerButton.frame = CGRectMake(anX1, 8, aWidth, 451);
+    
+    self.cancelTimerButton.frame = CGRectMake(916, 466, 100, 60);
+    
+    self.cameraRollButton.frame = CGRectMake(anX1, 566, aWidth, aWidth);
+}
+
 - (void)updateLayoutForPortrait
 {
+    CGPoint aPoint = self.videoPreviewView.frame.origin;
+    self.videoPreviewView.frame = CGRectMake(aPoint.x, aPoint.y, 644, 859);
+    [self.captureManager correctThePreviewOrientation:self.videoPreviewView];
+    
+    self.focusLabel.font = [UIFont boldSystemFontOfSize:15.0];
+    self.focusLabel.frame = CGRectMake(659, 8, 94, 38);
+    
+    CGFloat anX1 = 652;
+    CGFloat aWidth = 108;
+    self.startTimerButton.frame = CGRectMake(anX1, 54, aWidth, 674);
+    
+    self.cancelTimerButton.frame = CGRectMake(672, 735, 88, 60);
+    
+    self.cameraRollButton.frame = CGRectMake(anX1, 844, aWidth, aWidth);
 }
 
 - (void)viewDidLoad
@@ -417,7 +469,7 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 
 - (IBAction)viewPhotos
 {    
-    NSLog(@"viewPhotos called");
+    [self.savedPhotosManager viewPhotosViaButton:self.cameraRollButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -442,6 +494,23 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     if (self.appWillEnterForegroundObserver != nil) {
         
         [[NSNotificationCenter defaultCenter] removeObserver:self.appWillEnterForegroundObserver name:UIApplicationWillEnterForegroundNotification object:nil];
+    }
+}
+
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    
+    // Using status-bar orientation, not device orientation. Seems to work.
+    UIInterfaceOrientation theInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
+    if (UIInterfaceOrientationIsLandscape(theInterfaceOrientation) && !self.isShowingLandscapeView) {
+        
+        [self updateLayoutForLandscape];
+        self.isShowingLandscapeView = YES;
+    } else if (UIInterfaceOrientationIsPortrait(theInterfaceOrientation) && self.isShowingLandscapeView) {
+        
+        [self updateLayoutForPortrait];
+        self.isShowingLandscapeView = NO;
     }
 }
 

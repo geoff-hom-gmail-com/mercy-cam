@@ -7,7 +7,15 @@
 //
 
 #import <AssetsLibrary/AssetsLibrary.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 #import "GGKSavedPhotosManager.h"
+
+@interface GGKSavedPhotosManager ()
+
+// For retaining the popover and its content view controller.
+@property (nonatomic, strong) UIPopoverController *savedPhotosPopoverController;
+
+@end
 
 @implementation GGKSavedPhotosManager
 
@@ -60,6 +68,24 @@
         
         NSLog(@"Warning: Couldn't see saved photos.");
     }];
+}
+
+- (void)viewPhotosViaButton:(UIButton *)theButton
+{
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]) {
+        
+        // UIImagePickerController browser on iPad must be presented in a popover.
+        
+        UIImagePickerController *anImagePickerController = [[UIImagePickerController alloc] init];
+        anImagePickerController.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+        anImagePickerController.mediaTypes = @[(NSString *)kUTTypeImage];
+//        anImagePickerController.delegate = self;
+        anImagePickerController.allowsEditing = NO;
+        
+        UIPopoverController *aPopoverController = [[UIPopoverController alloc] initWithContentViewController:anImagePickerController];
+        [aPopoverController presentPopoverFromRect:theButton.bounds inView:theButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        self.savedPhotosPopoverController = aPopoverController;
+    }
 }
 
 @end
