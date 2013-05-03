@@ -30,6 +30,8 @@
 		93B7765F171B5B24009CB475 /* GGKCaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B7765E171B5B24009CB475 /* GGKCaptureManager.m */; };
 		93B77661171E09E4009CB475 /* GGKMercyCameraDescription.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 93B77660171E09E4009CB475 /* GGKMercyCameraDescription.rtf */; };
 		93CE01B7173241CF0025ACB4 /* GGKHelpTheCreatorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CE01B6173241CF0025ACB4 /* GGKHelpTheCreatorsViewController.m */; };
+		93CE01BA1733B5D60025ACB4 /* GGKInAppPurchaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CE01B91733B5D50025ACB4 /* GGKInAppPurchaseManager.m */; };
+		93CE01BC1733B8F60025ACB4 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93CE01BB1733B8F60025ACB4 /* StoreKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +69,9 @@
 		93B77660171E09E4009CB475 /* GGKMercyCameraDescription.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = GGKMercyCameraDescription.rtf; sourceTree = "<group>"; };
 		93CE01B5173241CF0025ACB4 /* GGKHelpTheCreatorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKHelpTheCreatorsViewController.h; sourceTree = "<group>"; };
 		93CE01B6173241CF0025ACB4 /* GGKHelpTheCreatorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKHelpTheCreatorsViewController.m; sourceTree = "<group>"; };
+		93CE01B81733B5D50025ACB4 /* GGKInAppPurchaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKInAppPurchaseManager.h; sourceTree = "<group>"; };
+		93CE01B91733B5D50025ACB4 /* GGKInAppPurchaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKInAppPurchaseManager.m; sourceTree = "<group>"; };
+		93CE01BB1733B8F60025ACB4 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93CE01BC1733B8F60025ACB4 /* StoreKit.framework in Frameworks */,
 				93B7765C17192B31009CB475 /* MobileCoreServices.framework in Frameworks */,
 				93306A7416CBD6CA00F22B0A /* AssetsLibrary.framework in Frameworks */,
 				93306A7216C472E000F22B0A /* AVFoundation.framework in Frameworks */,
@@ -111,6 +117,7 @@
 				93306A4216C1D19A00F22B0A /* CoreGraphics.framework */,
 				93306A4016C1D19A00F22B0A /* Foundation.framework */,
 				93B7765B17192B31009CB475 /* MobileCoreServices.framework */,
+				93CE01BB1733B8F60025ACB4 /* StoreKit.framework */,
 				93306A3E16C1D19A00F22B0A /* UIKit.framework */,
 			);
 			name = Frameworks;
@@ -125,6 +132,8 @@
 				93B7765E171B5B24009CB475 /* GGKCaptureManager.m */,
 				93CE01B5173241CF0025ACB4 /* GGKHelpTheCreatorsViewController.h */,
 				93CE01B6173241CF0025ACB4 /* GGKHelpTheCreatorsViewController.m */,
+				93CE01B81733B5D50025ACB4 /* GGKInAppPurchaseManager.h */,
+				93CE01B91733B5D50025ACB4 /* GGKInAppPurchaseManager.m */,
 				93306A5C16C1D19A00F22B0A /* GGKMercyCameraViewController.h */,
 				93306A5D16C1D19A00F22B0A /* GGKMercyCameraViewController.m */,
 				938A0062172E75A900709AA4 /* GGKSavedPhotosManager.h */,
@@ -245,6 +254,7 @@
 				93B7765F171B5B24009CB475 /* GGKCaptureManager.m in Sources */,
 				938A0064172E75A900709AA4 /* GGKSavedPhotosManager.m in Sources */,
 				93CE01B7173241CF0025ACB4 /* GGKHelpTheCreatorsViewController.m in Sources */,
+				93CE01BA1733B5D60025ACB4 /* GGKInAppPurchaseManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

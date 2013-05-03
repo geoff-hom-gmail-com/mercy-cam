@@ -105,14 +105,31 @@ BOOL GGKCreateLaunchImages = NO;
     aSize = self.takeAdvancedDelayedPhotosExampleLabel.frame.size;
     self.takeAdvancedDelayedPhotosExampleLabel.frame = CGRectMake(anX2, 511, aSize.width, aSize.height);
     
-    UIFont *aFont = [UIFont boldSystemFontOfSize:18];
-    self.rateThisAppButton.titleLabel.font = aFont;
+    UIFont *aFont = [UIFont boldSystemFontOfSize:12];
+    NSMutableAttributedString *aMutableAttributedString = [[NSMutableAttributedString alloc] initWithAttributedString:self.rateThisAppButton.titleLabel.attributedText];
+    [aMutableAttributedString removeAttribute:NSFontAttributeName range:NSMakeRange(0, aMutableAttributedString.length)];
+    [aMutableAttributedString addAttribute:NSFontAttributeName value:aFont range:NSMakeRange(0, aMutableAttributedString.length)];
+    self.rateThisAppButton.titleLabel.attributedText = aMutableAttributedString;
+//    self.rateThisAppButton.titleLabel.font = aFont;
     CGFloat anX3 = 831;
-    aSize = CGSizeMake(173, 60);
+    aSize = CGSizeMake(183, 60);
     self.rateThisAppButton.frame = CGRectMake(anX3, 516, aSize.width, aSize.height);
     
     self.helpTheCreatorsButton.titleLabel.font = aFont;
     self.helpTheCreatorsButton.frame = CGRectMake(anX3, 615, aSize.width, aSize.height);
+    
+    
+//    UIFont *aFont = [UIFont boldSystemFontOfSize:18];
+//    NSMutableAttributedString *aMutableAttributedString = [[NSMutableAttributedString alloc] initWithAttributedString:self.rateThisAppButton.titleLabel.attributedText];
+//    [aMutableAttributedString removeAttribute:NSFontAttributeName range:NSMakeRange(0, aMutableAttributedString.length)];
+//    [aMutableAttributedString addAttribute:NSFontAttributeName value:aFont range:NSMakeRange(0, aMutableAttributedString.length)];
+//    self.rateThisAppButton.titleLabel.attributedText = aMutableAttributedString;
+//    CGFloat anX3 = 511;
+//    aSize = CGSizeMake(237, 60);
+//    self.rateThisAppButton.frame = CGRectMake(anX3, 743, aSize.width, aSize.height);
+//    
+//    self.helpTheCreatorsButton.titleLabel.font = aFont;
+//    self.helpTheCreatorsButton.frame = CGRectMake(anX3, 851, aSize.width, aSize.height);
 }
 
 - (void)updateLayoutForPortrait
@@ -143,18 +160,31 @@ BOOL GGKCreateLaunchImages = NO;
     aSize = self.takeAdvancedDelayedPhotosExampleLabel.frame.size;
     self.takeAdvancedDelayedPhotosExampleLabel.frame = CGRectMake(anX2, 530, aSize.width, aSize.height);
     
-    UIFont *aFont = [UIFont boldSystemFontOfSize:22];
-    self.rateThisAppButton.titleLabel.font = aFont;
-    CGFloat anX3 = 538;
-    aSize = CGSizeMake(210, 60);
-    self.rateThisAppButton.frame = CGRectMake(anX3, 743, aSize.width, aSize.height);
+    UIFont *aFont = [UIFont boldSystemFontOfSize:32];
+    NSMutableAttributedString *aMutableAttributedString = [[NSMutableAttributedString alloc] initWithAttributedString:self.rateThisAppButton.titleLabel.attributedText];
+    [aMutableAttributedString removeAttribute:NSFontAttributeName range:NSMakeRange(0, aMutableAttributedString.length)];
+    [aMutableAttributedString addAttribute:NSFontAttributeName value:aFont range:NSMakeRange(0, aMutableAttributedString.length)];
+    self.rateThisAppButton.titleLabel.attributedText = [aMutableAttributedString copy];
+    CGFloat anX3 = 511;
+    aSize = CGSizeMake(237, 60);
+    
+    // rotate back and forth: this doesn't update right
+//    self.rateThisAppButton.titleLabel.attributedText = [aMutableAttributedString copy];
+////    self.rateThisAppButton.frame = CGRectMake(anX3, 743, aSize.width, aSize.height);
+//    self.rateThisAppButton.frame = CGRectMake(511, 743, 237, 60);
+    
+    // rotate back and forth: this updates right; why?
+//    self.rateThisAppButton.frame = CGRectMake(anX3, 743, aSize.width, aSize.height);
+    self.rateThisAppButton.frame = CGRectMake(511, 743, 237, 60);
+    self.rateThisAppButton.titleLabel.attributedText = [aMutableAttributedString copy];
+    
     
     self.helpTheCreatorsButton.titleLabel.font = aFont;
     self.helpTheCreatorsButton.frame = CGRectMake(anX3, 851, aSize.width, aSize.height);
 }
 
 - (void)viewDidLoad
-{    
+{
     [super viewDidLoad];
     
 //    NSLog(@"MCVC vdL");
@@ -172,6 +202,46 @@ BOOL GGKCreateLaunchImages = NO;
         self.soundModel = [[GGKSoundModel alloc] init];
         [self updateLayoutForPortrait];
     }
+}
+
+//testing; do I need to do my rotation changes in didlayoutsubviews vs willlayoutsubviews?
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    
+    NSLog(@"viewDidLayoutSubviews");
+    
+    // Using status-bar orientation, not device orientation. Seems to work.
+    UIInterfaceOrientation theInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
+    if (UIInterfaceOrientationIsLandscape(theInterfaceOrientation) && !self.isShowingLandscapeView) {
+        
+        [self updateLayoutForLandscape];
+        self.isShowingLandscapeView = YES;
+    } else if (UIInterfaceOrientationIsPortrait(theInterfaceOrientation) && self.isShowingLandscapeView) {
+        
+        [self updateLayoutForPortrait];
+        self.isShowingLandscapeView = NO;
+        
+        //testing
+//        UIFont *aFont = [UIFont boldSystemFontOfSize:8];
+//        NSMutableAttributedString *aMutableAttributedString = [[NSMutableAttributedString alloc] initWithAttributedString:self.rateThisAppButton.titleLabel.attributedText];
+//        [aMutableAttributedString removeAttribute:NSFontAttributeName range:NSMakeRange(0, aMutableAttributedString.length)];
+//        [aMutableAttributedString addAttribute:NSFontAttributeName value:aFont range:NSMakeRange(0, aMutableAttributedString.length)];
+//        self.rateThisAppButton.titleLabel.attributedText = [aMutableAttributedString copy];
+//        CGFloat anX3 = 511;
+//        CGSize aSize = CGSizeMake(237, 60);
+//        self.rateThisAppButton.frame = CGRectMake(anX3, 743, aSize.width, aSize.height);
+    }
+    
+//    //testing
+//    UIFont *aFont = [UIFont boldSystemFontOfSize:8];
+//    NSMutableAttributedString *aMutableAttributedString = [[NSMutableAttributedString alloc] initWithAttributedString:self.rateThisAppButton.titleLabel.attributedText];
+//    [aMutableAttributedString removeAttribute:NSFontAttributeName range:NSMakeRange(0, aMutableAttributedString.length)];
+//    [aMutableAttributedString addAttribute:NSFontAttributeName value:aFont range:NSMakeRange(0, aMutableAttributedString.length)];
+//    self.rateThisAppButton.titleLabel.attributedText = [aMutableAttributedString copy];
+//    CGFloat anX3 = 511;
+//    CGSize aSize = CGSizeMake(237, 60);
+//    self.rateThisAppButton.frame = CGRectMake(anX3, 743, aSize.width, aSize.height);
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -205,25 +275,25 @@ BOOL GGKCreateLaunchImages = NO;
     self.takeDelayedPhotosExampleLabel.text = [NSString stringWithFormat:@"\"Wait %@ %@,\nthen take %@ %@.\"", takeDelayedPhotosNumberOfSecondsToInitiallyWaitNumber, aSecondsString, takeDelayedPhotosNumberOfPhotosNumber, aPhotosString];
 }
 
-- (void)viewWillLayoutSubviews
-{
-    [super viewWillLayoutSubviews];
-    
-    //    NSLog(@"MCVC vWLS");
-    
-    // Using status-bar orientation, not device orientation. Seems to work. 
-    UIInterfaceOrientation theInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
-    if (UIInterfaceOrientationIsLandscape(theInterfaceOrientation) && !self.isShowingLandscapeView) {
-        
-//        NSLog(@"MCVC vWLS theInterfaceOrientation set things to landscape");
-        [self updateLayoutForLandscape];
-        self.isShowingLandscapeView = YES;
-    } else if (UIInterfaceOrientationIsPortrait(theInterfaceOrientation) && self.isShowingLandscapeView) {
-        
-//        NSLog(@"MCVC vWLS theInterfaceOrientation set things to portrait");
-        [self updateLayoutForPortrait];
-        self.isShowingLandscapeView = NO;
-    }
-}
+//- (void)viewWillLayoutSubviews
+//{
+//    [super viewWillLayoutSubviews];
+//    
+//    //    NSLog(@"MCVC vWLS");
+//    
+//    // Using status-bar orientation, not device orientation. Seems to work. 
+//    UIInterfaceOrientation theInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
+//    if (UIInterfaceOrientationIsLandscape(theInterfaceOrientation) && !self.isShowingLandscapeView) {
+//        
+////        NSLog(@"MCVC vWLS theInterfaceOrientation set things to landscape");
+//        [self updateLayoutForLandscape];
+//        self.isShowingLandscapeView = YES;
+//    } else if (UIInterfaceOrientationIsPortrait(theInterfaceOrientation) && self.isShowingLandscapeView) {
+//        
+////        NSLog(@"MCVC vWLS theInterfaceOrientation set things to portrait");
+//        [self updateLayoutForPortrait];
+//        self.isShowingLandscapeView = NO;
+//    }
+//}
 
 @end

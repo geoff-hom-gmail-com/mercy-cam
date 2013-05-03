@@ -8,7 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class GGKInAppPurchaseManager;
+
 @interface GGKCamAppDelegate : UIResponder <UIApplicationDelegate>
+
+// For observing App Store transactions, regardless of where in the app the user is.
+@property (nonatomic, strong) GGKInAppPurchaseManager *inAppPurchaseManager;
 
 @property (strong, nonatomic) UIWindow *window;
 

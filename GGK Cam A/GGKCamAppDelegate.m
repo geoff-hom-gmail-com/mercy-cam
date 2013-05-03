@@ -7,12 +7,18 @@
 //
 
 #import "GGKCamAppDelegate.h"
+#import "GGKInAppPurchaseManager.h"
 
 @implementation GGKCamAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    GGKInAppPurchaseManager *theInAppPurchaseManager = [[GGKInAppPurchaseManager alloc] init];
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:theInAppPurchaseManager];
+    self.inAppPurchaseManager = theInAppPurchaseManager;
+    
     return YES;
 }
 							

@@ -1048,6 +1048,9 @@ photos</string>
                                         </fragment>
                                     </attributedString>
                                 </state>
+                                <connections>
+                                    <action selector="rateOrReview" destination="wMX-Uo-2b2" eventType="touchUpInside" id="3hA-vr-3qr"/>
+                                </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="We hope to continue to improve Mercy Camera, while keeping it free and without ads. Your donations encourage that." lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ks8-31-BrY">
                                 <rect key="frame" x="20" y="436" width="373" height="72"/>
@@ -1064,7 +1067,7 @@ photos</string>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="You can give $0.99 at a time. Each time you give, you'll see a thank-you star below. 😃" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jOp-nn-QKx">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="You can give $0.99 at a time. Each time you give, you'll see a thank-you star (⭐) below." lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jOp-nn-QKx">
                                 <rect key="frame" x="20" y="538" width="336" height="72"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -1082,18 +1085,14 @@ photos</string>
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="giveADollar" destination="wMX-Uo-2b2" eventType="touchUpInside" id="eY2-M8-FfM"/>
+                                </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="⭐" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="c6F-zQ-2vK">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="⭐⭐⭐⭐⭐⭐(No stars yet.)" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="c6F-zQ-2vK">
                                 <rect key="frame" x="20" y="618" width="728" height="58"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="AppleColorEmoji" family="Apple Color Emoji" pointSize="44"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(No stars yet)" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sBX-7B-hJG">
-                                <rect key="frame" x="421" y="627" width="261" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="AppleColorEmoji" family="Apple Color Emoji" pointSize="35"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1124,6 +1123,7 @@ photos</string>
                         <outlet property="emailTheCreatorsButton" destination="we5-79-rxt" id="83x-gH-wJt"/>
                         <outlet property="giveADollarButton" destination="fGS-Sh-p3Z" id="Pxt-we-NhL"/>
                         <outlet property="giveADollarLabel" destination="jOp-nn-QKx" id="icB-OT-ybR"/>
+                        <outlet property="starsLabel" destination="c6F-zQ-2vK" id="jT8-fh-hRr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tbw-8s-fnh" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1135,9 +1135,12 @@ photos</string>
         <class className="GGKHelpTheCreatorsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKHelpTheCreatorsViewController.h"/>
             <relationships>
+                <relationship kind="action" name="giveADollar"/>
+                <relationship kind="action" name="rateOrReview"/>
                 <relationship kind="outlet" name="emailTheCreatorsButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="giveADollarButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="giveADollarLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="starsLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="GGKMercyCameraViewController" superclassName="UIViewController">
