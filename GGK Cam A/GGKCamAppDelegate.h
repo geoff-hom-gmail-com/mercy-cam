@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GGKSoundModel.h"
 
 @class GGKInAppPurchaseManager;
 
