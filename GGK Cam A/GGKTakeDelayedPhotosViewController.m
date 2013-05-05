@@ -46,9 +46,6 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 // For working with photos in the camera roll.
 @property (nonatomic, strong) GGKSavedPhotosManager *savedPhotosManager;
 
-// For playing sound.
-@property (strong, nonatomic) GGKSoundModel *soundModel;
-
 // Adjust "Wait X seconds, then take Y photos," for whether the values are singular or plural.
 - (void)adjustStringsForPlurals;
 

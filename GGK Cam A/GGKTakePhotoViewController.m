@@ -32,9 +32,6 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
 // For working with photos in the camera roll.
 @property (nonatomic, strong) GGKSavedPhotosManager *savedPhotosManager;
 
-// For playing sound.
-@property (strong, nonatomic) GGKSoundModel *soundModel;
-
 // UIViewController override.
 - (void)awakeFromNib;
 

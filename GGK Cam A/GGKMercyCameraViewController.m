@@ -19,9 +19,6 @@ BOOL GGKCreateLaunchImages = NO;
 // Whether the landscape view is currently showing.
 @property (nonatomic, assign) BOOL isShowingLandscapeView;
 
-// For playing sound.
-@property (strong, nonatomic) GGKSoundModel *soundModel;
-
 // UIViewController override.
 - (void)awakeFromNib;
 

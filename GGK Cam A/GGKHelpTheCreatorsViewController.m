@@ -14,17 +14,30 @@ NSString *GGKNumberOfStarsPurchasedNumberKeyString = @"Number of stars purchased
 // Unicode for the emoji, "White Medium Star."
 NSString *WhiteMediumStarEmojiString = @"\u2B50";
 
-
 @interface GGKHelpTheCreatorsViewController ()
 
 // For getting product info from the App Store, and for purchasing products.
 @property (nonatomic, strong) GGKInAppPurchaseManager *inAppPurchaseManager;
+
+// Story: The overall orientation (device/status-bar) is checked against the orientation of this app's UI. The user sees the UI in the correct orientation.
+// Whether the landscape view is currently showing.
+@property (nonatomic, assign) BOOL isShowingLandscapeView;
 
 // Show the number of thank-you stars. (One star per dollar given.)
 - (void)showStars;
 
 // Story: User sees UI and knows she can tap "Give $0.99."
 - (void)updateForAllowingDonation;
+
+// Story: When the user should see the UI in landscape, she does.
+- (void)updateLayoutForLandscape;
+
+// Story: When the user should see the UI in portrait, she does.
+- (void)updateLayoutForPortrait;
+
+// UIViewController override.
+// Story: Whether user rotates device in the app, or from the home screen, this method will be called. User sees UI in correct orientation.
+- (void)viewWillLayoutSubviews;
 
 @end
 
@@ -34,6 +47,26 @@ NSString *WhiteMediumStarEmojiString = @"\u2B50";
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)emailTheCreators
+{
+    MFMailComposeViewController *aMailComposeViewController = [[MFMailComposeViewController alloc] init];
+    aMailComposeViewController.mailComposeDelegate = self;
+    
+    NSArray *theToRecipientsArray = @[@"geoffhom@gmail.com"];
+    [aMailComposeViewController setToRecipients:theToRecipientsArray];
+    
+    [aMailComposeViewController setSubject:@"Mercy Camera"];
+    
+    // Include app version.
+    NSString *theVersionString = (NSString *)[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+    UIDevice *theDevice = [UIDevice currentDevice];    
+    NSString *theMessageBody = [NSString stringWithFormat:@"(Using Mercy Camera, version %@, on an %@ running %@ %@.)"
+        "\n\nFeedback:", theVersionString, theDevice.localizedModel, theDevice.systemName, theDevice.systemVersion];
+    [aMailComposeViewController setMessageBody:theMessageBody isHTML:NO];
+    
+    [self presentViewController:aMailComposeViewController animated:YES completion:nil];
 }
 
 - (IBAction)giveADollar
@@ -108,6 +141,11 @@ NSString *WhiteMediumStarEmojiString = @"\u2B50";
     return self;
 }
 
+- (void)mailComposeController:(MFMailComposeViewController *)theViewController didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    [theViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (IBAction)playButtonSound
 {
     GGKCamAppDelegate *aCamAppDelegate = (GGKCamAppDelegate *)[UIApplication sharedApplication].delegate;
@@ -161,6 +199,88 @@ NSString *WhiteMediumStarEmojiString = @"\u2B50";
     self.view.window.userInteractionEnabled = YES;
 }
 
+- (void)updateLayoutForLandscape
+{
+//    CGSize aSize = self.hiLabel.frame.size;
+//    self.hiLabel.frame = CGRectMake(92, 30, aSize.width, aSize.height);
+//    
+//    CGFloat anX1 = 20;
+//    aSize = self.takeAPhotoButton.frame.size;
+//    self.takeAPhotoButton.frame = CGRectMake(anX1, 101, aSize.width, aSize.height);
+//    
+//    aSize = self.exampleLabel.frame.size;
+//    self.exampleLabel.frame = CGRectMake(472, 131, aSize.width, aSize.height);
+//    
+//    CGFloat anX2 = 353;
+//    aSize = self.takeAPhotoExampleLabel.frame.size;
+//    self.takeAPhotoExampleLabel.frame = CGRectMake(anX2, 166, aSize.width, aSize.height);
+//    
+//    aSize = self.takeDelayedPhotosButton.frame.size;
+//    self.takeDelayedPhotosButton.frame = CGRectMake(anX1, 331, aSize.width, aSize.height);
+//    
+//    aSize = self.takeDelayedPhotosExampleLabel.frame.size;
+//    self.takeDelayedPhotosExampleLabel.frame = CGRectMake(anX2, 363, aSize.width, aSize.height);
+//    
+//    aSize = self.takeAdvancedDelayedPhotosButton.frame.size;
+//    self.takeAdvancedDelayedPhotosButton.frame = CGRectMake(anX1, 501, aSize.width, aSize.height);
+//    
+//    aSize = self.takeAdvancedDelayedPhotosExampleLabel.frame.size;
+//    self.takeAdvancedDelayedPhotosExampleLabel.frame = CGRectMake(anX2, 511, aSize.width, aSize.height);
+//    
+//    UIFont *aFont = [UIFont boldSystemFontOfSize:18];
+//    NSAttributedString *anAttributedString = [self.rateThisAppButton attributedTitleForState:UIControlStateNormal];
+//    NSMutableAttributedString *aMutableAttributedString = [[NSMutableAttributedString alloc] initWithAttributedString:anAttributedString];
+//    [aMutableAttributedString addAttribute:NSFontAttributeName value:aFont range:NSMakeRange(0, aMutableAttributedString.length)];
+//    [self.rateThisAppButton setAttributedTitle:aMutableAttributedString forState:UIControlStateNormal];
+//    CGFloat anX3 = 808;
+//    aSize = CGSizeMake(196, 60);
+//    self.rateThisAppButton.frame = CGRectMake(anX3, 516, aSize.width, aSize.height);
+//    
+//    self.helpTheCreatorsButton.titleLabel.font = aFont;
+//    self.helpTheCreatorsButton.frame = CGRectMake(anX3, 615, aSize.width, aSize.height);
+}
+
+- (void)updateLayoutForPortrait
+{
+//    CGSize aSize = self.hiLabel.frame.size;
+//    self.hiLabel.frame = CGRectMake(92, 50, aSize.width, aSize.height);
+//    
+//    CGFloat anX1 = 20;
+//    aSize = self.takeAPhotoButton.frame.size;
+//    self.takeAPhotoButton.frame = CGRectMake(anX1, 120, aSize.width, aSize.height);
+//    
+//    aSize = self.exampleLabel.frame.size;
+//    self.exampleLabel.frame = CGRectMake(472, 151, aSize.width, aSize.height);
+//    
+//    CGFloat anX2 = 353;
+//    aSize = self.takeAPhotoExampleLabel.frame.size;
+//    self.takeAPhotoExampleLabel.frame = CGRectMake(anX2, 186, aSize.width, aSize.height);
+//    
+//    aSize = self.takeDelayedPhotosButton.frame.size;
+//    self.takeDelayedPhotosButton.frame = CGRectMake(anX1, 350, aSize.width, aSize.height);
+//    
+//    aSize = self.takeDelayedPhotosExampleLabel.frame.size;
+//    self.takeDelayedPhotosExampleLabel.frame = CGRectMake(anX2, 382, aSize.width, aSize.height);
+//    
+//    aSize = self.takeAdvancedDelayedPhotosButton.frame.size;
+//    self.takeAdvancedDelayedPhotosButton.frame = CGRectMake(anX1, 520, aSize.width, aSize.height);
+//    
+//    aSize = self.takeAdvancedDelayedPhotosExampleLabel.frame.size;
+//    self.takeAdvancedDelayedPhotosExampleLabel.frame = CGRectMake(anX2, 530, aSize.width, aSize.height);
+//    
+//    UIFont *aFont = [UIFont boldSystemFontOfSize:22];
+//    NSAttributedString *anAttributedString = [self.rateThisAppButton attributedTitleForState:UIControlStateNormal];
+//    NSMutableAttributedString *aMutableAttributedString = [[NSMutableAttributedString alloc] initWithAttributedString:anAttributedString];
+//    [aMutableAttributedString addAttribute:NSFontAttributeName value:aFont range:NSMakeRange(0, aMutableAttributedString.length)];
+//    [self.rateThisAppButton setAttributedTitle:aMutableAttributedString forState:UIControlStateNormal];
+//    CGFloat anX3 = 511;
+//    aSize = CGSizeMake(237, 60);
+//    self.rateThisAppButton.frame = CGRectMake(anX3, 743, aSize.width, aSize.height);
+//    
+//    self.helpTheCreatorsButton.titleLabel.font = aFont;
+//    self.helpTheCreatorsButton.frame = CGRectMake(anX3, 851, aSize.width, aSize.height);
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -173,6 +293,25 @@ NSString *WhiteMediumStarEmojiString = @"\u2B50";
     [self.inAppPurchaseManager requestProductData];
     
     [self showStars];
+    
+    [self updateLayoutForPortrait];
+}
+
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    
+    // Using status-bar orientation, not device orientation. Seems to work.
+    UIInterfaceOrientation theInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
+    if (UIInterfaceOrientationIsLandscape(theInterfaceOrientation) && !self.isShowingLandscapeView) {
+        
+        [self updateLayoutForLandscape];
+        self.isShowingLandscapeView = YES;
+    } else if (UIInterfaceOrientationIsPortrait(theInterfaceOrientation) && self.isShowingLandscapeView) {
+        
+        [self updateLayoutForPortrait];
+        self.isShowingLandscapeView = NO;
+    }
 }
 
 @end
