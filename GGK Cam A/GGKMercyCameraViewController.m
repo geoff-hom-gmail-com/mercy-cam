@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
+#import "GGKCamAppDelegate.h"
 #import "GGKMercyCameraViewController.h"
 #import "GGKTakeDelayedPhotosViewController.h"
 
@@ -60,7 +61,8 @@ BOOL GGKCreateLaunchImages = NO;
 
 - (IBAction)playButtonSound
 {
-    [self.soundModel playButtonTapSound];
+    GGKCamAppDelegate *aCamAppDelegate = (GGKCamAppDelegate *)[UIApplication sharedApplication].delegate;
+    [aCamAppDelegate.soundModel playButtonTapSound];
 }
 
 - (IBAction)rateOrReview
@@ -175,7 +177,6 @@ BOOL GGKCreateLaunchImages = NO;
         }
     } else {
         
-        self.soundModel = [[GGKSoundModel alloc] init];
         [self updateLayoutForPortrait];
     }
 }

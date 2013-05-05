@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
+#import "GGKCamAppDelegate.h"
 #import "GGKCaptureManager.h"
 #import "GGKSavedPhotosManager.h"
 #import "GGKTakePhotoViewController.h"
@@ -166,7 +167,8 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
 
 - (IBAction)playButtonSound
 {
-    [self.soundModel playButtonTapSound];
+    GGKCamAppDelegate *aCamAppDelegate = (GGKCamAppDelegate *)[UIApplication sharedApplication].delegate;
+    [aCamAppDelegate.soundModel playButtonTapSound];
 }
 
 - (IBAction)takePhoto
@@ -362,7 +364,6 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
 {    
     [super viewDidLoad];
     
-    self.soundModel = [[GGKSoundModel alloc] init];
     self.savedPhotosManager = [[GGKSavedPhotosManager alloc] init];
     [self updateLayoutForPortrait];
     

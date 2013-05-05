@@ -35,6 +35,9 @@
 - (void)inAppPurchaseManagerDidReceiveProducts:(id)sender;
 // So, update the UI for the local currency.
 
+// Play sound as aural feedback for pressing button.
+- (IBAction)playButtonSound;
+
 // Story: User sees option to "Rate this app." User taps button, is brought to the App Store and the rate/review page. User taps 5 stars. =)
 - (IBAction)rateOrReview;
 

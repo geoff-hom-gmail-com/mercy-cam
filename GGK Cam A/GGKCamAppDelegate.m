@@ -15,6 +15,8 @@
 {
     // Override point for customization after application launch.
     
+    self.soundModel = [[GGKSoundModel alloc] init];
+    
     GGKInAppPurchaseManager *theInAppPurchaseManager = [[GGKInAppPurchaseManager alloc] init];
     [[SKPaymentQueue defaultQueue] addTransactionObserver:theInAppPurchaseManager];
     self.inAppPurchaseManager = theInAppPurchaseManager;

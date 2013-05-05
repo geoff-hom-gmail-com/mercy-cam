@@ -1069,6 +1069,7 @@ photos</string>
                                     </attributedString>
                                 </state>
                                 <connections>
+                                    <action selector="playButtonSound" destination="wMX-Uo-2b2" eventType="touchDown" id="HTX-RM-5Zv"/>
                                     <action selector="rateOrReview" destination="wMX-Uo-2b2" eventType="touchUpInside" id="3hA-vr-3qr"/>
                                 </connections>
                             </button>
@@ -1087,7 +1088,7 @@ photos</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="You can give $0.99 at a time. Each time you give, you'll see a thank-you star (⭐) below." lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jOp-nn-QKx">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="You can give $0.97 at a time. Each time you give, you'll see a thank-you star (⭐) below." lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jOp-nn-QKx">
                                 <rect key="frame" x="20" y="522" width="421" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
@@ -1098,7 +1099,7 @@ photos</string>
                                 <rect key="frame" x="474" y="516" width="133" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <state key="normal" title="Give $0.99">
+                                <state key="normal" title="Give $0.97">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1107,6 +1108,7 @@ photos</string>
                                 </state>
                                 <connections>
                                     <action selector="giveADollar" destination="wMX-Uo-2b2" eventType="touchUpInside" id="eY2-M8-FfM"/>
+                                    <action selector="playButtonSound" destination="wMX-Uo-2b2" eventType="touchDown" id="6UG-qR-mLV"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="⭐⭐⭐⭐⭐⭐(No stars yet.)" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="c6F-zQ-2vK">
@@ -1134,6 +1136,9 @@ photos</string>
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="playButtonSound" destination="wMX-Uo-2b2" eventType="touchDown" id="77t-tY-RnR"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.067454613745212555" blue="0.42392796277999878" alpha="1" colorSpace="calibratedRGB"/>
@@ -1156,6 +1161,7 @@ photos</string>
             <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKHelpTheCreatorsViewController.h"/>
             <relationships>
                 <relationship kind="action" name="giveADollar"/>
+                <relationship kind="action" name="playButtonSound"/>
                 <relationship kind="action" name="rateOrReview"/>
                 <relationship kind="outlet" name="emailTheCreatorsButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="giveADollarButton" candidateClass="UIButton"/>

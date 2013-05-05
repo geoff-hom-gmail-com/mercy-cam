@@ -87,6 +87,8 @@ NSString *WhiteMediumStarEmojiString = @"\u2B50";
         [aNumberFormatter setLocale:aProduct.priceLocale];
         NSString *aFormattedString = [aNumberFormatter stringFromNumber:aProduct.price];
         
+//        NSLog(@"inAppPurchaseManagerDidReceiveProducts price: %@", aFormattedString);
+        
         NSString *aString = [NSString stringWithFormat:@"Give %@", aFormattedString];
         [self.giveADollarButton setTitle:aString forState:UIControlStateNormal];
         [self.giveADollarButton setTitle:aString forState:UIControlStateDisabled];
@@ -106,6 +108,13 @@ NSString *WhiteMediumStarEmojiString = @"\u2B50";
     return self;
 }
 
+- (IBAction)playButtonSound
+{
+    GGKCamAppDelegate *aCamAppDelegate = (GGKCamAppDelegate *)[UIApplication sharedApplication].delegate;
+    [aCamAppDelegate.soundModel playButtonTapSound];
+}
+
+
 - (IBAction)rateOrReview
 {
     NSLog(@"HTCVC rateOrReview");
@@ -124,8 +133,9 @@ NSString *WhiteMediumStarEmojiString = @"\u2B50";
 {
     NSNumber *theNumberOfStarsPurchasedNumber = [[NSUserDefaults standardUserDefaults] objectForKey:GGKNumberOfStarsPurchasedNumberKeyString];
     
-    //testing
-    //    theNumberOfStarsPurchasedNumber = @3;
+    // For testing.
+//    theNumberOfStarsPurchasedNumber = @7;
+//    theNumberOfStarsPurchasedNumber = nil;
     
     NSString *aString = @"(No stars yet.)";
     if (theNumberOfStarsPurchasedNumber != nil) {

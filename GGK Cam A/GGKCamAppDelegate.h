@@ -15,6 +15,9 @@
 // For observing App Store transactions, regardless of where in the app the user is.
 @property (nonatomic, strong) GGKInAppPurchaseManager *inAppPurchaseManager;
 
+// For playing sound.
+@property (strong, nonatomic) GGKSoundModel *soundModel;
+
 @property (strong, nonatomic) UIWindow *window;
 
 - (void)applicationDidEnterBackground:(UIApplication *)application;
