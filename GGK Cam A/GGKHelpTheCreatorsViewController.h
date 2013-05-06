@@ -42,6 +42,9 @@
 // Story: User reads greetings and feels motivated to help. She also understands there are various ways to help.
 @property (nonatomic, weak) IBOutlet UILabel *greeting3Label;
 
+// Story: User taps button, is taken to App Store, and rates the app. Creators happy, and user feels empowered.
+@property (nonatomic, weak) IBOutlet UIButton *rateUsButton;
+
 // Story: User sees header and understands this is one of the ways to help.
 @property (nonatomic, weak) IBOutlet UILabel *rateUsHeaderLabel;
 

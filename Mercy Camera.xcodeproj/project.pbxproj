@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		932BEE3E17378226000A15CB /* icon-29px.png in Resources */ = {isa = PBXBuildFile; fileRef = 932BEE3617378226000A15CB /* icon-29px.png */; };
+		932BEE3F17378226000A15CB /* icon-29px@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 932BEE3717378226000A15CB /* icon-29px@2x.png */; };
+		932BEE4017378226000A15CB /* icon-50px.png in Resources */ = {isa = PBXBuildFile; fileRef = 932BEE3817378226000A15CB /* icon-50px.png */; };
+		932BEE4117378226000A15CB /* icon-50px@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 932BEE3917378226000A15CB /* icon-50px@2x.png */; };
+		932BEE4217378226000A15CB /* icon-57px.png in Resources */ = {isa = PBXBuildFile; fileRef = 932BEE3A17378226000A15CB /* icon-57px.png */; };
+		932BEE4317378226000A15CB /* icon-57px@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 932BEE3B17378226000A15CB /* icon-57px@2x.png */; };
+		932BEE4417378226000A15CB /* icon-72px.png in Resources */ = {isa = PBXBuildFile; fileRef = 932BEE3C17378226000A15CB /* icon-72px.png */; };
+		932BEE4517378226000A15CB /* icon-72px@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 932BEE3D17378226000A15CB /* icon-72px@2x.png */; };
 		93306A3F16C1D19A00F22B0A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93306A3E16C1D19A00F22B0A /* UIKit.framework */; };
 		93306A4116C1D19A00F22B0A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93306A4016C1D19A00F22B0A /* Foundation.framework */; };
 		93306A4316C1D19A00F22B0A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93306A4216C1D19A00F22B0A /* CoreGraphics.framework */; };
@@ -36,6 +44,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		932BEE3617378226000A15CB /* icon-29px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-29px.png"; path = "icons/icon-29px.png"; sourceTree = "<group>"; };
+		932BEE3717378226000A15CB /* icon-29px@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-29px@2x.png"; path = "icons/icon-29px@2x.png"; sourceTree = "<group>"; };
+		932BEE3817378226000A15CB /* icon-50px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-50px.png"; path = "icons/icon-50px.png"; sourceTree = "<group>"; };
+		932BEE3917378226000A15CB /* icon-50px@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-50px@2x.png"; path = "icons/icon-50px@2x.png"; sourceTree = "<group>"; };
+		932BEE3A17378226000A15CB /* icon-57px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-57px.png"; path = "icons/icon-57px.png"; sourceTree = "<group>"; };
+		932BEE3B17378226000A15CB /* icon-57px@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-57px@2x.png"; path = "icons/icon-57px@2x.png"; sourceTree = "<group>"; };
+		932BEE3C17378226000A15CB /* icon-72px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-72px.png"; path = "icons/icon-72px.png"; sourceTree = "<group>"; };
+		932BEE3D17378226000A15CB /* icon-72px@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-72px@2x.png"; path = "icons/icon-72px@2x.png"; sourceTree = "<group>"; };
 		93306A3B16C1D19A00F22B0A /* Mercy Camera.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mercy Camera.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93306A3E16C1D19A00F22B0A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		93306A4016C1D19A00F22B0A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -95,6 +111,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		932BEE3517378216000A15CB /* icons */ = {
+			isa = PBXGroup;
+			children = (
+				932BEE3617378226000A15CB /* icon-29px.png */,
+				932BEE3717378226000A15CB /* icon-29px@2x.png */,
+				932BEE3817378226000A15CB /* icon-50px.png */,
+				932BEE3917378226000A15CB /* icon-50px@2x.png */,
+				932BEE3A17378226000A15CB /* icon-57px.png */,
+				932BEE3B17378226000A15CB /* icon-57px@2x.png */,
+				932BEE3C17378226000A15CB /* icon-72px.png */,
+				932BEE3D17378226000A15CB /* icon-72px@2x.png */,
+			);
+			name = icons;
+			sourceTree = "<group>";
+		};
 		93306A3216C1D19A00F22B0A = {
 			isa = PBXGroup;
 			children = (
@@ -158,6 +189,7 @@
 		93306A4516C1D19A00F22B0A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				932BEE3517378216000A15CB /* icons */,
 				93306A5016C1D19A00F22B0A /* Default.png */,
 				93306A5216C1D19A00F22B0A /* Default@2x.png */,
 				93306A5416C1D19A00F22B0A /* Default-568h@2x.png */,
@@ -239,6 +271,14 @@
 				93306A5B16C1D19A00F22B0A /* MainStoryboard_iPad.storyboard in Resources */,
 				93B776571718899E009CB475 /* tap.aif in Resources */,
 				93B77661171E09E4009CB475 /* GGKMercyCameraDescription.rtf in Resources */,
+				932BEE3E17378226000A15CB /* icon-29px.png in Resources */,
+				932BEE3F17378226000A15CB /* icon-29px@2x.png in Resources */,
+				932BEE4017378226000A15CB /* icon-50px.png in Resources */,
+				932BEE4117378226000A15CB /* icon-50px@2x.png in Resources */,
+				932BEE4217378226000A15CB /* icon-57px.png in Resources */,
+				932BEE4317378226000A15CB /* icon-57px@2x.png in Resources */,
+				932BEE4417378226000A15CB /* icon-72px.png in Resources */,
+				932BEE4517378226000A15CB /* icon-72px@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
