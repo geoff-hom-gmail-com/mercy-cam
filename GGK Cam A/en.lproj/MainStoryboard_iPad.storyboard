@@ -199,7 +199,7 @@ with 324 hours between each photo."</string>
                                 </state>
                                 <connections>
                                     <action selector="playButtonSound" destination="2" eventType="touchDown" id="8xQ-gk-Lge"/>
-                                    <segue destination="RoA-pF-Ojp" kind="push" id="0lT-Gh-iXB"/>
+                                    <segue destination="fx6-eB-Ugt" kind="push" id="07w-2u-Bgx"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Vj6-SR-SCJ">
@@ -264,9 +264,9 @@ then take 98 photos."</string>
                                 <rect key="frame" x="353" y="530" width="395" height="99"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">"Wait 322 days, 
-then take 232 photos
-with 324 hours between each photo."</string>
+                                <string key="text">"Wait 10 seconds, 
+then take 7 photos
+with 555 minutes between each photo."</string>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="22"/>
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -639,57 +639,7 @@ photos</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wdb-xT-cbC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1669" y="936"/>
-        </scene>
-        <!--View Controller - Mercy Camera: Take delayed photos (advanced)-->
-        <scene sceneID="GzP-fh-hYs">
-            <objects>
-                <viewController id="RoA-pF-Ojp" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="tl7-7X-MYd">
-                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="just testing UI controls" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GYN-bf-xKJ">
-                                <rect key="frame" x="239" y="43" width="168" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="Bxf-JM-CQl">
-                                <rect key="frame" x="166" y="96" width="161" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="First"/>
-                                    <segment title="Second"/>
-                                </segments>
-                            </segmentedControl>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" id="HON-jl-J5f">
-                                <rect key="frame" x="373" y="102" width="118" height="23"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </slider>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="iO4-DE-KLh">
-                                <rect key="frame" x="354" y="181" width="97" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" id="gWa-bY-daa">
-                                <rect key="frame" x="511" y="160" width="94" height="27"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            </stepper>
-                            <pickerView contentMode="scaleToFill" id="ScH-Ml-6PO">
-                                <rect key="frame" x="240" y="238" width="160" height="216"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            </pickerView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Mercy Camera: Take delayed photos (advanced)" id="Jx3-Gj-AYm"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="S4a-1h-q5N" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1669" y="2049"/>
+            <point key="canvasLocation" x="1669" y="880"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="gLc-vs-kRk">
@@ -1022,7 +972,7 @@ photos</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rhG-Iq-Qlb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2465" y="1192"/>
+            <point key="canvasLocation" x="2457" y="1124"/>
         </scene>
         <!--Help The Creators View Controller - Mercy Camera: Help the creators-->
         <scene sceneID="NNi-QC-1Ab">
@@ -1371,6 +1321,336 @@ photos</string>
             </objects>
             <point key="canvasLocation" x="3002" y="3159"/>
         </scene>
+        <!--Take Advanced Delayed Photos View Controller - Mercy Camera: Take delayed photos (advanced)-->
+        <scene sceneID="naP-rK-kmE">
+            <objects>
+                <viewController id="fx6-eB-Ugt" customClass="GGKTakeAdvancedDelayedPhotosViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2Vi-2S-nyI">
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <userGuides>
+                            <userLayoutGuide location="8" affinity="minX"/>
+                            <userLayoutGuide location="8" affinity="minY"/>
+                            <userLayoutGuide location="794" affinity="minY"/>
+                            <userLayoutGuide location="652" affinity="minX"/>
+                            <userLayoutGuide location="760" affinity="minX"/>
+                        </userGuides>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="OGt-yg-6PM">
+                                <rect key="frame" x="662" y="134" width="98" height="594"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <state key="normal">
+                                    <string key="title">Start
+timer</string>
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="playButtonSound" destination="fx6-eB-Ugt" eventType="touchDown" id="ZJM-Hg-6zg"/>
+                                    <action selector="startTimer" destination="fx6-eB-Ugt" eventType="touchUpInside" id="gRj-rs-kIq"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" id="KC2-e3-9Yf">
+                                <rect key="frame" x="0.0" y="88" width="654" height="872"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="btA-Ip-ft9">
+                                <rect key="frame" x="662" y="854" width="98" height="98"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <state key="normal">
+                                    <string key="title">Saved
+photos</string>
+                                    <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="playButtonSound" destination="fx6-eB-Ugt" eventType="touchDown" id="TyR-wn-haI"/>
+                                    <action selector="viewPhotos" destination="fx6-eB-Ugt" eventType="touchUpInside" id="pST-sr-e0f"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="rmS-v3-nJF">
+                                <rect key="frame" x="682" y="735" width="78" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelTimer" destination="fx6-eB-Ugt" eventType="touchUpInside" id="WVX-aJ-5vJ"/>
+                                    <action selector="playButtonSound" destination="fx6-eB-Ugt" eventType="touchDown" id="wOb-Lw-vDN"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text=", then take" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gcm-m4-eND">
+                                <rect key="frame" x="195" y="14" width="81" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="999" borderStyle="bezel" placeholder="2" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" id="KRM-EG-b9V">
+                                <rect key="frame" x="50" y="8" width="50" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <action selector="playButtonSound" destination="fx6-eB-Ugt" eventType="touchDown" id="dd6-3X-0is"/>
+                                    <outlet property="delegate" destination="fx6-eB-Ugt" id="eGx-cT-YT1"/>
+                                </connections>
+                            </textField>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Wait" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Lg2-g2-hGC">
+                                <rect key="frame" x="8" y="14" width="34" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="999" borderStyle="bezel" placeholder="3" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" id="qgC-ZO-NKV">
+                                <rect key="frame" x="284" y="8" width="50" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <action selector="playButtonSound" destination="fx6-eB-Ugt" eventType="touchDown" id="cED-2S-gil"/>
+                                    <outlet property="delegate" destination="fx6-eB-Ugt" id="UjX-nJ-Vkb"/>
+                                </connections>
+                            </textField>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="photos with" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ahy-EY-pFa">
+                                <rect key="frame" x="342" y="14" width="90" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="999" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ysa-wk-iQ1">
+                                <rect key="frame" x="50" y="60" width="50" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LTt-xs-K4V">
+                                <rect key="frame" x="662" y="88" width="94" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <string key="text">Focus:
+  Continuous</string>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fwv-t7-ZYd">
+                                <rect key="frame" x="284" y="60" width="50" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="IMl-Pq-BXM">
+                                <rect key="frame" x="108" y="9" width="85" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="seconds">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="n0L-k4-fCs" kind="popover" identifier="ShowTimeUnitsSelector" popoverAnchorView="IMl-Pq-BXM" id="MQT-mB-3ID">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                    </segue>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="2" borderStyle="bezel" placeholder="2" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" id="xDK-Mz-vlp">
+                                <rect key="frame" x="440" y="8" width="50" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <action selector="playButtonSound" destination="fx6-eB-Ugt" eventType="touchDown" id="0M1-4O-qiw"/>
+                                    <outlet property="delegate" destination="fx6-eB-Ugt" id="cJV-a4-Jae"/>
+                                </connections>
+                            </textField>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="f05-Ag-oS2">
+                                <rect key="frame" x="440" y="60" width="50" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="baA-ad-HE5">
+                                <rect key="frame" x="498" y="9" width="85" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="seconds">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="n0L-k4-fCs" kind="popover" identifier="ShowTimeUnitsSelector" popoverAnchorView="baA-ad-HE5" id="BTA-3R-MJr">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                    </segue>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="between each photo." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Bef-dx-qWg">
+                                <rect key="frame" x="591" y="13" width="161" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.067454613750000003" blue="0.4239279628" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Mercy Camera: Take delayed photos (advanced)" id="yj8-fa-Pus">
+                        <barButtonItem key="rightBarButtonItem" title="Long-term" id="caU-n3-w4x"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="cameraRollButton" destination="btA-Ip-ft9" id="Heg-4v-rx7"/>
+                        <outlet property="cancelTimerButton" destination="rmS-v3-nJF" id="86e-Wy-PYr"/>
+                        <outlet property="focusLabel" destination="LTt-xs-K4V" id="dam-Ft-On2"/>
+                        <outlet property="numberOfPhotosTakenLabel" destination="fwv-t7-ZYd" id="8Z6-sD-2P4"/>
+                        <outlet property="numberOfPhotosToTakeTextField" destination="qgC-ZO-NKV" id="U3s-k4-Udi"/>
+                        <outlet property="numberOfSecondsWaitedLabel" destination="Ysa-wk-iQ1" id="7An-IJ-4Ng"/>
+                        <outlet property="numberOfTimeUnitsToInitiallyWaitTextField" destination="KRM-EG-b9V" id="hxq-vL-91x"/>
+                        <outlet property="photosLabel" destination="ahy-EY-pFa" id="rIs-c0-PMC"/>
+                        <outlet property="secondsLabel" destination="gcm-m4-eND" id="pCi-R3-IKX"/>
+                        <outlet property="startTimerButton" destination="OGt-yg-6PM" id="l3O-K6-0dL"/>
+                        <outlet property="timeUnitsBetweenPhotosButton" destination="baA-ad-HE5" id="CtV-Qc-2E6"/>
+                        <outlet property="timeUnitsToInitiallyWaitButton" destination="IMl-Pq-BXM" id="Tlk-kj-WrB"/>
+                        <outlet property="videoPreviewView" destination="KC2-e3-9Yf" id="lRm-RF-cdi"/>
+                        <outlet property="waitLabel" destination="Lg2-g2-hGC" id="h0b-jr-d6e"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mh3-6V-Mch" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1677" y="1990"/>
+        </scene>
+        <!--Time Units Table View Controller-->
+        <scene sceneID="Opy-x2-L6S">
+            <objects>
+                <tableViewController id="n0L-k4-fCs" customClass="GGKTimeUnitsTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="7pE-5o-XZC">
+                        <rect key="frame" x="0.0" y="0.0" width="130" height="176"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <sections>
+                            <tableViewSection id="4ld-6M-0Yw">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="checkmark" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="hwr-ds-8Uu" style="IBUITableViewCellStyleDefault" id="XWE-E6-I8N">
+                                        <rect key="frame" x="0.0" y="0.0" width="130" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="110" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="seconds" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hwr-ds-8Uu">
+                                                    <rect key="frame" x="10" y="0.0" width="90" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="4eu-Cv-Jw4" style="IBUITableViewCellStyleDefault" id="GaQ-p7-tRs">
+                                        <rect key="frame" x="0.0" y="44" width="130" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="130" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="minutes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4eu-Cv-Jw4">
+                                                    <rect key="frame" x="10" y="0.0" width="110" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="RVz-7R-4o5" style="IBUITableViewCellStyleDefault" id="4X5-hG-3oa">
+                                        <rect key="frame" x="0.0" y="88" width="130" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="130" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="hours" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RVz-7R-4o5">
+                                                    <rect key="frame" x="10" y="0.0" width="110" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="A8Y-iZ-OQv" style="IBUITableViewCellStyleDefault" id="xaY-to-Jb5">
+                                        <rect key="frame" x="0.0" y="132" width="130" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="130" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="days" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="A8Y-iZ-OQv">
+                                                    <rect key="frame" x="10" y="0.0" width="110" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="n0L-k4-fCs" id="qmm-Zz-ueq"/>
+                            <outlet property="delegate" destination="n0L-k4-fCs" id="C8Y-Sg-w3q"/>
+                        </connections>
+                    </tableView>
+                    <nil key="simulatedStatusBarMetrics"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0yr-rS-l82" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2753" y="2063"/>
+        </scene>
     </scenes>
     <classes>
         <class className="GGKHelpTheCreatorsViewController" superclassName="UIViewController">
@@ -1411,6 +1691,27 @@ photos</string>
                 <relationship kind="outlet" name="takeAdvancedDelayedPhotosExampleLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="takeDelayedPhotosButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="takeDelayedPhotosExampleLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="GGKTakeAdvancedDelayedPhotosViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKTakeAdvancedDelayedPhotosViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="playButtonSound"/>
+                <relationship kind="outlet" name="cameraRollButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="cancelTimerButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="focusLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="numberOfPhotosTakenLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="numberOfPhotosToTakeTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="numberOfSecondsWaitedLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="numberOfTimeUnitsToInitiallyWaitTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="photosLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="secondsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="startTimerButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="timeUnitsBetweenPhotosButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="timeUnitsToInitiallyWaitButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="timerStartedLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="videoPreviewView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="waitLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="GGKTakeDelayedPhotosViewController" superclassName="UIViewController">
@@ -1455,10 +1756,16 @@ photos</string>
                 <relationship kind="outlet" name="whiteBalancingLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
+        <class className="GGKTimeUnitsTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKTimeUnitsTableViewController.h"/>
+        </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="BTA-3R-MJr"/>
+    </inferredMetricsTieBreakers>
 </document>

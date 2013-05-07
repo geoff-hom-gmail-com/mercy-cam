@@ -15,6 +15,8 @@
 		932BEE4317378226000A15CB /* icon-57px@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 932BEE3B17378226000A15CB /* icon-57px@2x.png */; };
 		932BEE4417378226000A15CB /* icon-72px.png in Resources */ = {isa = PBXBuildFile; fileRef = 932BEE3C17378226000A15CB /* icon-72px.png */; };
 		932BEE4517378226000A15CB /* icon-72px@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 932BEE3D17378226000A15CB /* icon-72px@2x.png */; };
+		932BEE4817379F21000A15CB /* GGKTakeAdvancedDelayedPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 932BEE4717379F21000A15CB /* GGKTakeAdvancedDelayedPhotosViewController.m */; };
+		932BEE4B1738D6F4000A15CB /* GGKTimeUnitsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 932BEE4A1738D6F4000A15CB /* GGKTimeUnitsTableViewController.m */; };
 		93306A3F16C1D19A00F22B0A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93306A3E16C1D19A00F22B0A /* UIKit.framework */; };
 		93306A4116C1D19A00F22B0A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93306A4016C1D19A00F22B0A /* Foundation.framework */; };
 		93306A4316C1D19A00F22B0A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93306A4216C1D19A00F22B0A /* CoreGraphics.framework */; };
@@ -52,6 +54,10 @@
 		932BEE3B17378226000A15CB /* icon-57px@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-57px@2x.png"; path = "icons/icon-57px@2x.png"; sourceTree = "<group>"; };
 		932BEE3C17378226000A15CB /* icon-72px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-72px.png"; path = "icons/icon-72px.png"; sourceTree = "<group>"; };
 		932BEE3D17378226000A15CB /* icon-72px@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-72px@2x.png"; path = "icons/icon-72px@2x.png"; sourceTree = "<group>"; };
+		932BEE4617379F21000A15CB /* GGKTakeAdvancedDelayedPhotosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKTakeAdvancedDelayedPhotosViewController.h; sourceTree = "<group>"; };
+		932BEE4717379F21000A15CB /* GGKTakeAdvancedDelayedPhotosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKTakeAdvancedDelayedPhotosViewController.m; sourceTree = "<group>"; };
+		932BEE491738D6F4000A15CB /* GGKTimeUnitsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKTimeUnitsTableViewController.h; sourceTree = "<group>"; };
+		932BEE4A1738D6F4000A15CB /* GGKTimeUnitsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKTimeUnitsTableViewController.m; sourceTree = "<group>"; };
 		93306A3B16C1D19A00F22B0A /* Mercy Camera.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mercy Camera.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93306A3E16C1D19A00F22B0A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		93306A4016C1D19A00F22B0A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -175,10 +181,14 @@
 				938A0063172E75A900709AA4 /* GGKSavedPhotosManager.m */,
 				93471CB31718843800E20F65 /* GGKSoundModel.h */,
 				93471CB41718843800E20F65 /* GGKSoundModel.m */,
+				932BEE4617379F21000A15CB /* GGKTakeAdvancedDelayedPhotosViewController.h */,
+				932BEE4717379F21000A15CB /* GGKTakeAdvancedDelayedPhotosViewController.m */,
 				93306A6E16C4702100F22B0A /* GGKTakeDelayedPhotosViewController.h */,
 				93306A6F16C4702200F22B0A /* GGKTakeDelayedPhotosViewController.m */,
 				93B776581718AC3A009CB475 /* GGKTakePhotoViewController.h */,
 				93B776591718AC3A009CB475 /* GGKTakePhotoViewController.m */,
+				932BEE491738D6F4000A15CB /* GGKTimeUnitsTableViewController.h */,
+				932BEE4A1738D6F4000A15CB /* GGKTimeUnitsTableViewController.m */,
 				93306A5616C1D19A00F22B0A /* MainStoryboard_iPhone.storyboard */,
 				93306A5916C1D19A00F22B0A /* MainStoryboard_iPad.storyboard */,
 				93306A4516C1D19A00F22B0A /* Supporting Files */,
@@ -299,6 +309,8 @@
 				938A0064172E75A900709AA4 /* GGKSavedPhotosManager.m in Sources */,
 				93CE01B7173241CF0025ACB4 /* GGKHelpTheCreatorsViewController.m in Sources */,
 				93CE01BA1733B5D60025ACB4 /* GGKInAppPurchaseManager.m in Sources */,
+				932BEE4817379F21000A15CB /* GGKTakeAdvancedDelayedPhotosViewController.m in Sources */,
+				932BEE4B1738D6F4000A15CB /* GGKTimeUnitsTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

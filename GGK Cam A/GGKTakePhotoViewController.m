@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import "GGKCamAppDelegate.h"
 #import "GGKCaptureManager.h"
 #import "GGKSavedPhotosManager.h"
 #import "GGKTakePhotoViewController.h"
