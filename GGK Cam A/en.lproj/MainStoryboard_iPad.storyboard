@@ -634,7 +634,6 @@ photos</string>
                         <outlet property="secondsLabel" destination="nkc-09-1YZ" id="o25-lh-fnE"/>
                         <outlet property="startTimerButton" destination="jJL-aE-Vqa" id="hhm-nD-8Hh"/>
                         <outlet property="videoPreviewView" destination="7CB-eU-aBL" id="bJD-Fc-HIp"/>
-                        <outlet property="waitLabel" destination="R3N-tM-YDR" id="Idp-sO-2uT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wdb-xT-cbC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1479,7 +1478,7 @@ photos</string>
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="n0L-k4-fCs" kind="popover" identifier="ShowTimeUnitsSelector" popoverAnchorView="IMl-Pq-BXM" id="MQT-mB-3ID">
+                                    <segue destination="n0L-k4-fCs" kind="popover" identifier="ShowTimeUnitsSelector1" popoverAnchorView="IMl-Pq-BXM" id="MQT-mB-3ID">
                                         <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                     </segue>
                                 </connections>
@@ -1515,7 +1514,7 @@ photos</string>
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="n0L-k4-fCs" kind="popover" identifier="ShowTimeUnitsSelector" popoverAnchorView="baA-ad-HE5" id="BTA-3R-MJr">
+                                    <segue destination="n0L-k4-fCs" kind="popover" identifier="ShowTimeUnitsSelector2" popoverAnchorView="baA-ad-HE5" id="BTA-3R-MJr">
                                         <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                     </segue>
                                 </connections>
@@ -1525,6 +1524,14 @@ photos</string>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Next photo: DDD:HH:MM:SS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nbZ-Rw-ibA">
+                                <rect key="frame" x="515" y="60" width="245" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -1539,15 +1546,16 @@ photos</string>
                         <outlet property="focusLabel" destination="LTt-xs-K4V" id="dam-Ft-On2"/>
                         <outlet property="numberOfPhotosTakenLabel" destination="fwv-t7-ZYd" id="8Z6-sD-2P4"/>
                         <outlet property="numberOfPhotosToTakeTextField" destination="qgC-ZO-NKV" id="U3s-k4-Udi"/>
-                        <outlet property="numberOfSecondsWaitedLabel" destination="Ysa-wk-iQ1" id="7An-IJ-4Ng"/>
+                        <outlet property="numberOfTimeUnitsBetweenPhotosTextField" destination="xDK-Mz-vlp" id="4JC-I4-2vK"/>
+                        <outlet property="numberOfTimeUnitsInitiallyWaitedLabel" destination="Ysa-wk-iQ1" id="m2S-Tz-ewF"/>
                         <outlet property="numberOfTimeUnitsToInitiallyWaitTextField" destination="KRM-EG-b9V" id="hxq-vL-91x"/>
-                        <outlet property="photosLabel" destination="ahy-EY-pFa" id="rIs-c0-PMC"/>
-                        <outlet property="secondsLabel" destination="gcm-m4-eND" id="pCi-R3-IKX"/>
+                        <outlet property="numberOfTimeUnitsWaitedBetweenPhotosLabel" destination="f05-Ag-oS2" id="YvZ-gO-VzD"/>
+                        <outlet property="photosWithLabel" destination="ahy-EY-pFa" id="bcC-P1-Xft"/>
                         <outlet property="startTimerButton" destination="OGt-yg-6PM" id="l3O-K6-0dL"/>
+                        <outlet property="timeRemainingUntilNextPhotoLabel" destination="nbZ-Rw-ibA" id="jgk-P9-c0O"/>
                         <outlet property="timeUnitsBetweenPhotosButton" destination="baA-ad-HE5" id="CtV-Qc-2E6"/>
                         <outlet property="timeUnitsToInitiallyWaitButton" destination="IMl-Pq-BXM" id="Tlk-kj-WrB"/>
                         <outlet property="videoPreviewView" destination="KC2-e3-9Yf" id="lRm-RF-cdi"/>
-                        <outlet property="waitLabel" destination="Lg2-g2-hGC" id="h0b-jr-d6e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mh3-6V-Mch" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1697,21 +1705,22 @@ photos</string>
             <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKTakeAdvancedDelayedPhotosViewController.h"/>
             <relationships>
                 <relationship kind="action" name="playButtonSound"/>
+                <relationship kind="action" name="viewPhotos"/>
                 <relationship kind="outlet" name="cameraRollButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="cancelTimerButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="focusLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="numberOfPhotosTakenLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="numberOfPhotosToTakeTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="numberOfSecondsWaitedLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="numberOfTimeUnitsBetweenPhotosTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="numberOfTimeUnitsInitiallyWaitedLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="numberOfTimeUnitsToInitiallyWaitTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="photosLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="secondsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="numberOfTimeUnitsWaitedBetweenPhotosLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="photosWithLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="startTimerButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="timeRemainingUntilNextPhotoLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="timeUnitsBetweenPhotosButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="timeUnitsToInitiallyWaitButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="timerStartedLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="videoPreviewView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="waitLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="GGKTakeDelayedPhotosViewController" superclassName="UIViewController">
@@ -1731,9 +1740,7 @@ photos</string>
                 <relationship kind="outlet" name="photosLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="secondsLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="startTimerButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="timerStartedLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="videoPreviewView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="waitLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="GGKTakePhotoViewController" superclassName="UIViewController">

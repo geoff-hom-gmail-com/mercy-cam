@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import "GGKCaptureManager.h"
 #import "GGKSavedPhotosManager.h"
 #import "GGKTakeDelayedPhotosViewController.h"
 
@@ -77,6 +76,9 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 
 // Story: When the user should see the UI in portrait, she does.
 - (void)updateLayoutForPortrait;
+
+// Set parameters to most-recently used.
+- (void)updateParameters;
 
 // Story: View will appear to user. User sees updated view.
 // UIViewController override. Listen for app coming from background/lock. Update view.
@@ -421,6 +423,25 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     self.cameraRollButton.frame = CGRectMake(anX1, 844, aWidth, aWidth);
 }
 
+- (void)updateParameters
+{
+    NSNumber *numberOfSecondsToInitiallyWaitNumber = [[NSUserDefaults standardUserDefaults] objectForKey:GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString];
+    if (numberOfSecondsToInitiallyWaitNumber == nil) {
+        
+        numberOfSecondsToInitiallyWaitNumber = @(GGKTakeDelayedPhotosDefaultNumberOfSecondsToInitiallyWaitInteger);
+    }
+    self.numberOfSecondsToInitiallyWaitTextField.text = [numberOfSecondsToInitiallyWaitNumber stringValue];
+    
+    NSNumber *numberOfPhotosNumber = [[NSUserDefaults standardUserDefaults] objectForKey:GGKTakeDelayedPhotosNumberOfPhotosKeyString];
+    if (numberOfPhotosNumber == nil) {
+        
+        numberOfPhotosNumber = @(GGKTakeDelayedPhotosDefaultNumberOfPhotosInteger);
+    }
+    self.numberOfPhotosToTakeTextField.text = [numberOfPhotosNumber stringValue];
+    
+    [self adjustStringsForPlurals];
+}
+
 - (void)viewDidLoad
 {    
     [super viewDidLoad];
@@ -443,23 +464,7 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
-    // Set parameters to most-recent.
-    
-    NSNumber *numberOfSecondsToInitiallyWaitNumber = [[NSUserDefaults standardUserDefaults] objectForKey:GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString];
-    if (numberOfSecondsToInitiallyWaitNumber == nil) {
-        
-        numberOfSecondsToInitiallyWaitNumber = @(GGKTakeDelayedPhotosDefaultNumberOfSecondsToInitiallyWaitInteger);
-    }
-    self.numberOfSecondsToInitiallyWaitTextField.text = [numberOfSecondsToInitiallyWaitNumber stringValue];
-    
-    NSNumber *numberOfPhotosNumber = [[NSUserDefaults standardUserDefaults] objectForKey:GGKTakeDelayedPhotosNumberOfPhotosKeyString];
-    if (numberOfPhotosNumber == nil) {
-        
-        numberOfPhotosNumber = @(GGKTakeDelayedPhotosDefaultNumberOfPhotosInteger);
-    }
-    self.numberOfPhotosToTakeTextField.text = [numberOfPhotosNumber stringValue];
-    
-    [self adjustStringsForPlurals];
+    [self updateParameters];
     
     [self updateForAllowingStartTimer];
 }

@@ -52,14 +52,8 @@ extern NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString;
 // Tap to start the timer for taking photos.
 @property (weak, nonatomic) IBOutlet UIButton *startTimerButton;
 
-// To let user know, visually, that the timer started.
-@property (weak, nonatomic) IBOutlet UILabel *timerStartedLabel;
-
 // Camera input is shown here.
 @property (weak, nonatomic) IBOutlet UIView *videoPreviewView;
-
-// In "Wait X seconds, then take Y photos," it's "Wait." 
-@property (nonatomic, weak) IBOutlet UILabel *waitLabel;
 
 // Cancel the timer and don't take any more photos.
 - (IBAction)cancelTimer;

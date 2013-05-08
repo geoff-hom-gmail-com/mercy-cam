@@ -184,6 +184,11 @@ BOOL GGKCreateLaunchImages = NO;
     // move to sub-method
     // Update labels in case they changed.
     
+    // make new method?
+    // can call via [GGKSavedInfoManager storedInteger:key default:default];
+    // return the stored integer as a number. If not found, return the given default value.
+    // - (NSNumber *)storedInteger:(NSString *)theKey default:(NSInteger)theDefaultInteger
+    
     NSNumber *takeDelayedPhotosNumberOfSecondsToInitiallyWaitNumber = [[NSUserDefaults standardUserDefaults] objectForKey:GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString];
     if (takeDelayedPhotosNumberOfSecondsToInitiallyWaitNumber == nil) {
         
