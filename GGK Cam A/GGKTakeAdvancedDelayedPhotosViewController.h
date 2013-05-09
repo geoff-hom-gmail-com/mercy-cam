@@ -6,9 +6,8 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import "GGKCaptureManager.h"
+#import "GGKTakePhotoAbstractViewController.h"
 #import "GGKTimeUnitsTableViewController.h"
-#import "GGKViewController.h"
 
 // The default number of photos to take.
 extern const NSInteger GGKTakeAdvancedDelayedPhotosDefaultNumberOfPhotosInteger;
@@ -40,10 +39,7 @@ extern NSString *GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString;
 // Key for storing the time unit to use for the initial wait.
 extern NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString;
 
-@interface GGKTakeAdvancedDelayedPhotosViewController : GGKViewController <GGKCaptureManagerDelegate, GGKTimeUnitsTableViewControllerDelegate, UITextFieldDelegate>
-
-// Tap to see camera roll. This button shows the most-recent photo in the roll.
-@property (weak, nonatomic) IBOutlet UIButton *cameraRollButton;
+@interface GGKTakeAdvancedDelayedPhotosViewController : GGKTakePhotoAbstractViewController <GGKTimeUnitsTableViewControllerDelegate, UITextFieldDelegate>
 
 // Tap to cancel the timer for taking photos.
 @property (weak, nonatomic) IBOutlet UIButton *cancelTimerButton;
@@ -89,11 +85,11 @@ extern NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString;
 // The type of time units to wait before taking the first photo.
 @property (weak, nonatomic) IBOutlet UIButton *timeUnitsToInitiallyWaitButton;
 
-// Camera input is shown here.
-@property (weak, nonatomic) IBOutlet UIView *videoPreviewView;
+// Override. For stopping the capture session. And removing observers.
+- (void)dealloc;
 
-- (void)captureManagerDidTakePhoto:(id)sender;
-// So, show the most-recent photo thumbnail.
+// KVO. Story: User can see when the focus/exposure is locked.
+- (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
 
 - (void)timeUnitsTableViewControllerDidSelectTimeUnit:(id)sender;
 // So, update the appropriate button and dismiss the popover.
@@ -106,11 +102,5 @@ extern NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString;
 
 // Override.
 - (void)viewDidLoad;
-
-// Story: User took photos. User viewed photos. User decided to delete some photos.
-// So, let the user view the taken photos and (optionally) remove them.
-// (Oops: Can't delete saved photos like in Apple's camera app. Apple doesn't allow.)
-// New story: User took photos. User can check thumbnails quickly. Would probably like to tap a thumbnail and see a larger view. Can tap "Back" in popover to see thumbnails again.
-- (IBAction)viewPhotos;
 
 @end

@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 // The currently selected time unit. 
 typedef enum {
     

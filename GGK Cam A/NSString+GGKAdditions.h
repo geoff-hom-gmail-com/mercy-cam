@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @interface NSString (GGKAdditions)
 
 // Return the receiver, perhaps in singular form: If the given integer is 1, then remove any trailing s.

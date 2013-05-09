@@ -16,10 +16,6 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
 
 @interface GGKTakePhotoViewController ()
 
-// For removing the observer later.
-//@property (strong, nonatomic) id appWillEnterForegroundObserver;
-
-
 // (For testing.) Show the current camera settings.
 - (void)updateCameraDebugLabels;
 
@@ -300,12 +296,5 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
         }
     }
 }
-
-//- (void)viewWillAppear:(BOOL)animated
-//{
-//    [super viewWillAppear:animated];
-//    
-//    [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
-//}
 
 @end

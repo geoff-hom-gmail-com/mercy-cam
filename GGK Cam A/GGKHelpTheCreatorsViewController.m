@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
+#import <StoreKit/StoreKit.h>
 #import "GGKCamAppDelegate.h"
 #import "GGKHelpTheCreatorsViewController.h"
 

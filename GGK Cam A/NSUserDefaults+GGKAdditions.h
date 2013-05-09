@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @interface NSUserDefaults (GGKAdditions)
 
 // Return the key's integer. If not found, then return the alternate value.

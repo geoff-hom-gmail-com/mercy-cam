@@ -6,13 +6,9 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import "GGKCaptureManager.h"
 #import "GGKTakePhotoAbstractViewController.h"
 
-@interface GGKTakePhotoViewController : GGKTakePhotoAbstractViewController <UINavigationControllerDelegate>
-
-//// Tap to see camera roll. This button is labeled with the most-recent photo in the roll.
-//@property (weak, nonatomic) IBOutlet UIButton *cameraRollButton;
+@interface GGKTakePhotoViewController : GGKTakePhotoAbstractViewController
 
 // (For testing.) Report whether currently exposing.
 @property (strong, nonatomic) IBOutlet UILabel *exposingLabel;
@@ -37,9 +33,6 @@
 
 // For displaying a context-sensitive tip.
 @property (nonatomic, strong) IBOutlet UILabel *tipLabel;
-
-// Camera input is shown here.
-//@property (weak, nonatomic) IBOutlet UIView *videoPreviewView;
 
 // (For testing.) Report the current white-balance mode.
 @property (strong, nonatomic) IBOutlet UILabel *whiteBalanceModeLabel;

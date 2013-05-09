@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import "GGKSavedPhotosManager.h"
 #import "GGKTakeAdvancedDelayedPhotosViewController.h"
 #import "NSUserDefaults+GGKAdditions.h"
 
@@ -35,12 +34,6 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
 // The text field currently being edited.
 @property (nonatomic, strong) UITextField *activeTextField;
 
-// For removing the observer later.
-//@property (strong, nonatomic) id appWillEnterForegroundObserver;
-
-// For creating the session and managing the capture device.
-@property (strong, nonatomic) GGKCaptureManager *captureManager;
-
 // Story: User taps button. Popover appears. User makes selection in popover. User sees updated button.
 // The button the user tapped to display the popover.
 @property (nonatomic, strong) UIButton *currentPopoverButton;
@@ -48,20 +41,11 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
 // For dismissing the current popover. Would name "popoverController," but UIViewController already has a private variable named that.
 @property (nonatomic, strong) UIPopoverController *currentPopoverController;
 
-// For working with photos in the camera roll.
-@property (nonatomic, strong) GGKSavedPhotosManager *savedPhotosManager;
-
-// UIViewController override. For stopping the capture session. And removing observers.
-- (void)dealloc;
-
 - (void)keyboardWillHide:(NSNotification *)theNotification;
 // So, shift the view back to normal.
 
 - (void)keyboardWillShow:(NSNotification *)theNotification;
 // So, shift the view up, if necessary.
-
-// KVO. Story: User can see when the focus/exposure is locked.
-- (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
 
 // Override.
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender;
@@ -84,27 +68,14 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
 // Set timer settings to those most-recently used.
 - (void)updateSettings;
 
-// Story: View will appear to user. User sees updated view.
-// UIViewController override. Listen for app coming from background/lock. Update view.
-// Whether the view appears from another view in this app or from the app entering the foreground, the user should see an updated view. -viewWillAppear: is called for the former but not the latter. So, we listen for UIApplicationWillEnterForegroundNotification (and stop listening in -viewWillDisappear:).
-- (void)viewWillAppear:(BOOL)animated;
-
-// UIViewController override. Undo anything from -viewWillAppear:.
-- (void)viewWillDisappear:(BOOL)animated;
-
 @end
 
 @implementation GGKTakeAdvancedDelayedPhotosViewController
 
-- (void)captureManagerDidTakePhoto:(id)sender
-{
-    [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
-}
-
 - (void)dealloc {
     
-    [self.captureManager.session stopRunning];
-    [self removeObserver:self forKeyPath:@"captureManager.focusAndExposureStatus"];
+//    [self.captureManager.session stopRunning];
+//    [self removeObserver:self forKeyPath:@"captureManager.focusAndExposureStatus"];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
@@ -424,20 +395,6 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    
-    self.savedPhotosManager = [[GGKSavedPhotosManager alloc] init];
-    
-    // Report focus (and exposure) status in real time.
-    [self addObserver:self forKeyPath:@"captureManager.focusAndExposureStatus" options:NSKeyValueObservingOptionNew context:nil];
-    
-    // Set up the camera.
-    GGKCaptureManager *theCaptureManager = [[GGKCaptureManager alloc] init];
-    theCaptureManager.delegate = self;
-    [theCaptureManager setUpSession];
-    [theCaptureManager addPreviewLayerToView:self.videoPreviewView];
-    [theCaptureManager startSession];
-    self.captureManager = theCaptureManager;
     
     // Observe keyboard notifications to shift the screen up/down appropriately.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -447,35 +404,5 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
     
     [self updateForAllowingStartTimer];
 }
-
-- (IBAction)viewPhotos
-{
-    [self.savedPhotosManager viewPhotosViaButton:self.cameraRollButton];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-//    if (self.appWillEnterForegroundObserver == nil) {
-//        
-//        self.appWillEnterForegroundObserver = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillEnterForegroundNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
-//            
-//            [self viewWillAppear:animated];
-//        }];
-//    }
-    
-    [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
-}
-
-//- (void)viewWillDisappear:(BOOL)animated
-//{
-//    [super viewWillDisappear:animated];
-//    
-//    if (self.appWillEnterForegroundObserver != nil) {
-//        
-//        [[NSNotificationCenter defaultCenter] removeObserver:self.appWillEnterForegroundObserver name:UIApplicationWillEnterForegroundNotification object:nil];
-//    }
-//}
 
 @end

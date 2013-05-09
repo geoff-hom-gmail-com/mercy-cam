@@ -350,6 +350,4 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     [self updateForAllowingStartTimer];
 }
 
-
-
 @end
