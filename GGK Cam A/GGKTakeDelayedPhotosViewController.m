@@ -28,10 +28,6 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 // For creating the session and managing the capture device.
 @property (nonatomic, strong) GGKCaptureManager *captureManager;
 
-// Story: The overall orientation (device/status-bar) is checked against the orientation of this app's UI. The user sees the UI in the correct orientation.
-// Whether the landscape view is currently showing.
-@property (nonatomic, assign) BOOL isShowingLandscapeView;
-
 // Number of photos to take for a given push of the shutter.
 @property (nonatomic, assign) NSInteger numberOfPhotosToTake;
 
@@ -43,9 +39,6 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 
 // For working with photos in the camera roll.
 @property (nonatomic, strong) GGKSavedPhotosManager *savedPhotosManager;
-
-// UIViewController override.
-- (void)awakeFromNib;
 
 // So, show the user how many seconds have passed. If enough have passed, start taking photos.
 - (void)handleOneSecondTimerFired;
@@ -68,12 +61,6 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 // Story: User sees UI and knows she can tap "Start timer."
 - (void)updateForAllowingStartTimer;
 
-// Story: When the user should see the UI in landscape, she does.
-- (void)updateLayoutForLandscape;
-
-// Story: When the user should see the UI in portrait, she does.
-- (void)updateLayoutForPortrait;
-
 // Set parameters to most-recently used.
 - (void)updateSettings;
 
@@ -85,20 +72,9 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 // UIViewController override. Undo anything from -viewWillAppear:.
 - (void)viewWillDisappear:(BOOL)animated;
 
-// UIViewController override.
-// Story: Whether user rotates device in the app, or from the home screen, this method will be called. User sees UI in correct orientation.
-- (void)viewWillLayoutSubviews;
-
 @end
 
 @implementation GGKTakeDelayedPhotosViewController
-
-- (void)awakeFromNib
-{
-    [super awakeFromNib];
-    
-    self.isShowingLandscapeView = NO;
-}
 
 - (IBAction)cancelTimer {
     
@@ -129,12 +105,6 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)handleOneSecondTimerFired
 {
     NSNumber *theSecondsWaitedNumber = @([self.numberOfSecondsWaitedLabel.text integerValue] + 1);
@@ -145,15 +115,6 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
         self.oneSecondRepeatingTimer = nil;
         [self startTakingPhotos];
     }
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
 }
 
 - (void)keyboardWillHide:(NSNotification *)theNotification {
@@ -220,12 +181,6 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
         
         [super observeValueForKeyPath:theKeyPath ofObject:object change:change context:context];
     }
-}
-
-- (IBAction)playButtonSound
-{
-    GGKCamAppDelegate *aCamAppDelegate = (GGKCamAppDelegate *)[UIApplication sharedApplication].delegate;
-    [aCamAppDelegate.soundModel playButtonTapSound];
 }
 
 - (void)startTakingPhotos
@@ -361,6 +316,8 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 
 - (void)updateLayoutForLandscape
 {
+    [super updateLayoutForLandscape];
+    
     CGPoint aPoint = self.videoPreviewView.frame.origin;
     self.videoPreviewView.frame = CGRectMake(aPoint.x, aPoint.y, 804, 603);
     [self.captureManager correctThePreviewOrientation:self.videoPreviewView];
@@ -379,6 +336,8 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 
 - (void)updateLayoutForPortrait
 {
+    [super updateLayoutForPortrait];
+    
     CGPoint aPoint = self.videoPreviewView.frame.origin;
     self.videoPreviewView.frame = CGRectMake(aPoint.x, aPoint.y, 644, 859);
     [self.captureManager correctThePreviewOrientation:self.videoPreviewView];
@@ -418,7 +377,6 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     [super viewDidLoad];
     
     self.savedPhotosManager = [[GGKSavedPhotosManager alloc] init];
-    [self updateLayoutForPortrait];
     
     // Report focus (and exposure) status in real time.
     [self addObserver:self forKeyPath:@"captureManager.focusAndExposureStatus" options:NSKeyValueObservingOptionNew context:nil];
@@ -467,23 +425,6 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     if (self.appWillEnterForegroundObserver != nil) {
         
         [[NSNotificationCenter defaultCenter] removeObserver:self.appWillEnterForegroundObserver name:UIApplicationWillEnterForegroundNotification object:nil];
-    }
-}
-
-- (void)viewWillLayoutSubviews
-{
-    [super viewWillLayoutSubviews];
-    
-    // Using status-bar orientation, not device orientation. Seems to work.
-    UIInterfaceOrientation theInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
-    if (UIInterfaceOrientationIsLandscape(theInterfaceOrientation) && !self.isShowingLandscapeView) {
-        
-        [self updateLayoutForLandscape];
-        self.isShowingLandscapeView = YES;
-    } else if (UIInterfaceOrientationIsPortrait(theInterfaceOrientation) && self.isShowingLandscapeView) {
-        
-        [self updateLayoutForPortrait];
-        self.isShowingLandscapeView = NO;
     }
 }
 

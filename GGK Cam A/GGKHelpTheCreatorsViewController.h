@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "GGKInAppPurchaseManager.h"
 
-@interface GGKHelpTheCreatorsViewController : UIViewController <GGKInAppPurchaseManagerDelegate, MFMailComposeViewControllerDelegate>
+@interface GGKHelpTheCreatorsViewController : GGKViewController <GGKInAppPurchaseManagerDelegate, MFMailComposeViewControllerDelegate>
 
 // Story: User sees header and understands this is one of the ways to help.
 @property (nonatomic, weak) IBOutlet UILabel *donateHeaderLabel;
@@ -73,10 +73,16 @@
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error;
 // So, dismiss the email view.
 
-// Play sound as aural feedback for pressing button.
-- (IBAction)playButtonSound;
-
 // Story: User sees option to "Rate this app." User taps button, is brought to the App Store and the rate/review page. User taps 5 stars. =)
 - (IBAction)rateOrReview;
+
+// Override.
+- (void)updateLayoutForLandscape;
+
+// Override.
+- (void)updateLayoutForPortrait;
+
+// Override.
+- (void)viewDidLoad;
 
 @end

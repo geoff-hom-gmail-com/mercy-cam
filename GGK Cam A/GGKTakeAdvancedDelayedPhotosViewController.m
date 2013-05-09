@@ -47,18 +47,8 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
 // For dismissing the current popover. Would name "popoverController," but UIViewController already has a private variable named that.
 @property (nonatomic, strong) UIPopoverController *currentPopoverController;
 
-// Story: The overall orientation (device/status-bar) is checked against the orientation of this app's UI. The user sees the UI in the correct orientation.
-// Whether the landscape view is currently showing.
-@property (nonatomic, assign) BOOL isShowingLandscapeView;
-
 // For working with photos in the camera roll.
 @property (nonatomic, strong) GGKSavedPhotosManager *savedPhotosManager;
-
-// Adjust the visible words for whether the numerical values are singular or plural.
-- (void)adjustStringsForPlurals;
-
-// UIViewController override.
-- (void)awakeFromNib;
 
 // UIViewController override. For stopping the capture session. And removing observers.
 - (void)dealloc;
@@ -72,7 +62,7 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
 // KVO. Story: User can see when the focus/exposure is locked.
 - (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
 
-// UIViewController override.
+// Override.
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender;
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField;
@@ -90,12 +80,6 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
 // Story: User sees UI and knows she can tap "Start timer."
 - (void)updateForAllowingStartTimer;
 
-// Story: When the user should see the UI in landscape, she does.
-- (void)updateLayoutForLandscape;
-
-// Story: When the user should see the UI in portrait, she does.
-- (void)updateLayoutForPortrait;
-
 // Set timer settings to those most-recently used.
 - (void)updateSettings;
 
@@ -111,32 +95,6 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
 
 @implementation GGKTakeAdvancedDelayedPhotosViewController
 
-- (void)adjustStringsForPlurals
-{
-    // "second(s), then take"
-//    NSString *aSecondsString = @"seconds";
-//    if ([self.numberOfSecondsToInitiallyWaitTextField.text intValue] == 1) {
-//        
-//        aSecondsString = @"second";
-//    }
-//    self.secondsLabel.text = [NSString stringWithFormat:@"%@, then take", aSecondsString];
-//    
-//    // "photo(s)."
-//    NSString *aPhotosString = @"photos";
-//    if ([self.numberOfPhotosToTakeTextField.text intValue] == 1) {
-//        
-//        aPhotosString = @"photo";
-//    }
-//    self.photosLabel.text = [NSString stringWithFormat:@"%@.", aPhotosString];
-}
-
-- (void)awakeFromNib
-{
-    [super awakeFromNib];
-    
-    self.isShowingLandscapeView = NO;
-}
-
 - (void)captureManagerDidTakePhoto:(id)sender
 {
     [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
@@ -148,21 +106,6 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
     [self removeObserver:self forKeyPath:@"captureManager.focusAndExposureStatus"];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
 }
 
 - (void)keyboardWillHide:(NSNotification *)theNotification {
@@ -229,12 +172,6 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
         
         [super observeValueForKeyPath:theKeyPath ofObject:object change:change context:context];
     }
-}
-
-- (IBAction)playButtonSound
-{
-    GGKCamAppDelegate *aCamAppDelegate = (GGKCamAppDelegate *)[UIApplication sharedApplication].delegate;
-    [aCamAppDelegate.soundModel playButtonTapSound];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)theSegue sender:(id)theSender {
@@ -354,11 +291,13 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
 
 - (void)updateLayoutForLandscape
 {
-    ;
+    [super updateLayoutForLandscape];
 }
 
 - (void)updateLayoutForPortrait
 {
+    [super updateLayoutForPortrait];
+    
 //    // The left margin.
 //    CGFloat aMarginX1Float = 20;
 //    
@@ -478,9 +417,7 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
     NSInteger theTimeUnitBetweenPhotosInteger = [[NSUserDefaults standardUserDefaults] ggk_integerForKey:GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString ifNil:GGKTakeAdvancedDelayedPhotosDefaultTimeUnitBetweenPhotosTimeUnit];
     NSString *theTimeUnitBetweenPhotosString = [GGKTimeUnitsTableViewController stringForTimeUnit:(GGKTimeUnit)theTimeUnitBetweenPhotosInteger];
     [self.timeUnitsBetweenPhotosButton setTitle:theTimeUnitBetweenPhotosString forState:UIControlStateNormal];
-    [self.timeUnitsBetweenPhotosButton setTitle:theTimeUnitBetweenPhotosString forState:UIControlStateDisabled];
-        
-    [self adjustStringsForPlurals];
+    [self.timeUnitsBetweenPhotosButton setTitle:theTimeUnitBetweenPhotosString forState:UIControlStateDisabled];        
 }
 
 - (void)viewDidLoad
@@ -489,7 +426,6 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
 	// Do any additional setup after loading the view.
     
     self.savedPhotosManager = [[GGKSavedPhotosManager alloc] init];
-    [self updateLayoutForPortrait];
     
     // Report focus (and exposure) status in real time.
     [self addObserver:self forKeyPath:@"captureManager.focusAndExposureStatus" options:NSKeyValueObservingOptionNew context:nil];

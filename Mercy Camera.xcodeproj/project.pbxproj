@@ -19,6 +19,7 @@
 		932BEE4B1738D6F4000A15CB /* GGKTimeUnitsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 932BEE4A1738D6F4000A15CB /* GGKTimeUnitsTableViewController.m */; };
 		932BEE51173AF9FB000A15CB /* NSUserDefaults+GGKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 932BEE50173AF9FA000A15CB /* NSUserDefaults+GGKAdditions.m */; };
 		932BEE54173B0F87000A15CB /* NSString+GGKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 932BEE53173B0F87000A15CB /* NSString+GGKAdditions.m */; };
+		932BEE57173B72D2000A15CB /* GGKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 932BEE56173B72D2000A15CB /* GGKViewController.m */; };
 		93306A3F16C1D19A00F22B0A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93306A3E16C1D19A00F22B0A /* UIKit.framework */; };
 		93306A4116C1D19A00F22B0A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93306A4016C1D19A00F22B0A /* Foundation.framework */; };
 		93306A4316C1D19A00F22B0A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93306A4216C1D19A00F22B0A /* CoreGraphics.framework */; };
@@ -64,6 +65,8 @@
 		932BEE50173AF9FA000A15CB /* NSUserDefaults+GGKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+GGKAdditions.m"; sourceTree = "<group>"; };
 		932BEE52173B0F86000A15CB /* NSString+GGKAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+GGKAdditions.h"; sourceTree = "<group>"; };
 		932BEE53173B0F87000A15CB /* NSString+GGKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+GGKAdditions.m"; sourceTree = "<group>"; };
+		932BEE55173B72D2000A15CB /* GGKViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKViewController.h; sourceTree = "<group>"; };
+		932BEE56173B72D2000A15CB /* GGKViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKViewController.m; sourceTree = "<group>"; };
 		93306A3B16C1D19A00F22B0A /* Mercy Camera.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mercy Camera.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93306A3E16C1D19A00F22B0A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		93306A4016C1D19A00F22B0A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -195,6 +198,8 @@
 				93B776591718AC3A009CB475 /* GGKTakePhotoViewController.m */,
 				932BEE491738D6F4000A15CB /* GGKTimeUnitsTableViewController.h */,
 				932BEE4A1738D6F4000A15CB /* GGKTimeUnitsTableViewController.m */,
+				932BEE55173B72D2000A15CB /* GGKViewController.h */,
+				932BEE56173B72D2000A15CB /* GGKViewController.m */,
 				93306A5616C1D19A00F22B0A /* MainStoryboard_iPhone.storyboard */,
 				93306A5916C1D19A00F22B0A /* MainStoryboard_iPad.storyboard */,
 				932BEE52173B0F86000A15CB /* NSString+GGKAdditions.h */,
@@ -323,6 +328,7 @@
 				932BEE4B1738D6F4000A15CB /* GGKTimeUnitsTableViewController.m in Sources */,
 				932BEE51173AF9FB000A15CB /* NSUserDefaults+GGKAdditions.m in Sources */,
 				932BEE54173B0F87000A15CB /* NSString+GGKAdditions.m in Sources */,
+				932BEE57173B72D2000A15CB /* GGKViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

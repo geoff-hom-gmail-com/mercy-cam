@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GGKMercyCameraViewController : UIViewController
+@interface GGKMercyCameraViewController : GGKViewController
 
 // Story: User sees this and understands that the parts shown below it are examples.
 @property (nonatomic, weak) IBOutlet UILabel *exampleLabel;
@@ -37,11 +37,19 @@
 // Story: User reads example for "Take delayed photos" and has a better understanding of whether she wants to do that. Also, user can think about that for the future.
 @property (weak, nonatomic) IBOutlet UILabel *takeDelayedPhotosExampleLabel;
 
-// Play sound as aural feedback for pressing button.
-- (IBAction)playButtonSound;
-
 // Story: User sees option to "Rate this app." User taps button, is brought to the App Store and the rate/review page. User taps 5 stars. =)
 - (IBAction)rateOrReview;
 
+// Override.
+- (void)updateLayoutForLandscape;
+
+// Override.
+- (void)updateLayoutForPortrait;
+
+// Override.
+- (void)viewDidLoad;
+
+// Override.
+- (void)viewWillAppear:(BOOL)animated;
 
 @end

@@ -18,35 +18,15 @@ NSString *WhiteMediumStarEmojiString = @"\u2B50";
 // For getting product info from the App Store, and for purchasing products.
 @property (nonatomic, strong) GGKInAppPurchaseManager *inAppPurchaseManager;
 
-// Story: The overall orientation (device/status-bar) is checked against the orientation of this app's UI. The user sees the UI in the correct orientation.
-// Whether the landscape view is currently showing.
-@property (nonatomic, assign) BOOL isShowingLandscapeView;
-
 // Show the number of thank-you stars. (One star per dollar given.)
 - (void)showStars;
 
 // Story: User sees UI and knows she can tap "Give $0.99."
 - (void)updateForAllowingDonation;
 
-// Story: When the user should see the UI in landscape, she does.
-- (void)updateLayoutForLandscape;
-
-// Story: When the user should see the UI in portrait, she does.
-- (void)updateLayoutForPortrait;
-
-// UIViewController override.
-// Story: Whether user rotates device in the app, or from the home screen, this method will be called. User sees UI in correct orientation.
-- (void)viewWillLayoutSubviews;
-
 @end
 
 @implementation GGKHelpTheCreatorsViewController
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 - (IBAction)emailTheCreators
 {
@@ -131,26 +111,10 @@ NSString *WhiteMediumStarEmojiString = @"\u2B50";
     }
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)mailComposeController:(MFMailComposeViewController *)theViewController didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
     [theViewController dismissViewControllerAnimated:YES completion:nil];
 }
-
-- (IBAction)playButtonSound
-{
-    GGKCamAppDelegate *aCamAppDelegate = (GGKCamAppDelegate *)[UIApplication sharedApplication].delegate;
-    [aCamAppDelegate.soundModel playButtonTapSound];
-}
-
 
 - (IBAction)rateOrReview
 {
@@ -200,6 +164,8 @@ NSString *WhiteMediumStarEmojiString = @"\u2B50";
 
 - (void)updateLayoutForLandscape
 {
+    [super updateLayoutForLandscape];
+    
     // The left margin.
     CGFloat aMarginX1Float = 20;
     
@@ -312,6 +278,8 @@ NSString *WhiteMediumStarEmojiString = @"\u2B50";
 
 - (void)updateLayoutForPortrait
 {
+    [super updateLayoutForPortrait];
+    
     // The left margin.
     CGFloat aMarginX1Float = 20;
     
@@ -422,25 +390,6 @@ NSString *WhiteMediumStarEmojiString = @"\u2B50";
     [self.inAppPurchaseManager requestProductData];
     
     [self showStars];
-    
-    [self updateLayoutForPortrait];
-}
-
-- (void)viewWillLayoutSubviews
-{
-    [super viewWillLayoutSubviews];
-    
-    // Using status-bar orientation, not device orientation. Seems to work.
-    UIInterfaceOrientation theInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
-    if (UIInterfaceOrientationIsLandscape(theInterfaceOrientation) && !self.isShowingLandscapeView) {
-        
-        [self updateLayoutForLandscape];
-        self.isShowingLandscapeView = YES;
-    } else if (UIInterfaceOrientationIsPortrait(theInterfaceOrientation) && self.isShowingLandscapeView) {
-        
-        [self updateLayoutForPortrait];
-        self.isShowingLandscapeView = NO;
-    }
 }
 
 @end

@@ -40,7 +40,7 @@ extern NSString *GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString;
 // Key for storing the time unit to use for the initial wait.
 extern NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString;
 
-@interface GGKTakeAdvancedDelayedPhotosViewController : UIViewController <GGKCaptureManagerDelegate, GGKTimeUnitsTableViewControllerDelegate, UITextFieldDelegate>
+@interface GGKTakeAdvancedDelayedPhotosViewController : GGKViewController <GGKCaptureManagerDelegate, GGKTimeUnitsTableViewControllerDelegate, UITextFieldDelegate>
 
 // Tap to see camera roll. This button shows the most-recent photo in the roll.
 @property (weak, nonatomic) IBOutlet UIButton *cameraRollButton;
@@ -95,11 +95,17 @@ extern NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString;
 - (void)captureManagerDidTakePhoto:(id)sender;
 // So, show the most-recent photo thumbnail.
 
-// Story: User taps on a button (touch down). User hears a sound, giving her more feedback that she pressed it.
-- (IBAction)playButtonSound;
-
 - (void)timeUnitsTableViewControllerDidSelectTimeUnit:(id)sender;
 // So, update the appropriate button and dismiss the popover.
+
+// Override.
+- (void)updateLayoutForLandscape;
+
+// Override.
+- (void)updateLayoutForPortrait;
+
+// Override.
+- (void)viewDidLoad;
 
 // Story: User took photos. User viewed photos. User decided to delete some photos.
 // So, let the user view the taken photos and (optionally) remove them.

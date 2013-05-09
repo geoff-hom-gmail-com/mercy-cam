@@ -13,6 +13,7 @@
     #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 #import "GGKCamAppDelegate.h"
+#import "GGKViewController.h"
 #import "NSString+GGKAdditions.h"
 #import "NSUserDefaults+GGKAdditions.h"
 

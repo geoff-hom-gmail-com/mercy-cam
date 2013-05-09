@@ -20,7 +20,7 @@ extern NSString *GGKTakeDelayedPhotosNumberOfPhotosKeyString;
 // Key for storing the number of seconds to initially wait.
 extern NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString;
 
-@interface GGKTakeDelayedPhotosViewController : UIViewController <GGKCaptureManagerDelegate, UITextFieldDelegate>
+@interface GGKTakeDelayedPhotosViewController : GGKViewController <GGKCaptureManagerDelegate, UITextFieldDelegate>
 
 // Tap to see camera roll. This button shows the most-recent photo in the roll. 
 @property (weak, nonatomic) IBOutlet UIButton *cameraRollButton;
@@ -61,9 +61,6 @@ extern NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString;
 - (void)captureManagerDidTakePhoto:(id)sender;
 // So, show the most-recent photo thumbnail. If more photos to be taken, do that.
 
-// Story: User taps on a button (touch down). User hears a sound, giving her more feedback that she pressed it.
-- (IBAction)playButtonSound;
-
 // Start the timer to take photos.
 - (IBAction)startTimer;
 
@@ -78,5 +75,14 @@ extern NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString;
 
 // View camera roll.
 - (IBAction)viewPhotos;
+
+// Override.
+- (void)updateLayoutForLandscape;
+
+// Override.
+- (void)updateLayoutForPortrait;
+
+// Override.
+- (void)viewDidLoad;
 
 @end

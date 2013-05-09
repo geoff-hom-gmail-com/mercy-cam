@@ -23,15 +23,8 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
 // For creating the session and managing the capture device.
 @property (strong, nonatomic) GGKCaptureManager *captureManager;
 
-// Story: The overall orientation (device/status-bar) is checked against the orientation of this app's UI. The user sees the UI in the correct orientation.
-// Whether the landscape view is currently showing.
-@property (nonatomic, assign) BOOL isShowingLandscapeView;
-
 // For working with photos in the camera roll.
 @property (nonatomic, strong) GGKSavedPhotosManager *savedPhotosManager;
-
-// UIViewController override.
-- (void)awakeFromNib;
 
 // UIViewController override. For stopping the capture session. And removing observers.
 - (void)dealloc;
@@ -42,34 +35,9 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
 // (For testing.) Show the current camera settings.
 - (void)updateCameraDebugLabels;
 
-// Story: When the user should see the UI in landscape, she does.
-- (void)updateLayoutForLandscape;
-
-// Story: When the user should see the UI in portrait, she does.
-- (void)updateLayoutForPortrait;
-
-// Story: View will appear to user. User sees updated view.
-// UIViewController override. Listen for app coming from background/lock. Update view.
-// Whether the view appears from another view in this app or from the app entering the foreground, the user should see an updated view. -viewWillAppear: is called for the former but not the latter. So, we listen for UIApplicationWillEnterForegroundNotification (and stop listening in -viewWillDisappear:).
-- (void)viewWillAppear:(BOOL)animated;
-
-// UIViewController override. Undo anything from -viewWillAppear:.
-- (void)viewWillDisappear:(BOOL)animated;
-
-// UIViewController override.
-// Story: Whether user rotates device in the app, or from the home screen, this method will be called. User sees UI in correct orientation.
-- (void)viewWillLayoutSubviews;
-
 @end
 
 @implementation GGKTakePhotoViewController
-
-- (void)awakeFromNib
-{
-    [super awakeFromNib];
-    
-    self.isShowingLandscapeView = NO;
-}
 
 - (void)captureManagerDidTakePhoto:(id)sender
 {
@@ -96,21 +64,6 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
             [self removeObserver:self forKeyPath:@"captureManager.device.adjustingWhiteBalance"];
         }
     }
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
 }
 
 - (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -158,12 +111,6 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
         
         [super observeValueForKeyPath:theKeyPath ofObject:object change:change context:context];
     }
-}
-
-- (IBAction)playButtonSound
-{
-    GGKCamAppDelegate *aCamAppDelegate = (GGKCamAppDelegate *)[UIApplication sharedApplication].delegate;
-    [aCamAppDelegate.soundModel playButtonTapSound];
 }
 
 - (IBAction)takePhoto
@@ -264,6 +211,8 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
 
 - (void)updateLayoutForLandscape
 {
+    [super updateLayoutForLandscape];
+    
     CGPoint aPoint = self.videoPreviewView.frame.origin;
     self.videoPreviewView.frame = CGRectMake(aPoint.x, aPoint.y, 883, 662);
     [self.captureManager correctThePreviewOrientation:self.videoPreviewView];
@@ -311,6 +260,8 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
 
 - (void)updateLayoutForPortrait
 {
+    [super updateLayoutForPortrait];
+    
     CGPoint aPoint = self.videoPreviewView.frame.origin;
     self.videoPreviewView.frame = CGRectMake(aPoint.x, aPoint.y, 675, 900);
     [self.captureManager correctThePreviewOrientation:self.videoPreviewView];
@@ -360,7 +311,6 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
     [super viewDidLoad];
     
     self.savedPhotosManager = [[GGKSavedPhotosManager alloc] init];
-    [self updateLayoutForPortrait];
     
     // Report focus (and exposure) status in real time.
     [self addObserver:self forKeyPath:@"captureManager.focusAndExposureStatus" options:NSKeyValueObservingOptionNew context:nil];
@@ -430,23 +380,6 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
     if (self.appWillEnterForegroundObserver != nil) {
         
         [[NSNotificationCenter defaultCenter] removeObserver:self.appWillEnterForegroundObserver name:UIApplicationWillEnterForegroundNotification object:nil];
-    }
-}
-
-- (void)viewWillLayoutSubviews
-{
-    [super viewWillLayoutSubviews];
-    
-    // Using status-bar orientation, not device orientation. Seems to work.
-    UIInterfaceOrientation theInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
-    if (UIInterfaceOrientationIsLandscape(theInterfaceOrientation) && !self.isShowingLandscapeView) {
-        
-        [self updateLayoutForLandscape];
-        self.isShowingLandscapeView = YES;
-    } else if (UIInterfaceOrientationIsPortrait(theInterfaceOrientation) && self.isShowingLandscapeView) {
-        
-        [self updateLayoutForPortrait];
-        self.isShowingLandscapeView = NO;
     }
 }
 
