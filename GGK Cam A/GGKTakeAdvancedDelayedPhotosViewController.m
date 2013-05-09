@@ -8,6 +8,7 @@
 
 #import "GGKSavedPhotosManager.h"
 #import "GGKTakeAdvancedDelayedPhotosViewController.h"
+#import "NSUserDefaults+GGKAdditions.h"
 
 const NSInteger GGKTakeAdvancedDelayedPhotosDefaultNumberOfPhotosInteger = 5;
 
@@ -35,7 +36,7 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
 @property (nonatomic, strong) UITextField *activeTextField;
 
 // For removing the observer later.
-@property (strong, nonatomic) id appWillEnterForegroundObserver;
+//@property (strong, nonatomic) id appWillEnterForegroundObserver;
 
 // For creating the session and managing the capture device.
 @property (strong, nonatomic) GGKCaptureManager *captureManager;
@@ -456,25 +457,25 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
 {
     [super viewWillAppear:animated];
     
-    if (self.appWillEnterForegroundObserver == nil) {
-        
-        self.appWillEnterForegroundObserver = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillEnterForegroundNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
-            
-            [self viewWillAppear:animated];
-        }];
-    }
+//    if (self.appWillEnterForegroundObserver == nil) {
+//        
+//        self.appWillEnterForegroundObserver = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillEnterForegroundNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+//            
+//            [self viewWillAppear:animated];
+//        }];
+//    }
     
     [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
-    if (self.appWillEnterForegroundObserver != nil) {
-        
-        [[NSNotificationCenter defaultCenter] removeObserver:self.appWillEnterForegroundObserver name:UIApplicationWillEnterForegroundNotification object:nil];
-    }
-}
+//- (void)viewWillDisappear:(BOOL)animated
+//{
+//    [super viewWillDisappear:animated];
+//    
+//    if (self.appWillEnterForegroundObserver != nil) {
+//        
+//        [[NSNotificationCenter defaultCenter] removeObserver:self.appWillEnterForegroundObserver name:UIApplicationWillEnterForegroundNotification object:nil];
+//    }
+//}
 
 @end

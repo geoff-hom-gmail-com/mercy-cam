@@ -9,6 +9,8 @@
 #import "GGKMercyCameraViewController.h"
 #import "GGKTakeAdvancedDelayedPhotosViewController.h"
 #import "GGKTakeDelayedPhotosViewController.h"
+#import "NSString+GGKAdditions.h"
+#import "NSUserDefaults+GGKAdditions.h"
 
 //BOOL GGKCreateLaunchImages = YES;
 BOOL GGKCreateLaunchImages = NO;
@@ -154,9 +156,7 @@ BOOL GGKCreateLaunchImages = NO;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-//    NSLog(@"MCVC vdL");
-    
+        
     // Make UI blank so we can make launch images via screenshot.
     if (GGKCreateLaunchImages) {
         

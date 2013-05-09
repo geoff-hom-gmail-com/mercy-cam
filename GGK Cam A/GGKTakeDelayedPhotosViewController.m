@@ -6,8 +6,9 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import "GGKSavedPhotosManager.h"
 #import "GGKTakeDelayedPhotosViewController.h"
+#import "NSString+GGKAdditions.h"
+#import "NSUserDefaults+GGKAdditions.h"
 
 const NSInteger GGKTakeDelayedPhotosDefaultNumberOfPhotosInteger = 3;
 
@@ -22,12 +23,6 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 // The text field currently being edited.
 @property (nonatomic, strong) UITextField *activeTextField;
 
-// For removing the observer later.
-@property (nonatomic, strong) id appWillEnterForegroundObserver;
-
-// For creating the session and managing the capture device.
-@property (nonatomic, strong) GGKCaptureManager *captureManager;
-
 // Number of photos to take for a given push of the shutter.
 @property (nonatomic, assign) NSInteger numberOfPhotosToTake;
 
@@ -37,9 +32,6 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 // This timer goes off every second, so the user can get visual feedback. When it's time to take photos, we need this to invalidate the timer.
 @property (nonatomic, strong) NSTimer *oneSecondRepeatingTimer;
 
-// For working with photos in the camera roll.
-@property (nonatomic, strong) GGKSavedPhotosManager *savedPhotosManager;
-
 // So, show the user how many seconds have passed. If enough have passed, start taking photos.
 - (void)handleOneSecondTimerFired;
 
@@ -48,9 +40,6 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 
 - (void)keyboardWillShow:(NSNotification *)theNotification;
 // So, shift the view up, if necessary.
-
-// KVO. Story: User can see when the focus/exposure is locked.
-- (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
 
 // Start taking photos, immediately.
 - (void)startTakingPhotos;
@@ -64,20 +53,12 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 // Set parameters to most-recently used.
 - (void)updateSettings;
 
-// Story: View will appear to user. User sees updated view.
-// UIViewController override. Listen for app coming from background/lock. Update view.
-// Whether the view appears from another view in this app or from the app entering the foreground, the user should see an updated view. -viewWillAppear: is called for the former but not the latter. So, we listen for UIApplicationWillEnterForegroundNotification (and stop listening in -viewWillDisappear:).
-- (void)viewWillAppear:(BOOL)animated;
-
-// UIViewController override. Undo anything from -viewWillAppear:.
-- (void)viewWillDisappear:(BOOL)animated;
-
 @end
 
 @implementation GGKTakeDelayedPhotosViewController
 
-- (IBAction)cancelTimer {
-    
+- (IBAction)cancelTimer
+{    
     [self.oneSecondRepeatingTimer invalidate];
     self.oneSecondRepeatingTimer = nil;
     self.numberOfPhotosToTake = 0;
@@ -86,8 +67,8 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 
 - (void)captureManagerDidTakePhoto:(id)sender
 {
-//    NSLog(@"captureManagerDidTakePhoto");
-    [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
+    [super captureManagerDidTakePhoto:sender];
+    
     if (self.numberOfPhotosToTake > 0) {
         
         [self takePhoto];
@@ -97,10 +78,8 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     }
 }
 
-- (void)dealloc {
-    
-    [self.captureManager.session stopRunning];
-    [self removeObserver:self forKeyPath:@"captureManager.focusAndExposureStatus"];
+- (void)dealloc
+{    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
@@ -156,7 +135,7 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 
 - (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if ([theKeyPath isEqualToString:@"captureManager.focusAndExposureStatus"]) {
+    if ([theKeyPath isEqualToString:GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString]) {
         
         NSString *aString = @"";
         switch (self.captureManager.focusAndExposureStatus) {
@@ -209,12 +188,11 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 }
 
 - (void)takePhoto
-{    
+{
+    [super takePhoto];
+    
 //    NSLog(@"TDPVC takePhoto called");
     self.numberOfPhotosToTake -= 1;
-    
-    [self playButtonSound];
-    [self.captureManager takePhoto];
     
     // Show number of photos taken.
     if (self.numberOfPhotosTakenLabel.hidden) {
@@ -224,19 +202,6 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     }
     NSNumber *theNumberOfPhotosTakenNumber = @([self.numberOfPhotosTakenLabel.text integerValue] + 1);
     self.numberOfPhotosTakenLabel.text = [theNumberOfPhotosTakenNumber stringValue];
-    
-    // Give visual feedback that photo was taken: Flash the screen.
-    UIView *aFlashView = [[UIView alloc] initWithFrame:self.videoPreviewView.frame];
-    aFlashView.backgroundColor = [UIColor whiteColor];
-    aFlashView.alpha = 0.8f;
-    [self.view addSubview:aFlashView];
-    [UIView animateWithDuration:0.6f animations:^{
-        
-        aFlashView.alpha = 0.0f;
-    } completion:^(BOOL finished) {
-        
-        [aFlashView removeFromSuperview];
-    }];
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)theTextField {
@@ -376,19 +341,6 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 {    
     [super viewDidLoad];
     
-    self.savedPhotosManager = [[GGKSavedPhotosManager alloc] init];
-    
-    // Report focus (and exposure) status in real time.
-    [self addObserver:self forKeyPath:@"captureManager.focusAndExposureStatus" options:NSKeyValueObservingOptionNew context:nil];
-    
-    // Set up the camera.
-    GGKCaptureManager *theCaptureManager = [[GGKCaptureManager alloc] init];
-    theCaptureManager.delegate = self;
-    [theCaptureManager setUpSession];
-    [theCaptureManager addPreviewLayerToView:self.videoPreviewView];
-    [theCaptureManager startSession];
-    self.captureManager = theCaptureManager;
-    
     // Observe keyboard notifications to shift the screen up/down appropriately.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -398,34 +350,6 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     [self updateForAllowingStartTimer];
 }
 
-- (IBAction)viewPhotos
-{    
-    [self.savedPhotosManager viewPhotosViaButton:self.cameraRollButton];
-}
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    if (self.appWillEnterForegroundObserver == nil) {
-        
-        self.appWillEnterForegroundObserver = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillEnterForegroundNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
-            
-            [self viewWillAppear:animated];
-        }];
-    }
-    
-    [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
-    if (self.appWillEnterForegroundObserver != nil) {
-        
-        [[NSNotificationCenter defaultCenter] removeObserver:self.appWillEnterForegroundObserver name:UIApplicationWillEnterForegroundNotification object:nil];
-    }
-}
 
 @end

@@ -8,6 +8,7 @@
 
 #import "GGKCamAppDelegate.h"
 #import "GGKInAppPurchaseManager.h"
+#import "GGKSoundModel.h"
 
 @implementation GGKCamAppDelegate
 

@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @interface GGKSoundModel : NSObject
 
 // Whether this app's sound should play or not.

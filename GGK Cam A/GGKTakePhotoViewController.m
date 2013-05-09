@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import "GGKSavedPhotosManager.h"
 #import "GGKTakePhotoViewController.h"
 
 // Story: User sees tip. User learns how to focus on an object.
@@ -18,19 +17,8 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
 @interface GGKTakePhotoViewController ()
 
 // For removing the observer later.
-@property (strong, nonatomic) id appWillEnterForegroundObserver;
+//@property (strong, nonatomic) id appWillEnterForegroundObserver;
 
-// For creating the session and managing the capture device.
-@property (strong, nonatomic) GGKCaptureManager *captureManager;
-
-// For working with photos in the camera roll.
-@property (nonatomic, strong) GGKSavedPhotosManager *savedPhotosManager;
-
-// UIViewController override. For stopping the capture session. And removing observers.
-- (void)dealloc;
-
-// KVO. We want to see the camera's status in real-time.
-- (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
 
 // (For testing.) Show the current camera settings.
 - (void)updateCameraDebugLabels;
@@ -39,17 +27,8 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
 
 @implementation GGKTakePhotoViewController
 
-- (void)captureManagerDidTakePhoto:(id)sender
-{
-    //    NSLog(@"captureManagerDidTakePhoto");
-    [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
-}
-
 - (void)dealloc
 {
-    [self.captureManager.session stopRunning];
-    [self removeObserver:self forKeyPath:@"captureManager.focusAndExposureStatus"];
-    
     if (GGKDebugCamera) {
         
         if (self.captureManager.device != nil) {
@@ -86,7 +65,7 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
         }
     }
     
-    if ([theKeyPath isEqualToString:@"captureManager.focusAndExposureStatus"]) {
+    if ([theKeyPath isEqualToString:GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString]) {
         
         NSString *aString = @"";
         switch (self.captureManager.focusAndExposureStatus) {
@@ -111,24 +90,6 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
         
         [super observeValueForKeyPath:theKeyPath ofObject:object change:change context:context];
     }
-}
-
-- (IBAction)takePhoto
-{    
-    [self.captureManager takePhoto];
-    
-    // Give visual feedback that photo was taken: Flash the screen.
-    UIView *aFlashView = [[UIView alloc] initWithFrame:self.videoPreviewView.frame];
-    aFlashView.backgroundColor = [UIColor whiteColor];
-    aFlashView.alpha = 0.8f;
-    [self.view addSubview:aFlashView];
-    [UIView animateWithDuration:0.6f animations:^{
-        
-        aFlashView.alpha = 0.0f;
-    } completion:^(BOOL finished) {
-        
-        [aFlashView removeFromSuperview];
-    }];
 }
 
 - (void)updateCameraDebugLabels
@@ -310,19 +271,6 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
 {    
     [super viewDidLoad];
     
-    self.savedPhotosManager = [[GGKSavedPhotosManager alloc] init];
-    
-    // Report focus (and exposure) status in real time.
-    [self addObserver:self forKeyPath:@"captureManager.focusAndExposureStatus" options:NSKeyValueObservingOptionNew context:nil];
-    
-    // Set up the camera.
-    GGKCaptureManager *theCaptureManager = [[GGKCaptureManager alloc] init];
-    theCaptureManager.delegate = self;
-    [theCaptureManager setUpSession];
-    [theCaptureManager addPreviewLayerToView:self.videoPreviewView];
-    [theCaptureManager startSession];
-    self.captureManager = theCaptureManager;
-    
     // If not debugging, hide those labels. (They're shown by default so we can see them in the storyboard.) If debugging, set up KVO.
     if (!GGKDebugCamera) {
         
@@ -353,34 +301,11 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
     }
 }
 
-- (IBAction)viewPhotos
-{
-    [self.savedPhotosManager viewPhotosViaButton:self.cameraRollButton];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    if (self.appWillEnterForegroundObserver == nil) {
-        
-        self.appWillEnterForegroundObserver = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillEnterForegroundNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
-            
-            [self viewWillAppear:animated];
-        }];
-    }
-    
-    [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
-    if (self.appWillEnterForegroundObserver != nil) {
-        
-        [[NSNotificationCenter defaultCenter] removeObserver:self.appWillEnterForegroundObserver name:UIApplicationWillEnterForegroundNotification object:nil];
-    }
-}
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+//    
+//    [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
+//}
 
 @end

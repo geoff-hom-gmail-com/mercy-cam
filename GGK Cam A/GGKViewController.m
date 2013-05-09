@@ -6,9 +6,14 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
+#import "GGKCamAppDelegate.h"
+#import "GGKSoundModel.h"
 #import "GGKViewController.h"
 
 @interface GGKViewController ()
+
+// For removing the observer later.
+@property (strong, nonatomic) id appWillEnterForegroundObserver;
 
 // Story: The overall orientation (device/status-bar) is checked against the orientation of this app's UI. The user sees the UI in the correct orientation.
 // Whether the landscape view is currently showing.
@@ -47,6 +52,31 @@
 	// Do any additional setup after loading the view.
     
     [self updateLayoutForPortrait];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if (self.appWillEnterForegroundObserver == nil) {
+        
+        self.appWillEnterForegroundObserver = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillEnterForegroundNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+            
+            [self viewWillAppear:animated];
+        }];
+    }
+    
+    // Update the view here. (I.e., in subclass.)
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    if (self.appWillEnterForegroundObserver != nil) {
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self.appWillEnterForegroundObserver name:UIApplicationWillEnterForegroundNotification object:nil];
+    }
 }
 
 - (void)viewWillLayoutSubviews

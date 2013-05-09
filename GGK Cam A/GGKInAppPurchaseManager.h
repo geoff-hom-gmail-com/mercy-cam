@@ -8,7 +8,6 @@
 
 // Handles both product retrieval and purchase from the App Store. Notifies delegate when product info has been retrieved, when a purchase/transaction was successful, and when a purchase/transaction failed. Does not currently handle restored transactions.
 
-#import <Foundation/Foundation.h>
 #import <StoreKit/StoreKit.h>
 
 // String for the product ID for giving a dollar.

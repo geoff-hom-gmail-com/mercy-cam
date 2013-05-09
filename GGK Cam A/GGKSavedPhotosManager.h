@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @interface GGKSavedPhotosManager : NSObject
 
 // Show most-recent photo from camera roll on the given button.

@@ -8,6 +8,8 @@
 
 // This manages a capture session for taking photos from the rear camera: Input is the rear camera; output is a still image.
 
+#import <AVFoundation/AVFoundation.h>
+
 extern BOOL GGKDebugCamera;
 
 // The combined status of the camera's focus and exposure. The assumption is that both are continuously adjusting, both are in the process of locking (one may be locked, and the other may be locking), or both are locked.

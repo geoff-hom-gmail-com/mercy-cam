@@ -7,8 +7,8 @@
 //
 
 #import <MessageUI/MessageUI.h>
-#import <UIKit/UIKit.h>
 #import "GGKInAppPurchaseManager.h"
+#import "GGKViewController.h"
 
 @interface GGKHelpTheCreatorsViewController : GGKViewController <GGKInAppPurchaseManagerDelegate, MFMailComposeViewControllerDelegate>
 

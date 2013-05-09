@@ -6,10 +6,7 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "GGKSoundModel.h"
-
-@class GGKInAppPurchaseManager;
+@class GGKInAppPurchaseManager, GGKSoundModel;
 
 @interface GGKCamAppDelegate : UIResponder <UIApplicationDelegate>
 

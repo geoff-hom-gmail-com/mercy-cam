@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import "GGKCaptureManager.h"
+#import "GGKTakePhotoAbstractViewController.h"
 
 // The default number of photos to take.
 extern const NSInteger GGKTakeDelayedPhotosDefaultNumberOfPhotosInteger;
@@ -20,10 +20,7 @@ extern NSString *GGKTakeDelayedPhotosNumberOfPhotosKeyString;
 // Key for storing the number of seconds to initially wait.
 extern NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString;
 
-@interface GGKTakeDelayedPhotosViewController : GGKViewController <GGKCaptureManagerDelegate, UITextFieldDelegate>
-
-// Tap to see camera roll. This button shows the most-recent photo in the roll. 
-@property (weak, nonatomic) IBOutlet UIButton *cameraRollButton;
+@interface GGKTakeDelayedPhotosViewController : GGKTakePhotoAbstractViewController <UITextFieldDelegate>
 
 // Tap to cancel the timer for taking photos.
 @property (weak, nonatomic) IBOutlet UIButton *cancelTimerButton;
@@ -52,17 +49,23 @@ extern NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString;
 // Tap to start the timer for taking photos.
 @property (weak, nonatomic) IBOutlet UIButton *startTimerButton;
 
-// Camera input is shown here.
-@property (weak, nonatomic) IBOutlet UIView *videoPreviewView;
-
 // Cancel the timer and don't take any more photos.
 - (IBAction)cancelTimer;
 
+// Override.
 - (void)captureManagerDidTakePhoto:(id)sender;
-// So, show the most-recent photo thumbnail. If more photos to be taken, do that.
+// So, if more photos to be taken, do that.
+
+// Override.
+// KVO. Story: User can see when the focus/exposure is locked.
+- (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
 
 // Start the timer to take photos.
 - (IBAction)startTimer;
+
+// Override. But not an IBAction here.
+// Also show number of photos taken.
+- (void)takePhoto;
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField;
 // So, note which text field is being edited. (To know whether to shift the screen up when the keyboard shows.)
@@ -72,9 +75,6 @@ extern NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString;
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField;
 // So, dismiss the keyboard.
-
-// View camera roll.
-- (IBAction)viewPhotos;
 
 // Override.
 - (void)updateLayoutForLandscape;

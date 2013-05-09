@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "GGKCaptureManager.h"
 #import "GGKTimeUnitsTableViewController.h"
+#import "GGKViewController.h"
 
 // The default number of photos to take.
 extern const NSInteger GGKTakeAdvancedDelayedPhotosDefaultNumberOfPhotosInteger;
