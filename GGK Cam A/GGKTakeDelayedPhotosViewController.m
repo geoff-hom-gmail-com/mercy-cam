@@ -44,9 +44,6 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 // For working with photos in the camera roll.
 @property (nonatomic, strong) GGKSavedPhotosManager *savedPhotosManager;
 
-// Adjust "Wait X seconds, then take Y photos," for whether the values are singular or plural.
-- (void)adjustStringsForPlurals;
-
 // UIViewController override.
 - (void)awakeFromNib;
 
@@ -78,7 +75,7 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 - (void)updateLayoutForPortrait;
 
 // Set parameters to most-recently used.
-- (void)updateParameters;
+- (void)updateSettings;
 
 // Story: View will appear to user. User sees updated view.
 // UIViewController override. Listen for app coming from background/lock. Update view.
@@ -95,25 +92,6 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 @end
 
 @implementation GGKTakeDelayedPhotosViewController
-
-- (void)adjustStringsForPlurals {
-    
-    // "second(s), then take"
-    NSString *aSecondsString = @"seconds";
-    if ([self.numberOfSecondsToInitiallyWaitTextField.text intValue] == 1) {
-        
-        aSecondsString = @"second";
-    }
-    self.secondsLabel.text = [NSString stringWithFormat:@"%@, then take", aSecondsString];
-    
-    // "photo(s)."
-    NSString *aPhotosString = @"photos";
-    if ([self.numberOfPhotosToTakeTextField.text intValue] == 1) {
-        
-        aPhotosString = @"photo";
-    }
-    self.photosLabel.text = [NSString stringWithFormat:@"%@.", aPhotosString];
-}
 
 - (void)awakeFromNib
 {
@@ -348,16 +326,10 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
         }
     }
     
-    // Since the entered value may have been converted, show the converted value.
-    theTextField.text = [okayValue stringValue];
-    
-    if (theTextField == self.numberOfSecondsToInitiallyWaitTextField || theTextField == self.numberOfPhotosToTakeTextField) {
-        
-        [self adjustStringsForPlurals];
-    }
-    
+    // Set the new value, then update the entire UI.
     [[NSUserDefaults standardUserDefaults] setObject:okayValue forKey:theKey];
-        
+    [self updateSettings];
+    
     self.activeTextField = nil;
 }
 
@@ -423,23 +395,22 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     self.cameraRollButton.frame = CGRectMake(anX1, 844, aWidth, aWidth);
 }
 
-- (void)updateParameters
+- (void)updateSettings
 {
-    NSNumber *numberOfSecondsToInitiallyWaitNumber = [[NSUserDefaults standardUserDefaults] objectForKey:GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString];
-    if (numberOfSecondsToInitiallyWaitNumber == nil) {
-        
-        numberOfSecondsToInitiallyWaitNumber = @(GGKTakeDelayedPhotosDefaultNumberOfSecondsToInitiallyWaitInteger);
-    }
-    self.numberOfSecondsToInitiallyWaitTextField.text = [numberOfSecondsToInitiallyWaitNumber stringValue];
+    NSInteger theNumberOfSecondsToInitiallyWaitInteger = [[NSUserDefaults standardUserDefaults] ggk_integerForKey:GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString ifNil:GGKTakeDelayedPhotosDefaultNumberOfSecondsToInitiallyWaitInteger];
+    self.numberOfSecondsToInitiallyWaitTextField.text = [NSString stringWithFormat:@"%d", theNumberOfSecondsToInitiallyWaitInteger];
     
-    NSNumber *numberOfPhotosNumber = [[NSUserDefaults standardUserDefaults] objectForKey:GGKTakeDelayedPhotosNumberOfPhotosKeyString];
-    if (numberOfPhotosNumber == nil) {
-        
-        numberOfPhotosNumber = @(GGKTakeDelayedPhotosDefaultNumberOfPhotosInteger);
-    }
-    self.numberOfPhotosToTakeTextField.text = [numberOfPhotosNumber stringValue];
+    // "second(s), then take"
+    NSString *aSecondsString = [@"seconds" ggk_stringPerhapsWithoutS:theNumberOfSecondsToInitiallyWaitInteger];
+    self.secondsLabel.text = [NSString stringWithFormat:@"%@, then take", aSecondsString];
     
-    [self adjustStringsForPlurals];
+    NSInteger theNumberOfPhotosInteger = [[NSUserDefaults standardUserDefaults] ggk_integerForKey:GGKTakeDelayedPhotosNumberOfPhotosKeyString ifNil:GGKTakeDelayedPhotosDefaultNumberOfPhotosInteger];
+    self.numberOfPhotosToTakeTextField.text = [NSString stringWithFormat:@"%d", theNumberOfPhotosInteger];
+    
+    // "photo(s)."
+    NSInteger theNumberOfPhotosToTakeInteger = [self.numberOfPhotosToTakeTextField.text integerValue];
+    NSString *aPhotosString = [@"photos" ggk_stringPerhapsWithoutS:theNumberOfPhotosToTakeInteger];
+    self.photosLabel.text = [NSString stringWithFormat:@"%@.", aPhotosString];
 }
 
 - (void)viewDidLoad
@@ -464,7 +435,7 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
-    [self updateParameters];
+    [self updateSettings];
     
     [self updateForAllowingStartTimer];
 }

@@ -7,6 +7,7 @@
 //
 
 #import "GGKMercyCameraViewController.h"
+#import "GGKTakeAdvancedDelayedPhotosViewController.h"
 #import "GGKTakeDelayedPhotosViewController.h"
 
 //BOOL GGKCreateLaunchImages = YES;
@@ -20,6 +21,9 @@ BOOL GGKCreateLaunchImages = NO;
 
 // UIViewController override.
 - (void)awakeFromNib;
+
+// Story: User reads examples using her most-recent settings. She has a better understanding of which option she wants, without having to try each. Also, she can think about them for the future. 
+- (void)updateExamples;
 
 // Story: When the user should see the UI in landscape, she does.
 - (void)updateLayoutForLandscape;
@@ -73,6 +77,35 @@ BOOL GGKCreateLaunchImages = NO;
     NSString *theAppIDString = @"637772676";
     NSString *theITunesURL = [NSString stringWithFormat:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@", theAppIDString];
     [[UIApplication sharedApplication] openURL: [NSURL URLWithString:theITunesURL]];
+}
+
+- (void)updateExamples
+{
+    NSInteger theTakeDelayedPhotosNumberOfSecondsToInitiallyWaitInteger = [[NSUserDefaults standardUserDefaults] ggk_integerForKey:GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString ifNil:GGKTakeDelayedPhotosDefaultNumberOfSecondsToInitiallyWaitInteger];
+    
+    NSString *aSecondsString = [@"seconds" ggk_stringPerhapsWithoutS:theTakeDelayedPhotosNumberOfSecondsToInitiallyWaitInteger];
+    
+    NSInteger theTakeDelayedPhotosNumberOfPhotosInteger = [[NSUserDefaults standardUserDefaults] ggk_integerForKey:GGKTakeDelayedPhotosNumberOfPhotosKeyString ifNil:GGKTakeDelayedPhotosDefaultNumberOfPhotosInteger];
+    
+    NSString *aPhotosString = [@"photos" ggk_stringPerhapsWithoutS:theTakeDelayedPhotosNumberOfPhotosInteger];
+    
+    self.takeDelayedPhotosExampleLabel.text = [NSString stringWithFormat:@"\"Wait %d %@,\nthen take %d %@.\"", theTakeDelayedPhotosNumberOfSecondsToInitiallyWaitInteger, aSecondsString, theTakeDelayedPhotosNumberOfPhotosInteger, aPhotosString];
+    
+    NSInteger theTakeAdvancedDelayedPhotosNumberOfTimeUnitsToInitiallyWaitInteger = [[NSUserDefaults standardUserDefaults] ggk_integerForKey:GGKTakeAdvancedDelayedPhotosNumberOfTimeUnitsToInitiallyWaitKeyString ifNil:GGKTakeAdvancedDelayedPhotosDefaultNumberOfTimeUnitsToInitiallyWaitInteger];
+    
+    NSInteger theTimeUnitForTheInitialWaitInteger = [[NSUserDefaults standardUserDefaults] ggk_integerForKey:GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString ifNil:GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWaitTimeUnit];
+    NSString *theTimeUnitForTheInitialWaitString = [GGKTimeUnitsTableViewController stringForTimeUnit:(GGKTimeUnit)theTimeUnitForTheInitialWaitInteger];
+    theTimeUnitForTheInitialWaitString = [theTimeUnitForTheInitialWaitString ggk_stringPerhapsWithoutS:theTakeAdvancedDelayedPhotosNumberOfTimeUnitsToInitiallyWaitInteger];
+    
+    NSInteger theTakeAdvancedDelayedPhotosNumberOfPhotosInteger = [[NSUserDefaults standardUserDefaults] ggk_integerForKey:GGKTakeAdvancedDelayedPhotosNumberOfPhotosKeyString ifNil:GGKTakeAdvancedDelayedPhotosDefaultNumberOfPhotosInteger];
+    
+    NSInteger theTakeAdvancedDelayedPhotosNumberOfTimeUnitsBetweenPhotosInteger = [[NSUserDefaults standardUserDefaults] ggk_integerForKey:GGKTakeAdvancedDelayedPhotosNumberOfTimeUnitsBetweenPhotosKeyString ifNil:GGKTakeAdvancedDelayedPhotosDefaultNumberOfTimeUnitsBetweenPhotosInteger];
+    
+    NSInteger theTimeUnitBetweenPhotosInteger = [[NSUserDefaults standardUserDefaults] ggk_integerForKey:GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString ifNil:GGKTakeAdvancedDelayedPhotosDefaultTimeUnitBetweenPhotosTimeUnit];
+    NSString *theTimeUnitBetweenPhotosString = [GGKTimeUnitsTableViewController stringForTimeUnit:(GGKTimeUnit)theTimeUnitBetweenPhotosInteger];
+    
+    // using aPhotosString 2 times, just for testing
+    self.takeAdvancedDelayedPhotosExampleLabel.text = [NSString stringWithFormat:@"\"Wait %d %@,\nthen take %d %@\nwith %d %@ between each photo.\"", theTakeAdvancedDelayedPhotosNumberOfTimeUnitsToInitiallyWaitInteger, theTimeUnitForTheInitialWaitString, theTakeAdvancedDelayedPhotosNumberOfPhotosInteger, aPhotosString, theTakeAdvancedDelayedPhotosNumberOfTimeUnitsBetweenPhotosInteger, theTimeUnitBetweenPhotosString];
 }
 
 - (void)updateLayoutForLandscape
@@ -181,36 +214,7 @@ BOOL GGKCreateLaunchImages = NO;
 {    
     [super viewWillAppear:animated];
     
-    // move to sub-method
-    // Update labels in case they changed.
-    
-    // make new method?
-    // can call via [GGKSavedInfoManager storedInteger:key default:default];
-    // return the stored integer as a number. If not found, return the given default value.
-    // - (NSNumber *)storedInteger:(NSString *)theKey default:(NSInteger)theDefaultInteger
-    
-    NSNumber *takeDelayedPhotosNumberOfSecondsToInitiallyWaitNumber = [[NSUserDefaults standardUserDefaults] objectForKey:GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString];
-    if (takeDelayedPhotosNumberOfSecondsToInitiallyWaitNumber == nil) {
-        
-        takeDelayedPhotosNumberOfSecondsToInitiallyWaitNumber = @(GGKTakeDelayedPhotosDefaultNumberOfSecondsToInitiallyWaitInteger);
-    }
-    NSNumber *takeDelayedPhotosNumberOfPhotosNumber = [[NSUserDefaults standardUserDefaults] objectForKey:GGKTakeDelayedPhotosNumberOfPhotosKeyString];
-    if (takeDelayedPhotosNumberOfPhotosNumber == nil) {
-        
-        takeDelayedPhotosNumberOfPhotosNumber = @(GGKTakeDelayedPhotosDefaultNumberOfPhotosInteger);
-    }
-    
-    NSString *aSecondsString = @"seconds";
-    if ([takeDelayedPhotosNumberOfSecondsToInitiallyWaitNumber intValue] == 1) {
-        
-        aSecondsString = @"second";
-    }
-    NSString *aPhotosString = @"photos";
-    if ([takeDelayedPhotosNumberOfPhotosNumber intValue] == 1) {
-        
-        aPhotosString = @"photo";
-    }
-    self.takeDelayedPhotosExampleLabel.text = [NSString stringWithFormat:@"\"Wait %@ %@,\nthen take %@ %@.\"", takeDelayedPhotosNumberOfSecondsToInitiallyWaitNumber, aSecondsString, takeDelayedPhotosNumberOfPhotosNumber, aPhotosString];
+    [self updateExamples];
 }
 
 - (void)viewWillLayoutSubviews

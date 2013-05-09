@@ -11,6 +11,9 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
-  #import <AVFoundation/AVFoundation.h>
-  #import "GGKCamAppDelegate.h"
+#import <AVFoundation/AVFoundation.h>
+#import "GGKCamAppDelegate.h"
+#import "NSString+GGKAdditions.h"
+#import "NSUserDefaults+GGKAdditions.h"
+
 #endif
