@@ -7,8 +7,8 @@
 //
 
 #import "GGKTakeDelayedPhotosViewController.h"
+
 #import "NSString+GGKAdditions.h"
-#import "NSUserDefaults+GGKAdditions.h"
 
 const NSInteger GGKTakeDelayedPhotosDefaultNumberOfPhotosInteger = 3;
 
@@ -24,13 +24,11 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 @property (nonatomic, strong) UITextField *activeTextField;
 
 // Number of photos to take for a given push of the shutter.
-@property (nonatomic, assign) NSInteger numberOfPhotosToTake;
+@property (nonatomic, assign) NSInteger numberOfPhotosRemainingToTake;
 
 // Number of seconds to wait before taking first photo.
 @property (nonatomic, assign) CGFloat numberOfSecondsToInitiallyWait;
 
-// This timer goes off every second, so the user can get visual feedback. When it's time to take photos, we need this to invalidate the timer.
-@property (nonatomic, strong) NSTimer *oneSecondRepeatingTimer;
 
 // So, show the user how many seconds have passed. If enough have passed, start taking photos.
 - (void)handleOneSecondTimerFired;
@@ -44,11 +42,11 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 // Start taking photos, immediately.
 - (void)startTakingPhotos;
 
-// Story: User sees UI and knows to wait for photos to be taken, or to tap "Cancel."
-- (void)updateForAllowingCancelTimer;
+//// Story: User sees UI and knows to wait for photos to be taken, or to tap "Cancel."
+//- (void)updateToAllowCancelTimer;
 
 // Story: User sees UI and knows she can tap "Start timer."
-- (void)updateForAllowingStartTimer;
+- (void)updateToAllowStartTimer;
 
 // Set parameters to most-recently used.
 - (void)updateSettings;
@@ -59,22 +57,19 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 
 - (IBAction)cancelTimer
 {    
-    [self.oneSecondRepeatingTimer invalidate];
-    self.oneSecondRepeatingTimer = nil;
-    self.numberOfPhotosToTake = 0;
-    [self updateForAllowingStartTimer];
+//    [self.oneSecondRepeatingTimer invalidate];
+//    self.oneSecondRepeatingTimer = nil;
+//    self.numberOfPhotosRemainingToTake = 0;
+//    [self updateToAllowStartTimer];
 }
 
 - (void)captureManagerDidTakePhoto:(id)sender
 {
     [super captureManagerDidTakePhoto:sender];
     
-    if (self.numberOfPhotosToTake > 0) {
+    if (self.numberOfPhotosRemainingToTake > 0) {
         
         [self takePhoto];
-    } else {
-        
-        [self updateForAllowingStartTimer];
     }
 }
 
@@ -84,17 +79,17 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
-- (void)handleOneSecondTimerFired
-{
-    NSNumber *theSecondsWaitedNumber = @([self.numberOfSecondsWaitedLabel.text integerValue] + 1);
-    self.numberOfSecondsWaitedLabel.text = [theSecondsWaitedNumber stringValue];
-    if ([theSecondsWaitedNumber floatValue] >= self.numberOfSecondsToInitiallyWait) {
-        
-        [self.oneSecondRepeatingTimer invalidate];
-        self.oneSecondRepeatingTimer = nil;
-        [self startTakingPhotos];
-    }
-}
+//- (void)handleOneSecondTimerFired
+//{
+//    NSNumber *theSecondsWaitedNumber = @([self.numberOfTimeUnitsInitiallyWaitedLabel.text integerValue] + 1);
+//    self.numberOfTimeUnitsInitiallyWaitedLabel.text = [theSecondsWaitedNumber stringValue];
+//    if ([theSecondsWaitedNumber floatValue] >= self.numberOfSecondsToInitiallyWait) {
+//        
+//        [self.oneSecondRepeatingTimer invalidate];
+//        self.oneSecondRepeatingTimer = nil;
+//        [self startTakingPhotos];
+//    }
+//}
 
 - (void)keyboardWillHide:(NSNotification *)theNotification {
 	
@@ -133,38 +128,11 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     } 
 }
 
-- (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    if ([theKeyPath isEqualToString:GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString]) {
-        
-        NSString *aString = @"";
-        switch (self.captureManager.focusAndExposureStatus) {
-                
-            case GGKCaptureManagerFocusAndExposureStatusContinuous:
-                aString = @"Continuous";
-                break;
-                
-            case GGKCaptureManagerFocusAndExposureStatusLocking:
-                aString = @"Locking…";
-                break;
-                
-            case GGKCaptureManagerFocusAndExposureStatusLocked:
-                aString = @"Locked";
-                break;
-                
-            default:
-                break;
-        }
-        self.focusLabel.text = [NSString stringWithFormat:@"Focus:\n  %@", aString];
-    } else {
-        
-        [super observeValueForKeyPath:theKeyPath ofObject:object change:change context:context];
-    }
-}
+
 
 - (void)startTakingPhotos
 {
-    if (self.numberOfPhotosToTake > 0) {
+    if (self.numberOfPhotosRemainingToTake > 0) {
         
         [self takePhoto];
     }
@@ -172,19 +140,12 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 
 - (IBAction)startTimer
 {
-    [self updateForAllowingCancelTimer];
+    [super startTimer];
     
-    self.numberOfSecondsToInitiallyWait = [self.numberOfSecondsToInitiallyWaitTextField.text floatValue];
-    self.numberOfPhotosToTake = [self.numberOfPhotosToTakeTextField.text integerValue];
+    NSInteger theNumberOfSecondsToInitiallyWait = [[NSUserDefaults standardUserDefaults] integerForKey:GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString];
     
-    if (self.numberOfSecondsToInitiallyWait == 0) {
-        
-        [self startTakingPhotos];
-    } else {
-        
-        NSTimer *aTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(handleOneSecondTimerFired) userInfo:nil repeats:YES];
-        self.oneSecondRepeatingTimer = aTimer;
-    }
+    NSTimer *aTimer = [NSTimer scheduledTimerWithTimeInterval:theNumberOfSecondsToInitiallyWait target:self selector:@selector(handleInitialWaitDone) userInfo:nil repeats:NO];
+    self.initialWaitTimer = aTimer;
 }
 
 - (void)takePhoto
@@ -192,7 +153,7 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     [super takePhoto];
     
 //    NSLog(@"TDPVC takePhoto called");
-    self.numberOfPhotosToTake -= 1;
+    self.numberOfPhotosRemainingToTake -= 1;
     
     // Show number of photos taken.
     if (self.numberOfPhotosTakenLabel.hidden) {
@@ -216,7 +177,7 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     NSString *theKey;
     id okayValue;
     
-    if (theTextField == self.numberOfSecondsToInitiallyWaitTextField) {
+    if (theTextField == self.numberOfTimeUnitsToInitiallyWaitTextField) {
         
         theKey = GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString;
         okayValue = @([theTextField.text integerValue]);
@@ -259,21 +220,21 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     return YES;
 }
 
-- (void)updateForAllowingCancelTimer
+- (void)updateToAllowCancelTimer
 {
-    self.numberOfSecondsToInitiallyWaitTextField.enabled = NO;
+    self.numberOfTimeUnitsToInitiallyWaitTextField.enabled = NO;
     self.numberOfPhotosToTakeTextField.enabled = NO;
-    self.numberOfSecondsWaitedLabel.text = @"0";
-    self.numberOfSecondsWaitedLabel.hidden = NO;
+    self.numberOfTimeUnitsInitiallyWaitedLabel.text = @"0";
+    self.numberOfTimeUnitsInitiallyWaitedLabel.hidden = NO;
     self.startTimerButton.enabled = NO;
     self.cancelTimerButton.enabled = YES;
 }
 
-- (void)updateForAllowingStartTimer
+- (void)updateToAllowStartTimer
 {
-    self.numberOfSecondsToInitiallyWaitTextField.enabled = YES;
+    self.numberOfTimeUnitsToInitiallyWaitTextField.enabled = YES;
     self.numberOfPhotosToTakeTextField.enabled = YES;
-    self.numberOfSecondsWaitedLabel.hidden = YES;
+    self.numberOfTimeUnitsInitiallyWaitedLabel.hidden = YES;
     self.numberOfPhotosTakenLabel.hidden = YES;
     self.startTimerButton.enabled = YES;
     self.cancelTimerButton.enabled = NO;
@@ -321,20 +282,19 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 
 - (void)updateSettings
 {
-    NSInteger theNumberOfSecondsToInitiallyWaitInteger = [[NSUserDefaults standardUserDefaults] ggk_integerForKey:GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString ifNil:GGKTakeDelayedPhotosDefaultNumberOfSecondsToInitiallyWaitInteger];
-    self.numberOfSecondsToInitiallyWaitTextField.text = [NSString stringWithFormat:@"%d", theNumberOfSecondsToInitiallyWaitInteger];
+    NSInteger theNumberOfSecondsToInitiallyWaitInteger = [[NSUserDefaults standardUserDefaults] integerForKey:GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString];
+    self.numberOfTimeUnitsToInitiallyWaitTextField.text = [NSString stringWithFormat:@"%d", theNumberOfSecondsToInitiallyWaitInteger];
     
     // "second(s), then take"
     NSString *aSecondsString = [@"seconds" ggk_stringPerhapsWithoutS:theNumberOfSecondsToInitiallyWaitInteger];
     self.secondsLabel.text = [NSString stringWithFormat:@"%@, then take", aSecondsString];
     
-    NSInteger theNumberOfPhotosInteger = [[NSUserDefaults standardUserDefaults] ggk_integerForKey:GGKTakeDelayedPhotosNumberOfPhotosKeyString ifNil:GGKTakeDelayedPhotosDefaultNumberOfPhotosInteger];
-    self.numberOfPhotosToTakeTextField.text = [NSString stringWithFormat:@"%d", theNumberOfPhotosInteger];
+    NSInteger theNumberOfPhotosToTakeInteger = [[NSUserDefaults standardUserDefaults] integerForKey:GGKTakeDelayedPhotosNumberOfPhotosKeyString];
+    self.numberOfPhotosToTakeTextField.text = [NSString stringWithFormat:@"%d", theNumberOfPhotosToTakeInteger];
     
     // "photo(s)."
-    NSInteger theNumberOfPhotosToTakeInteger = [self.numberOfPhotosToTakeTextField.text integerValue];
     NSString *aPhotosString = [@"photos" ggk_stringPerhapsWithoutS:theNumberOfPhotosToTakeInteger];
-    self.photosLabel.text = [NSString stringWithFormat:@"%@.", aPhotosString];
+    self.afterNumberOfPhotosTextFieldLabel.text = [NSString stringWithFormat:@"%@.", aPhotosString];
 }
 
 - (void)viewDidLoad
@@ -347,7 +307,7 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     
     [self updateSettings];
     
-    [self updateForAllowingStartTimer];
+    [self updateToAllowStartTimer];
 }
 
 @end

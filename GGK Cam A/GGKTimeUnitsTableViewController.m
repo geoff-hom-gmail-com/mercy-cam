@@ -8,65 +8,11 @@
 
 #import "GGKTimeUnitsTableViewController.h"
 
-NSString *GGKTimeUnitDaysString = @"days";
-
-NSString *GGKTimeUnitHoursString = @"hours";
-
-NSString *GGKTimeUnitMinutesString = @"minutes";
-
-NSString *GGKTimeUnitSecondsString = @"seconds";
-
 @interface GGKTimeUnitsTableViewController ()
 
 @end
 
 @implementation GGKTimeUnitsTableViewController
-
-+ (NSString *)stringForTimeUnit:(GGKTimeUnit)theTimeUnit
-{
-    NSString *aTimeUnitString;
-    switch (theTimeUnit) {
-            
-        case GGKTimeUnitSeconds:
-            aTimeUnitString = GGKTimeUnitSecondsString;
-            break;
-            
-        case GGKTimeUnitMinutes:
-            aTimeUnitString = GGKTimeUnitMinutesString;
-            break;
-            
-        case GGKTimeUnitHours:
-            aTimeUnitString = GGKTimeUnitHoursString;
-            break;
-            
-        case GGKTimeUnitDays:
-            aTimeUnitString = GGKTimeUnitDaysString;
-            break;
-            
-        default:
-            break;
-    }
-    return aTimeUnitString;
-}
-
-+ (GGKTimeUnit)timeUnitForString:(NSString *)theTimeUnitString
-{
-    GGKTimeUnit theTimeUnit = GGKTimeUnitSeconds;
-    if ([theTimeUnitString isEqualToString:GGKTimeUnitSecondsString]) {
-        
-        theTimeUnit = GGKTimeUnitSeconds;
-    } else if ([theTimeUnitString isEqualToString:GGKTimeUnitMinutesString]) {
-        
-        theTimeUnit = GGKTimeUnitMinutes;
-    } else if ([theTimeUnitString isEqualToString:GGKTimeUnitHoursString]) {
-        
-        theTimeUnit = GGKTimeUnitHours;
-    } else if ([theTimeUnitString isEqualToString:GGKTimeUnitDaysString]) {
-        
-        theTimeUnit = GGKTimeUnitDays;
-    }
-    return theTimeUnit;
-}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -118,7 +64,7 @@ NSString *GGKTimeUnitSecondsString = @"seconds";
     UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
     
     // Add a checkmark to the currently selected time unit.
-    NSString *theCurrentTimeUnitString = [GGKTimeUnitsTableViewController stringForTimeUnit:self.currentTimeUnit];
+    NSString *theCurrentTimeUnitString = [GGKTimeUnits stringForTimeUnit:self.currentTimeUnit];
     UITableViewCellAccessoryType aTableViewCellAccessoryType;
     if ([cell.textLabel.text isEqualToString:theCurrentTimeUnitString]) {
         
@@ -184,7 +130,7 @@ NSString *GGKTimeUnitSecondsString = @"seconds";
      */
     
     // Remove checkmark from the previously selected cell.
-    NSString *thePreviouslySelectedTimeUnitString = [GGKTimeUnitsTableViewController stringForTimeUnit:self.currentTimeUnit];
+    NSString *thePreviouslySelectedTimeUnitString = [GGKTimeUnits stringForTimeUnit:self.currentTimeUnit];
     [[tableView indexPathsForVisibleRows] enumerateObjectsUsingBlock:^(NSIndexPath *anIndexPath, NSUInteger idx, BOOL *stop) {
         
         UITableViewCell *aCell = [tableView cellForRowAtIndexPath:anIndexPath];

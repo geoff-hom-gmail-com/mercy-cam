@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import "GGKTakePhotoAbstractViewController.h"
+#import "GGKTakeDelayedPhotosAbstractViewController.h"
 
 // The default number of photos to take.
 extern const NSInteger GGKTakeDelayedPhotosDefaultNumberOfPhotosInteger;
@@ -20,48 +20,27 @@ extern NSString *GGKTakeDelayedPhotosNumberOfPhotosKeyString;
 // Key for storing the number of seconds to initially wait.
 extern NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString;
 
-@interface GGKTakeDelayedPhotosViewController : GGKTakePhotoAbstractViewController <UITextFieldDelegate>
-
-// Tap to cancel the timer for taking photos.
-@property (weak, nonatomic) IBOutlet UIButton *cancelTimerButton;
-
-// For displaying when the focus is continuous or locked. (Displays "locked" only when both focus and exposure are locked. Otherwise, displays "continuous" or "locking.")
-@property (nonatomic, strong) IBOutlet UILabel *focusLabel;
-
-// Story: User taps "Start timer." User sees label below appear and increment with each photo taken. User implicitly understands when photos are taken, how many photos remain, and how long it will take.
-@property (nonatomic, weak) IBOutlet UILabel *numberOfPhotosTakenLabel;
-
-// Number of photos to take for a given tap of the shutter button.
-@property (weak, nonatomic) IBOutlet UITextField *numberOfPhotosToTakeTextField;
-
-// Number of seconds to wait before taking the first photo.
-@property (weak, nonatomic) IBOutlet UITextField *numberOfSecondsToInitiallyWaitTextField;
-
-// Story: User taps "Start timer." User sees label below appear and increment with each second. User implicitly understands that the timer has started and when the first photo will be taken.
-@property (nonatomic, weak) IBOutlet UILabel *numberOfSecondsWaitedLabel;
-
-// In "Wait X seconds, then take Y photos," it's "photos." But may be singular or plural.
-@property (weak, nonatomic) IBOutlet UILabel *photosLabel;
+@interface GGKTakeDelayedPhotosViewController : GGKTakeDelayedPhotosAbstractViewController <UITextFieldDelegate>
 
 // In "Wait X seconds, then take Y photos," it's "seconds, then take." But may be singular or plural.
 @property (weak, nonatomic) IBOutlet UILabel *secondsLabel;
-
-// Tap to start the timer for taking photos.
-@property (weak, nonatomic) IBOutlet UIButton *startTimerButton;
-
-// Cancel the timer and don't take any more photos.
-- (IBAction)cancelTimer;
 
 // Override.
 - (void)captureManagerDidTakePhoto:(id)sender;
 // So, if more photos to be taken, do that.
 
 // Override.
-// KVO. Story: User can see when the focus/exposure is locked.
-- (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
+- (IBAction)startTimer;
+
+
+
+
+// Cancel the timer and don't take any more photos.
+//- (IBAction)cancelTimer;
+
 
 // Start the timer to take photos.
-- (IBAction)startTimer;
+//- (IBAction)startTimer;
 
 // Override. But not an IBAction here.
 // Also show number of photos taken.
@@ -75,6 +54,9 @@ extern NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString;
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField;
 // So, dismiss the keyboard.
+
+
+
 
 // Override.
 - (void)updateLayoutForLandscape;

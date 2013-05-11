@@ -6,8 +6,9 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import <AVFoundation/AVFoundation.h>
 #import "GGKSoundModel.h"
+
+#import <AVFoundation/AVFoundation.h>
 
 @interface GGKSoundModel ()
 

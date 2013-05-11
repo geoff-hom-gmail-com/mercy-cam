@@ -623,14 +623,14 @@ photos</string>
                     </view>
                     <navigationItem key="navigationItem" title="Mercy Camera: Take delayed photos" id="jiP-RF-W4L"/>
                     <connections>
+                        <outlet property="afterNumberOfPhotosTextFieldLabel" destination="DRY-lJ-Icz" id="RLN-JR-KWO"/>
                         <outlet property="cameraRollButton" destination="ASC-Mi-8aD" id="xoE-QY-Wiz"/>
                         <outlet property="cancelTimerButton" destination="5Qx-RQ-TiL" id="Gyb-ii-ZA8"/>
                         <outlet property="focusLabel" destination="3Qa-B5-2Rd" id="ToD-Xq-JkB"/>
                         <outlet property="numberOfPhotosTakenLabel" destination="bJN-Lv-qeG" id="Djl-ur-jSF"/>
                         <outlet property="numberOfPhotosToTakeTextField" destination="OxC-nq-duy" id="ibR-lg-kPx"/>
-                        <outlet property="numberOfSecondsToInitiallyWaitTextField" destination="cLP-P2-6Vg" id="wp6-0S-L8x"/>
-                        <outlet property="numberOfSecondsWaitedLabel" destination="Utp-CL-D4q" id="JGw-sD-erf"/>
-                        <outlet property="photosLabel" destination="DRY-lJ-Icz" id="ODw-gr-md8"/>
+                        <outlet property="numberOfTimeUnitsInitiallyWaitedLabel" destination="Utp-CL-D4q" id="sCh-rx-I0y"/>
+                        <outlet property="numberOfTimeUnitsToInitiallyWaitTextField" destination="cLP-P2-6Vg" id="mtc-Pj-NUf"/>
                         <outlet property="secondsLabel" destination="nkc-09-1YZ" id="o25-lh-fnE"/>
                         <outlet property="startTimerButton" destination="jJL-aE-Vqa" id="hhm-nD-8Hh"/>
                         <outlet property="videoPreviewView" destination="7CB-eU-aBL" id="bJD-Fc-HIp"/>
@@ -1541,6 +1541,7 @@ photos</string>
                         <barButtonItem key="rightBarButtonItem" title="Long-term" id="caU-n3-w4x"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="afterNumberOfPhotosTextFieldLabel" destination="ahy-EY-pFa" id="CcY-mB-h6d"/>
                         <outlet property="cameraRollButton" destination="btA-Ip-ft9" id="Heg-4v-rx7"/>
                         <outlet property="cancelTimerButton" destination="rmS-v3-nJF" id="86e-Wy-PYr"/>
                         <outlet property="focusLabel" destination="LTt-xs-K4V" id="dam-Ft-On2"/>
@@ -1550,7 +1551,6 @@ photos</string>
                         <outlet property="numberOfTimeUnitsInitiallyWaitedLabel" destination="Ysa-wk-iQ1" id="m2S-Tz-ewF"/>
                         <outlet property="numberOfTimeUnitsToInitiallyWaitTextField" destination="KRM-EG-b9V" id="hxq-vL-91x"/>
                         <outlet property="numberOfTimeUnitsWaitedBetweenPhotosLabel" destination="f05-Ag-oS2" id="YvZ-gO-VzD"/>
-                        <outlet property="photosWithLabel" destination="ahy-EY-pFa" id="bcC-P1-Xft"/>
                         <outlet property="startTimerButton" destination="OGt-yg-6PM" id="l3O-K6-0dL"/>
                         <outlet property="timeRemainingUntilNextPhotoLabel" destination="nbZ-Rw-ibA" id="jgk-P9-c0O"/>
                         <outlet property="timeUnitsBetweenPhotosButton" destination="baA-ad-HE5" id="CtV-Qc-2E6"/>
@@ -1699,54 +1699,50 @@ photos</string>
                 <relationship kind="outlet" name="takeDelayedPhotosExampleLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
-        <class className="GGKTakeAdvancedDelayedPhotosViewController" superclassName="GGKViewController">
+        <class className="GGKTakeAdvancedDelayedPhotosViewController" superclassName="GGKTakeDelayedPhotosAbstractViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKTakeAdvancedDelayedPhotosViewController.h"/>
             <relationships>
-                <relationship kind="action" name="playButtonSound"/>
-                <relationship kind="action" name="viewPhotos"/>
-                <relationship kind="outlet" name="cameraRollButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="cancelTimerButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="focusLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="numberOfPhotosTakenLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="numberOfPhotosToTakeTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="numberOfTimeUnitsBetweenPhotosTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="numberOfTimeUnitsInitiallyWaitedLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="numberOfTimeUnitsToInitiallyWaitTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="numberOfTimeUnitsWaitedBetweenPhotosLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="photosWithLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="startTimerButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="timeRemainingUntilNextPhotoLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="timeUnitsBetweenPhotosButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="timeUnitsToInitiallyWaitButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="videoPreviewView" candidateClass="UIView"/>
             </relationships>
         </class>
-        <class className="GGKTakeDelayedPhotosViewController" superclassName="GGKViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKTakeDelayedPhotosViewController.h"/>
+        <class className="GGKTakeDelayedPhotosAbstractViewController" superclassName="GGKTakePhotoAbstractViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKTakeDelayedPhotosAbstractViewController.h"/>
             <relationships>
-                <relationship kind="action" name="cancelTimer"/>
-                <relationship kind="action" name="playButtonSound"/>
-                <relationship kind="action" name="startTimer"/>
-                <relationship kind="action" name="viewPhotos"/>
-                <relationship kind="outlet" name="cameraRollButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="afterNumberOfPhotosTextFieldLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="cancelTimerButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="focusLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="numberOfPhotosTakenLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="numberOfPhotosToTakeTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="numberOfSecondsToInitiallyWaitTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="numberOfSecondsWaitedLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="photosLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="secondsLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="startTimerButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="videoPreviewView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="numberOfTimeUnitsInitiallyWaitedLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="numberOfTimeUnitsToInitiallyWaitTextField" candidateClass="UITextField"/>
             </relationships>
         </class>
-        <class className="GGKTakePhotoViewController" superclassName="GGKViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKTakePhotoViewController.h"/>
+        <class className="GGKTakeDelayedPhotosViewController" superclassName="GGKTakeDelayedPhotosAbstractViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKTakeDelayedPhotosViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelTimer"/>
+                <relationship kind="action" name="startTimer"/>
+                <relationship kind="outlet" name="secondsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="startTimerButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="GGKTakePhotoAbstractViewController" superclassName="GGKViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKTakePhotoAbstractViewController.h"/>
             <relationships>
                 <relationship kind="action" name="takePhoto"/>
                 <relationship kind="action" name="viewPhotos"/>
                 <relationship kind="outlet" name="cameraRollButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="videoPreviewView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="GGKTakePhotoViewController" superclassName="GGKTakePhotoAbstractViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKTakePhotoViewController.h"/>
+            <relationships>
                 <relationship kind="outlet" name="exposingLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="exposureModeLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="exposurePointOfInterestLabel" candidateClass="UILabel"/>
@@ -1755,7 +1751,6 @@ photos</string>
                 <relationship kind="outlet" name="focusingLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="takePhotoButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="tipLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="videoPreviewView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="whiteBalanceModeLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="whiteBalancingLabel" candidateClass="UILabel"/>
             </relationships>

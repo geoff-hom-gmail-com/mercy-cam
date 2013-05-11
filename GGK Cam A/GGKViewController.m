@@ -6,9 +6,10 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
+#import "GGKViewController.h"
+
 #import "GGKCamAppDelegate.h"
 #import "GGKSoundModel.h"
-#import "GGKViewController.h"
 
 @interface GGKViewController ()
 

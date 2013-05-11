@@ -6,8 +6,9 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import "GGKSavedPhotosManager.h"
 #import "GGKTakePhotoAbstractViewController.h"
+
+#import "GGKSavedPhotosManager.h"
 
 NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString = @"captureManager.focusAndExposureStatus";
 

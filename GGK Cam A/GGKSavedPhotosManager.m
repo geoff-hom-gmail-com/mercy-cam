@@ -6,9 +6,10 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
+#import "GGKSavedPhotosManager.h"
+
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MobileCoreServices/MobileCoreServices.h>
-#import "GGKSavedPhotosManager.h"
 
 @interface GGKSavedPhotosManager ()
 

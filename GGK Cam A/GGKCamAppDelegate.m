@@ -6,15 +6,31 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
+// Import order is modeled from http://qualitycoding.org/import-order/.
 #import "GGKCamAppDelegate.h"
+
 #import "GGKInAppPurchaseManager.h"
 #import "GGKSoundModel.h"
+#import "GGKTakeAdvancedDelayedPhotosViewController.h"
+#import "GGKTakeDelayedPhotosViewController.h"
+
+// Key for storing whether this app has launched before.
+NSString *HasLaunchedBeforeKeyString = @"Has launched before?";
+
+@interface GGKCamAppDelegate ()
+
+// If it's the first time this app has been launched, do stuff. (E.g., initialize with default data.)
+- (void)handleIfFirstLaunch;
+
+@end
 
 @implementation GGKCamAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    [self handleIfFirstLaunch];
     
     self.soundModel = [[GGKSoundModel alloc] init];
     
@@ -52,6 +68,33 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)handleIfFirstLaunch
+{
+    // Check for a stored BOOL. If the first launch, it will be NO. So we'll do stuff and then set that to YES.
+    BOOL hasLaunchedBefore = [[NSUserDefaults standardUserDefaults] boolForKey:HasLaunchedBeforeKeyString];
+    
+    // Uncomment this to reset defaults.
+//    hasLaunchedBefore = NO;
+    
+    if (!hasLaunchedBefore) {
+        
+        // Set defaults.
+        
+        // Take delayed photos.
+        [[NSUserDefaults standardUserDefaults] setInteger:GGKTakeDelayedPhotosDefaultNumberOfSecondsToInitiallyWaitInteger forKey:GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString];
+        [[NSUserDefaults standardUserDefaults] setInteger:GGKTakeDelayedPhotosDefaultNumberOfPhotosInteger forKey:GGKTakeDelayedPhotosNumberOfPhotosKeyString];
+        
+        // Take advanced delayed photos.
+        [[NSUserDefaults standardUserDefaults] setInteger:GGKTakeAdvancedDelayedPhotosDefaultNumberOfTimeUnitsToInitiallyWaitInteger forKey:GGKTakeAdvancedDelayedPhotosNumberOfTimeUnitsToInitiallyWaitKeyString];
+        [[NSUserDefaults standardUserDefaults] setInteger:GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWaitTimeUnit forKey:GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString];
+        [[NSUserDefaults standardUserDefaults] setInteger:GGKTakeAdvancedDelayedPhotosDefaultNumberOfPhotosInteger forKey:GGKTakeAdvancedDelayedPhotosNumberOfPhotosKeyString];
+        [[NSUserDefaults standardUserDefaults] setInteger:GGKTakeAdvancedDelayedPhotosDefaultNumberOfTimeUnitsBetweenPhotosInteger forKey:GGKTakeAdvancedDelayedPhotosNumberOfTimeUnitsBetweenPhotosKeyString];
+        [[NSUserDefaults standardUserDefaults] setInteger:GGKTakeAdvancedDelayedPhotosDefaultTimeUnitBetweenPhotosTimeUnit forKey:GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString];
+        
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HasLaunchedBeforeKeyString];
+    }
 }
 
 @end

@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import <MessageUI/MessageUI.h>
 #import "GGKInAppPurchaseManager.h"
 #import "GGKViewController.h"
+#import <MessageUI/MessageUI.h>
 
 @interface GGKHelpTheCreatorsViewController : GGKViewController <GGKInAppPurchaseManagerDelegate, MFMailComposeViewControllerDelegate>
 
