@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
+// A version of take-advanced-delayed-photos, with an initial wait in seconds and no between-photos wait. Also, a 2-digit limit (i.e., 99) for waiting and photos. 
+
 #import "GGKTakeDelayedPhotosAbstractViewController.h"
 
 // The default number of photos to take.
@@ -30,17 +32,13 @@ extern NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString;
 // So, if more photos to be taken, do that.
 
 // Override.
+- (void)handleUpdateUITimerFired;
+
+// Override.
 - (IBAction)startTimer;
 
 
 
-
-// Cancel the timer and don't take any more photos.
-//- (IBAction)cancelTimer;
-
-
-// Start the timer to take photos.
-//- (IBAction)startTimer;
 
 // Override. But not an IBAction here.
 // Also show number of photos taken.

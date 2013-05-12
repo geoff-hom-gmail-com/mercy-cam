@@ -66,7 +66,16 @@ extern NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString;
 // If there is time set between photos, then those timers will handle taking more photos. But if the time between photos is set to 0, and if more photos should be taken, then do that.
 
 // Override.
+- (void)handleUpdateUITimerFired;
+
+// Override.
 - (IBAction)startTimer;
+
+// Override.
+- (void)updateToAllowCancelTimer;
+
+// Override.
+- (void)updateToAllowStartTimer;
 
 
 

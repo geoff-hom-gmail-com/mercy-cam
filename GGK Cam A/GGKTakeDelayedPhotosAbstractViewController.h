@@ -48,9 +48,16 @@ extern const NSInteger GGKTakeDelayedPhotosMinimumNumberOfTimeUnitsToInitiallyWa
 // Tap to start the timer for taking photos.
 @property (weak, nonatomic) IBOutlet UIButton *startTimerButton;
 
+// Update UI to take photos again.
+- (IBAction)cancelTimer;
+
 // Override.
 - (void)captureManagerDidTakePhoto:(id)sender;
 // So, if no more photos to take, then reset the UI for starting the timer again.
+
+// Story: User starts timer and leaves. User returns and glances at the screen for only a second or two. User still gets feedback that the app is running properly.
+// Stub.
+- (void)handleUpdateUITimerFired;
 
 // Override.
 // KVO. Story: User can see when the focus/exposure is locked.
@@ -60,24 +67,22 @@ extern const NSInteger GGKTakeDelayedPhotosMinimumNumberOfTimeUnitsToInitiallyWa
 // Partial stub: Subclasses should start timer for initial wait.
 - (IBAction)startTimer;
 
+// Story: User sees UI and knows to wait for photos to be taken, or to tap "Cancel."
+- (void)updateToAllowCancelTimer;
+
+// Story: User sees UI and knows she can tap "Start timer."
+- (void)updateToAllowStartTimer;
 
 
-// stub?
-//?
+
+
+// Story: The initial wait time has passed. The app starts taking photos, respecting any between-photo settings.
 - (void)handleInitialWaitDone;
 
 
 
-// stub? or have it all here?
-// Cancel timers and don't take any more photos.
-- (IBAction)cancelTimer;
 
-// Story: User sees UI and knows to wait for photos to be taken, or to tap "Cancel."
-- (void)updateToAllowCancelTimer;
 
-// Stub? partial?
-// Story: User sees UI and knows she can tap "Start timer."
-- (void)updateToAllowStartTimer;
 
 
 @end

@@ -47,6 +47,13 @@ const NSInteger MaximumNumberOfTimeUnitsToInitiallyWaitInteger = 999;
 // The text field currently being edited. For shifting the view above the keyboard.
 @property (nonatomic, strong) UITextField *activeTextField;
 
+
+
+// This timer goes off when an additional photo is to be taken. Need this property to invalidate later.
+@property (nonatomic, strong) NSTimer *betweenPhotosTimer;
+
+
+
 // Story: User taps button. Popover appears. User makes selection in popover. User sees updated button.
 // The button the user tapped to display the popover.
 @property (nonatomic, strong) UIButton *currentPopoverButton;
@@ -71,12 +78,6 @@ const NSInteger MaximumNumberOfTimeUnitsToInitiallyWaitInteger = 999;
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField;
 // So, dismiss the keyboard.
-
-// Story: User sees UI and knows to wait for photos to be taken, or to tap "Cancel."
-- (void)updateForAllowingCancelTimer;
-
-// Story: User sees UI and knows she can tap "Start timer."
-- (void)updateToAllowStartTimer;
 
 // Set timer settings to those most-recently used.
 - (void)updateSettings;
@@ -108,6 +109,35 @@ const NSInteger MaximumNumberOfTimeUnitsToInitiallyWaitInteger = 999;
 {
     self.numberOfPhotosRemainingToTake = [[NSUserDefaults standardUserDefaults] integerForKey:GGKTakeAdvancedDelayedPhotosNumberOfPhotosKeyString];
 //    [self startTakingPhotos];
+}
+
+//- (void)handleOneSecondTimerFired
+//{
+//    NSNumber *theSecondsWaitedNumber = @([self.numberOfTimeUnitsInitiallyWaitedLabel.text integerValue] + 1);
+//    self.numberOfTimeUnitsInitiallyWaitedLabel.text = [theSecondsWaitedNumber stringValue];
+//    if ([theSecondsWaitedNumber floatValue] >= self.numberOfSecondsToInitiallyWait) {
+//
+//        [self.oneSecondRepeatingTimer invalidate];
+//        self.oneSecondRepeatingTimer = nil;
+//        [self startTakingPhotos];
+//    }
+//}
+
+
+- (void)handleUpdateUITimerFired
+{
+    [super handleUpdateUITimerFired];
+    
+    // update countdown label
+    
+    // update initial wait label, if timer exists
+    // this updates as seconds for del photos
+    // updates as decimal for adv photos
+    // 0 to x
+    
+    // updates between-photos label, if timer exists (only for adv photos)
+    // 0 to y, then repeat; can we query the timer? well we can get the next fire date and the interval date
+    NSLog(@"update");
 }
 
 - (void)keyboardWillHide:(NSNotification *)theNotification {
@@ -245,28 +275,24 @@ const NSInteger MaximumNumberOfTimeUnitsToInitiallyWaitInteger = 999;
     [self.currentPopoverController dismissPopoverAnimated:YES];
 }
 
-- (void)updateForAllowingCancelTimer
+- (void)updateToAllowCancelTimer
 {
-    self.numberOfTimeUnitsToInitiallyWaitTextField.enabled = NO;
-    self.numberOfPhotosToTakeTextField.enabled = NO;
+    [super updateToAllowCancelTimer];
+    
     self.numberOfTimeUnitsBetweenPhotosTextField.enabled = NO;
     self.numberOfTimeUnitsInitiallyWaitedLabel.text = @"0.0";
-    self.numberOfTimeUnitsInitiallyWaitedLabel.hidden = NO;
-    self.startTimerButton.enabled = NO;
-    self.cancelTimerButton.enabled = YES;
 }
 
 - (void)updateToAllowStartTimer
 {
-    self.numberOfTimeUnitsToInitiallyWaitTextField.enabled = YES;
-    self.numberOfPhotosToTakeTextField.enabled = YES;
+    [super updateToAllowStartTimer];
+    
+    [self.betweenPhotosTimer invalidate];
+    self.betweenPhotosTimer = nil;
+        
     self.numberOfTimeUnitsBetweenPhotosTextField.enabled = YES;
-    self.numberOfTimeUnitsInitiallyWaitedLabel.hidden = YES;
-    self.numberOfPhotosTakenLabel.hidden = YES;
     self.numberOfTimeUnitsWaitedBetweenPhotosLabel.hidden = YES;
     self.timeRemainingUntilNextPhotoLabel.hidden = YES;
-    self.startTimerButton.enabled = YES;
-    self.cancelTimerButton.enabled = NO;
 }
 
 - (void)updateLayoutForLandscape

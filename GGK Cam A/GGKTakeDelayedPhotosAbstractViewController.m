@@ -25,10 +25,7 @@ const NSInteger GGKTakeDelayedPhotosMinimumNumberOfTimeUnitsToInitiallyWaitInteg
 
 - (IBAction)cancelTimer
 {
-//    [self.oneSecondRepeatingTimer invalidate];
-//    self.oneSecondRepeatingTimer = nil;
-//    self.numberOfPhotosToTake = 0;
-//    [self updateForAllowingStartTimer];
+    [self updateToAllowStartTimer];
 }
 
 - (void)captureManagerDidTakePhoto:(id)sender
@@ -72,7 +69,29 @@ const NSInteger GGKTakeDelayedPhotosMinimumNumberOfTimeUnitsToInitiallyWaitInteg
 
 - (void)handleInitialWaitDone
 {
-    ;
+    NSLog(@"handleInitialWaitDone");
+    [self.initialWaitTimer invalidate];
+    self.initialWaitTimer = nil;
+    
+    // well, we want to stop the initial-wait timer.
+    // and take a photo
+    // if there's a between-photos timer, start that
+}
+
+//- (void)handleOneSecondTimerFired
+//{
+//    NSNumber *theSecondsWaitedNumber = @([self.numberOfTimeUnitsInitiallyWaitedLabel.text integerValue] + 1);
+//    self.numberOfTimeUnitsInitiallyWaitedLabel.text = [theSecondsWaitedNumber stringValue];
+//    if ([theSecondsWaitedNumber floatValue] >= self.numberOfSecondsToInitiallyWait) {
+//
+//        [self.oneSecondRepeatingTimer invalidate];
+//        self.oneSecondRepeatingTimer = nil;
+//        [self startTakingPhotos];
+//    }
+//}
+
+- (void)handleUpdateUITimerFired
+{
 }
 
 - (IBAction)startTimer
@@ -88,6 +107,32 @@ const NSInteger GGKTakeDelayedPhotosMinimumNumberOfTimeUnitsToInitiallyWaitInteg
     
 //    NSTimer *aTimer = [NSTimer scheduledTimerWithTimeInterval:theNumberOfSecondsToInitiallyWait target:self selector:@selector(handleInitialWaitDone) userInfo:nil repeats:NO];
 //    self.initialWaitTimer = aTimer;
+}
+
+- (void)updateToAllowCancelTimer
+{
+    self.numberOfTimeUnitsToInitiallyWaitTextField.enabled = NO;
+    self.numberOfPhotosToTakeTextField.enabled = NO;
+    self.numberOfTimeUnitsInitiallyWaitedLabel.text = @"0";
+    self.numberOfTimeUnitsInitiallyWaitedLabel.hidden = NO;
+    self.startTimerButton.enabled = NO;
+    self.cancelTimerButton.enabled = YES;
+}
+
+- (void)updateToAllowStartTimer
+{
+    [self.updateUITimer invalidate];
+    self.updateUITimer = nil;
+    [self.initialWaitTimer invalidate];
+    self.initialWaitTimer = nil;
+    self.numberOfPhotosRemainingToTake = 0;
+    
+    self.numberOfTimeUnitsToInitiallyWaitTextField.enabled = YES;
+    self.numberOfPhotosToTakeTextField.enabled = YES;
+    self.numberOfTimeUnitsInitiallyWaitedLabel.hidden = YES;
+    self.numberOfPhotosTakenLabel.hidden = YES;
+    self.startTimerButton.enabled = YES;
+    self.cancelTimerButton.enabled = NO;
 }
 
 //- (void)viewDidLoad
