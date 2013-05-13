@@ -49,6 +49,7 @@
 		93DA21E1173CB1F800636617 /* GGKTakeDelayedPhotosAbstractViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93DA21E0173CB1F700636617 /* GGKTakeDelayedPhotosAbstractViewController.m */; };
 		93DA21E4173DA6C400636617 /* NSNumber+GGKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 93DA21E3173DA6C300636617 /* NSNumber+GGKAdditions.m */; };
 		93DA21E7173E4DF900636617 /* GGKTimeUnits.m in Sources */ = {isa = PBXBuildFile; fileRef = 93DA21E6173E4DF900636617 /* GGKTimeUnits.m */; };
+		93DA21EA17405EA900636617 /* NSDate+GGKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 93DA21E917405EA800636617 /* NSDate+GGKAdditions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -114,6 +115,8 @@
 		93DA21E3173DA6C300636617 /* NSNumber+GGKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+GGKAdditions.m"; sourceTree = "<group>"; };
 		93DA21E5173E4DF800636617 /* GGKTimeUnits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKTimeUnits.h; sourceTree = "<group>"; };
 		93DA21E6173E4DF900636617 /* GGKTimeUnits.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKTimeUnits.m; sourceTree = "<group>"; };
+		93DA21E817405EA700636617 /* NSDate+GGKAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+GGKAdditions.h"; sourceTree = "<group>"; };
+		93DA21E917405EA800636617 /* NSDate+GGKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+GGKAdditions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,6 +220,8 @@
 				932BEE56173B72D2000A15CB /* GGKViewController.m */,
 				93306A5616C1D19A00F22B0A /* MainStoryboard_iPhone.storyboard */,
 				93306A5916C1D19A00F22B0A /* MainStoryboard_iPad.storyboard */,
+				93DA21E817405EA700636617 /* NSDate+GGKAdditions.h */,
+				93DA21E917405EA800636617 /* NSDate+GGKAdditions.m */,
 				93DA21E2173DA6C300636617 /* NSNumber+GGKAdditions.h */,
 				93DA21E3173DA6C300636617 /* NSNumber+GGKAdditions.m */,
 				932BEE52173B0F86000A15CB /* NSString+GGKAdditions.h */,
@@ -347,6 +352,7 @@
 				93DA21E1173CB1F800636617 /* GGKTakeDelayedPhotosAbstractViewController.m in Sources */,
 				93DA21E4173DA6C400636617 /* NSNumber+GGKAdditions.m in Sources */,
 				93DA21E7173E4DF900636617 /* GGKTimeUnits.m in Sources */,
+				93DA21EA17405EA900636617 /* NSDate+GGKAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

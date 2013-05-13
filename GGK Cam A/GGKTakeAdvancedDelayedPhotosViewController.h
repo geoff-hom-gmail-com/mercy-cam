@@ -40,48 +40,12 @@ extern NSString *GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString;
 // Key for storing the time unit to use for the initial wait.
 extern NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString;
 
-@interface GGKTakeAdvancedDelayedPhotosViewController : GGKTakeDelayedPhotosAbstractViewController <GGKTimeUnitsTableViewControllerDelegate, UITextFieldDelegate>
+@interface GGKTakeAdvancedDelayedPhotosViewController : GGKTakeDelayedPhotosAbstractViewController <GGKTimeUnitsTableViewControllerDelegate>
 
-// Number of time units to wait between each photo.
-@property (weak, nonatomic) IBOutlet UITextField *numberOfTimeUnitsBetweenPhotosTextField;
-
-// Story: User taps "Start timer." After the first photo, user sees label below; it increments with each time unit. (If not seconds, increment to the tenth of a decimal.) User implicitly understands that another photo will be taken eventually and can estimate when that will be.
-@property (nonatomic, weak) IBOutlet UILabel *numberOfTimeUnitsWaitedBetweenPhotosLabel;
-
-// Story: User taps "Start timer." Regardless of how long-term the timer parameters are, the user understands that the timer has started and is still working (because of the counter in seconds). She also understands when the next photo will be taken.
-@property (nonatomic, weak) IBOutlet UILabel *timeRemainingUntilNextPhotoLabel;
-
-// Story: User taps button. User can select seconds/minutes/hours/days/etc. from a popover. User taps selection and the button is updated.
-// Story: User sets number of time units between photos to 1. User sees singular text for that time unit.
-// The type of time units to wait between each photo.
-@property (weak, nonatomic) IBOutlet UIButton *timeUnitsBetweenPhotosButton;
-
-// Story: User taps button. User can select seconds/minutes/hours/days/etc. from a popover. User taps selection and the button is updated.
-// Story: User sets number of time units to initially wait to 1. User sees singular text for that time unit.
-// The type of time units to wait before taking the first photo.
-@property (weak, nonatomic) IBOutlet UIButton *timeUnitsToInitiallyWaitButton;
 
 // Override.
 - (void)captureManagerDidTakePhoto:(id)sender;
 // If there is time set between photos, then those timers will handle taking more photos. But if the time between photos is set to 0, and if more photos should be taken, then do that.
-
-// Override.
-- (void)handleUpdateUITimerFired;
-
-// Override.
-- (IBAction)startTimer;
-
-// Override.
-- (void)updateToAllowCancelTimer;
-
-// Override.
-- (void)updateToAllowStartTimer;
-
-
-
-// Override. For stopping the capture session. And removing observers.
-- (void)dealloc;
-
 
 - (void)timeUnitsTableViewControllerDidSelectTimeUnit:(id)sender;
 // So, store the selected time unit and dismiss the popover.

@@ -22,7 +22,7 @@ extern NSString *GGKTakeDelayedPhotosNumberOfPhotosKeyString;
 // Key for storing the number of seconds to initially wait.
 extern NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString;
 
-@interface GGKTakeDelayedPhotosViewController : GGKTakeDelayedPhotosAbstractViewController <UITextFieldDelegate>
+@interface GGKTakeDelayedPhotosViewController : GGKTakeDelayedPhotosAbstractViewController
 
 // In "Wait X seconds, then take Y photos," it's "seconds, then take." But may be singular or plural.
 @property (weak, nonatomic) IBOutlet UILabel *secondsLabel;
@@ -44,16 +44,6 @@ extern NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString;
 // Also show number of photos taken.
 - (void)takePhoto;
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField;
-// So, note which text field is being edited. (To know whether to shift the screen up when the keyboard shows.)
-
-- (void)textFieldDidEndEditing:(UITextField *)textField;
-// So, if an invalid value was entered, then use the previous value. Also, note that no text field is being edited now.
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField;
-// So, dismiss the keyboard.
-
-
 
 
 // Override.
@@ -61,6 +51,12 @@ extern NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString;
 
 // Override.
 - (void)updateLayoutForPortrait;
+
+// Override.
+- (void)updateSettings;
+
+// Override.
+- (void)updateToAllowCancelTimer;
 
 // Override.
 - (void)viewDidLoad;
