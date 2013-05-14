@@ -130,7 +130,6 @@ extern NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString;
 
 // Override.
 - (void)captureManagerDidTakePhoto:(id)sender;
-// So, if no more photos to take, then reset the UI for starting the timer again.
 
 // Override.
 - (void)dealloc;
@@ -140,7 +139,7 @@ extern NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString;
 - (void)getSavedTimerSettings;
 
 // Story: User starts timer and leaves. User returns and glances at the screen for only a second or two. User still gets feedback that the app is running properly.
-// Stub.
+// We also use the timer to know when to take photos.
 - (void)handleOneSecondTimerFired;
 
 // Override.
@@ -149,9 +148,12 @@ extern NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString;
 // Override.
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender;
 
+// Story: User sees UI and knows to wait for photos to be taken, or to tap "Cancel."
 // Update UI to allow canceling. Start timer for updating UI.
-// Partial stub: Subclasses should start timer for initial wait.
 - (IBAction)startTimer;
+
+// Override.
+- (void)takePhoto;
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField;
 // So, note which text field is being edited. (To know whether to shift the screen up when the keyboard shows.)
@@ -168,24 +170,10 @@ extern NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString;
 // Update the labels showing the timers counting up and down.
 - (void)updateTimerLabels;
 
-// Story: User sees UI and knows to wait for photos to be taken, or to tap "Cancel."
-- (void)updateToAllowCancelTimer;
-
 // Story: User sees UI and knows she can tap "Start timer."
 - (void)updateToAllowStartTimer;
 
 // Override.
 - (void)viewDidLoad;
-
-
-
-// Story: The initial wait time has passed. The app starts taking photos, respecting any between-photo settings.
-- (void)handleInitialWaitDone;
-
-
-
-
-
-
 
 @end

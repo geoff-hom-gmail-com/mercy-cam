@@ -1441,7 +1441,7 @@ photos</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="999" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ysa-wk-iQ1">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="999.9" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ysa-wk-iQ1">
                                 <rect key="frame" x="50" y="60" width="50" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1494,7 +1494,7 @@ photos</string>
                                     <outlet property="delegate" destination="fx6-eB-Ugt" id="cJV-a4-Jae"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="f05-Ag-oS2">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="999.9" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="f05-Ag-oS2">
                                 <rect key="frame" x="440" y="60" width="50" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1701,8 +1701,20 @@ photos</string>
         </class>
         <class className="GGKTakeAdvancedDelayedPhotosViewController" superclassName="GGKTakeDelayedPhotosAbstractViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKTakeAdvancedDelayedPhotosViewController.h"/>
+        </class>
+        <class className="GGKTakeDelayedPhotosAbstractViewController" superclassName="GGKTakePhotoAbstractViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKTakeDelayedPhotosAbstractViewController.h"/>
             <relationships>
+                <relationship kind="action" name="cancelTimer"/>
+                <relationship kind="action" name="startTimer"/>
+                <relationship kind="outlet" name="afterNumberOfPhotosTextFieldLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="cancelTimerButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="focusLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="numberOfPhotosTakenLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="numberOfPhotosToTakeTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="numberOfTimeUnitsBetweenPhotosTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="numberOfTimeUnitsInitiallyWaitedLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="numberOfTimeUnitsToInitiallyWaitTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="numberOfTimeUnitsWaitedBetweenPhotosLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="startTimerButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="timeRemainingUntilNextPhotoLabel" candidateClass="UILabel"/>
@@ -1710,25 +1722,10 @@ photos</string>
                 <relationship kind="outlet" name="timeUnitsToInitiallyWaitButton" candidateClass="UIButton"/>
             </relationships>
         </class>
-        <class className="GGKTakeDelayedPhotosAbstractViewController" superclassName="GGKTakePhotoAbstractViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKTakeDelayedPhotosAbstractViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="afterNumberOfPhotosTextFieldLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="cancelTimerButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="focusLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="numberOfPhotosTakenLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="numberOfPhotosToTakeTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="numberOfTimeUnitsInitiallyWaitedLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="numberOfTimeUnitsToInitiallyWaitTextField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
         <class className="GGKTakeDelayedPhotosViewController" superclassName="GGKTakeDelayedPhotosAbstractViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKTakeDelayedPhotosViewController.h"/>
             <relationships>
-                <relationship kind="action" name="cancelTimer"/>
-                <relationship kind="action" name="startTimer"/>
                 <relationship kind="outlet" name="secondsLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="startTimerButton" candidateClass="UIButton"/>
             </relationships>
         </class>
         <class className="GGKTakePhotoAbstractViewController" superclassName="GGKViewController">

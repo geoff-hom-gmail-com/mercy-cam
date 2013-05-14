@@ -28,33 +28,16 @@ extern NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString;
 @property (weak, nonatomic) IBOutlet UILabel *secondsLabel;
 
 // Override.
-//- (void)captureManagerDidTakePhoto:(id)sender;
-// So, if more photos to be taken, do that.
-
-// Override.
 - (void)getSavedTimerSettings;
 
 // Override.
-//- (void)handleOneSecondTimerFired;
-
-// Override.
 - (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
-
-
-
-
-// Override. But not an IBAction here.
-// Also show number of photos taken.
-//- (void)takePhoto;
-
-
 
 // Override.
 - (void)updateLayoutForLandscape;
 
 // Override.
 - (void)updateLayoutForPortrait;
-
 
 // Override.
 - (void)viewDidLoad;

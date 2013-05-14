@@ -33,9 +33,6 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
 // The text field currently being edited.
 @property (nonatomic, strong) UITextField *activeTextField;
 
-// This timer goes off when an additional photo is to be taken. Need this property to invalidate later.
-@property (nonatomic, strong) NSTimer *betweenPhotosTimer;
-
 // Story: User taps button. Popover appears. User makes selection in popover. User sees updated button.
 // The button the user tapped to display the popover.
 @property (nonatomic, strong) UIButton *currentPopoverButton;
@@ -113,29 +110,14 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
     //    self.timeUnitBetweenPhotosTimeUnit
 }
 
-//- (void)handleOneSecondTimerFired
-//{
-//    NSNumber *theSecondsWaitedNumber = @([self.numberOfTimeUnitsInitiallyWaitedLabel.text integerValue] + 1);
-//    self.numberOfTimeUnitsInitiallyWaitedLabel.text = [theSecondsWaitedNumber stringValue];
-//    if ([theSecondsWaitedNumber floatValue] >= self.numberOfSecondsToInitiallyWait) {
-//
-//        [self.oneSecondRepeatingTimer invalidate];
-//        self.oneSecondRepeatingTimer = nil;
-//        [self startTakingPhotos];
-//    }
-//}
-
-
 - (void)handleOneSecondTimerFired
 {
     self.numberOfSecondsPassedInteger += 1;
     
     [self updateTimerLabels];
-
-    // do stuff if applicable
-    // need to handle edge case: between timer = 0 (set no counters here, but if 0 after first photo in capture manager, take another photo?)
     
     // If enough time has passed, take a photo. Then set the counters for waiting between photos.
+    // Note that using == instead of >= works properly if seconds-to-wait is 0, as it skips taking a photo here (and takes it instead after the capture manager returns).
     if (self.numberOfSecondsPassedInteger == self.numberOfTotalSecondsToWaitInteger) {
         
         // If the first photo, then show the photos label and the between-photos label.
@@ -153,20 +135,13 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
         self.numberOfSecondsPassedInteger = 0;
         self.numberOfTotalSecondsToWaitInteger = self.numberOfTimeUnitsBetweenPhotosInteger * [GGKTimeUnits numberOfSecondsInTimeUnit:self.timeUnitBetweenPhotosTimeUnit];
         
-        // If the between-photos time to wait is 0, then we'll just keep taking photos, so we'll stop the timer.
-//        if (self.numberOfTotalSecondsToWaitInteger == 0) {
-//            
-//            [self.oneSecondRepeatingTimer invalidate];
-//            self.oneSecondRepeatingTimer = nil;
-//        }
-        
         // We'll take the photo last, in case there's something there that causes significant delay.
         [self takePhoto];
     }
 }
 
-- (void)keyboardWillHide:(NSNotification *)theNotification {
-	
+- (void)keyboardWillHide:(NSNotification *)theNotification
+{	
     CGRect newFrame = self.view.frame;
     newFrame.origin.y = 0;
     
@@ -178,8 +153,8 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
     }];
 }
 
-- (void)keyboardWillShow:(NSNotification *)theNotification {
-    
+- (void)keyboardWillShow:(NSNotification *)theNotification
+{    
     // Shift the view so that the active text field can be seen above the keyboard. We do this by comparing where the keyboard will end up vs. where the text field is. If a shift is needed, we shift the entire view up, synced with the keyboard shifting into place.
     
     NSDictionary *theUserInfo = [theNotification userInfo];
@@ -311,7 +286,6 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
     self.oneSecondRepeatingTimer = aTimer;
 }
 
-// Override. 
 - (void)takePhoto
 {
     self.numberOfPhotosTakenInteger += 1;
@@ -401,7 +375,6 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
         self.numberOfTimeUnitsInitiallyWaitedLabel.text = aString;
     } else {
         
-        // what if it's set to wait 0 seconds between photos?
         NSString *aString;
         if (self.timeUnitBetweenPhotosTimeUnit == GGKTimeUnitSeconds) {
             
@@ -433,9 +406,6 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
     
     [self.oneSecondRepeatingTimer invalidate];
     self.oneSecondRepeatingTimer = nil;
-    
-    // Story: User set between-photo timer to 0, started timer, then stopped timer in the middle of taking photos. No more photos are taken. 
-//    self.numberOfPhotosToTakeInteger = 0;
 }
 
 - (void)viewDidLoad

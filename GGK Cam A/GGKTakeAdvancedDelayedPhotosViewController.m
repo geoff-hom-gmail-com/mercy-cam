@@ -8,9 +8,6 @@
 
 #import "GGKTakeAdvancedDelayedPhotosViewController.h"
 
-#import "NSNumber+GGKAdditions.h"
-#import "NSString+GGKAdditions.h"
-
 const NSInteger GGKTakeAdvancedDelayedPhotosDefaultNumberOfPhotosInteger = 5;
 
 const NSInteger GGKTakeAdvancedDelayedPhotosDefaultNumberOfTimeUnitsBetweenPhotosInteger = 7;
@@ -33,12 +30,9 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
 
 @interface GGKTakeAdvancedDelayedPhotosViewController ()
 
-
-
 @end
 
 @implementation GGKTakeAdvancedDelayedPhotosViewController
-
 
 - (void)getSavedTimerSettings
 {
@@ -50,7 +44,6 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
     self.numberOfTimeUnitsBetweenPhotosInteger = [[NSUserDefaults standardUserDefaults] integerForKey:self.numberOfTimeUnitsBetweenPhotosKeyString];
     self.timeUnitBetweenPhotosTimeUnit = [[NSUserDefaults standardUserDefaults] integerForKey:GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString];
 }
-
 
 - (void)updateLayoutForLandscape
 {
