@@ -8,6 +8,7 @@
 
 #import "GGKTakeDelayedPhotosViewController.h"
 
+#import "GGKTimeUnits.h"
 #import "NSString+GGKAdditions.h"
 
 const NSInteger GGKTakeDelayedPhotosDefaultNumberOfPhotosInteger = 3;
@@ -49,6 +50,17 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     }
 }
 
+- (void)getSavedTimerSettings
+{
+    [super getSavedTimerSettings];
+
+    self.numberOfTimeUnitsToInitiallyWaitInteger = [[NSUserDefaults standardUserDefaults] integerForKey:self.numberOfTimeUnitsToInitiallyWaitKeyString];
+    self.timeUnitForTheInitialWaitTimeUnit = GGKTimeUnitSeconds;
+    self.numberOfPhotosToTakeInteger = [[NSUserDefaults standardUserDefaults] integerForKey:self.numberOfPhotosToTakeKeyString];
+    self.numberOfTimeUnitsBetweenPhotosInteger = 0;
+    self.timeUnitBetweenPhotosTimeUnit = GGKTimeUnitSeconds;
+}
+
 - (void)handleUpdateUITimerFired
 {
     [super handleUpdateUITimerFired];
@@ -80,8 +92,27 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 //    }
 //}
 
-
-
+- (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([theKeyPath isEqualToString:GGKTakeDelayedPhotosNumberOfTimeUnitsToInitiallyWaitKeyPathString]) {
+        
+        self.numberOfTimeUnitsToInitiallyWaitTextField.text = [NSString stringWithFormat:@"%d", self.numberOfTimeUnitsToInitiallyWaitInteger];
+        
+        // "second(s), then take"
+        NSString *aSecondsString = [@"seconds" ggk_stringPerhapsWithoutS:self.numberOfTimeUnitsToInitiallyWaitInteger];
+        self.secondsLabel.text = [NSString stringWithFormat:@"%@, then take", aSecondsString];
+    } else if ([theKeyPath isEqualToString:GGKTakeDelayedPhotosNumberOfPhotosToTakeKeyPathString]) {
+        
+        self.numberOfPhotosToTakeTextField.text = [NSString stringWithFormat:@"%d", self.numberOfPhotosToTakeInteger];
+        
+        // "photo(s)."
+        NSString *aPhotosString = [@"photos" ggk_stringPerhapsWithoutS:self.numberOfPhotosToTakeInteger];
+        self.afterNumberOfPhotosTextFieldLabel.text = [NSString stringWithFormat:@"%@.", aPhotosString];
+    } else {
+        
+        [super observeValueForKeyPath:theKeyPath ofObject:object change:change context:context];
+    }
+}
 
 - (void)startTakingPhotos
 {
@@ -158,19 +189,12 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     self.cameraRollButton.frame = CGRectMake(anX1, 844, aWidth, aWidth);
 }
 
-- (void)updateSettings
+- (void)updateTimerLabels
 {
-    [super updateSettings];
-    
-    // "second(s), then take"
-    NSInteger theNumberOfTimeUnitsToInitiallyWaitInteger = [[NSUserDefaults standardUserDefaults] integerForKey:self.numberOfTimeUnitsToInitiallyWaitKeyString];
-    NSString *aSecondsString = [@"seconds" ggk_stringPerhapsWithoutS:theNumberOfTimeUnitsToInitiallyWaitInteger];
-    self.secondsLabel.text = [NSString stringWithFormat:@"%@, then take", aSecondsString];
-    
-    // "photo(s)."
-    NSInteger theNumberOfPhotosToTakeInteger = [[NSUserDefaults standardUserDefaults] integerForKey:self.numberOfPhotosToTakeKeyString];
-    NSString *aPhotosString = [@"photos" ggk_stringPerhapsWithoutS:theNumberOfPhotosToTakeInteger];
-    self.afterNumberOfPhotosTextFieldLabel.text = [NSString stringWithFormat:@"%@.", aPhotosString];
+    // Super doesn't help here, so won't call it.
+
+    // Initial wait: Show how many seconds have passed.
+//    self.numberOfTimeUnitsInitiallyWaitedLabel.text = [NSString stringWithFormat:@"%d", self.numberOfSecondsPassedInteger];
 }
 
 - (void)updateToAllowCancelTimer
@@ -183,21 +207,19 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 - (void)viewDidLoad
 {    
     [super viewDidLoad];
+        
+    self.maximumNumberOfTimeUnitsToInitiallyWaitInteger = 99;
+    self.maximumNumberOfPhotosInteger = 99;
+    self.maximumNumberOfTimeUnitsBetweenPhotosInteger = 99;
     
-    // Set keys for user defaults.
+    // Set keys.
     self.numberOfTimeUnitsToInitiallyWaitKeyString = GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString;
     self.timeUnitForInitialWaitKeyString = nil;
     self.numberOfPhotosToTakeKeyString = GGKTakeDelayedPhotosNumberOfPhotosKeyString;
     self.numberOfTimeUnitsBetweenPhotosKeyString = nil;
     self.timeUnitBetweenPhotosKeyString = nil;
     
-//    self.numberOfTimeUnitsBetweenPhotosTextField = nil;
-    
-    self.maximumNumberOfTimeUnitsToInitiallyWaitInteger = 99;
-    self.maximumNumberOfPhotosInteger = 99;
-    self.maximumNumberOfTimeUnitsBetweenPhotosInteger = 99;
-
-    [self updateSettings];
+    [self getSavedTimerSettings];
 }
 
 @end

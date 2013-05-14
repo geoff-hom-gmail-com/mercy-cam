@@ -8,6 +8,8 @@
 // Abstract class for taking delayed photos. It should include most of what you need. Subclasses should work by blanking out features rather than adding them, so add new features here. 
 
 #import "GGKTakePhotoAbstractViewController.h"
+#import "GGKTimeUnits.h"
+#import "GGKTimeUnitsTableViewController.h"
 
 extern const NSInteger GGKTakeDelayedPhotosMinimumNumberOfPhotosInteger;
 
@@ -15,7 +17,22 @@ extern const NSInteger GGKTakeDelayedPhotosMinimumNumberOfTimeUnitsBetweenPhotos
 
 extern const NSInteger GGKTakeDelayedPhotosMinimumNumberOfTimeUnitsToInitiallyWaitInteger;
 
-@interface GGKTakeDelayedPhotosAbstractViewController : GGKTakePhotoAbstractViewController <UITextFieldDelegate>
+// For KVO on that property.
+extern NSString *GGKTakeDelayedPhotosNumberOfPhotosToTakeKeyPathString;
+
+// For KVO on that property.
+extern NSString *GGKTakeDelayedPhotosNumberOfTimeUnitsBetweenPhotosKeyPathString;
+
+// For KVO on that property.
+extern NSString *GGKTakeDelayedPhotosNumberOfTimeUnitsToInitiallyWaitKeyPathString;
+
+// For KVO on that property.
+extern NSString *GGKTakeDelayedPhotosTimeUnitBetweenPhotosKeyPathString;
+
+// For KVO on that property.
+extern NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString;
+
+@interface GGKTakeDelayedPhotosAbstractViewController : GGKTakePhotoAbstractViewController <GGKTimeUnitsTableViewControllerDelegate, UITextFieldDelegate>
 
 // Story: User sets number of photos to 1. User sees "1 photo…" instead of "1 photos…."
 // The label following the number-of-photos-to-take text field.
@@ -49,11 +66,19 @@ extern const NSInteger GGKTakeDelayedPhotosMinimumNumberOfTimeUnitsToInitiallyWa
 // Story: User taps "Start timer." User sees label below appear and increment with each photo taken. User implicitly understands when photos are taken, how many photos remain, and how long it will take.
 @property (nonatomic, weak) IBOutlet UILabel *numberOfPhotosTakenLabel;
 
+// How many photos to have taken when all the timers are done.
+// Could retrieve from user defaults each time, but want flexibility to assign without a key.
+@property (nonatomic, assign) NSInteger numberOfPhotosToTakeInteger;
+
 // The key (in user defaults) for the number of photos to take.
 @property (nonatomic, strong) NSString *numberOfPhotosToTakeKeyString;
 
 // Number of photos to take for a given tap of the shutter button.
 @property (weak, nonatomic) IBOutlet UITextField *numberOfPhotosToTakeTextField;
+
+// How many seconds/minutes/etc. to wait between photos.
+// Could retrieve from user defaults each time, but want flexibility to assign without a key.
+@property (nonatomic, assign) NSInteger numberOfTimeUnitsBetweenPhotosInteger;
 
 // The key (in user defaults) for the number of time units to wait between photos.
 @property (nonatomic, strong) NSString *numberOfTimeUnitsBetweenPhotosKeyString;
@@ -67,6 +92,10 @@ extern const NSInteger GGKTakeDelayedPhotosMinimumNumberOfTimeUnitsToInitiallyWa
 // Story: User taps "Start timer." User sees label below; it increments with each time unit. (If not seconds, increment to the tenth of a decimal.) User implicitly understands that the timer has started and can estimate when the first photo will be taken.
 @property (nonatomic, weak) IBOutlet UILabel *numberOfTimeUnitsInitiallyWaitedLabel;
 
+// How many seconds/minutes/etc. to wait between photos.
+// Could retrieve from user defaults each time, but want flexibility to assign without a key.
+@property (nonatomic, assign) NSInteger numberOfTimeUnitsToInitiallyWaitInteger;
+
 // The key (in user defaults) for the number of time units to initially wait.
 @property (nonatomic, strong) NSString *numberOfTimeUnitsToInitiallyWaitKeyString;
 
@@ -78,6 +107,14 @@ extern const NSInteger GGKTakeDelayedPhotosMinimumNumberOfTimeUnitsToInitiallyWa
 
 // Story: User taps "Start timer." Regardless of how long-term the timer parameters are, the user understands that the timer has started and is still working (because of the counter in seconds). She also understands when the next photo will be taken.
 @property (nonatomic, weak) IBOutlet UILabel *timeRemainingUntilNextPhotoLabel;
+
+// The time unit to use (seconds/minutes/etc.) for waiting between photos.
+// Could retrieve from user defaults each time, but want flexibility to assign without a key.
+@property (nonatomic, assign) GGKTimeUnit timeUnitBetweenPhotosTimeUnit;
+
+// The time unit to use (seconds/minutes/etc.) for the initial wait.
+// Could retrieve from user defaults each time, but want flexibility to assign without a key.
+@property (nonatomic, assign) GGKTimeUnit timeUnitForTheInitialWaitTimeUnit;
 
 // The key (in user defaults) for the time unit for waiting between photos.
 @property (nonatomic, strong) NSString *timeUnitBetweenPhotosKeyString;
@@ -106,13 +143,19 @@ extern const NSInteger GGKTakeDelayedPhotosMinimumNumberOfTimeUnitsToInitiallyWa
 // Override.
 - (void)dealloc;
 
+// Retrieve the timer settings from user defaults.
+// Stub.
+- (void)getSavedTimerSettings;
+
 // Story: User starts timer and leaves. User returns and glances at the screen for only a second or two. User still gets feedback that the app is running properly.
 // Stub.
 - (void)handleUpdateUITimerFired;
 
 // Override.
-// KVO. Story: User can see when the focus/exposure is locked.
 - (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
+
+// Override.
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender;
 
 // Update UI to allow canceling. Start timer for updating UI.
 // Partial stub: Subclasses should start timer for initial wait.
@@ -127,8 +170,11 @@ extern const NSInteger GGKTakeDelayedPhotosMinimumNumberOfTimeUnitsToInitiallyWa
 - (BOOL)textFieldShouldReturn:(UITextField *)textField;
 // So, dismiss the keyboard.
 
-// Set timer settings to those most-recently used.
-- (void)updateSettings;
+- (void)timeUnitsTableViewControllerDidSelectTimeUnit:(id)sender;
+// So, store the selected time unit and dismiss the popover.
+
+// Update the labels showing the timers counting up and down.
+- (void)updateTimerLabels;
 
 // Story: User sees UI and knows to wait for photos to be taken, or to tap "Cancel."
 - (void)updateToAllowCancelTimer;

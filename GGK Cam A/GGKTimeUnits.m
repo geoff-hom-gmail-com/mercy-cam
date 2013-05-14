@@ -49,6 +49,19 @@ NSString *GGKTimeUnitSecondsString = @"seconds";
     return theNumberOfSeconds;
 }
 
++ (CGFloat)numberOfTimeUnitsInTimeInterval:(NSTimeInterval)theTimeInterval timeUnit:(GGKTimeUnit)theTimeUnit
+{
+    CGFloat theNumberOfTimeUnitsFloat;
+    
+    NSInteger theNumberOfSecondsInTimeUnitInteger = [GGKTimeUnits numberOfSecondsInTimeUnit:theTimeUnit];
+    theNumberOfTimeUnitsFloat = theTimeInterval / theNumberOfSecondsInTimeUnitInteger;
+    
+    // Truncate to nearest decimal.
+    theNumberOfTimeUnitsFloat = floorf(theNumberOfTimeUnitsFloat * 10) / 10;
+    
+    return theNumberOfTimeUnitsFloat;
+}
+
 + (NSString *)stringForTimeUnit:(GGKTimeUnit)theTimeUnit
 {
     NSString *aTimeUnitString;
@@ -76,23 +89,23 @@ NSString *GGKTimeUnitSecondsString = @"seconds";
     return aTimeUnitString;
 }
 
-+ (GGKTimeUnit)timeUnitForString:(NSString *)theTimeUnitString
-{
-    GGKTimeUnit theTimeUnit = GGKTimeUnitSeconds;
-    if ([theTimeUnitString isEqualToString:GGKTimeUnitSecondsString]) {
-        
-        theTimeUnit = GGKTimeUnitSeconds;
-    } else if ([theTimeUnitString isEqualToString:GGKTimeUnitMinutesString]) {
-        
-        theTimeUnit = GGKTimeUnitMinutes;
-    } else if ([theTimeUnitString isEqualToString:GGKTimeUnitHoursString]) {
-        
-        theTimeUnit = GGKTimeUnitHours;
-    } else if ([theTimeUnitString isEqualToString:GGKTimeUnitDaysString]) {
-        
-        theTimeUnit = GGKTimeUnitDays;
-    }
-    return theTimeUnit;
-}
+//+ (GGKTimeUnit)timeUnitForString:(NSString *)theTimeUnitString
+//{
+//    GGKTimeUnit theTimeUnit = GGKTimeUnitSeconds;
+//    if ([theTimeUnitString isEqualToString:GGKTimeUnitSecondsString]) {
+//        
+//        theTimeUnit = GGKTimeUnitSeconds;
+//    } else if ([theTimeUnitString isEqualToString:GGKTimeUnitMinutesString]) {
+//        
+//        theTimeUnit = GGKTimeUnitMinutes;
+//    } else if ([theTimeUnitString isEqualToString:GGKTimeUnitHoursString]) {
+//        
+//        theTimeUnit = GGKTimeUnitHours;
+//    } else if ([theTimeUnitString isEqualToString:GGKTimeUnitDaysString]) {
+//        
+//        theTimeUnit = GGKTimeUnitDays;
+//    }
+//    return theTimeUnit;
+//}
 
 @end

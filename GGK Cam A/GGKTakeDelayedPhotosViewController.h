@@ -32,7 +32,13 @@ extern NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString;
 // So, if more photos to be taken, do that.
 
 // Override.
+- (void)getSavedTimerSettings;
+
+// Override.
 - (void)handleUpdateUITimerFired;
+
+// Override.
+- (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
 
 // Override.
 - (IBAction)startTimer;
@@ -51,9 +57,6 @@ extern NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString;
 
 // Override.
 - (void)updateLayoutForPortrait;
-
-// Override.
-- (void)updateSettings;
 
 // Override.
 - (void)updateToAllowCancelTimer;

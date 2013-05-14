@@ -34,15 +34,6 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
 @interface GGKTakeAdvancedDelayedPhotosViewController ()
 
 
-// Story: User taps button. Popover appears. User makes selection in popover. User sees updated button.
-// The button the user tapped to display the popover.
-@property (nonatomic, strong) UIButton *currentPopoverButton;
-
-// For dismissing the current popover. Would name "popoverController," but UIViewController already has a private variable named that.
-@property (nonatomic, strong) UIPopoverController *currentPopoverController;
-
-// Override.
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender;
 
 @end
 
@@ -59,53 +50,21 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
     }
 }
 
+- (void)getSavedTimerSettings
+{
+    [super getSavedTimerSettings];
+    
+    self.numberOfTimeUnitsToInitiallyWaitInteger = [[NSUserDefaults standardUserDefaults] integerForKey:self.numberOfTimeUnitsToInitiallyWaitKeyString];
+    self.timeUnitForTheInitialWaitTimeUnit = [[NSUserDefaults standardUserDefaults] integerForKey:GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString];
+    self.numberOfPhotosToTakeInteger = [[NSUserDefaults standardUserDefaults] integerForKey:self.numberOfPhotosToTakeKeyString];
+    self.numberOfTimeUnitsBetweenPhotosInteger = [[NSUserDefaults standardUserDefaults] integerForKey:self.numberOfTimeUnitsBetweenPhotosKeyString];
+    self.timeUnitBetweenPhotosTimeUnit = [[NSUserDefaults standardUserDefaults] integerForKey:GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString];
+}
+
 - (void)handleInitialWaitDone
 {
     self.numberOfPhotosRemainingToTake = [[NSUserDefaults standardUserDefaults] integerForKey:GGKTakeAdvancedDelayedPhotosNumberOfPhotosKeyString];
 //    [self startTakingPhotos];
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)theSegue sender:(id)theSender {
-    
-    if ([theSegue.identifier isEqualToString:@"ShowTimeUnitsSelector1"] || [theSegue.identifier isEqualToString:@"ShowTimeUnitsSelector2"]) {
-        
-        // Retain popover controller, to dismiss later.
-        self.currentPopoverController = [(UIStoryboardPopoverSegue *)theSegue popoverController];
-        
-        // Note which button was tapped, to update later.
-        self.currentPopoverButton = theSender;
-        
-        GGKTimeUnitsTableViewController *aTimeUnitsTableViewController = (GGKTimeUnitsTableViewController *)self.currentPopoverController.contentViewController;
-        aTimeUnitsTableViewController.delegate = self;
-        
-        // Set current time unit.
-        NSString *theCurrentTimeUnitString = [self.currentPopoverButton titleForState:UIControlStateNormal];
-        aTimeUnitsTableViewController.currentTimeUnit = [GGKTimeUnits timeUnitForString:theCurrentTimeUnitString];
-    }
-}
-
-- (void)timeUnitsTableViewControllerDidSelectTimeUnit:(id)sender
-{
-    // Store the time unit for the proper setting.
-    
-    GGKTimeUnitsTableViewController *aTimeUnitsTableViewController = (GGKTimeUnitsTableViewController *)sender;
-    GGKTimeUnit theCurrentTimeUnit = aTimeUnitsTableViewController.currentTimeUnit;
-    NSInteger anOkayInteger = theCurrentTimeUnit;
-    
-    NSString *theKey;
-    if (self.currentPopoverButton == self.timeUnitsToInitiallyWaitButton) {
-        
-        theKey = GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString;
-    } else if (self.currentPopoverButton == self.timeUnitsBetweenPhotosButton) {
-        
-        theKey = GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString;
-    }
-    
-    // Set the new value, then update the entire UI.
-    [[NSUserDefaults standardUserDefaults] setInteger:anOkayInteger forKey:theKey];
-    [self updateSettings];
-    
-    [self.currentPopoverController dismissPopoverAnimated:YES];
 }
 
 - (void)updateLayoutForLandscape
@@ -218,15 +177,15 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    // Set keys for user defaults.
+
+    // Set keys.
     self.numberOfTimeUnitsToInitiallyWaitKeyString = GGKTakeAdvancedDelayedPhotosNumberOfTimeUnitsToInitiallyWaitKeyString;
     self.timeUnitForInitialWaitKeyString = GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString;
     self.numberOfPhotosToTakeKeyString = GGKTakeAdvancedDelayedPhotosNumberOfPhotosKeyString;
     self.numberOfTimeUnitsBetweenPhotosKeyString = GGKTakeAdvancedDelayedPhotosNumberOfTimeUnitsBetweenPhotosKeyString;
     self.timeUnitBetweenPhotosKeyString = GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString;
     
-    [self updateSettings];
+    [self getSavedTimerSettings];
 }
 
 @end

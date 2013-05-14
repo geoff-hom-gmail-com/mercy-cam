@@ -8,7 +8,6 @@
 
 #import "GGKTakeDelayedPhotosAbstractViewController.h"
 #import "GGKTimeUnits.h"
-#import "GGKTimeUnitsTableViewController.h"
 
 // The default number of photos to take.
 extern const NSInteger GGKTakeAdvancedDelayedPhotosDefaultNumberOfPhotosInteger;
@@ -40,15 +39,14 @@ extern NSString *GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString;
 // Key for storing the time unit to use for the initial wait.
 extern NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString;
 
-@interface GGKTakeAdvancedDelayedPhotosViewController : GGKTakeDelayedPhotosAbstractViewController <GGKTimeUnitsTableViewControllerDelegate>
-
+@interface GGKTakeAdvancedDelayedPhotosViewController : GGKTakeDelayedPhotosAbstractViewController
 
 // Override.
 - (void)captureManagerDidTakePhoto:(id)sender;
 // If there is time set between photos, then those timers will handle taking more photos. But if the time between photos is set to 0, and if more photos should be taken, then do that.
 
-- (void)timeUnitsTableViewControllerDidSelectTimeUnit:(id)sender;
-// So, store the selected time unit and dismiss the popover.
+// Override.
+- (void)getSavedTimerSettings;
 
 // Override.
 - (void)updateLayoutForLandscape;

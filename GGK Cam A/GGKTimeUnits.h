@@ -34,10 +34,13 @@ extern NSString *GGKTimeUnitSecondsString;
 // Return the number of seconds per the given time unit.
 + (NSInteger)numberOfSecondsInTimeUnit:(GGKTimeUnit)theTimeUnit;
 
+// Return the number of given time units in the given interval. Note: The answer is truncated to the nearest decimal.
++ (CGFloat)numberOfTimeUnitsInTimeInterval:(NSTimeInterval)theTimeInterval timeUnit:(GGKTimeUnit)theTimeUnit;
+
 // Return the string corresponding to the given time unit. E.g., "seconds."
 + (NSString *)stringForTimeUnit:(GGKTimeUnit)theTimeUnit;
 
 // Return the time unit corresponding to the given string. If no match, return the one for "seconds."
-+ (GGKTimeUnit)timeUnitForString:(NSString *)theTimeUnitString;
+//+ (GGKTimeUnit)timeUnitForString:(NSString *)theTimeUnitString;
 
 @end
