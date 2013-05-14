@@ -39,16 +39,6 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
 
 @implementation GGKTakeAdvancedDelayedPhotosViewController
 
-- (void)captureManagerDidTakePhoto:(id)sender
-{
-    [super captureManagerDidTakePhoto:sender];
-    
-    NSInteger theNumberOfTimeUnitsBetweenPhotosInteger = [[NSUserDefaults standardUserDefaults] integerForKey:GGKTakeAdvancedDelayedPhotosNumberOfTimeUnitsBetweenPhotosKeyString];
-    if (theNumberOfTimeUnitsBetweenPhotosInteger == 0 && self.numberOfPhotosRemainingToTake > 0) {
-        
-        [self takePhoto];
-    }
-}
 
 - (void)getSavedTimerSettings
 {
@@ -61,11 +51,6 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
     self.timeUnitBetweenPhotosTimeUnit = [[NSUserDefaults standardUserDefaults] integerForKey:GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString];
 }
 
-- (void)handleInitialWaitDone
-{
-    self.numberOfPhotosRemainingToTake = [[NSUserDefaults standardUserDefaults] integerForKey:GGKTakeAdvancedDelayedPhotosNumberOfPhotosKeyString];
-//    [self startTakingPhotos];
-}
 
 - (void)updateLayoutForLandscape
 {

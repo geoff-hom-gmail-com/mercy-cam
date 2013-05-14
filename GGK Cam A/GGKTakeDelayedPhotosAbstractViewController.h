@@ -44,10 +44,6 @@ extern NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString;
 // For displaying when the focus is continuous or locked. (Displays "locked" only when both focus and exposure are locked. Otherwise, displays "continuous" or "locking.")
 @property (nonatomic, strong) IBOutlet UILabel *focusLabel;
 
-// Timer to wait before the first photo is taken.
-// Story: User taps cancel. No more photos taken.
-@property (nonatomic, strong) NSTimer *initialWaitTimer;
-
 // Story: User enters a value greater than the max. The value is replaced with the max.
 // The max is arbitrary and for cosmetic reasons and keeping edge cases simple.
 @property (nonatomic, assign) NSInteger maximumNumberOfPhotosInteger;
@@ -59,9 +55,6 @@ extern NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString;
 // Story: User enters a value greater than the max. The value is replaced with the max.
 // The max is arbitrary and for cosmetic reasons and keeping edge cases simple.
 @property (nonatomic, assign) NSInteger maximumNumberOfTimeUnitsToInitiallyWaitInteger;
-
-// The number of photos remaining to take.
-@property (nonatomic, assign) NSInteger numberOfPhotosRemainingToTake;
 
 // Story: User taps "Start timer." User sees label below appear and increment with each photo taken. User implicitly understands when photos are taken, how many photos remain, and how long it will take.
 @property (nonatomic, weak) IBOutlet UILabel *numberOfPhotosTakenLabel;
@@ -108,19 +101,19 @@ extern NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString;
 // Story: User taps "Start timer." Regardless of how long-term the timer parameters are, the user understands that the timer has started and is still working (because of the counter in seconds). She also understands when the next photo will be taken.
 @property (nonatomic, weak) IBOutlet UILabel *timeRemainingUntilNextPhotoLabel;
 
+// The key (in user defaults) for the time unit for waiting between photos.
+@property (nonatomic, strong) NSString *timeUnitBetweenPhotosKeyString;
+
 // The time unit to use (seconds/minutes/etc.) for waiting between photos.
 // Could retrieve from user defaults each time, but want flexibility to assign without a key.
 @property (nonatomic, assign) GGKTimeUnit timeUnitBetweenPhotosTimeUnit;
 
+// The key (in user defaults) for the time unit for the initial wait.
+@property (nonatomic, strong) NSString *timeUnitForInitialWaitKeyString;
+
 // The time unit to use (seconds/minutes/etc.) for the initial wait.
 // Could retrieve from user defaults each time, but want flexibility to assign without a key.
 @property (nonatomic, assign) GGKTimeUnit timeUnitForTheInitialWaitTimeUnit;
-
-// The key (in user defaults) for the time unit for waiting between photos.
-@property (nonatomic, strong) NSString *timeUnitBetweenPhotosKeyString;
-
-// The key (in user defaults) for the time unit for the initial wait.
-@property (nonatomic, strong) NSString *timeUnitForInitialWaitKeyString;
 
 // Story: User taps button. User can select seconds/minutes/hours/days/etc. from a popover. User taps selection and the button is updated.
 // Story: User sets number of time units between photos to 1. User sees singular text for that time unit.
@@ -131,7 +124,6 @@ extern NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString;
 // Story: User sets number of time units to initially wait to 1. User sees singular text for that time unit.
 // The type of time units to wait before taking the first photo.
 @property (weak, nonatomic) IBOutlet UIButton *timeUnitsToInitiallyWaitButton;
-
 
 // Update UI to take photos again.
 - (IBAction)cancelTimer;
@@ -149,7 +141,7 @@ extern NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString;
 
 // Story: User starts timer and leaves. User returns and glances at the screen for only a second or two. User still gets feedback that the app is running properly.
 // Stub.
-- (void)handleUpdateUITimerFired;
+- (void)handleOneSecondTimerFired;
 
 // Override.
 - (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;

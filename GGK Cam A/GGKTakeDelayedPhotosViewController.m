@@ -61,22 +61,22 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     self.timeUnitBetweenPhotosTimeUnit = GGKTimeUnitSeconds;
 }
 
-- (void)handleUpdateUITimerFired
+- (void)handleOneSecondTimerFired
 {
-    [super handleUpdateUITimerFired];
+    [super handleOneSecondTimerFired];
     
-    // Initial wait: Show how many seconds have passed.
-    NSInteger theNumberOfSecondsToInitiallyWaitInteger = [[NSUserDefaults standardUserDefaults] integerForKey:self.numberOfTimeUnitsToInitiallyWaitKeyString];
-    NSInteger theNumberOfSecondsAlreadyWaitedInteger;
-    if (self.initialWaitTimer == nil) {
-        
-        theNumberOfSecondsAlreadyWaitedInteger = theNumberOfSecondsToInitiallyWaitInteger;
-    } else {
-        
-        CGFloat theNumberOfSecondsRemainingFloat = [self.initialWaitTimer.fireDate timeIntervalSinceNow];
-        theNumberOfSecondsAlreadyWaitedInteger = theNumberOfSecondsToInitiallyWaitInteger - theNumberOfSecondsRemainingFloat;
-    }
-    self.numberOfTimeUnitsInitiallyWaitedLabel.text = [NSString stringWithFormat:@"%d", theNumberOfSecondsAlreadyWaitedInteger];
+//    // Initial wait: Show how many seconds have passed.
+//    NSInteger theNumberOfSecondsToInitiallyWaitInteger = [[NSUserDefaults standardUserDefaults] integerForKey:self.numberOfTimeUnitsToInitiallyWaitKeyString];
+//    NSInteger theNumberOfSecondsAlreadyWaitedInteger;
+//    if (self.initialWaitTimer == nil) {
+//        
+//        theNumberOfSecondsAlreadyWaitedInteger = theNumberOfSecondsToInitiallyWaitInteger;
+//    } else {
+//        
+//        CGFloat theNumberOfSecondsRemainingFloat = [self.initialWaitTimer.fireDate timeIntervalSinceNow];
+//        theNumberOfSecondsAlreadyWaitedInteger = theNumberOfSecondsToInitiallyWaitInteger - theNumberOfSecondsRemainingFloat;
+//    }
+//    self.numberOfTimeUnitsInitiallyWaitedLabel.text = [NSString stringWithFormat:@"%d", theNumberOfSecondsAlreadyWaitedInteger];
 }
 
 
@@ -120,16 +120,6 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
         
         [self takePhoto];
     }
-}
-
-- (IBAction)startTimer
-{
-    [super startTimer];
-    
-    NSInteger theNumberOfSecondsToInitiallyWait = [[NSUserDefaults standardUserDefaults] integerForKey:self.numberOfTimeUnitsToInitiallyWaitKeyString];
-    
-    NSTimer *aTimer = [NSTimer scheduledTimerWithTimeInterval:theNumberOfSecondsToInitiallyWait target:self selector:@selector(handleInitialWaitDone) userInfo:nil repeats:NO];
-    self.initialWaitTimer = aTimer;
 }
 
 - (void)takePhoto
@@ -195,13 +185,6 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 
     // Initial wait: Show how many seconds have passed.
 //    self.numberOfTimeUnitsInitiallyWaitedLabel.text = [NSString stringWithFormat:@"%d", self.numberOfSecondsPassedInteger];
-}
-
-- (void)updateToAllowCancelTimer
-{
-    [super updateToAllowCancelTimer];
-    
-    self.numberOfTimeUnitsInitiallyWaitedLabel.text = @"0";
 }
 
 - (void)viewDidLoad

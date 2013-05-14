@@ -35,13 +35,10 @@ extern NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString;
 - (void)getSavedTimerSettings;
 
 // Override.
-- (void)handleUpdateUITimerFired;
+- (void)handleOneSecondTimerFired;
 
 // Override.
 - (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
-
-// Override.
-- (IBAction)startTimer;
 
 
 
@@ -58,8 +55,6 @@ extern NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString;
 // Override.
 - (void)updateLayoutForPortrait;
 
-// Override.
-- (void)updateToAllowCancelTimer;
 
 // Override.
 - (void)viewDidLoad;
