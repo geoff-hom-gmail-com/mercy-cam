@@ -78,22 +78,16 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
 {
     [super captureManagerDidTakePhoto:sender];
     
+    // If all photos taken, stop.
+    // Else, if the wait time between photos is 0, then take another photo right away.
     if (self.numberOfPhotosTakenInteger >= self.numberOfPhotosToTakeInteger) {
         
         [self updateToAllowStartTimer];
+    } else if (self.numberOfTotalSecondsToWaitInteger == 0 && [self.oneSecondRepeatingTimer isValid]) {
+        
+        [self takePhoto];
     }
 }
-
-//- (void)captureManagerDidTakePhoto:(id)sender
-//{
-//    [super captureManagerDidTakePhoto:sender];
-//    
-//    if ( self.numberOfTimeUnitsBetweenPhotosInteger == 0 && (self.numberOfPhotosTakenInteger < self.numberOfPhotosToTakeInteger) ) {
-//        
-//        [self takePhoto];
-//    }
-//}
-
 
 - (void)dealloc {
     
@@ -149,17 +143,22 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
             
             self.numberOfPhotosTakenLabel.hidden = NO;
             self.numberOfTimeUnitsWaitedBetweenPhotosLabel.hidden = NO;
+            
+            // The first time the between-photos label is shown, it should show 0. Subsequently, 0 will also be when the between-photos time for the previous photo has passed, and we want to show that value instead. So we'll initialize at 0 here, only.
+            // If time is in seconds, then we don't need/want decimal precision.
+            NSString *aString = (self.timeUnitBetweenPhotosTimeUnit == GGKTimeUnitSeconds) ? @"0" : @"0.0";
+            self.numberOfTimeUnitsWaitedBetweenPhotosLabel.text = aString;
         }
-        
-        self.numberOfPhotosTakenInteger += 1;
-        self.numberOfPhotosTakenLabel.text = [NSString stringWithFormat:@"%d", self.numberOfPhotosTakenInteger];
         
         self.numberOfSecondsPassedInteger = 0;
         self.numberOfTotalSecondsToWaitInteger = self.numberOfTimeUnitsBetweenPhotosInteger * [GGKTimeUnits numberOfSecondsInTimeUnit:self.timeUnitBetweenPhotosTimeUnit];
         
-        // If time is in seconds, then we don't need/want decimal precision.
-        NSString *aString = (self.timeUnitBetweenPhotosTimeUnit == GGKTimeUnitSeconds) ? @"0" : @"0.0";
-        self.numberOfTimeUnitsWaitedBetweenPhotosLabel.text = aString;
+        // If the between-photos time to wait is 0, then we'll just keep taking photos, so we'll stop the timer.
+//        if (self.numberOfTotalSecondsToWaitInteger == 0) {
+//            
+//            [self.oneSecondRepeatingTimer invalidate];
+//            self.oneSecondRepeatingTimer = nil;
+//        }
         
         // We'll take the photo last, in case there's something there that causes significant delay.
         [self takePhoto];
@@ -312,8 +311,17 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
     self.oneSecondRepeatingTimer = aTimer;
 }
 
-- (void)textFieldDidBeginEditing:(UITextField *)theTextField {
+// Override. 
+- (void)takePhoto
+{
+    self.numberOfPhotosTakenInteger += 1;
+    self.numberOfPhotosTakenLabel.text = [NSString stringWithFormat:@"%d", self.numberOfPhotosTakenInteger];
     
+    [super takePhoto];
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)theTextField
+{    
     self.activeTextField = theTextField;
 }
 
@@ -373,7 +381,8 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
 - (void)updateTimerLabels
 {
     // Countdown label.
-    NSInteger theNumberOfSecondsUntilNextPhotoInteger = self.numberOfTotalSecondsToWaitInteger - self.numberOfSecondsPassedInteger;
+    // Time-to-wait may be 0, in which time passed will be greater.
+    NSInteger theNumberOfSecondsUntilNextPhotoInteger = MAX(self.numberOfTotalSecondsToWaitInteger, self.numberOfSecondsPassedInteger) - self.numberOfSecondsPassedInteger;
     NSString *aString = [NSDate ggk_dayHourMinuteSecondStringForTimeInterval:theNumberOfSecondsUntilNextPhotoInteger];
     self.timeRemainingUntilNextPhotoLabel.text = [NSString stringWithFormat:@"Next photo: %@", aString];
     
@@ -422,10 +431,11 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
     self.numberOfTimeUnitsWaitedBetweenPhotosLabel.hidden = YES;
     self.timeRemainingUntilNextPhotoLabel.hidden = YES;
     
-    // are these needed?
     [self.oneSecondRepeatingTimer invalidate];
     self.oneSecondRepeatingTimer = nil;
-    self.numberOfPhotosTakenInteger = 0;
+    
+    // Story: User set between-photo timer to 0, started timer, then stopped timer in the middle of taking photos. No more photos are taken. 
+//    self.numberOfPhotosToTakeInteger = 0;
 }
 
 - (void)viewDidLoad
