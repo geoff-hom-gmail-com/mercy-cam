@@ -8,6 +8,8 @@
 
 #import "GGKTakePhotoViewController.h"
 
+#import "UIView+GGKAdditions.h"
+
 // Story: User sees tip. User learns how to focus on an object.
 NSString *const ToFocusTipString = @"Tip: To focus on an object, tap it.";
 
@@ -170,97 +172,58 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
 {
     [super updateLayoutForLandscape];
     
-    CGPoint aPoint = self.videoPreviewView.frame.origin;
-    self.videoPreviewView.frame = CGRectMake(aPoint.x, aPoint.y, 883, 662);
+    // An anchor.
+    [self.videoPreviewView ggk_makeSize:CGSizeMake(889, 667)];
+    [self.videoPreviewView ggk_makeBottomGap:0];
+    [self.videoPreviewView ggk_makeLeftGap:0];
     [self.captureManager correctThePreviewOrientation:self.videoPreviewView];
     
-    CGFloat anX1 = 20;
-    CGSize aSize = self.tipLabel.frame.size;
-    self.tipLabel.frame = CGRectMake(anX1, 673, aSize.width, aSize.height);
+    CGFloat aGap1 = 8;
     
-    CGFloat anX2 = 891;
-    CGFloat aWidth = 125;
-    self.takePhotoButton.frame = CGRectMake(anX2, 8, aWidth, 513);
+    CGFloat aWidth = self.cameraRollButton.superview.frame.size.width - self.videoPreviewView.frame.size.width - (2 * aGap1);
+    [self.cameraRollButton ggk_makeSize:CGSizeMake(aWidth, aWidth)];
+    [self.cameraRollButton ggk_makeBottomGap:aGap1];
+    [self.cameraRollButton ggk_makeRightGap:aGap1];
     
-    self.cameraRollButton.frame = CGRectMake(anX2, 571, aWidth, aWidth);
+    CGFloat aGap2 = 50;
     
-    CGFloat anX3 = 530;
-    CGFloat aY1 = 645;
-    aSize = self.focusModeLabel.frame.size;
-    self.focusModeLabel.frame = CGRectMake(anX3, aY1, aSize.width, aSize.height);
-
-    CGFloat aY2 = 663;
-    aSize = self.exposureModeLabel.frame.size;
-    self.exposureModeLabel.frame = CGRectMake(anX3, aY2, aSize.width, aSize.height);
-
-    CGFloat aY3 = 683;
-    aSize = self.whiteBalanceModeLabel.frame.size;
-    self.whiteBalanceModeLabel.frame = CGRectMake(anX3, aY3, aSize.width, aSize.height);
-
-    CGFloat anX4 = 649;
-    aSize = self.focusingLabel.frame.size;
-    self.focusingLabel.frame = CGRectMake(anX4, aY1, aSize.width, aSize.height);
-
-    aSize = self.exposingLabel.frame.size;
-    self.exposingLabel.frame = CGRectMake(anX4, aY2, aSize.width, aSize.height);
-
-    aSize = self.whiteBalancingLabel.frame.size;
-    self.whiteBalancingLabel.frame = CGRectMake(anX4, aY3, aSize.width, aSize.height);
-
-    CGFloat anX5 = 773;
-    aSize = self.focusPointOfInterestLabel.frame.size;
-    self.focusPointOfInterestLabel.frame = CGRectMake(anX5, 649, aSize.width, aSize.height);
-
-    aSize = self.exposurePointOfInterestLabel.frame.size;
-    self.exposurePointOfInterestLabel.frame = CGRectMake(anX5, 678, aSize.width, aSize.height);
+    [self.takePhotoButton ggk_makeWidth:self.cameraRollButton.frame.size.width];
+    CGFloat aHeight = self.takePhotoButton.superview.frame.size.height - self.cameraRollButton.frame.size.height - aGap2 - (2 * aGap1);
+    [self.takePhotoButton ggk_makeHeight:aHeight];
+    [self.takePhotoButton ggk_makeTopGap:aGap1];
+    [self.takePhotoButton ggk_alignRightEdgeWithView:self.cameraRollButton];
+        
+    // An anchor.
+    [self.tipLabel ggk_makeTopGap:8];
 }
 
 - (void)updateLayoutForPortrait
 {
     [super updateLayoutForPortrait];
     
-    CGPoint aPoint = self.videoPreviewView.frame.origin;
-    self.videoPreviewView.frame = CGRectMake(aPoint.x, aPoint.y, 675, 900);
+    // An anchor.
+    [self.videoPreviewView ggk_makeSize:CGSizeMake(675, 900)];
+    [self.videoPreviewView ggk_makeBottomGap:0];
+    [self.videoPreviewView ggk_makeLeftGap:0];
     [self.captureManager correctThePreviewOrientation:self.videoPreviewView];
     
-    CGSize aSize = self.tipLabel.frame.size;
-    self.tipLabel.frame = CGRectMake(33, 919, aSize.width, aSize.height);
+    CGFloat aGap1 = 8;
     
-    CGFloat anX1 = 682;
-    CGFloat aWidth = 80;
-    self.takePhotoButton.frame = CGRectMake(anX1, 8, aWidth, 814);
+    CGFloat aWidth = self.cameraRollButton.superview.frame.size.width - self.videoPreviewView.frame.size.width - (2 * aGap1);
+    [self.cameraRollButton ggk_makeSize:CGSizeMake(aWidth, aWidth)];
+    [self.cameraRollButton ggk_makeBottomGap:aGap1];
+    [self.cameraRollButton ggk_makeRightGap:aGap1];
     
-    self.cameraRollButton.frame = CGRectMake(anX1, 872, aWidth, aWidth);
+    CGFloat aGap2 = 50;
     
-    CGFloat anX2 = 7;
-    CGFloat aY1 = 900;
-    aSize = self.focusModeLabel.frame.size;
-    self.focusModeLabel.frame = CGRectMake(anX2, aY1, aSize.width, aSize.height);
+    [self.takePhotoButton ggk_makeWidth:self.cameraRollButton.frame.size.width];
+    CGFloat aHeight = self.takePhotoButton.superview.frame.size.height - self.cameraRollButton.frame.size.height - aGap2 - (2 * aGap1);
+    [self.takePhotoButton ggk_makeHeight:aHeight];
+    [self.takePhotoButton ggk_makeTopGap:aGap1];
+    [self.takePhotoButton ggk_alignRightEdgeWithView:self.cameraRollButton];
     
-    CGFloat aY2 = 918;
-    aSize = self.exposureModeLabel.frame.size;
-    self.exposureModeLabel.frame = CGRectMake(anX2, aY2, aSize.width, aSize.height);
-    
-    CGFloat aY3 = 938;
-    aSize = self.whiteBalanceModeLabel.frame.size;
-    self.whiteBalanceModeLabel.frame = CGRectMake(anX2, aY3, aSize.width, aSize.height);
-    
-    CGFloat anX4 = 558;
-    aSize = self.focusingLabel.frame.size;
-    self.focusingLabel.frame = CGRectMake(anX4, aY1, aSize.width, aSize.height);
-    
-    aSize = self.exposingLabel.frame.size;
-    self.exposingLabel.frame = CGRectMake(anX4, aY2, aSize.width, aSize.height);
-    
-    aSize = self.whiteBalancingLabel.frame.size;
-    self.whiteBalancingLabel.frame = CGRectMake(anX4, aY3, aSize.width, aSize.height);
-    
-    CGFloat anX5 = 655;
-    aSize = self.focusPointOfInterestLabel.frame.size;
-    self.focusPointOfInterestLabel.frame = CGRectMake(anX5, 821, aSize.width, aSize.height);
-    
-    aSize = self.exposurePointOfInterestLabel.frame.size;
-    self.exposurePointOfInterestLabel.frame = CGRectMake(anX5, 850, aSize.width, aSize.height);
+    // An anchor.
+    [self.tipLabel ggk_makeTopGap:20];
 }
 
 - (void)viewDidLoad

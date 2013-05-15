@@ -9,6 +9,7 @@
 #import "GGKTakeDelayedPhotosViewController.h"
 
 #import "NSString+GGKAdditions.h"
+#import "UIView+GGKAdditions.h"
 
 const NSInteger GGKTakeDelayedPhotosDefaultNumberOfPhotosInteger = 3;
 
@@ -61,40 +62,77 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 {
     [super updateLayoutForLandscape];
     
-    CGPoint aPoint = self.videoPreviewView.frame.origin;
-    self.videoPreviewView.frame = CGRectMake(aPoint.x, aPoint.y, 804, 603);
+    // An anchor.
+    [self.videoPreviewView ggk_makeSize:CGSizeMake(816, 612)];
+    [self.videoPreviewView ggk_makeBottomGap:0];
+    [self.videoPreviewView ggk_makeLeftGap:0];
     [self.captureManager correctThePreviewOrientation:self.videoPreviewView];
     
-    self.focusLabel.font = [UIFont boldSystemFontOfSize:17.0];
-    self.focusLabel.frame = CGRectMake(765, 8, 113, 50);
-    
-    CGFloat anX1 = 886;
     CGFloat aWidth = 130;
-    self.startTimerButton.frame = CGRectMake(anX1, 8, aWidth, 451);
+    CGFloat aGap1 = 8;
     
-    self.cancelTimerButton.frame = CGRectMake(916, 466, 100, 60);
+    // An anchor.
+    [self.cameraRollButton ggk_makeSize:CGSizeMake(aWidth, aWidth)];
+    [self.cameraRollButton ggk_makeBottomGap:aGap1];
+    [self.cameraRollButton ggk_makeRightGap:aGap1];
     
-    self.cameraRollButton.frame = CGRectMake(anX1, 566, aWidth, aWidth);
+    CGFloat aGap2 = 40;
+    
+    [self.startTimerButton ggk_makeWidth:self.cameraRollButton.frame.size.width];
+    CGFloat aHeight = self.startTimerButton.superview.frame.size.height - self.cameraRollButton.frame.size.height - self.cancelTimerButton.frame.size.height - aGap2 - (3 * aGap1);
+    [self.startTimerButton ggk_makeHeight:aHeight];
+    [self.startTimerButton ggk_alignRightEdgeWithView:self.cameraRollButton];
+    [self.startTimerButton ggk_makeTopGap:aGap1];
+    
+    
+    self.focusLabel.font = [UIFont boldSystemFontOfSize:17.0];
+    [self.focusLabel ggk_makeSize:CGSizeMake(113, 50)];
+    [self.focusLabel ggk_makeTopGap:aGap1];
+    [self.focusLabel ggk_placeLeftOfView:self.startTimerButton gap:aGap1];
+    
+    CGFloat aGap3 = 30;
+    
+    [self.cancelTimerButton ggk_makeWidth:(self.startTimerButton.frame.size.width - aGap3)];
+    [self.cancelTimerButton ggk_alignRightEdgeWithView:self.cameraRollButton];
+    [self.cancelTimerButton ggk_placeBelowView:self.startTimerButton gap:aGap1];
 }
 
 - (void)updateLayoutForPortrait
 {
     [super updateLayoutForPortrait];
     
-    CGPoint aPoint = self.videoPreviewView.frame.origin;
-    self.videoPreviewView.frame = CGRectMake(aPoint.x, aPoint.y, 644, 859);
+    // An anchor.
+    [self.videoPreviewView ggk_makeSize:CGSizeMake(651, 868)];
+    [self.videoPreviewView ggk_makeBottomGap:0];
+    [self.videoPreviewView ggk_makeLeftGap:0];
     [self.captureManager correctThePreviewOrientation:self.videoPreviewView];
+
+    CGFloat aWidth = 101;
+    CGFloat aGap1 = 8;
+    
+    // An anchor.
+    [self.cameraRollButton ggk_makeSize:CGSizeMake(aWidth, aWidth)];
+    [self.cameraRollButton ggk_makeBottomGap:aGap1];
+    [self.cameraRollButton ggk_makeRightGap:aGap1];
     
     self.focusLabel.font = [UIFont boldSystemFontOfSize:15.0];
-    self.focusLabel.frame = CGRectMake(659, 8, 94, 38);
+    [self.focusLabel ggk_makeSize:CGSizeMake(94, 38)];
+    [self.focusLabel ggk_makeTopGap:aGap1];
+    [self.focusLabel ggk_alignHorizontalCenterWithView:self.cameraRollButton];
     
-    CGFloat anX1 = 652;
-    CGFloat aWidth = 108;
-    self.startTimerButton.frame = CGRectMake(anX1, 54, aWidth, 674);
+    CGFloat aGap2 = 40;
     
-    self.cancelTimerButton.frame = CGRectMake(672, 735, 88, 60);
+    [self.startTimerButton ggk_makeWidth:self.cameraRollButton.frame.size.width];
+    CGFloat aHeight = self.startTimerButton.superview.frame.size.height - self.cameraRollButton.frame.size.height - self.cancelTimerButton.frame.size.height - aGap2 - self.focusLabel.frame.size.height - (4 * aGap1);
+    [self.startTimerButton ggk_makeHeight:aHeight];
+    [self.startTimerButton ggk_alignRightEdgeWithView:self.cameraRollButton];
+    [self.startTimerButton ggk_placeBelowView:self.focusLabel gap:aGap1];
     
-    self.cameraRollButton.frame = CGRectMake(anX1, 844, aWidth, aWidth);
+    CGFloat aGap3 = 20;
+    
+    [self.cancelTimerButton ggk_makeWidth:(self.startTimerButton.frame.size.width - aGap3)];
+    [self.cancelTimerButton ggk_alignRightEdgeWithView:self.cameraRollButton];
+    [self.cancelTimerButton ggk_placeBelowView:self.startTimerButton gap:aGap1];
 }
 
 - (void)viewDidLoad

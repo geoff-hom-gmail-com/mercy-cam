@@ -9,6 +9,7 @@
 #import "GGKHelpTheCreatorsViewController.h"
 
 #import "GGKCamAppDelegate.h"
+#import "UIView+GGKAdditions.h"
 #import <StoreKit/StoreKit.h>
 
 NSString *GGKNumberOfStarsPurchasedNumberKeyString = @"Number of stars purchased";
@@ -169,216 +170,113 @@ NSString *WhiteMediumStarEmojiString = @"\u2B50";
 {
     [super updateLayoutForLandscape];
     
-    // The left margin.
-    CGFloat aMarginX1Float = 20;
+    CGFloat aGap1 = 40;
     
-    // The starting x-coordinate for the 1st greeting column.
-    CGFloat aGreetingX1Float = 55;
+    // An anchor.
+    [self.greeting1Label ggk_makeTopGap:aGap1];
+    [self.greeting1Label ggk_alignHorizontalCenterWithView:self.greeting1Label.superview];
     
-    // The starting x-coordinate for the 2nd greeting column.
-    CGFloat aGreetingX2Float = 546;
+    CGFloat aGap2 = 30;
     
-    // The vertical gap between the greeting and the next section (landscape orientation only).
-    CGFloat theSectionGreetingGapFloat = 70;
+    [self.greeting2Label ggk_placeBelowView:self.greeting1Label gap:aGap2];
+    [self.greeting2Label ggk_makeX:55];
     
-    // The vertical gap between the end of one section and the start of another.
-    CGFloat theSectionGapFloat = 40;
+    // An anchor.
+    [self.greeting3Label ggk_alignTopEdgeWithView:self.greeting2Label];
+    [self.greeting3Label ggk_makeX:546];
     
-    // The vertical gap between the end of one text and the start of another.
-    CGFloat theTextGapFloat = 30;
+    CGFloat aGap3 = 70;
     
-    // The vertical gap between a header and the next label.
-    CGFloat theHeaderGapFloat = 8;
+    [self.rateUsHeaderLabel ggk_placeBelowView:self.greeting2Label gap:aGap3];
+    [self.rateUsHeaderLabel ggk_makeLeftGap:20];
     
-    // The vertical gap between a button and the text above it.
-    CGFloat theTextButtonGapFloat = 15;
+    CGFloat aGap4 = 8;
     
-    // First text for greeting. Centered horizontally.
-    CGSize aSize = self.greeting1Label.frame.size;
-    self.greeting1Label.frame = CGRectMake(277, theSectionGapFloat, aSize.width, aSize.height);
+    [self.rateUsTextLabel ggk_placeBelowView:self.rateUsHeaderLabel gap:aGap4];
+    [self.rateUsTextLabel ggk_alignLeftEdgeWithView:self.rateUsHeaderLabel];
     
-    // More text for the greeting.
-    CGRect aPreviousViewFrame = self.greeting1Label.frame;
-    CGFloat aYFloat = aPreviousViewFrame.origin.y + aPreviousViewFrame.size.height + theTextGapFloat;
-    aSize = self.greeting2Label.frame.size;
-    self.greeting2Label.frame = CGRectMake(aGreetingX1Float, aYFloat, aSize.width, aSize.height);
+    CGFloat aGap5 = 15;
     
-    // More text for the greeting.
-    // The top is the same as the previous text.
-    aPreviousViewFrame = self.greeting2Label.frame;
-    aYFloat = aPreviousViewFrame.origin.y;
-    aSize = self.greeting3Label.frame.size;
-    self.greeting3Label.frame = CGRectMake(aGreetingX2Float, aYFloat, aSize.width, aSize.height);
+    [self.rateUsButton ggk_placeBelowView:self.rateUsTextLabel gap:aGap5];
+    [self.rateUsButton ggk_makeX:155];
     
-    // Header: "Rate us"
-    aPreviousViewFrame = self.greeting2Label.frame;
-    aYFloat = aPreviousViewFrame.origin.y + aPreviousViewFrame.size.height + theSectionGreetingGapFloat;
-    aSize = self.rateUsHeaderLabel.frame.size;
-    self.rateUsHeaderLabel.frame = CGRectMake(aMarginX1Float, aYFloat, aSize.width, aSize.height);
+    [self.donateHeaderLabel ggk_placeBelowView:self.rateUsButton gap:aGap1];
+    [self.donateHeaderLabel ggk_alignLeftEdgeWithView:self.rateUsTextLabel];
     
-    // Text for "Rate us"
-    aPreviousViewFrame = self.rateUsHeaderLabel.frame;
-    aYFloat = aPreviousViewFrame.origin.y + aPreviousViewFrame.size.height + theHeaderGapFloat;
-    aSize = self.rateUsTextLabel.frame.size;
-    self.rateUsTextLabel.frame = CGRectMake(aMarginX1Float, aYFloat, aSize.width, aSize.height);
+    [self.donateTextLabel ggk_placeBelowView:self.donateHeaderLabel gap:aGap4];
+    [self.donateTextLabel ggk_alignLeftEdgeWithView:self.donateHeaderLabel];
     
-    // Button for "Rate us."
-    aPreviousViewFrame = self.rateUsTextLabel.frame;
-    aYFloat = aPreviousViewFrame.origin.y + aPreviousViewFrame.size.height + theTextButtonGapFloat;
-    aSize = self.rateUsButton.frame.size;
-    self.rateUsButton.frame = CGRectMake(155, aYFloat, aSize.width, aSize.height);
+    [self.giveADollarLabel ggk_placeBelowView:self.donateTextLabel gap:aGap2];
+    [self.giveADollarLabel ggk_alignLeftEdgeWithView:self.donateTextLabel];
     
-    // Header: "Donate"
-    aPreviousViewFrame = self.rateUsButton.frame;
-    aYFloat = aPreviousViewFrame.origin.y + aPreviousViewFrame.size.height + theSectionGapFloat;
-    aSize = self.donateHeaderLabel.frame.size;
-    self.donateHeaderLabel.frame = CGRectMake(aMarginX1Float, aYFloat, aSize.width, aSize.height);
+    [self.giveADollarButton ggk_alignTopEdgeWithView:self.giveADollarLabel];
+    [self.giveADollarButton ggk_makeX:469];
     
-    // First text for "Donate"
-    aPreviousViewFrame = self.donateHeaderLabel.frame;
-    aYFloat = aPreviousViewFrame.origin.y + aPreviousViewFrame.size.height + theHeaderGapFloat;
-    aSize = self.donateTextLabel.frame.size;
-    self.donateTextLabel.frame = CGRectMake(aMarginX1Float, aYFloat, aSize.width, aSize.height);
+    [self.starsLabel ggk_placeBelowView:self.giveADollarLabel gap:aGap2];
+    [self.starsLabel ggk_alignLeftEdgeWithView:self.giveADollarLabel];
     
-    // More text for "Donate"
-    aPreviousViewFrame = self.donateTextLabel.frame;
-    aYFloat = aPreviousViewFrame.origin.y + aPreviousViewFrame.size.height + theTextGapFloat;
-    aSize = self.giveADollarLabel.frame.size;
-    self.giveADollarLabel.frame = CGRectMake(aMarginX1Float, aYFloat, aSize.width, aSize.height);
+    [self.giveFeedbackHeaderLabel ggk_alignTopEdgeWithView:self.rateUsHeaderLabel];
+    [self.giveFeedbackHeaderLabel ggk_alignLeftEdgeWithView:self.greeting3Label];
     
-    // Button for "Donate"
-    // The button should be at the end of the text. The button height is greater than the text, so we'll align the button top with the text top.
-    aPreviousViewFrame = self.giveADollarLabel.frame;
-    aYFloat = aPreviousViewFrame.origin.y;
-    aSize = self.giveADollarButton.frame.size;
-    self.giveADollarButton.frame = CGRectMake(469, aYFloat, aSize.width, aSize.height);
+    [self.giveFeedbackTextLabel ggk_placeBelowView:self.giveFeedbackHeaderLabel gap:aGap4];
+    [self.giveFeedbackTextLabel ggk_alignLeftEdgeWithView:self.giveFeedbackHeaderLabel];
     
-    // Stars for "Donate"
-    aPreviousViewFrame = self.giveADollarLabel.frame;
-    aYFloat = aPreviousViewFrame.origin.y + aPreviousViewFrame.size.height + theTextGapFloat;
-    aSize = self.starsLabel.frame.size;
-    self.starsLabel.frame = CGRectMake(aMarginX1Float, aYFloat, aSize.width, aSize.height);
-    
-    // Header: "Give feedback"
-    // The top is the same as the header for "Rate us."
-    aPreviousViewFrame = self.rateUsHeaderLabel.frame;
-    aYFloat = aPreviousViewFrame.origin.y;
-    aSize = self.giveFeedbackHeaderLabel.frame.size;
-    self.giveFeedbackHeaderLabel.frame = CGRectMake(aGreetingX2Float, aYFloat, aSize.width, aSize.height);
-    
-    // Text for "Give feedback"
-    aPreviousViewFrame = self.giveFeedbackHeaderLabel.frame;
-    aYFloat = aPreviousViewFrame.origin.y + aPreviousViewFrame.size.height + theHeaderGapFloat;
-    aSize = self.giveFeedbackTextLabel.frame.size;
-    self.giveFeedbackTextLabel.frame = CGRectMake(aPreviousViewFrame.origin.x, aYFloat, aSize.width, aSize.height);
-    
-    // Button for "Give feedback."
-    aPreviousViewFrame = self.giveFeedbackTextLabel.frame;
-    aYFloat = aPreviousViewFrame.origin.y + aPreviousViewFrame.size.height + theTextButtonGapFloat;
-    aSize = self.emailTheCreatorsButton.frame.size;
-    self.emailTheCreatorsButton.frame = CGRectMake(728, aYFloat, aSize.width, aSize.height);
+    [self.emailTheCreatorsButton ggk_placeBelowView:self.giveFeedbackTextLabel gap:aGap5];
+    [self.emailTheCreatorsButton ggk_alignRightEdgeWithView:self.giveFeedbackTextLabel];
 }
 
 - (void)updateLayoutForPortrait
 {
     [super updateLayoutForPortrait];
     
-    // The left margin.
-    CGFloat aMarginX1Float = 20;
+    CGFloat aGap1 = 40;
     
-    // The vertical gap between the end of one section and the start of another.
-    CGFloat theSectionGapFloat = 40;
+    // An anchor.
+    [self.greeting1Label ggk_makeTopGap:aGap1];
+    [self.greeting1Label ggk_alignHorizontalCenterWithView:self.greeting1Label.superview];
     
-    // The vertical gap between the end of one text and the start of another.
-    CGFloat theTextGapFloat = 30;
+    CGFloat aGap2 = 30;
     
-    // The vertical gap between a header and the next label.
-    CGFloat theHeaderGapFloat = 8;
+    [self.greeting2Label ggk_placeBelowView:self.greeting1Label gap:aGap2];
+    [self.greeting2Label ggk_makeLeftGap:20];
     
-    // First text for greeting. Centered horizontally.
-    CGSize aSize = self.greeting1Label.frame.size;
-    self.greeting1Label.frame = CGRectMake(153, theSectionGapFloat, aSize.width, aSize.height);
+    [self.greeting3Label ggk_placeBelowView:self.greeting2Label gap:aGap2];
+    [self.greeting3Label ggk_alignLeftEdgeWithView:self.greeting2Label];
     
-    // More text for the greeting.
-    CGRect aPreviousViewFrame = self.greeting1Label.frame;
-    CGFloat aYFloat = aPreviousViewFrame.origin.y + aPreviousViewFrame.size.height + theTextGapFloat;
-    aSize = self.greeting2Label.frame.size;
-    self.greeting2Label.frame = CGRectMake(aMarginX1Float, aYFloat, aSize.width, aSize.height);
+    [self.rateUsHeaderLabel ggk_placeBelowView:self.greeting3Label gap:aGap1];
+    [self.rateUsHeaderLabel ggk_alignLeftEdgeWithView:self.greeting2Label];
     
-    // More text for the greeting.
-    aPreviousViewFrame = self.greeting2Label.frame;
-    aYFloat = aPreviousViewFrame.origin.y + aPreviousViewFrame.size.height + theTextGapFloat;
-    aSize = self.greeting3Label.frame.size;
-    self.greeting3Label.frame = CGRectMake(aMarginX1Float, aYFloat, aSize.width, aSize.height);
+    CGFloat aGap3 = 8;
     
-    // Header: "Rate us"
-    aPreviousViewFrame = self.greeting3Label.frame;
-    aYFloat = aPreviousViewFrame.origin.y + aPreviousViewFrame.size.height + theSectionGapFloat;
-    aSize = self.rateUsHeaderLabel.frame.size;
-    self.rateUsHeaderLabel.frame = CGRectMake(aMarginX1Float, aYFloat, aSize.width, aSize.height);
+    [self.rateUsTextLabel ggk_placeBelowView:self.rateUsHeaderLabel gap:aGap3];
+    [self.rateUsTextLabel ggk_alignLeftEdgeWithView:self.rateUsHeaderLabel];
     
-    // Text for "Rate us"
-    aPreviousViewFrame = self.rateUsHeaderLabel.frame;
-    aYFloat = aPreviousViewFrame.origin.y + aPreviousViewFrame.size.height + theHeaderGapFloat;
-    aSize = self.rateUsTextLabel.frame.size;
-    self.rateUsTextLabel.frame = CGRectMake(aMarginX1Float, aYFloat, aSize.width, aSize.height);
+    [self.rateUsButton ggk_alignTopEdgeWithView:self.rateUsTextLabel];
+    [self.rateUsButton ggk_makeX:419];
     
-    // Button for "Rate us"
-    // The button should be at the end of the text. The button height is greater than the text, so we'll align the button top with the text top.
-    aPreviousViewFrame = self.rateUsTextLabel.frame;
-    aYFloat = aPreviousViewFrame.origin.y;
-    aSize = self.rateUsButton.frame.size;
-    self.rateUsButton.frame = CGRectMake(414, aYFloat, aSize.width, aSize.height);
+    [self.donateHeaderLabel ggk_placeBelowView:self.rateUsTextLabel gap:aGap1];
+    [self.donateHeaderLabel ggk_alignLeftEdgeWithView:self.rateUsTextLabel];
     
-    // Header: "Donate"
-    aPreviousViewFrame = self.rateUsTextLabel.frame;
-    aYFloat = aPreviousViewFrame.origin.y + aPreviousViewFrame.size.height + theSectionGapFloat;
-    aSize = self.donateHeaderLabel.frame.size;
-    self.donateHeaderLabel.frame = CGRectMake(aMarginX1Float, aYFloat, aSize.width, aSize.height);
+    [self.donateTextLabel ggk_placeBelowView:self.donateHeaderLabel gap:aGap3];
+    [self.donateTextLabel ggk_alignLeftEdgeWithView:self.donateHeaderLabel];
     
-    // First text for "Donate"
-    aPreviousViewFrame = self.donateHeaderLabel.frame;
-    aYFloat = aPreviousViewFrame.origin.y + aPreviousViewFrame.size.height + theHeaderGapFloat;
-    aSize = self.donateTextLabel.frame.size;
-    self.donateTextLabel.frame = CGRectMake(aMarginX1Float, aYFloat, aSize.width, aSize.height);
+    [self.giveADollarLabel ggk_placeBelowView:self.donateTextLabel gap:aGap2];
+    [self.giveADollarLabel ggk_alignLeftEdgeWithView:self.donateTextLabel];
     
-    // More text for "Donate"
-    aPreviousViewFrame = self.donateTextLabel.frame;
-    aYFloat = aPreviousViewFrame.origin.y + aPreviousViewFrame.size.height + theTextGapFloat;
-    aSize = self.giveADollarLabel.frame.size;
-    self.giveADollarLabel.frame = CGRectMake(aMarginX1Float, aYFloat, aSize.width, aSize.height);
+    [self.giveADollarButton ggk_alignTopEdgeWithView:self.giveADollarLabel];
+    [self.giveADollarButton ggk_makeX:469];
     
-    // Button for "Donate"
-    // The button should be at the end of the text. The button height is greater than the text, so we'll align the button top with the text top.
-    aPreviousViewFrame = self.giveADollarLabel.frame;
-    aYFloat = aPreviousViewFrame.origin.y;
-    aSize = self.giveADollarButton.frame.size;
-    self.giveADollarButton.frame = CGRectMake(469, aYFloat, aSize.width, aSize.height);
+    [self.starsLabel ggk_placeBelowView:self.giveADollarLabel gap:aGap2];
+    [self.starsLabel ggk_alignLeftEdgeWithView:self.giveADollarLabel];
     
-    // Stars for "Donate"
-    aPreviousViewFrame = self.giveADollarLabel.frame;
-    aYFloat = aPreviousViewFrame.origin.y + aPreviousViewFrame.size.height + theTextGapFloat;
-    aSize = self.starsLabel.frame.size;
-    self.starsLabel.frame = CGRectMake(aMarginX1Float, aYFloat, aSize.width, aSize.height);
+    [self.giveFeedbackHeaderLabel ggk_placeBelowView:self.starsLabel gap:aGap1];
+    [self.giveFeedbackHeaderLabel ggk_alignLeftEdgeWithView:self.starsLabel];
     
-    // Header: "Give feedback"
-    aPreviousViewFrame = self.starsLabel.frame;
-    aYFloat = aPreviousViewFrame.origin.y + aPreviousViewFrame.size.height + theSectionGapFloat;
-    aSize = self.giveFeedbackHeaderLabel.frame.size;
-    self.giveFeedbackHeaderLabel.frame = CGRectMake(aMarginX1Float, aYFloat, aSize.width, aSize.height);
+    [self.giveFeedbackTextLabel ggk_placeBelowView:self.giveFeedbackHeaderLabel gap:aGap3];
+    [self.giveFeedbackTextLabel ggk_alignLeftEdgeWithView:self.giveFeedbackHeaderLabel];
     
-    // Text for "Give feedback"
-    aPreviousViewFrame = self.giveFeedbackHeaderLabel.frame;
-    aYFloat = aPreviousViewFrame.origin.y + aPreviousViewFrame.size.height + theHeaderGapFloat;
-    aSize = self.giveFeedbackTextLabel.frame.size;
-    self.giveFeedbackTextLabel.frame = CGRectMake(aMarginX1Float, aYFloat, aSize.width, aSize.height);
-    
-    // Button for "Give feedback"
-    // Button bottom is aligned with text bottom.
-    aSize = self.emailTheCreatorsButton.frame.size;
-    aPreviousViewFrame = self.giveFeedbackTextLabel.frame;
-    aYFloat = aPreviousViewFrame.origin.y + aPreviousViewFrame.size.height - aSize.height;
-    self.emailTheCreatorsButton.frame = CGRectMake(446, aYFloat, aSize.width, aSize.height);
+    [self.emailTheCreatorsButton ggk_alignBottomEdgeWithView:self.giveFeedbackTextLabel];
+    [self.emailTheCreatorsButton ggk_makeX:446];
 }
 
 - (void)viewDidLoad
