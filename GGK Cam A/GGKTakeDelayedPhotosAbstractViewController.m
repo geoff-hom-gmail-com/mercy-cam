@@ -255,6 +255,9 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
 
 - (IBAction)startTimer
 {
+    // Disable sleep timer.
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
+    
     // Update UI.
     
     self.startTimerButton.enabled = NO;
@@ -390,6 +393,9 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
 
 - (void)updateToAllowStartTimer
 {
+    // Re-enable sleep timer.
+    [UIApplication sharedApplication].idleTimerDisabled = NO;
+    
     self.startTimerButton.enabled = YES;
     self.cancelTimerButton.enabled = NO;
     

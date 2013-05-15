@@ -39,12 +39,12 @@
 
 - (void)updateLayoutForLandscape
 {
-    ;
+//    NSLog(@"updateLayoutForLandscape");
 }
 
 - (void)updateLayoutForPortrait
 {
-    ;
+//    NSLog(@"updateLayoutForPortrait");
 }
 
 - (void)viewDidLoad
@@ -66,8 +66,6 @@
     }
     
     // Update the view here. (I.e., in subclass.)
-
-    [self updateLayoutForPortrait];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
