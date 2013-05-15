@@ -50,9 +50,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    
-    [self updateLayoutForPortrait];
+	// Do any additional setup after loading the view.    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -68,6 +66,8 @@
     }
     
     // Update the view here. (I.e., in subclass.)
+
+    [self updateLayoutForPortrait];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

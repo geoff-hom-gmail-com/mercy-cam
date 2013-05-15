@@ -11,7 +11,9 @@
 #import "GGKTakeAdvancedDelayedPhotosViewController.h"
 #import "GGKTakeDelayedPhotosViewController.h"
 #import "GGKTimeUnits.h"
+#import "NSAttributedString+GGKAdditions.h"
 #import "NSString+GGKAdditions.h"
+#import "UIView+GGKAdditions.h"
 
 //BOOL GGKCreateLaunchImages = YES;
 BOOL GGKCreateLaunchImages = NO;
@@ -78,86 +80,179 @@ BOOL GGKCreateLaunchImages = NO;
 {
     [super updateLayoutForLandscape];
     
-    CGSize aSize = self.hiLabel.frame.size;
-    self.hiLabel.frame = CGRectMake(92, 30, aSize.width, aSize.height);
+    // An anchor.
+    [self.hiLabel ggk_placeAtPoint:CGPointMake(92, 30)];
     
-    CGFloat anX1 = 20;
-    aSize = self.takeAPhotoButton.frame.size;
-    self.takeAPhotoButton.frame = CGRectMake(anX1, 101, aSize.width, aSize.height);
+    [self.takeAPhotoButton ggk_placeBelowView:self.hiLabel gap:26];
+    [self.takeAPhotoButton ggk_makeLeftGap:20];
     
-    aSize = self.exampleLabel.frame.size;
-    self.exampleLabel.frame = CGRectMake(472, 131, aSize.width, aSize.height);
+    CGFloat aGap1Float = 50;
     
-    CGFloat anX2 = 353;
-    aSize = self.takeAPhotoExampleLabel.frame.size;
-    self.takeAPhotoExampleLabel.frame = CGRectMake(anX2, 166, aSize.width, aSize.height);
+    [self.takeDelayedPhotosButton ggk_placeBelowView:self.takeAPhotoButton gap:aGap1Float];
+    [self.takeDelayedPhotosButton ggk_alignLeftEdgeWithView:self.takeAPhotoButton];
     
-    aSize = self.takeDelayedPhotosButton.frame.size;
-    self.takeDelayedPhotosButton.frame = CGRectMake(anX1, 331, aSize.width, aSize.height);
+    [self.takeAdvancedDelayedPhotosButton ggk_placeBelowView:self.takeDelayedPhotosButton gap:aGap1Float];
+    [self.takeAdvancedDelayedPhotosButton ggk_alignLeftEdgeWithView:self.takeAPhotoButton];
     
-    aSize = self.takeDelayedPhotosExampleLabel.frame.size;
-    self.takeDelayedPhotosExampleLabel.frame = CGRectMake(anX2, 363, aSize.width, aSize.height);
+    CGFloat aGap2Float = 13;
     
-    aSize = self.takeAdvancedDelayedPhotosButton.frame.size;
-    self.takeAdvancedDelayedPhotosButton.frame = CGRectMake(anX1, 501, aSize.width, aSize.height);
+    [self.takeAPhotoExampleLabel ggk_placeRightOfView:self.takeAPhotoButton gap:aGap2Float];
+    [self.takeAPhotoExampleLabel ggk_alignVerticalCenterWithView:self.takeAPhotoButton];
     
-    aSize = self.takeAdvancedDelayedPhotosExampleLabel.frame.size;
-    self.takeAdvancedDelayedPhotosExampleLabel.frame = CGRectMake(anX2, 511, aSize.width, aSize.height);
+    [self.exampleLabel ggk_placeAboveView:self.takeAPhotoExampleLabel gap:8];
+    [self.exampleLabel ggk_alignHorizontalCenterWithView:self.takeAPhotoExampleLabel];
+    
+    [self.takeDelayedPhotosExampleLabel ggk_placeRightOfView:self.takeDelayedPhotosButton gap:aGap2Float];
+    [self.takeDelayedPhotosExampleLabel ggk_alignVerticalCenterWithView:self.takeDelayedPhotosButton];
+    
+    [self.takeAdvancedDelayedPhotosExampleLabel ggk_placeRightOfView:self.takeAdvancedDelayedPhotosButton gap:aGap2Float];
+    [self.takeAdvancedDelayedPhotosExampleLabel ggk_alignVerticalCenterWithView:self.takeAdvancedDelayedPhotosButton];
     
     UIFont *aFont = [UIFont boldSystemFontOfSize:18];
-    NSAttributedString *anAttributedString = [self.rateThisAppButton attributedTitleForState:UIControlStateNormal];
-    NSMutableAttributedString *aMutableAttributedString = [[NSMutableAttributedString alloc] initWithAttributedString:anAttributedString];
-    [aMutableAttributedString addAttribute:NSFontAttributeName value:aFont range:NSMakeRange(0, aMutableAttributedString.length)];
-    [self.rateThisAppButton setAttributedTitle:aMutableAttributedString forState:UIControlStateNormal];
-    CGFloat anX3 = 808;
-    aSize = CGSizeMake(196, 60);
-    self.rateThisAppButton.frame = CGRectMake(anX3, 516, aSize.width, aSize.height);
+    CGFloat aWidth1Float = 196;
     
+    // An anchor.
     self.helpTheCreatorsButton.titleLabel.font = aFont;
-    self.helpTheCreatorsButton.frame = CGRectMake(anX3, 615, aSize.width, aSize.height);
+    [self.helpTheCreatorsButton ggk_makeWidth:aWidth1Float];
+    [self.helpTheCreatorsButton ggk_makeBottomGap:30];
+    [self.helpTheCreatorsButton ggk_makeRightGap:20];
+    
+    NSAttributedString *anAttributedString = [self.rateThisAppButton attributedTitleForState:UIControlStateNormal];
+    anAttributedString = [anAttributedString ggk_attributedStringWithFont:aFont];
+    [self.rateThisAppButton setAttributedTitle:anAttributedString forState:UIControlStateNormal];
+    [self.rateThisAppButton ggk_makeWidth:aWidth1Float];
+    [self.rateThisAppButton ggk_placeAboveView:self.helpTheCreatorsButton gap:40];
+    [self.rateThisAppButton ggk_alignRightEdgeWithView:self.helpTheCreatorsButton];
+    
+    
+    // old stuff below
+    
+//    CGSize aSize = self.hiLabel.frame.size;
+//    self.hiLabel.frame = CGRectMake(92, 30, aSize.width, aSize.height);
+//    
+//    CGFloat anX1 = 20;
+//    aSize = self.takeAPhotoButton.frame.size;
+//    self.takeAPhotoButton.frame = CGRectMake(anX1, 101, aSize.width, aSize.height);
+//    
+//    aSize = self.exampleLabel.frame.size;
+//    self.exampleLabel.frame = CGRectMake(472, 131, aSize.width, aSize.height);
+//    
+//    CGFloat anX2 = 353;
+//    aSize = self.takeAPhotoExampleLabel.frame.size;
+//    self.takeAPhotoExampleLabel.frame = CGRectMake(anX2, 166, aSize.width, aSize.height);
+//    
+//    aSize = self.takeDelayedPhotosButton.frame.size;
+//    self.takeDelayedPhotosButton.frame = CGRectMake(anX1, 331, aSize.width, aSize.height);
+//    
+//    aSize = self.takeDelayedPhotosExampleLabel.frame.size;
+//    self.takeDelayedPhotosExampleLabel.frame = CGRectMake(anX2, 363, aSize.width, aSize.height);
+//    
+//    aSize = self.takeAdvancedDelayedPhotosButton.frame.size;
+//    self.takeAdvancedDelayedPhotosButton.frame = CGRectMake(anX1, 501, aSize.width, aSize.height);
+//    
+//    aSize = self.takeAdvancedDelayedPhotosExampleLabel.frame.size;
+//    self.takeAdvancedDelayedPhotosExampleLabel.frame = CGRectMake(anX2, 511, aSize.width, aSize.height);
+//    
+//    UIFont *aFont = [UIFont boldSystemFontOfSize:18];
+//    NSAttributedString *anAttributedString = [self.rateThisAppButton attributedTitleForState:UIControlStateNormal];
+//    NSMutableAttributedString *aMutableAttributedString = [[NSMutableAttributedString alloc] initWithAttributedString:anAttributedString];
+//    [aMutableAttributedString addAttribute:NSFontAttributeName value:aFont range:NSMakeRange(0, aMutableAttributedString.length)];
+//    [self.rateThisAppButton setAttributedTitle:aMutableAttributedString forState:UIControlStateNormal];
+//    CGFloat anX3 = 808;
+//    aSize = CGSizeMake(196, 60);
+//    self.rateThisAppButton.frame = CGRectMake(anX3, 516, aSize.width, aSize.height);
+//    
+//    self.helpTheCreatorsButton.titleLabel.font = aFont;
+//    self.helpTheCreatorsButton.frame = CGRectMake(anX3, 615, aSize.width, aSize.height);
 }
 
 - (void)updateLayoutForPortrait
 {
     [super updateLayoutForPortrait];
     
-    CGSize aSize = self.hiLabel.frame.size;
-    self.hiLabel.frame = CGRectMake(92, 50, aSize.width, aSize.height);
+    // An anchor.
+    [self.hiLabel ggk_placeAtPoint:CGPointMake(92, 50)];
     
-    CGFloat anX1 = 20;
-    aSize = self.takeAPhotoButton.frame.size;
-    self.takeAPhotoButton.frame = CGRectMake(anX1, 120, aSize.width, aSize.height);
+    [self.takeAPhotoButton ggk_placeBelowView:self.hiLabel gap:26];
+    [self.takeAPhotoButton ggk_makeLeftGap:20];
     
-    aSize = self.exampleLabel.frame.size;
-    self.exampleLabel.frame = CGRectMake(472, 151, aSize.width, aSize.height);
+    CGFloat aGap1Float = 50;
     
-    CGFloat anX2 = 353;
-    aSize = self.takeAPhotoExampleLabel.frame.size;
-    self.takeAPhotoExampleLabel.frame = CGRectMake(anX2, 186, aSize.width, aSize.height);
+    [self.takeDelayedPhotosButton ggk_placeBelowView:self.takeAPhotoButton gap:aGap1Float];
+    [self.takeDelayedPhotosButton ggk_alignLeftEdgeWithView:self.takeAPhotoButton];
     
-    aSize = self.takeDelayedPhotosButton.frame.size;
-    self.takeDelayedPhotosButton.frame = CGRectMake(anX1, 350, aSize.width, aSize.height);
+    [self.takeAdvancedDelayedPhotosButton ggk_placeBelowView:self.takeDelayedPhotosButton gap:aGap1Float];
+    [self.takeAdvancedDelayedPhotosButton ggk_alignLeftEdgeWithView:self.takeAPhotoButton];
     
-    aSize = self.takeDelayedPhotosExampleLabel.frame.size;
-    self.takeDelayedPhotosExampleLabel.frame = CGRectMake(anX2, 382, aSize.width, aSize.height);
+    CGFloat aGap2Float = 13;
     
-    aSize = self.takeAdvancedDelayedPhotosButton.frame.size;
-    self.takeAdvancedDelayedPhotosButton.frame = CGRectMake(anX1, 520, aSize.width, aSize.height);
+    [self.takeAPhotoExampleLabel ggk_placeRightOfView:self.takeAPhotoButton gap:aGap2Float];
+    [self.takeAPhotoExampleLabel ggk_alignVerticalCenterWithView:self.takeAPhotoButton];
     
-    aSize = self.takeAdvancedDelayedPhotosExampleLabel.frame.size;
-    self.takeAdvancedDelayedPhotosExampleLabel.frame = CGRectMake(anX2, 530, aSize.width, aSize.height);
+    [self.exampleLabel ggk_placeAboveView:self.takeAPhotoExampleLabel gap:8];
+    [self.exampleLabel ggk_alignHorizontalCenterWithView:self.takeAPhotoExampleLabel];
+    
+    [self.takeDelayedPhotosExampleLabel ggk_placeRightOfView:self.takeDelayedPhotosButton gap:aGap2Float];
+    [self.takeDelayedPhotosExampleLabel ggk_alignVerticalCenterWithView:self.takeDelayedPhotosButton];
+    
+    [self.takeAdvancedDelayedPhotosExampleLabel ggk_placeRightOfView:self.takeAdvancedDelayedPhotosButton gap:aGap2Float];
+    [self.takeAdvancedDelayedPhotosExampleLabel ggk_alignVerticalCenterWithView:self.takeAdvancedDelayedPhotosButton];
     
     UIFont *aFont = [UIFont boldSystemFontOfSize:22];
-    NSAttributedString *anAttributedString = [self.rateThisAppButton attributedTitleForState:UIControlStateNormal];
-    NSMutableAttributedString *aMutableAttributedString = [[NSMutableAttributedString alloc] initWithAttributedString:anAttributedString];
-    [aMutableAttributedString addAttribute:NSFontAttributeName value:aFont range:NSMakeRange(0, aMutableAttributedString.length)];
-    [self.rateThisAppButton setAttributedTitle:aMutableAttributedString forState:UIControlStateNormal];
-    CGFloat anX3 = 511;
-    aSize = CGSizeMake(237, 60);
-    self.rateThisAppButton.frame = CGRectMake(anX3, 743, aSize.width, aSize.height);
-        
+    CGFloat aWidth1Float = 237;
+    
+    // An anchor.
     self.helpTheCreatorsButton.titleLabel.font = aFont;
-    self.helpTheCreatorsButton.frame = CGRectMake(anX3, 851, aSize.width, aSize.height);
+    [self.helpTheCreatorsButton ggk_makeWidth:aWidth1Float];
+    [self.helpTheCreatorsButton ggk_makeBottomGap:aGap1Float];
+    [self.helpTheCreatorsButton ggk_makeRightGap:20];
+    
+    NSAttributedString *anAttributedString = [self.rateThisAppButton attributedTitleForState:UIControlStateNormal];
+    anAttributedString = [anAttributedString ggk_attributedStringWithFont:aFont];
+    [self.rateThisAppButton setAttributedTitle:anAttributedString forState:UIControlStateNormal];
+    [self.rateThisAppButton ggk_makeWidth:aWidth1Float];
+    [self.rateThisAppButton ggk_placeAboveView:self.helpTheCreatorsButton gap:aGap1Float];
+    [self.rateThisAppButton ggk_alignRightEdgeWithView:self.helpTheCreatorsButton];
+    
+    // old stuff below
+    
+//    CGSize aSize = self.hiLabel.frame.size;
+//    self.hiLabel.frame = CGRectMake(92, 50, aSize.width, aSize.height);
+    
+//    CGFloat anX1 = 20;
+//    aSize = self.takeAPhotoButton.frame.size;
+//    self.takeAPhotoButton.frame = CGRectMake(anX1, 120, aSize.width, aSize.height);
+//    
+//    aSize = self.exampleLabel.frame.size;
+//    self.exampleLabel.frame = CGRectMake(472, 151, aSize.width, aSize.height);
+//    
+//    CGFloat anX2 = 353;
+//    aSize = self.takeAPhotoExampleLabel.frame.size;
+//    self.takeAPhotoExampleLabel.frame = CGRectMake(anX2, 186, aSize.width, aSize.height);
+//    
+//    aSize = self.takeDelayedPhotosButton.frame.size;
+//    self.takeDelayedPhotosButton.frame = CGRectMake(anX1, 350, aSize.width, aSize.height);
+//    
+//    aSize = self.takeDelayedPhotosExampleLabel.frame.size;
+//    self.takeDelayedPhotosExampleLabel.frame = CGRectMake(anX2, 382, aSize.width, aSize.height);
+//    
+//    aSize = self.takeAdvancedDelayedPhotosButton.frame.size;
+//    self.takeAdvancedDelayedPhotosButton.frame = CGRectMake(anX1, 520, aSize.width, aSize.height);
+//    
+//    aSize = self.takeAdvancedDelayedPhotosExampleLabel.frame.size;
+//    self.takeAdvancedDelayedPhotosExampleLabel.frame = CGRectMake(anX2, 530, aSize.width, aSize.height);
+//    
+//    UIFont *aFont = [UIFont boldSystemFontOfSize:22];
+//    NSAttributedString *anAttributedString = [self.rateThisAppButton attributedTitleForState:UIControlStateNormal];
+//    NSMutableAttributedString *aMutableAttributedString = [[NSMutableAttributedString alloc] initWithAttributedString:anAttributedString];
+//    [aMutableAttributedString addAttribute:NSFontAttributeName value:aFont range:NSMakeRange(0, aMutableAttributedString.length)];
+//    [self.rateThisAppButton setAttributedTitle:aMutableAttributedString forState:UIControlStateNormal];
+//    CGFloat anX3 = 511;
+//    aSize = CGSizeMake(237, 60);
+//    self.rateThisAppButton.frame = CGRectMake(anX3, 743, aSize.width, aSize.height);
+//        
+//    self.helpTheCreatorsButton.titleLabel.font = aFont;
+//    self.helpTheCreatorsButton.frame = CGRectMake(anX3, 851, aSize.width, aSize.height);
 }
 
 - (void)viewDidLoad
