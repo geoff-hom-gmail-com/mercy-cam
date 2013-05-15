@@ -1657,7 +1657,244 @@ photos</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0yr-rS-l82" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2753" y="2063"/>
+            <point key="canvasLocation" x="2585" y="1973"/>
+        </scene>
+        <!--Take Advanced Delayed Photos View Controller - mock landscape-->
+        <scene sceneID="WKo-Fz-Xaf">
+            <objects>
+                <viewController title="mock landscape" id="3W5-Pc-q33" customClass="GGKTakeAdvancedDelayedPhotosViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="OiO-JI-btL">
+                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <userGuides>
+                            <userLayoutGuide location="8" affinity="minX"/>
+                            <userLayoutGuide location="8" affinity="minY"/>
+                            <userLayoutGuide location="794" affinity="minY"/>
+                            <userLayoutGuide location="652" affinity="minX"/>
+                            <userLayoutGuide location="760" affinity="minX"/>
+                            <userLayoutGuide location="566" affinity="minY"/>
+                            <userLayoutGuide location="526" affinity="minY"/>
+                        </userGuides>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="Hap-lJ-61m">
+                                <rect key="frame" x="886" y="54" width="130" height="406"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <state key="normal">
+                                    <string key="title">Start
+timer</string>
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="playButtonSound" destination="3W5-Pc-q33" eventType="touchDown" id="ogf-VS-fCZ"/>
+                                    <action selector="startTimer" destination="3W5-Pc-q33" eventType="touchUpInside" id="bwP-5h-Agz"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" id="Jra-1a-E1b">
+                                <rect key="frame" x="0.0" y="89" width="820" height="615"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="lSB-L7-0j0">
+                                <rect key="frame" x="916" y="467" width="100" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelTimer" destination="3W5-Pc-q33" eventType="touchUpInside" id="BNx-w6-vQr"/>
+                                    <action selector="playButtonSound" destination="3W5-Pc-q33" eventType="touchDown" id="zRV-va-L9M"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text=", then take" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JBv-b4-OnU">
+                                <rect key="frame" x="195" y="14" width="81" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="999" borderStyle="bezel" placeholder="2" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" id="PbZ-0k-jlm">
+                                <rect key="frame" x="50" y="8" width="50" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <action selector="playButtonSound" destination="3W5-Pc-q33" eventType="touchDown" id="e0Z-0V-qkS"/>
+                                    <outlet property="delegate" destination="3W5-Pc-q33" id="IPv-Cj-FQy"/>
+                                </connections>
+                            </textField>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Wait" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="htZ-Fy-7QR">
+                                <rect key="frame" x="8" y="14" width="34" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="999" borderStyle="bezel" placeholder="3" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" id="lcT-8D-oKC">
+                                <rect key="frame" x="284" y="8" width="50" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <action selector="playButtonSound" destination="3W5-Pc-q33" eventType="touchDown" id="xj3-02-ufi"/>
+                                    <outlet property="delegate" destination="3W5-Pc-q33" id="eCk-5E-dac"/>
+                                </connections>
+                            </textField>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="photos with" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IUO-Ha-IVk">
+                                <rect key="frame" x="342" y="14" width="90" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="999.9" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Fql-P4-LaO">
+                                <rect key="frame" x="50" y="60" width="50" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Vx7-XB-opf">
+                                <rect key="frame" x="904" y="8" width="94" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <string key="text">Focus:
+  Continuous</string>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5gc-bD-R2D">
+                                <rect key="frame" x="284" y="60" width="50" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8BZ-jJ-eXI">
+                                <rect key="frame" x="108" y="9" width="85" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="seconds">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="2" borderStyle="bezel" placeholder="2" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" id="kjM-Tz-Ap2">
+                                <rect key="frame" x="440" y="8" width="50" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <action selector="playButtonSound" destination="3W5-Pc-q33" eventType="touchDown" id="nXP-8J-3cL"/>
+                                    <outlet property="delegate" destination="3W5-Pc-q33" id="TM1-L0-kj8"/>
+                                </connections>
+                            </textField>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="999.9" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Smc-1b-6ms">
+                                <rect key="frame" x="440" y="60" width="50" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="o3l-BO-FcH">
+                                <rect key="frame" x="498" y="9" width="85" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="seconds">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="between each photo." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LxZ-M4-Kzr">
+                                <rect key="frame" x="591" y="13" width="161" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Next photo: DDD:HH:MM:SS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YVG-Vj-wWU">
+                                <rect key="frame" x="515" y="60" width="245" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="fBB-04-RbQ">
+                                <rect key="frame" x="886" y="566" width="130" height="130"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <state key="normal">
+                                    <string key="title">Saved
+photos</string>
+                                    <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="playButtonSound" destination="3W5-Pc-q33" eventType="touchDown" id="7Js-uw-9sW"/>
+                                    <action selector="viewPhotos" destination="3W5-Pc-q33" eventType="touchUpInside" id="x7f-4G-ayD"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.067454613750000003" blue="0.4239279628" alpha="1" colorSpace="calibratedRGB"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Mercy Camera: Take delayed photos (advanced)" id="rJ9-Ip-FkP">
+                        <barButtonItem key="rightBarButtonItem" title="Long-term" id="MIb-IW-ddu"/>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <connections>
+                        <outlet property="afterNumberOfPhotosTextFieldLabel" destination="IUO-Ha-IVk" id="dFv-yd-n5w"/>
+                        <outlet property="cameraRollButton" destination="fBB-04-RbQ" id="Rw5-Gl-hVE"/>
+                        <outlet property="cancelTimerButton" destination="lSB-L7-0j0" id="Fxp-BK-S81"/>
+                        <outlet property="focusLabel" destination="Vx7-XB-opf" id="4XZ-ey-x9u"/>
+                        <outlet property="numberOfPhotosTakenLabel" destination="5gc-bD-R2D" id="EfM-D0-rww"/>
+                        <outlet property="numberOfPhotosToTakeTextField" destination="lcT-8D-oKC" id="vD6-nu-s2o"/>
+                        <outlet property="numberOfTimeUnitsBetweenPhotosTextField" destination="kjM-Tz-Ap2" id="KaJ-ou-KHm"/>
+                        <outlet property="numberOfTimeUnitsInitiallyWaitedLabel" destination="Fql-P4-LaO" id="HwA-mg-DNP"/>
+                        <outlet property="numberOfTimeUnitsToInitiallyWaitTextField" destination="PbZ-0k-jlm" id="2QF-PP-Q6n"/>
+                        <outlet property="numberOfTimeUnitsWaitedBetweenPhotosLabel" destination="Smc-1b-6ms" id="EZN-KU-0hv"/>
+                        <outlet property="startTimerButton" destination="Hap-lJ-61m" id="hGB-ZK-2ud"/>
+                        <outlet property="timeRemainingUntilNextPhotoLabel" destination="YVG-Vj-wWU" id="0zY-st-Lvg"/>
+                        <outlet property="timeUnitsBetweenPhotosButton" destination="o3l-BO-FcH" id="Z0X-Q6-Ixk"/>
+                        <outlet property="timeUnitsToInitiallyWaitButton" destination="8BZ-jJ-eXI" id="DN6-M6-cq6"/>
+                        <outlet property="videoPreviewView" destination="Jra-1a-E1b" id="Nfo-JS-N0t"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZUK-J3-Bhu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2585" y="2246"/>
         </scene>
     </scenes>
     <classes>

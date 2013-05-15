@@ -8,6 +8,8 @@
 
 #import "GGKTakeAdvancedDelayedPhotosViewController.h"
 
+#import "UIView+GGKAdditions.h"
+
 const NSInteger GGKTakeAdvancedDelayedPhotosDefaultNumberOfPhotosInteger = 5;
 
 const NSInteger GGKTakeAdvancedDelayedPhotosDefaultNumberOfTimeUnitsBetweenPhotosInteger = 7;
@@ -48,108 +50,72 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
 - (void)updateLayoutForLandscape
 {
     [super updateLayoutForLandscape];
+    
+    // An anchor.
+    [self.videoPreviewView ggk_makeSize:CGSizeMake(820, 615)];
+    [self.videoPreviewView ggk_makeBottomGap:0];
+    [self.videoPreviewView ggk_makeLeftGap:0];
+    [self.captureManager correctThePreviewOrientation:self.videoPreviewView];
+    
+    CGFloat aGap1 = 8;
+    
+    // An anchor.
+    CGFloat aWidth = 130;
+    [self.cameraRollButton ggk_makeSize:CGSizeMake(aWidth, aWidth)];
+    [self.cameraRollButton ggk_makeBottomGap:aGap1];
+    [self.cameraRollButton ggk_makeRightGap:aGap1];
+    
+    [self.focusLabel ggk_makeTopGap:aGap1];
+    [self.focusLabel ggk_alignHorizontalCenterWithView:self.cameraRollButton];
+    
+    CGFloat aGap2 = 40;
+    
+    [self.startTimerButton ggk_makeWidth:self.cameraRollButton.frame.size.width];
+    CGFloat aHeight = self.startTimerButton.superview.frame.size.height - self.focusLabel.frame.size.height - self.cameraRollButton.frame.size.height - self.cancelTimerButton.frame.size.height - aGap2 - (4 * aGap1);
+    [self.startTimerButton ggk_makeHeight:aHeight];
+    [self.startTimerButton ggk_alignRightEdgeWithView:self.cameraRollButton];
+    [self.startTimerButton ggk_placeBelowView:self.focusLabel gap:aGap1];
+    
+    CGFloat aGap3 = 30;
+    
+    [self.cancelTimerButton ggk_makeWidth:(self.startTimerButton.frame.size.width - aGap3)];
+    [self.cancelTimerButton ggk_alignRightEdgeWithView:self.cameraRollButton];
+    [self.cancelTimerButton ggk_placeBelowView:self.startTimerButton gap:aGap1];
 }
 
 - (void)updateLayoutForPortrait
 {
     [super updateLayoutForPortrait];
     
-//    // The left margin.
-//    CGFloat aMarginX1Float = 20;
-//    
-//    // The vertical gap between the end of one section and the start of another.
-//    CGFloat theSectionGapFloat = 40;
-//    
-//    // The vertical gap between the end of one text and the start of another.
-//    CGFloat theTextGapFloat = 30;
-//    
-//    // The vertical gap between a header and the next label.
-//    CGFloat theHeaderGapFloat = 8;
-//    
-//    // First text for greeting. Centered horizontally.
-//    CGSize aSize = self.greeting1Label.frame.size;
-//    self.greeting1Label.frame = CGRectMake(153, theSectionGapFloat, aSize.width, aSize.height);
-//    
-//    // More text for the greeting.
-//    CGRect aPreviousViewFrame = self.greeting1Label.frame;
-//    CGFloat aYFloat = aPreviousViewFrame.origin.y + aPreviousViewFrame.size.height + theTextGapFloat;
-//    aSize = self.greeting2Label.frame.size;
-//    self.greeting2Label.frame = CGRectMake(aMarginX1Float, aYFloat, aSize.width, aSize.height);
-//    
-//    // More text for the greeting.
-//    aPreviousViewFrame = self.greeting2Label.frame;
-//    aYFloat = aPreviousViewFrame.origin.y + aPreviousViewFrame.size.height + theTextGapFloat;
-//    aSize = self.greeting3Label.frame.size;
-//    self.greeting3Label.frame = CGRectMake(aMarginX1Float, aYFloat, aSize.width, aSize.height);
-//    
-//    // Header: "Rate us"
-//    aPreviousViewFrame = self.greeting3Label.frame;
-//    aYFloat = aPreviousViewFrame.origin.y + aPreviousViewFrame.size.height + theSectionGapFloat;
-//    aSize = self.rateUsHeaderLabel.frame.size;
-//    self.rateUsHeaderLabel.frame = CGRectMake(aMarginX1Float, aYFloat, aSize.width, aSize.height);
-//    
-//    // Text for "Rate us"
-//    aPreviousViewFrame = self.rateUsHeaderLabel.frame;
-//    aYFloat = aPreviousViewFrame.origin.y + aPreviousViewFrame.size.height + theHeaderGapFloat;
-//    aSize = self.rateUsTextLabel.frame.size;
-//    self.rateUsTextLabel.frame = CGRectMake(aMarginX1Float, aYFloat, aSize.width, aSize.height);
-//    
-//    // Button for "Rate us"
-//    // The button should be at the end of the text. The button height is greater than the text, so we'll align the button top with the text top.
-//    aPreviousViewFrame = self.rateUsTextLabel.frame;
-//    aYFloat = aPreviousViewFrame.origin.y;
-//    aSize = self.rateUsButton.frame.size;
-//    self.rateUsButton.frame = CGRectMake(414, aYFloat, aSize.width, aSize.height);
-//    
-//    // Header: "Donate"
-//    aPreviousViewFrame = self.rateUsTextLabel.frame;
-//    aYFloat = aPreviousViewFrame.origin.y + aPreviousViewFrame.size.height + theSectionGapFloat;
-//    aSize = self.donateHeaderLabel.frame.size;
-//    self.donateHeaderLabel.frame = CGRectMake(aMarginX1Float, aYFloat, aSize.width, aSize.height);
-//    
-//    // First text for "Donate"
-//    aPreviousViewFrame = self.donateHeaderLabel.frame;
-//    aYFloat = aPreviousViewFrame.origin.y + aPreviousViewFrame.size.height + theHeaderGapFloat;
-//    aSize = self.donateTextLabel.frame.size;
-//    self.donateTextLabel.frame = CGRectMake(aMarginX1Float, aYFloat, aSize.width, aSize.height);
-//    
-//    // More text for "Donate"
-//    aPreviousViewFrame = self.donateTextLabel.frame;
-//    aYFloat = aPreviousViewFrame.origin.y + aPreviousViewFrame.size.height + theTextGapFloat;
-//    aSize = self.giveADollarLabel.frame.size;
-//    self.giveADollarLabel.frame = CGRectMake(aMarginX1Float, aYFloat, aSize.width, aSize.height);
-//    
-//    // Button for "Donate"
-//    // The button should be at the end of the text. The button height is greater than the text, so we'll align the button top with the text top.
-//    aPreviousViewFrame = self.giveADollarLabel.frame;
-//    aYFloat = aPreviousViewFrame.origin.y;
-//    aSize = self.giveADollarButton.frame.size;
-//    self.giveADollarButton.frame = CGRectMake(469, aYFloat, aSize.width, aSize.height);
-//    
-//    // Stars for "Donate"
-//    aPreviousViewFrame = self.giveADollarLabel.frame;
-//    aYFloat = aPreviousViewFrame.origin.y + aPreviousViewFrame.size.height + theTextGapFloat;
-//    aSize = self.starsLabel.frame.size;
-//    self.starsLabel.frame = CGRectMake(aMarginX1Float, aYFloat, aSize.width, aSize.height);
-//    
-//    // Header: "Give feedback"
-//    aPreviousViewFrame = self.starsLabel.frame;
-//    aYFloat = aPreviousViewFrame.origin.y + aPreviousViewFrame.size.height + theSectionGapFloat;
-//    aSize = self.giveFeedbackHeaderLabel.frame.size;
-//    self.giveFeedbackHeaderLabel.frame = CGRectMake(aMarginX1Float, aYFloat, aSize.width, aSize.height);
-//    
-//    // Text for "Give feedback"
-//    aPreviousViewFrame = self.giveFeedbackHeaderLabel.frame;
-//    aYFloat = aPreviousViewFrame.origin.y + aPreviousViewFrame.size.height + theHeaderGapFloat;
-//    aSize = self.giveFeedbackTextLabel.frame.size;
-//    self.giveFeedbackTextLabel.frame = CGRectMake(aMarginX1Float, aYFloat, aSize.width, aSize.height);
-//    
-//    // Button for "Give feedback"
-//    // Button bottom is aligned with text bottom.
-//    aSize = self.emailTheCreatorsButton.frame.size;
-//    aPreviousViewFrame = self.giveFeedbackTextLabel.frame;
-//    aYFloat = aPreviousViewFrame.origin.y + aPreviousViewFrame.size.height - aSize.height;
-//    self.emailTheCreatorsButton.frame = CGRectMake(446, aYFloat, aSize.width, aSize.height);
+    // An anchor.
+    [self.videoPreviewView ggk_makeSize:CGSizeMake(654, 872)];
+    [self.videoPreviewView ggk_makeBottomGap:0];
+    [self.videoPreviewView ggk_makeLeftGap:0];
+    [self.captureManager correctThePreviewOrientation:self.videoPreviewView];
+    
+    CGFloat aGap1 = 8;
+    
+    CGFloat aWidth = self.cameraRollButton.superview.frame.size.width - self.videoPreviewView.frame.size.width - (2 * aGap1);
+    [self.cameraRollButton ggk_makeSize:CGSizeMake(aWidth, aWidth)];
+    [self.cameraRollButton ggk_makeBottomGap:aGap1];
+    [self.cameraRollButton ggk_makeRightGap:aGap1];
+    
+    [self.focusLabel ggk_alignTopEdgeWithView:self.videoPreviewView];
+    [self.focusLabel ggk_alignHorizontalCenterWithView:self.cameraRollButton];
+    
+    CGFloat aGap2 = 50;
+    
+    [self.startTimerButton ggk_makeWidth:self.cameraRollButton.frame.size.width];
+    CGFloat aHeight = self.startTimerButton.superview.frame.size.height - self.focusLabel.frame.origin.y - self.focusLabel.frame.size.height - self.cameraRollButton.frame.size.height - self.cancelTimerButton.frame.size.height - aGap2 - (3 * aGap1);
+    [self.startTimerButton ggk_makeHeight:aHeight];
+    [self.startTimerButton ggk_alignRightEdgeWithView:self.cameraRollButton];
+    [self.startTimerButton ggk_placeBelowView:self.focusLabel gap:aGap1];
+    
+    CGFloat aGap3 = 20;
+    
+    [self.cancelTimerButton ggk_makeWidth:(self.startTimerButton.frame.size.width - aGap3)];
+    [self.cancelTimerButton ggk_alignRightEdgeWithView:self.cameraRollButton];
+    [self.cancelTimerButton ggk_placeBelowView:self.startTimerButton gap:aGap1];
 }
 
 - (void)viewDidLoad
