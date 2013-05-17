@@ -8,6 +8,7 @@
 
 #import "GGKTakeDelayedPhotosAbstractViewController.h"
 
+#import "GGKLongTermViewController.h"
 #import "NSDate+GGKAdditions.h"
 #import "NSNumber+GGKAdditions.h"
 #import "NSString+GGKAdditions.h"
@@ -33,7 +34,8 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
 // The text field currently being edited.
 @property (nonatomic, strong) UITextField *activeTextField;
 
-// The gesture recognizer for detecting when the user taps the screen, while allowing those taps through (e.g., on a button). (May not detect taps on the navigation bar or above.)
+// The gesture recognizer for detecting "when the user taps the screen" while allowing those taps through (e.g., on a button). (May not detect taps on the navigation bar or above.)
+// Need for enabling/disabling.
 @property (nonatomic, strong) UITapGestureRecognizer *anyTapOnScreenGestureRecognizer;
 
 // Story: User taps button. Popover appears. User makes selection in popover. User sees updated button.
@@ -53,6 +55,9 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
 // The number of seconds that have passed while waiting to take a photo. (Either an initial wait or between photos.)
 @property (nonatomic, assign) NSInteger numberOfSecondsPassedInteger;
 
+// The number of seconds to wait before dimming the screen and hiding the camera preview.
+@property (nonatomic, assign) NSInteger numberOfSecondsToWaitBeforeDimmingTheScreenInteger;
+
 // The total number of seconds to wait before taking a photo. (Either an initial wait or between photos.)
 @property (nonatomic, assign) NSInteger numberOfTotalSecondsToWaitInteger;
 
@@ -60,11 +65,18 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
 // Need this property to invalidate the timer later.
 @property (nonatomic, strong) NSTimer *oneSecondRepeatingTimer;
 
-// A transparent view for detecting when the user taps the screen, but not letting those taps through.
+// A transparent view for detecting "when the user taps the screen" but not letting those taps through.
+// Needed for hiding/showing (i.e., not-detecting vs. detecting).
 @property (nonatomic, strong) UIView *overlayView;
 
-// The screen brightness before dimming. Need for restoring later.
+// The screen brightness before dimming. Need for restoring.
 @property (nonatomic, assign) CGFloat previousBrightnessFloat;
+
+- (void)handleATapOnScreen:(UIGestureRecognizer *)theGestureRecognizer;
+// So, if the screen was dimmed (and the camera preview hidden), restore brightness and the preview. Also allow taps through again. Regardless, restart the long-term timer.
+
+- (void)handleLongTermTimerFired;
+// So, dim the screen and hide the camera preview. Also, block taps from going through (in case the user accidentally taps Cancel, for example).
 
 - (void)keyboardWillHide:(NSNotification *)theNotification;
 // So, shift the view back to normal.
@@ -74,6 +86,9 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
 
 // Set the title for the given button to the given time unit, accounting for plurality (e.g., second(s)).
 - (void)setTitleForButton:(UIButton *)theButton withTimeUnit:(GGKTimeUnit)theTimeUnit ofPlurality:(NSInteger)thePluralityInteger;
+
+// Start a timer for dimming the screen (and hiding the camera preview) after awhile.
+- (void)startLongTermTimer;
 
 @end
 
@@ -111,16 +126,49 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
     [self removeObserver:self forKeyPath:GGKTakeDelayedPhotosTimeUnitBetweenPhotosKeyPathString];
 }
 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
+}
+
 - (void)getSavedTimerSettings
 {
     // The order of retrieval is important, as the assigned properties may be under KVO and refer to one another. In particular, updating a time unit may update it's corresponding string. That string also depends on the number of time units.
     
+    NSInteger theNumberOfTimeUnitsToWaitBeforeDimmingTheScreenInteger = [[NSUserDefaults standardUserDefaults] integerForKey:GGKLongTermNumberOfTimeUnitsKeyString];
+    GGKTimeUnit aTimeUnit = [[NSUserDefaults standardUserDefaults] integerForKey:GGKLongTermTimeUnitKeyString];
+    self.numberOfSecondsToWaitBeforeDimmingTheScreenInteger = theNumberOfTimeUnitsToWaitBeforeDimmingTheScreenInteger * [GGKTimeUnits numberOfSecondsInTimeUnit:aTimeUnit];
+
     // Template for subclasses.
+    
     //    self.numberOfTimeUnitsToInitiallyWaitInteger = [[NSUserDefaults standardUserDefaults] integerForKey:AKey];
     //    self.timeUnitForTheInitialWaitTimeUnit
     //    self.numberOfPhotosToTakeInteger
     //    self.numberOfTimeUnitsBetweenPhotosInteger
     //    self.timeUnitBetweenPhotosTimeUnit
+}
+
+- (void)handleATapOnScreen:(UIGestureRecognizer *)theGestureRecognizer
+{
+    if (self.videoPreviewView.hidden) {
+        
+        self.videoPreviewView.hidden = NO;
+        [UIScreen mainScreen].brightness = self.previousBrightnessFloat;
+        
+        self.overlayView.hidden = YES;
+    }
+    
+    [self startLongTermTimer];
+}
+
+- (void)handleLongTermTimerFired
+{
+    UIScreen *aScreen = [UIScreen mainScreen];
+    self.previousBrightnessFloat = aScreen.brightness;
+    aScreen.brightness = 0.0;
+    self.videoPreviewView.hidden = YES;
+    
+    self.overlayView.hidden = NO;
 }
 
 - (void)handleOneSecondTimerFired
@@ -266,6 +314,20 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
     [theButton setTitle:theTimeUnitString forState:UIControlStateDisabled];
 }
 
+- (void)startLongTermTimer
+{
+//    NSLog(@"TADPVC: startLongTermTimer");
+    
+    [self.longTermTimer invalidate];
+    self.longTermTimer = nil;
+    
+    // For testing.
+//    self.numberOfSecondsToWaitBeforeDimmingTheScreenInteger = 5;
+    
+    NSTimer *aTimer = [NSTimer scheduledTimerWithTimeInterval:self.numberOfSecondsToWaitBeforeDimmingTheScreenInteger target:self selector:@selector(handleLongTermTimerFired) userInfo:nil repeats:NO];
+    self.longTermTimer = aTimer;
+}
+
 - (IBAction)startTimer
 {
     // Update UI.
@@ -295,9 +357,7 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
     self.numberOfSecondsPassedInteger = 0;
     
     // Allow for long-term dimming.
-    // Detect taps but allow them through.
-    
-    NSLog(@"startTimer");
+    // Detect taps to reset long-term timer but also allow those taps through.
     [UIApplication sharedApplication].idleTimerDisabled = YES;
     self.anyTapOnScreenGestureRecognizer.enabled = YES;
     [self startLongTermTimer];
@@ -305,55 +365,6 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
     // Start the photo timer.
     NSTimer *aTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(handleOneSecondTimerFired) userInfo:nil repeats:YES];
     self.oneSecondRepeatingTimer = aTimer;
-}
-
-// So, dim the screen and hide the camera preview. Also, block taps from going through (in case the user accidentally taps Cancel, for example).
-- (void)handleLongTermTimerFired
-{
-    NSLog(@"TADPVC: handleLongTermTimerFired");
-    
-    UIScreen *aScreen = [UIScreen mainScreen];
-    self.previousBrightnessFloat = aScreen.brightness;
-    aScreen.brightness = 0.0;
-    self.videoPreviewView.hidden = YES;
-    
-//    self.anyTapOnScreenGestureRecognizer.enabled = NO;
-    self.overlayView.hidden = NO;
-}
-
-// So, if the screen was dimmed (and the camera preview hidden), restore brightness and the preview. Also allow taps through again. Regardless, restart the long-term timer. 
-- (void)handleATapOnScreen:(UIGestureRecognizer *)theGestureRecognizer
-{
-    NSLog(@"TADPVC: handleATapOnScreen");
-    
-    if (self.videoPreviewView.hidden) {
-        
-        self.videoPreviewView.hidden = NO;
-        [UIScreen mainScreen].brightness = self.previousBrightnessFloat;
-
-        // also need to set overlay/GR so that taps are no longer blocked.
-        self.overlayView.hidden = YES;
-    }
-    
-    [self startLongTermTimer];
-}
-
-// Allow the "anyTapOnScreenGestureRecognizer" to work with other recognizers (e.g., the tap-to-focus recognizer).
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
-{
-    return YES;
-}
-
-//
-- (void)startLongTermTimer
-{
-    NSLog(@"TADPVC: startLongTermTimer");
-    [self.longTermTimer invalidate];
-    self.longTermTimer = nil;
-    // can get values from stored keys
-    NSInteger theNumberOfSecondsToWaitBeforeDimmingTheScreen = 5;
-    NSTimer *aTimer = [NSTimer scheduledTimerWithTimeInterval:theNumberOfSecondsToWaitBeforeDimmingTheScreen target:self selector:@selector(handleLongTermTimerFired) userInfo:nil repeats:NO];
-    self.longTermTimer = aTimer;
 }
 
 - (void)takePhoto
@@ -461,7 +472,6 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
 - (void)updateToAllowStartTimer
 {
     // Undo stuff that allowed long-term dimming.
-    NSLog(@"updateToAllowStartTimer");
     [UIApplication sharedApplication].idleTimerDisabled = NO;
     [self.longTermTimer invalidate];
     self.longTermTimer = nil;

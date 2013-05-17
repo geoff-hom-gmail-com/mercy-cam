@@ -37,6 +37,7 @@
 		9343AE2C1743618F000D241E /* UIView+GGKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9343AE2B1743618F000D241E /* UIView+GGKAdditions.m */; };
 		9343AE2F17436BE6000D241E /* NSAttributedString+GGKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9343AE2E17436BE6000D241E /* NSAttributedString+GGKAdditions.m */; };
 		93471CB51718843800E20F65 /* GGKSoundModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 93471CB41718843800E20F65 /* GGKSoundModel.m */; };
+		936804A217461F3F00155F07 /* GGKLongTermViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 936804A117461F3F00155F07 /* GGKLongTermViewController.m */; };
 		938A0064172E75A900709AA4 /* GGKSavedPhotosManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 938A0063172E75A900709AA4 /* GGKSavedPhotosManager.m */; };
 		93B776571718899E009CB475 /* tap.aif in Resources */ = {isa = PBXBuildFile; fileRef = 93B776561718899E009CB475 /* tap.aif */; };
 		93B7765A1718AC3A009CB475 /* GGKTakePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B776591718AC3A009CB475 /* GGKTakePhotoViewController.m */; };
@@ -98,6 +99,8 @@
 		9343AE2E17436BE6000D241E /* NSAttributedString+GGKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+GGKAdditions.m"; sourceTree = "<group>"; };
 		93471CB31718843800E20F65 /* GGKSoundModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKSoundModel.h; sourceTree = "<group>"; };
 		93471CB41718843800E20F65 /* GGKSoundModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKSoundModel.m; sourceTree = "<group>"; };
+		936804A017461F3E00155F07 /* GGKLongTermViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKLongTermViewController.h; sourceTree = "<group>"; };
+		936804A117461F3F00155F07 /* GGKLongTermViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKLongTermViewController.m; sourceTree = "<group>"; };
 		938A0062172E75A900709AA4 /* GGKSavedPhotosManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKSavedPhotosManager.h; sourceTree = "<group>"; };
 		938A0063172E75A900709AA4 /* GGKSavedPhotosManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKSavedPhotosManager.m; sourceTree = "<group>"; };
 		93B776561718899E009CB475 /* tap.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = tap.aif; sourceTree = "<group>"; };
@@ -202,6 +205,8 @@
 				93CE01B6173241CF0025ACB4 /* GGKHelpTheCreatorsViewController.m */,
 				93CE01B81733B5D50025ACB4 /* GGKInAppPurchaseManager.h */,
 				93CE01B91733B5D50025ACB4 /* GGKInAppPurchaseManager.m */,
+				936804A017461F3E00155F07 /* GGKLongTermViewController.h */,
+				936804A117461F3F00155F07 /* GGKLongTermViewController.m */,
 				93306A5C16C1D19A00F22B0A /* GGKMercyCameraViewController.h */,
 				93306A5D16C1D19A00F22B0A /* GGKMercyCameraViewController.m */,
 				938A0062172E75A900709AA4 /* GGKSavedPhotosManager.h */,
@@ -365,6 +370,7 @@
 				93DA21EA17405EA900636617 /* NSDate+GGKAdditions.m in Sources */,
 				9343AE2C1743618F000D241E /* UIView+GGKAdditions.m in Sources */,
 				9343AE2F17436BE6000D241E /* NSAttributedString+GGKAdditions.m in Sources */,
+				936804A217461F3F00155F07 /* GGKLongTermViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

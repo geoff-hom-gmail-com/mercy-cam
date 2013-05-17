@@ -10,6 +10,7 @@
 #import "GGKCamAppDelegate.h"
 
 #import "GGKInAppPurchaseManager.h"
+#import "GGKLongTermViewController.h"
 #import "GGKSoundModel.h"
 #import "GGKTakeAdvancedDelayedPhotosViewController.h"
 #import "GGKTakeDelayedPhotosViewController.h"
@@ -92,6 +93,10 @@ NSString *HasLaunchedBeforeKeyString = @"Has launched before?";
         [[NSUserDefaults standardUserDefaults] setInteger:GGKTakeAdvancedDelayedPhotosDefaultNumberOfPhotosInteger forKey:GGKTakeAdvancedDelayedPhotosNumberOfPhotosKeyString];
         [[NSUserDefaults standardUserDefaults] setInteger:GGKTakeAdvancedDelayedPhotosDefaultNumberOfTimeUnitsBetweenPhotosInteger forKey:GGKTakeAdvancedDelayedPhotosNumberOfTimeUnitsBetweenPhotosKeyString];
         [[NSUserDefaults standardUserDefaults] setInteger:GGKTakeAdvancedDelayedPhotosDefaultTimeUnitBetweenPhotosTimeUnit forKey:GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString];
+        
+        // Long-term power-reduction timer.
+        [[NSUserDefaults standardUserDefaults] setInteger:GGKLongTermDefaultNumberOfTimeUnitsInteger forKey:GGKLongTermNumberOfTimeUnitsKeyString];
+        [[NSUserDefaults standardUserDefaults] setInteger:GGKLongTermDefaultTimeUnit forKey:GGKLongTermTimeUnitKeyString];
         
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HasLaunchedBeforeKeyString];
     }

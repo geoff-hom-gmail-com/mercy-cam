@@ -134,6 +134,9 @@ extern NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString;
 // Override.
 - (void)dealloc;
 
+// One of our gesture recognizers is for taps but also allows them through. Allow that recognizer to work with other recognizers (e.g., the tap-to-focus recognizer).
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;
+
 // Retrieve the timer settings from user defaults.
 // Stub.
 - (void)getSavedTimerSettings;
