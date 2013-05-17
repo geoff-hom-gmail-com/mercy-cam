@@ -33,12 +33,19 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
 // The text field currently being edited.
 @property (nonatomic, strong) UITextField *activeTextField;
 
+// The gesture recognizer for detecting when the user taps the screen, while allowing those taps through (e.g., on a button). (May not detect taps on the navigation bar or above.)
+@property (nonatomic, strong) UITapGestureRecognizer *anyTapOnScreenGestureRecognizer;
+
 // Story: User taps button. Popover appears. User makes selection in popover. User sees updated button.
 // The button the user tapped to display the popover.
 @property (nonatomic, strong) UIButton *currentPopoverButton;
 
 // For dismissing the current popover. Would name "popoverController," but UIViewController already has a private variable named that.
 @property (nonatomic, strong) UIPopoverController *currentPopoverController;
+
+// Story: User taps "Start timer" to take photos. The long-term timer also starts. When it fires, the screen dims to save power. The timer resets whenever the user taps the screen.
+// Need for invalidating.
+@property (nonatomic, strong) NSTimer *longTermTimer;
 
 // The number of photos that have been taken since the user tapped "Start timer."
 @property (nonatomic, assign) NSInteger numberOfPhotosTakenInteger;
@@ -52,6 +59,12 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
 // This timer goes off each second, which conveniently serves two purposes. 1) The UI can be updated every second, so the user can get visual feedback. 2) We can track how many seconds have passed, to know when to take a photo.
 // Need this property to invalidate the timer later.
 @property (nonatomic, strong) NSTimer *oneSecondRepeatingTimer;
+
+// A transparent view for detecting when the user taps the screen, but not letting those taps through.
+@property (nonatomic, strong) UIView *overlayView;
+
+// The screen brightness before dimming. Need for restoring later.
+@property (nonatomic, assign) CGFloat previousBrightnessFloat;
 
 - (void)keyboardWillHide:(NSNotification *)theNotification;
 // So, shift the view back to normal.
@@ -255,9 +268,6 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
 
 - (IBAction)startTimer
 {
-    // Disable sleep timer.
-    [UIApplication sharedApplication].idleTimerDisabled = YES;
-    
     // Update UI.
     
     self.startTimerButton.enabled = NO;
@@ -284,9 +294,66 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
     self.numberOfTotalSecondsToWaitInteger = theNumberOfSecondsToInitiallyWait;
     self.numberOfSecondsPassedInteger = 0;
     
-    // Start the timer.
+    // Allow for long-term dimming.
+    // Detect taps but allow them through.
+    
+    NSLog(@"startTimer");
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
+    self.anyTapOnScreenGestureRecognizer.enabled = YES;
+    [self startLongTermTimer];
+    
+    // Start the photo timer.
     NSTimer *aTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(handleOneSecondTimerFired) userInfo:nil repeats:YES];
     self.oneSecondRepeatingTimer = aTimer;
+}
+
+// So, dim the screen and hide the camera preview. Also, block taps from going through (in case the user accidentally taps Cancel, for example).
+- (void)handleLongTermTimerFired
+{
+    NSLog(@"TADPVC: handleLongTermTimerFired");
+    
+    UIScreen *aScreen = [UIScreen mainScreen];
+    self.previousBrightnessFloat = aScreen.brightness;
+    aScreen.brightness = 0.0;
+    self.videoPreviewView.hidden = YES;
+    
+//    self.anyTapOnScreenGestureRecognizer.enabled = NO;
+    self.overlayView.hidden = NO;
+}
+
+// So, if the screen was dimmed (and the camera preview hidden), restore brightness and the preview. Also allow taps through again. Regardless, restart the long-term timer. 
+- (void)handleATapOnScreen:(UIGestureRecognizer *)theGestureRecognizer
+{
+    NSLog(@"TADPVC: handleATapOnScreen");
+    
+    if (self.videoPreviewView.hidden) {
+        
+        self.videoPreviewView.hidden = NO;
+        [UIScreen mainScreen].brightness = self.previousBrightnessFloat;
+
+        // also need to set overlay/GR so that taps are no longer blocked.
+        self.overlayView.hidden = YES;
+    }
+    
+    [self startLongTermTimer];
+}
+
+// Allow the "anyTapOnScreenGestureRecognizer" to work with other recognizers (e.g., the tap-to-focus recognizer).
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
+}
+
+//
+- (void)startLongTermTimer
+{
+    NSLog(@"TADPVC: startLongTermTimer");
+    [self.longTermTimer invalidate];
+    self.longTermTimer = nil;
+    // can get values from stored keys
+    NSInteger theNumberOfSecondsToWaitBeforeDimmingTheScreen = 5;
+    NSTimer *aTimer = [NSTimer scheduledTimerWithTimeInterval:theNumberOfSecondsToWaitBeforeDimmingTheScreen target:self selector:@selector(handleLongTermTimerFired) userInfo:nil repeats:NO];
+    self.longTermTimer = aTimer;
 }
 
 - (void)takePhoto
@@ -393,8 +460,18 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
 
 - (void)updateToAllowStartTimer
 {
-    // Re-enable sleep timer.
+    // Undo stuff that allowed long-term dimming.
+    NSLog(@"updateToAllowStartTimer");
     [UIApplication sharedApplication].idleTimerDisabled = NO;
+    [self.longTermTimer invalidate];
+    self.longTermTimer = nil;
+    self.anyTapOnScreenGestureRecognizer.enabled = NO;
+    self.overlayView.hidden = YES;
+    if (self.videoPreviewView.hidden) {
+        
+        self.videoPreviewView.hidden = NO;
+        [UIScreen mainScreen].brightness = self.previousBrightnessFloat;
+    }
     
     self.startTimerButton.enabled = YES;
     self.cancelTimerButton.enabled = NO;
@@ -435,6 +512,22 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
     [self addObserver:self forKeyPath:GGKTakeDelayedPhotosNumberOfTimeUnitsBetweenPhotosKeyPathString options:NSKeyValueObservingOptionNew context:nil];
     [self addObserver:self forKeyPath:GGKTakeDelayedPhotosTimeUnitBetweenPhotosKeyPathString options:NSKeyValueObservingOptionNew context:nil];
     
+    // Add a (disabled) gesture recognizer to detect taps while letting them through.
+    UITapGestureRecognizer *aTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleATapOnScreen:)];
+    aTapGestureRecognizer.cancelsTouchesInView = NO;
+    aTapGestureRecognizer.enabled = NO;
+    [self.view addGestureRecognizer:aTapGestureRecognizer];
+    aTapGestureRecognizer.delegate = self;
+    self.anyTapOnScreenGestureRecognizer = aTapGestureRecognizer;
+    
+    // Add an (inactive) overlay view with another gesture recognizer to detect taps but not let them through.
+    UIView *anOverlayView = [[UIView alloc] initWithFrame:self.view.frame];
+    aTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleATapOnScreen:)];
+    [anOverlayView addGestureRecognizer:aTapGestureRecognizer];
+    anOverlayView.hidden = YES;
+    [self.view addSubview:anOverlayView];
+    self.overlayView = anOverlayView;
+
     // Template for subclasses.
     
     // Set keys.

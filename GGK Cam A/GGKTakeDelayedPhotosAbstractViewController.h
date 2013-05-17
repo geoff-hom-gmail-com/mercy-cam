@@ -32,7 +32,7 @@ extern NSString *GGKTakeDelayedPhotosTimeUnitBetweenPhotosKeyPathString;
 // For KVO on that property.
 extern NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString;
 
-@interface GGKTakeDelayedPhotosAbstractViewController : GGKTakePhotoAbstractViewController <GGKTimeUnitsTableViewControllerDelegate, UITextFieldDelegate>
+@interface GGKTakeDelayedPhotosAbstractViewController : GGKTakePhotoAbstractViewController <GGKTimeUnitsTableViewControllerDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate>
 
 // Story: User sets number of photos to 1. User sees "1 photo…" instead of "1 photos…."
 // The label following the number-of-photos-to-take text field.

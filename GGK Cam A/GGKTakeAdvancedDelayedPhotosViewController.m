@@ -130,6 +130,19 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
     self.timeUnitBetweenPhotosKeyString = GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString;
     
     [self getSavedTimerSettings];
+    
+    
+//    //testing
+//    UITapGestureRecognizer *aTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleATapOnScreen:)];
+//    //    aTapGestureRecognizer.delegate = self;
+////    [self.view.subviews enumerateObjectsUsingBlock:^(UIView *aSubView, NSUInteger idx, BOOL *stop) {
+////        
+////        [aSubView removeFromSuperview];
+////    }];
+////    aTapGestureRecognizer.cancelsTouchesInView = YES;
+//    
+//    //    [anOverlayView addGestureRecognizer:aTapGestureRecognizer];
+//    [self.view addGestureRecognizer:aTapGestureRecognizer];
 }
 
 @end
