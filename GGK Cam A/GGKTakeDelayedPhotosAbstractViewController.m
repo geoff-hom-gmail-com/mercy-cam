@@ -84,9 +84,6 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
 - (void)keyboardWillShow:(NSNotification *)theNotification;
 // So, shift the view up, if necessary.
 
-// Set the title for the given button to the given time unit, accounting for plurality (e.g., second(s)).
-- (void)setTitleForButton:(UIButton *)theButton withTimeUnit:(GGKTimeUnit)theTimeUnit ofPlurality:(NSInteger)thePluralityInteger;
-
 // Start a timer for dimming the screen (and hiding the camera preview) after awhile.
 - (void)startLongTermTimer;
 
@@ -138,6 +135,7 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
     NSInteger theNumberOfTimeUnitsToWaitBeforeDimmingTheScreenInteger = [[NSUserDefaults standardUserDefaults] integerForKey:GGKLongTermNumberOfTimeUnitsKeyString];
     GGKTimeUnit aTimeUnit = [[NSUserDefaults standardUserDefaults] integerForKey:GGKLongTermTimeUnitKeyString];
     self.numberOfSecondsToWaitBeforeDimmingTheScreenInteger = theNumberOfTimeUnitsToWaitBeforeDimmingTheScreenInteger * [GGKTimeUnits numberOfSecondsInTimeUnit:aTimeUnit];
+    NSLog(@"TDPAVC numberOfSecondsToWaitBeforeDimmingTheScreenInteger:%d", self.numberOfSecondsToWaitBeforeDimmingTheScreenInteger);
 
     // Template for subclasses.
     
@@ -266,7 +264,7 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
         self.numberOfTimeUnitsToInitiallyWaitTextField.text = [NSString stringWithFormat:@"%d", self.numberOfTimeUnitsToInitiallyWaitInteger];
     } else if ([theKeyPath isEqualToString:GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString]) {
         
-        [self setTitleForButton:self.timeUnitsToInitiallyWaitButton withTimeUnit:self.timeUnitForTheInitialWaitTimeUnit ofPlurality:self.numberOfTimeUnitsToInitiallyWaitInteger];
+        [GGKTimeUnits setTitleForButton:self.timeUnitsToInitiallyWaitButton withTimeUnit:self.timeUnitForTheInitialWaitTimeUnit ofPlurality:self.numberOfTimeUnitsToInitiallyWaitInteger];
         
     } else if ([theKeyPath isEqualToString:GGKTakeDelayedPhotosNumberOfPhotosToTakeKeyPathString]) {
         
@@ -280,7 +278,7 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
         self.numberOfTimeUnitsBetweenPhotosTextField.text = [NSString stringWithFormat:@"%d", self.numberOfTimeUnitsBetweenPhotosInteger];
     } else if ([theKeyPath isEqualToString:GGKTakeDelayedPhotosTimeUnitBetweenPhotosKeyPathString]) {
         
-        [self setTitleForButton:self.timeUnitsBetweenPhotosButton withTimeUnit:self.timeUnitBetweenPhotosTimeUnit ofPlurality:self.numberOfTimeUnitsBetweenPhotosInteger];
+        [GGKTimeUnits setTitleForButton:self.timeUnitsBetweenPhotosButton withTimeUnit:self.timeUnitBetweenPhotosTimeUnit ofPlurality:self.numberOfTimeUnitsBetweenPhotosInteger];
     } else {
         
         [super observeValueForKeyPath:theKeyPath ofObject:object change:change context:context];
@@ -304,14 +302,6 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
         // Note which button was tapped, to update later.
         self.currentPopoverButton = theSender;
     }
-}
-
-- (void)setTitleForButton:(UIButton *)theButton withTimeUnit:(GGKTimeUnit)theTimeUnit ofPlurality:(NSInteger)thePluralityInteger
-{
-    NSString *theTimeUnitString = [GGKTimeUnits stringForTimeUnit:theTimeUnit];
-    theTimeUnitString = [theTimeUnitString ggk_stringPerhapsWithoutS:thePluralityInteger];
-    [theButton setTitle:theTimeUnitString forState:UIControlStateNormal];
-    [theButton setTitle:theTimeUnitString forState:UIControlStateDisabled];
 }
 
 - (void)startLongTermTimer
@@ -541,8 +531,13 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
     // Template for subclasses.
     
     // Set keys.
+}
 
-//    [self getSavedTimerSettings];
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self getSavedTimerSettings];
 }
 
 @end

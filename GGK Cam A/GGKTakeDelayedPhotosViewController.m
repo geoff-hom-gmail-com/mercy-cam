@@ -149,8 +149,6 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     self.numberOfPhotosToTakeKeyString = GGKTakeDelayedPhotosNumberOfPhotosKeyString;
     self.numberOfTimeUnitsBetweenPhotosKeyString = nil;
     self.timeUnitBetweenPhotosKeyString = nil;
-    
-    [self getSavedTimerSettings];
 }
 
 @end

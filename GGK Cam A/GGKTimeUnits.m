@@ -8,6 +8,8 @@
 
 #import "GGKTimeUnits.h"
 
+#import "NSString+GGKAdditions.h"
+
 NSString *GGKTimeUnitDaysString = @"days";
 
 NSString *GGKTimeUnitHoursString = @"hours";
@@ -60,6 +62,14 @@ NSString *GGKTimeUnitSecondsString = @"seconds";
     theNumberOfTimeUnitsFloat = floorf(theNumberOfTimeUnitsFloat * 10) / 10;
     
     return theNumberOfTimeUnitsFloat;
+}
+
++ (void)setTitleForButton:(UIButton *)theButton withTimeUnit:(GGKTimeUnit)theTimeUnit ofPlurality:(NSInteger)thePluralityInteger
+{
+    NSString *theTimeUnitString = [GGKTimeUnits stringForTimeUnit:theTimeUnit];
+    theTimeUnitString = [theTimeUnitString ggk_stringPerhapsWithoutS:thePluralityInteger];
+    [theButton setTitle:theTimeUnitString forState:UIControlStateNormal];
+    [theButton setTitle:theTimeUnitString forState:UIControlStateDisabled];
 }
 
 + (NSString *)stringForTimeUnit:(GGKTimeUnit)theTimeUnit
