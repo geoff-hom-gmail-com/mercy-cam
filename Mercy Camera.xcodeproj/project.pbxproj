@@ -480,6 +480,7 @@
 		93306A6316C1D19A00F22B0A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Geoffrey Hom";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GGK Cam A/GGK Cam A-Prefix.pch";
 				INFOPLIST_FILE = "GGK Cam A/GGK Cam A-Info.plist";
@@ -488,6 +489,7 @@
 					"\"$(SRCROOT)/../Potty Trainer good/TestFlightSDK1\"",
 				);
 				PRODUCT_NAME = "Mercy Camera";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "638857BA-0835-4B02-AA6C-F5F7E7BFFCD2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

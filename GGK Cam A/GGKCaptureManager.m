@@ -13,23 +13,17 @@ BOOL GGKDebugCamera = NO;
 
 @interface GGKCaptureManager ()
 
-// For tracking whether the observer exists or was removed (or never added). Don't want to over-add or over-remove it.
-@property (nonatomic, assign) BOOL adjustingExposureObserverExists;
-
 // For converting the tap point to device space.
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
 
 // For invalidating the timer if the exposure is adjusted.
 @property (nonatomic, strong) NSTimer *exposureUnadjustedTimer;
 
-// If the observer doesn't exist, add it.
-- (void)addAdjustingExposureObserver;
-
 // For removing observers.
 - (void)dealloc;
 
-- (void)handleExposureLockRequestedAndExposureIsSteady:(NSTimer *)theTimer;
-// So, lock the exposure. We don't need to monitor exposure adjustment anymore, so remove the observer.
+- (void)handleLockRequestedAndExposureIsSteady:(NSTimer *)theTimer;
+// So, lock it. If the focus is also locked, then notify that both are locked.
 
 // Story: User taps on object. Focus and exposure auto-adjust and lock there. User taps again in view. Focus and exposure return to continuous. (If the user taps again before both focus and exposure lock, then the new tap will be the POI and both will relock.)
 - (void)handleUserTappedInCameraView:(UITapGestureRecognizer *)theTapGestureRecognizer;
@@ -37,28 +31,12 @@ BOOL GGKDebugCamera = NO;
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
 // So, notify delegate.
 
-// KVO. After setting the exposure POI, we want to know when the exposure is steady, so we can lock it. If the device's exposure stops adjusting, then we see if it stays steady long enough (via a timer). If so, the timer will lock the exposure.
+// KVO. After setting the exposure POI, we want to know when the exposure is steady, so we can lock it. If the device's exposure stops adjusting, then we see if it stays steady long enough (via a timer). 
 - (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
-
-// If the observer exists, remove it.
-- (void)removeAdjustingExposureObserver;
 
 @end
 
 @implementation GGKCaptureManager
-
-- (void)addAdjustingExposureObserver
-{
-    if (!self.adjustingExposureObserverExists) {
-        
-        [self addObserver:self forKeyPath:@"device.adjustingExposure" options:NSKeyValueObservingOptionNew context:nil];
-        self.adjustingExposureObserverExists = YES;
-        if (GGKDebugCamera) {
-            
-            NSLog(@"CM: device.adjustingExposure observer added.");
-        }
-    }
-}
 
 - (void)addPreviewLayerToView:(UIView *)theView
 {
@@ -84,7 +62,8 @@ BOOL GGKDebugCamera = NO;
 
 - (void)dealloc
 {
-    [self removeAdjustingExposureObserver];
+    [self removeObserver:self forKeyPath:@"device.adjustingExposure"];
+    [self removeObserver:self forKeyPath:@"device.focusMode"];
 }
 
 - (void)focusAtPoint:(CGPoint)thePoint
@@ -92,6 +71,8 @@ BOOL GGKDebugCamera = NO;
     NSError *anError;
     BOOL aDeviceMayBeConfigured = [self.device lockForConfiguration:&anError];
     if (aDeviceMayBeConfigured) {
+        
+        self.focusAndExposureStatus = GGKCaptureManagerFocusAndExposureStatusLocking;
         
         // To lock the focus at a point, we set the POI, then do an auto-focus.
         if (self.device.focusPointOfInterestSupported) {
@@ -108,14 +89,10 @@ BOOL GGKDebugCamera = NO;
         if ([self.device isExposureModeSupported:AVCaptureExposureModeAutoExpose]) {
             
             self.device.exposureMode = AVCaptureExposureModeAutoExpose;
-            self.focusAndExposureStatus = GGKCaptureManagerFocusAndExposureStatusLocked;
         } else {
             
-            // We lock the exposure, then add the observer. This way, device.adjustingExposure will start as NO, and the first trigger will be on YES.
             self.device.exposureMode = AVCaptureExposureModeLocked;
-            [self addAdjustingExposureObserver];
             self.device.exposureMode = AVCaptureExposureModeContinuousAutoExposure;
-            self.focusAndExposureStatus = GGKCaptureManagerFocusAndExposureStatusLocking;
         }
         
         // Not changing white balance in this release.
@@ -133,24 +110,18 @@ BOOL GGKDebugCamera = NO;
     }
 }
 
-- (void)handleExposureLockRequestedAndExposureIsSteady:(NSTimer *)theTimer
+- (void)handleLockRequestedAndExposureIsSteady:(NSTimer *)theTimer
 {
     NSError *anError;
     BOOL aDeviceMayBeConfigured = [self.device lockForConfiguration:&anError];
     if (aDeviceMayBeConfigured) {
         
-        // Remove observer, then lock exposure. That's because the latter seems to trigger KVO on device.adjustingExposure.
-        [self removeAdjustingExposureObserver];
         self.device.exposureMode = AVCaptureExposureModeLocked;
-        if (GGKDebugCamera) {
-            
-            NSLog(@"CM hELRAEIS: AVCaptureExposureModeLocked.");
-        }
-        
         [self.device unlockForConfiguration];
-        
-        // We assume the focus is already locked, or will soon be locked so it won't affect the user.
-        self.focusAndExposureStatus = GGKCaptureManagerFocusAndExposureStatusLocked;
+        if (self.device.focusMode == AVCaptureFocusModeLocked) {
+            
+            self.focusAndExposureStatus = GGKCaptureManagerFocusAndExposureStatusLocked;
+        }
     }
 }
 
@@ -185,7 +156,8 @@ BOOL GGKDebugCamera = NO;
     self = [super init];
     if (self != nil) {
 		
-        self.adjustingExposureObserverExists = NO;
+        [self addObserver:self forKeyPath:@"device.adjustingExposure" options:NSKeyValueObservingOptionNew context:nil];
+        [self addObserver:self forKeyPath:@"device.focusMode" options:NSKeyValueObservingOptionNew context:nil];
     }
     return self;
 }
@@ -194,39 +166,37 @@ BOOL GGKDebugCamera = NO;
 {
     if ([theKeyPath isEqualToString:@"device.adjustingExposure"]) {
         
-        // Assume observation started on NO, so first call will be YES. When the exposure stops adjusting, start the timer. If exposure adjusts again quickly, invalidate the timer.
-        
         if (GGKDebugCamera) {
             
             NSString *aString = (self.device.adjustingExposure) ? @"Yes" : @"No";
             NSLog(@"adjusting exposure: %@", aString);
-        }        
-        if (self.device.adjustingExposure) {
+        }
+        
+        if (self.focusAndExposureStatus == GGKCaptureManagerFocusAndExposureStatusLocking) {
             
-            [self.exposureUnadjustedTimer invalidate];
-            self.exposureUnadjustedTimer = nil;
-        } else {
+            // When the exposure isn't being adjusted, time it to see if it stays steady.
+            if (self.device.adjustingExposure) {
+                
+                [self.exposureUnadjustedTimer invalidate];
+                self.exposureUnadjustedTimer = nil;
+            } else {
+                
+                NSTimeInterval theExposureIsSteadyTimeInterval = 0.5;
+                NSTimer *aTimer = [NSTimer scheduledTimerWithTimeInterval:theExposureIsSteadyTimeInterval target:self selector:@selector(handleLockRequestedAndExposureIsSteady:) userInfo:nil repeats:NO];
+                self.exposureUnadjustedTimer = aTimer;
+            }
+        }
+    } else if ([theKeyPath isEqualToString:@"device.focusMode"]) {
+        
+        if (self.focusAndExposureStatus == GGKCaptureManagerFocusAndExposureStatusLocking &&
+            self.device.focusMode == AVCaptureFocusModeLocked &&
+            self.device.exposureMode == AVCaptureExposureModeLocked) {
             
-            NSTimeInterval theExposureIsSteadyTimeInterval = 0.5;
-            NSTimer *aTimer = [NSTimer scheduledTimerWithTimeInterval:theExposureIsSteadyTimeInterval target:self selector:@selector(handleExposureLockRequestedAndExposureIsSteady:) userInfo:nil repeats:NO];
-            self.exposureUnadjustedTimer = aTimer;
+            self.focusAndExposureStatus = GGKCaptureManagerFocusAndExposureStatusLocked;
         }
     } else {
         
         [super observeValueForKeyPath:theKeyPath ofObject:object change:change context:context];
-    }
-}
-
-- (void)removeAdjustingExposureObserver
-{
-    if (self.adjustingExposureObserverExists) {
-        
-        [self removeObserver:self forKeyPath:@"device.adjustingExposure"];
-        self.adjustingExposureObserverExists = NO;
-        if (GGKDebugCamera) {
-            
-            NSLog(@"CM: device.adjustingExposure observer removed.");
-        }
     }
 }
 
@@ -344,7 +314,6 @@ BOOL GGKDebugCamera = NO;
         self.device.focusPointOfInterest = theCenterPoint;
         self.device.focusMode = AVCaptureFocusModeContinuousAutoFocus;
         self.device.exposurePointOfInterest = theCenterPoint;
-        [self removeAdjustingExposureObserver];
         self.device.exposureMode = AVCaptureExposureModeContinuousAutoExposure;
         self.device.whiteBalanceMode = AVCaptureWhiteBalanceModeContinuousAutoWhiteBalance;
         [self.device unlockForConfiguration];
