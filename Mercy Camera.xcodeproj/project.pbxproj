@@ -43,6 +43,7 @@
 		937A1E24175205D800951401 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 937A1E20175205D800951401 /* README.md */; };
 		937A1E25175205D800951401 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 937A1E21175205D800951401 /* release_notes.md */; };
 		937A1E271752089F00951401 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 937A1E261752089F00951401 /* libz.dylib */; };
+		937A1E2A175221FD00951401 /* GGKSavedPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 937A1E29175221FD00951401 /* GGKSavedPhotoViewController.m */; };
 		938A0064172E75A900709AA4 /* GGKSavedPhotosManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 938A0063172E75A900709AA4 /* GGKSavedPhotosManager.m */; };
 		93B776571718899E009CB475 /* tap.aif in Resources */ = {isa = PBXBuildFile; fileRef = 93B776561718899E009CB475 /* tap.aif */; };
 		93B7765A1718AC3A009CB475 /* GGKTakePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B776591718AC3A009CB475 /* GGKTakePhotoViewController.m */; };
@@ -112,6 +113,8 @@
 		937A1E21175205D800951401 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
 		937A1E22175205D800951401 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		937A1E261752089F00951401 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		937A1E28175221FC00951401 /* GGKSavedPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKSavedPhotoViewController.h; sourceTree = "<group>"; };
+		937A1E29175221FD00951401 /* GGKSavedPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKSavedPhotoViewController.m; sourceTree = "<group>"; };
 		938A0062172E75A900709AA4 /* GGKSavedPhotosManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKSavedPhotosManager.h; sourceTree = "<group>"; };
 		938A0063172E75A900709AA4 /* GGKSavedPhotosManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKSavedPhotosManager.m; sourceTree = "<group>"; };
 		93B776561718899E009CB475 /* tap.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = tap.aif; sourceTree = "<group>"; };
@@ -223,6 +226,8 @@
 				93306A4E16C1D19A00F22B0A /* GGKMercyCameraAppDelegate.m */,
 				93306A5C16C1D19A00F22B0A /* GGKMercyCameraViewController.h */,
 				93306A5D16C1D19A00F22B0A /* GGKMercyCameraViewController.m */,
+				937A1E28175221FC00951401 /* GGKSavedPhotoViewController.h */,
+				937A1E29175221FD00951401 /* GGKSavedPhotoViewController.m */,
 				938A0062172E75A900709AA4 /* GGKSavedPhotosManager.h */,
 				938A0063172E75A900709AA4 /* GGKSavedPhotosManager.m */,
 				93471CB31718843800E20F65 /* GGKSoundModel.h */,
@@ -403,6 +408,7 @@
 				9343AE2C1743618F000D241E /* UIView+GGKAdditions.m in Sources */,
 				9343AE2F17436BE6000D241E /* NSAttributedString+GGKAdditions.m in Sources */,
 				936804A217461F3F00155F07 /* GGKLongTermViewController.m in Sources */,
+				937A1E2A175221FD00951401 /* GGKSavedPhotoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

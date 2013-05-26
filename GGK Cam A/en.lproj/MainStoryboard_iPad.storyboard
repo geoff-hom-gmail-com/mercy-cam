@@ -383,7 +383,9 @@ photos</string>
                                 </state>
                                 <connections>
                                     <action selector="playButtonSound" destination="BXz-Hw-S72" eventType="touchDown" id="qzt-7q-RV9"/>
-                                    <action selector="viewPhotos" destination="BXz-Hw-S72" eventType="touchUpInside" id="3S7-nc-YB3"/>
+                                    <segue destination="AbV-MZ-YTc" kind="popover" identifier="ShowSavedPhotos1" popoverAnchorView="5Vn-Fv-i1w" id="N9j-NP-wLm">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                    </segue>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tip: To focus on an object, tap it." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JBy-3S-HOX">
@@ -801,7 +803,49 @@ photos</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HUK-V0-vJC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2517" y="26"/>
+            <point key="canvasLocation" x="2477" y="-578"/>
+        </scene>
+        <!--Image Picker Controller-->
+        <scene sceneID="OzK-v9-CsZ">
+            <objects>
+                <viewController id="AbV-MZ-YTc" customClass="UIImagePickerController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="C3g-sH-cYr">
+                        <rect key="frame" x="0.0" y="20" width="250" height="250"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="cmL-Xa-bQf"/>
+                    <connections>
+                        <segue destination="R4v-Ya-xYF" kind="push" id="UJE-Br-JRJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="T2K-Io-N4a" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2959" y="387"/>
+        </scene>
+        <!--Saved Photo View Controller-->
+        <scene sceneID="u53-gb-I2K">
+            <objects>
+                <viewController storyboardIdentifier="SavedPhotoViewController" id="R4v-Ya-xYF" customClass="GGKSavedPhotoViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fzp-5G-OXj">
+                        <rect key="frame" x="0.0" y="20" width="200" height="280"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="IWk-Ud-HVQ">
+                                <rect key="frame" x="0.0" y="0.0" width="200" height="280"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="nES-pr-T3W"/>
+                    <connections>
+                        <outlet property="imageView" destination="IWk-Ud-HVQ" id="XXh-gH-eRB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fyn-dQ-LSx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3315" y="397"/>
         </scene>
         <!--Take Delayed Photos View Controller - mock landscape-->
         <scene sceneID="ApC-rY-S7I">
@@ -971,7 +1015,7 @@ photos</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rhG-Iq-Qlb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2457" y="1124"/>
+            <point key="canvasLocation" x="2457" y="1064"/>
         </scene>
         <!--Help The Creators View Controller - Mercy Camera: Help the creators-->
         <scene sceneID="NNi-QC-1Ab">
@@ -2035,6 +2079,12 @@ photos</string>
                 <relationship kind="outlet" name="takeDelayedPhotosExampleLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
+        <class className="GGKSavedPhotoViewController" superclassName="GGKViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKSavedPhotoViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
         <class className="GGKTakeAdvancedDelayedPhotosViewController" superclassName="GGKTakeDelayedPhotosAbstractViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/GGKTakeAdvancedDelayedPhotosViewController.h"/>
         </class>
@@ -2069,6 +2119,7 @@ photos</string>
             <relationships>
                 <relationship kind="action" name="takePhoto"/>
                 <relationship kind="action" name="viewPhotos"/>
+                <relationship kind="action" name="viewPhotos2"/>
                 <relationship kind="outlet" name="cameraRollButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="videoPreviewView" candidateClass="UIView"/>
             </relationships>

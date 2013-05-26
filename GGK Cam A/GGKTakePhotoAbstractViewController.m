@@ -8,7 +8,9 @@
 
 #import "GGKTakePhotoAbstractViewController.h"
 
+#import "GGKSavedPhotoViewController.h"
 #import "GGKSavedPhotosManager.h"
+#import <MobileCoreServices/MobileCoreServices.h>
 
 NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString = @"captureManager.focusAndExposureStatus";
 
@@ -54,6 +56,54 @@ NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString = @"captur
     }
 }
 
+- (void)imagePickerController:(UIImagePickerController *)theImagePickerController didFinishPickingMediaWithInfo:(NSDictionary *)theInfoDictionary
+{
+    NSLog(@"imagePickerController delegate called");
+    GGKSavedPhotoViewController *aSavedPhotoViewController = (GGKSavedPhotoViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"SavedPhotoViewController"];
+    aSavedPhotoViewController.view.frame = theImagePickerController.view.frame;
+    [aSavedPhotoViewController.view setNeedsLayout];
+    UIImage *anImage = theInfoDictionary[UIImagePickerControllerOriginalImage];
+    if (anImage == nil) {
+        NSLog(@"anImage nil");
+    } else {
+        NSLog(@"anImage size:%@", NSStringFromCGSize(anImage.size));
+    }
+// It seems to return the original image correctly. Just not appearing.
+//    aSavedPhotoViewController.imageView.image = anImage;
+//    [aSavedPhotoViewController.imageView setImage:anImage];
+    [theImagePickerController pushViewController:aSavedPhotoViewController animated:NO];
+    NSLog(@"imagePickerController delegate called2");
+    
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)theSegue sender:(id)sender
+{
+    if ([theSegue.identifier hasPrefix:@"ShowSavedPhotos"]) {
+        
+                
+        // Retain popover controller, to dismiss later.
+//        self.currentPopoverController = [(UIStoryboardPopoverSegue *)theSegue popoverController];
+        
+        NSLog(@"testing1");
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]) {
+            
+            UIImagePickerController *anImagePickerController = (UIImagePickerController *)theSegue.destinationViewController;
+
+            // UIImagePickerController browser on iPad must be presented in a popover.
+            
+//            UIImagePickerController *anImagePickerController = [[UIImagePickerController alloc] init];
+            anImagePickerController.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+            anImagePickerController.mediaTypes = @[(NSString *)kUTTypeImage];
+            anImagePickerController.delegate = self;
+            anImagePickerController.allowsEditing = NO;
+            
+//            UIPopoverController *aPopoverController = [[UIPopoverController alloc] initWithContentViewController:anImagePickerController];
+//            [aPopoverController presentPopoverFromRect:theButton.bounds inView:theButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+//            self.savedPhotosPopoverController = aPopoverController;
+        }
+    }
+}
+
 - (IBAction)takePhoto
 {
     [self playButtonSound];
@@ -92,6 +142,11 @@ NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString = @"captur
 }
 
 - (IBAction)viewPhotos
+{
+    [self.savedPhotosManager viewPhotosViaButton:self.cameraRollButton];
+}
+
+- (IBAction)viewPhotos2
 {
     [self.savedPhotosManager viewPhotosViaButton:self.cameraRollButton];
 }

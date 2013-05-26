@@ -52,6 +52,9 @@ extern NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString;
 // New story: User took photos. User can check thumbnails quickly. 
 - (IBAction)viewPhotos;
 
+// testing; want popover with nav controller with image picker, so user can tap and see enlarged version
+- (IBAction)viewPhotos2;
+
 // Override.
 - (void)viewWillAppear:(BOOL)animated;
 
