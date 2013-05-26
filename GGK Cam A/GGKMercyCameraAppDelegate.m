@@ -14,6 +14,7 @@
 #import "GGKSoundModel.h"
 #import "GGKTakeAdvancedDelayedPhotosViewController.h"
 #import "GGKTakeDelayedPhotosViewController.h"
+#import "TestFlight.h"
 
 // Key for storing whether this app has launched before.
 NSString *HasLaunchedBeforeKeyString = @"Has launched before?";
@@ -30,6 +31,8 @@ NSString *HasLaunchedBeforeKeyString = @"Has launched before?";
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    [TestFlight takeOff:@"7fe86397-6095-4614-b633-25e1d5831861"];
     
     [self handleIfFirstLaunch];
     

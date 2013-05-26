@@ -39,6 +39,10 @@
 		9343AE2F17436BE6000D241E /* NSAttributedString+GGKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9343AE2E17436BE6000D241E /* NSAttributedString+GGKAdditions.m */; };
 		93471CB51718843800E20F65 /* GGKSoundModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 93471CB41718843800E20F65 /* GGKSoundModel.m */; };
 		936804A217461F3F00155F07 /* GGKLongTermViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 936804A117461F3F00155F07 /* GGKLongTermViewController.m */; };
+		937A1E23175205D800951401 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 937A1E1F175205D800951401 /* libTestFlight.a */; };
+		937A1E24175205D800951401 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 937A1E20175205D800951401 /* README.md */; };
+		937A1E25175205D800951401 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 937A1E21175205D800951401 /* release_notes.md */; };
+		937A1E271752089F00951401 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 937A1E261752089F00951401 /* libz.dylib */; };
 		938A0064172E75A900709AA4 /* GGKSavedPhotosManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 938A0063172E75A900709AA4 /* GGKSavedPhotosManager.m */; };
 		93B776571718899E009CB475 /* tap.aif in Resources */ = {isa = PBXBuildFile; fileRef = 93B776561718899E009CB475 /* tap.aif */; };
 		93B7765A1718AC3A009CB475 /* GGKTakePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B776591718AC3A009CB475 /* GGKTakePhotoViewController.m */; };
@@ -103,6 +107,11 @@
 		93471CB41718843800E20F65 /* GGKSoundModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKSoundModel.m; sourceTree = "<group>"; };
 		936804A017461F3E00155F07 /* GGKLongTermViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKLongTermViewController.h; sourceTree = "<group>"; };
 		936804A117461F3F00155F07 /* GGKLongTermViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKLongTermViewController.m; sourceTree = "<group>"; };
+		937A1E1F175205D800951401 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		937A1E20175205D800951401 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		937A1E21175205D800951401 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
+		937A1E22175205D800951401 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		937A1E261752089F00951401 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		938A0062172E75A900709AA4 /* GGKSavedPhotosManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKSavedPhotosManager.h; sourceTree = "<group>"; };
 		938A0063172E75A900709AA4 /* GGKSavedPhotosManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKSavedPhotosManager.m; sourceTree = "<group>"; };
 		93B776561718899E009CB475 /* tap.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = tap.aif; sourceTree = "<group>"; };
@@ -135,14 +144,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93CE01C1173649AD0025ACB4 /* MessageUI.framework in Frameworks */,
-				93CE01BC1733B8F60025ACB4 /* StoreKit.framework in Frameworks */,
-				93B7765C17192B31009CB475 /* MobileCoreServices.framework in Frameworks */,
 				93306A7416CBD6CA00F22B0A /* AssetsLibrary.framework in Frameworks */,
 				93306A7216C472E000F22B0A /* AVFoundation.framework in Frameworks */,
-				93306A3F16C1D19A00F22B0A /* UIKit.framework in Frameworks */,
-				93306A4116C1D19A00F22B0A /* Foundation.framework in Frameworks */,
 				93306A4316C1D19A00F22B0A /* CoreGraphics.framework in Frameworks */,
+				93306A4116C1D19A00F22B0A /* Foundation.framework in Frameworks */,
+				937A1E23175205D800951401 /* libTestFlight.a in Frameworks */,
+				937A1E271752089F00951401 /* libz.dylib in Frameworks */,
+				93CE01C1173649AD0025ACB4 /* MessageUI.framework in Frameworks */,
+				93B7765C17192B31009CB475 /* MobileCoreServices.framework in Frameworks */,
+				93CE01BC1733B8F60025ACB4 /* StoreKit.framework in Frameworks */,
+				93306A3F16C1D19A00F22B0A /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,6 +199,7 @@
 				93306A7116C472E000F22B0A /* AVFoundation.framework */,
 				93306A4216C1D19A00F22B0A /* CoreGraphics.framework */,
 				93306A4016C1D19A00F22B0A /* Foundation.framework */,
+				937A1E261752089F00951401 /* libz.dylib */,
 				93CE01C0173649AD0025ACB4 /* MessageUI.framework */,
 				93B7765B17192B31009CB475 /* MobileCoreServices.framework */,
 				93CE01BB1733B8F60025ACB4 /* StoreKit.framework */,
@@ -263,8 +275,21 @@
 				93306A4716C1D19A00F22B0A /* InfoPlist.strings */,
 				93306A4A16C1D19A00F22B0A /* main.m */,
 				93B776551718897C009CB475 /* sounds */,
+				937A1E1E175205D800951401 /* TestFlightSDK1 */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		937A1E1E175205D800951401 /* TestFlightSDK1 */ = {
+			isa = PBXGroup;
+			children = (
+				937A1E1F175205D800951401 /* libTestFlight.a */,
+				937A1E20175205D800951401 /* README.md */,
+				937A1E21175205D800951401 /* release_notes.md */,
+				937A1E22175205D800951401 /* TestFlight.h */,
+			);
+			name = TestFlightSDK1;
+			path = ../TestFlightSDK1;
 			sourceTree = "<group>";
 		};
 		93B776551718897C009CB475 /* sounds */ = {
@@ -344,6 +369,8 @@
 				932BEE4417378226000A15CB /* icon-72px.png in Resources */,
 				932BEE4517378226000A15CB /* icon-72px@2x.png in Resources */,
 				931458FB1751DF8200683821 /* GGKMercyCameraStories.rtf in Resources */,
+				937A1E24175205D800951401 /* README.md in Resources */,
+				937A1E25175205D800951401 /* release_notes.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,7 +480,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Geoffrey Hom";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -461,6 +489,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "638857BA-0835-4B02-AA6C-F5F7E7BFFCD2";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
@@ -476,6 +506,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../Potty Trainer good/TestFlightSDK1\"",
+					"\"$(SRCROOT)/TestFlightSDK1\"",
 				);
 				PRODUCT_NAME = "Mercy Camera";
 				WRAPPER_EXTENSION = app;
@@ -492,6 +523,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../Potty Trainer good/TestFlightSDK1\"",
+					"\"$(SRCROOT)/TestFlightSDK1\"",
 				);
 				PRODUCT_NAME = "Mercy Camera";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "638857BA-0835-4B02-AA6C-F5F7E7BFFCD2";
@@ -511,6 +543,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Geoffrey Hom";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -519,7 +552,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9EECF008-0834-4B71-9B8C-6ECD58640DCA";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EC76B0EB-694B-4E16-AD5D-F06E8995A255";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
@@ -535,6 +569,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../Potty Trainer good/TestFlightSDK1\"",
+					"\"$(SRCROOT)/TestFlightSDK1\"",
 				);
 				PRODUCT_NAME = "Mercy Camera";
 				WRAPPER_EXTENSION = app;
