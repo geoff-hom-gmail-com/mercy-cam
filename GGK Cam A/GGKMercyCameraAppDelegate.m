@@ -7,7 +7,7 @@
 //
 
 // Import order is modeled from http://qualitycoding.org/import-order/.
-#import "GGKCamAppDelegate.h"
+#import "GGKMercyCameraAppDelegate.h"
 
 #import "GGKInAppPurchaseManager.h"
 #import "GGKLongTermViewController.h"
@@ -18,14 +18,14 @@
 // Key for storing whether this app has launched before.
 NSString *HasLaunchedBeforeKeyString = @"Has launched before?";
 
-@interface GGKCamAppDelegate ()
+@interface GGKMercyCameraAppDelegate ()
 
 // If it's the first time this app has been launched, do stuff. (E.g., initialize with default data.)
 - (void)handleIfFirstLaunch;
 
 @end
 
-@implementation GGKCamAppDelegate
+@implementation GGKMercyCameraAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

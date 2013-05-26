@@ -8,7 +8,7 @@
 
 #import "GGKHelpTheCreatorsViewController.h"
 
-#import "GGKCamAppDelegate.h"
+#import "GGKMercyCameraAppDelegate.h"
 #import "UIView+GGKAdditions.h"
 #import <StoreKit/StoreKit.h>
 
@@ -285,7 +285,7 @@ NSString *WhiteMediumStarEmojiString = @"\u2B50";
 	// Do any additional setup after loading the view.
     
     // Set up in-app purchase.
-    GGKCamAppDelegate *aCamAppDelegate = (GGKCamAppDelegate *)[UIApplication sharedApplication].delegate;
+    GGKMercyCameraAppDelegate *aCamAppDelegate = (GGKMercyCameraAppDelegate *)[UIApplication sharedApplication].delegate;
     self.inAppPurchaseManager = aCamAppDelegate.inAppPurchaseManager;
     self.inAppPurchaseManager.delegate = self;
     [self.inAppPurchaseManager requestProductData];

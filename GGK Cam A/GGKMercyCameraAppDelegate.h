@@ -8,7 +8,7 @@
 
 @class GGKInAppPurchaseManager, GGKSoundModel;
 
-@interface GGKCamAppDelegate : UIResponder <UIApplicationDelegate>
+@interface GGKMercyCameraAppDelegate : UIResponder <UIApplicationDelegate>
 
 // For observing App Store transactions, regardless of where in the app the user is.
 @property (nonatomic, strong) GGKInAppPurchaseManager *inAppPurchaseManager;

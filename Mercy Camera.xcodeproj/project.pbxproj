@@ -25,7 +25,7 @@
 		93306A4316C1D19A00F22B0A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93306A4216C1D19A00F22B0A /* CoreGraphics.framework */; };
 		93306A4916C1D19A00F22B0A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 93306A4716C1D19A00F22B0A /* InfoPlist.strings */; };
 		93306A4B16C1D19A00F22B0A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93306A4A16C1D19A00F22B0A /* main.m */; };
-		93306A4F16C1D19A00F22B0A /* GGKCamAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93306A4E16C1D19A00F22B0A /* GGKCamAppDelegate.m */; };
+		93306A4F16C1D19A00F22B0A /* GGKMercyCameraAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93306A4E16C1D19A00F22B0A /* GGKMercyCameraAppDelegate.m */; };
 		93306A5116C1D19A00F22B0A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 93306A5016C1D19A00F22B0A /* Default.png */; };
 		93306A5316C1D19A00F22B0A /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93306A5216C1D19A00F22B0A /* Default@2x.png */; };
 		93306A5516C1D19A00F22B0A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93306A5416C1D19A00F22B0A /* Default-568h@2x.png */; };
@@ -78,12 +78,12 @@
 		93306A3E16C1D19A00F22B0A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		93306A4016C1D19A00F22B0A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		93306A4216C1D19A00F22B0A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		93306A4616C1D19A00F22B0A /* GGK Cam A-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GGK Cam A-Info.plist"; sourceTree = "<group>"; };
+		93306A4616C1D19A00F22B0A /* GGKMercyCamera-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GGKMercyCamera-Info.plist"; sourceTree = "<group>"; };
 		93306A4816C1D19A00F22B0A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		93306A4A16C1D19A00F22B0A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		93306A4C16C1D19A00F22B0A /* GGK Cam A-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GGK Cam A-Prefix.pch"; sourceTree = "<group>"; };
-		93306A4D16C1D19A00F22B0A /* GGKCamAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GGKCamAppDelegate.h; sourceTree = "<group>"; };
-		93306A4E16C1D19A00F22B0A /* GGKCamAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GGKCamAppDelegate.m; sourceTree = "<group>"; };
+		93306A4C16C1D19A00F22B0A /* GGKMercyCamera-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GGKMercyCamera-Prefix.pch"; sourceTree = "<group>"; };
+		93306A4D16C1D19A00F22B0A /* GGKMercyCameraAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GGKMercyCameraAppDelegate.h; sourceTree = "<group>"; };
+		93306A4E16C1D19A00F22B0A /* GGKMercyCameraAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GGKMercyCameraAppDelegate.m; sourceTree = "<group>"; };
 		93306A5016C1D19A00F22B0A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		93306A5216C1D19A00F22B0A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		93306A5416C1D19A00F22B0A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -167,7 +167,7 @@
 		93306A3216C1D19A00F22B0A = {
 			isa = PBXGroup;
 			children = (
-				93306A4416C1D19A00F22B0A /* GGK Cam A */,
+				93306A4416C1D19A00F22B0A /* Mercy Camera */,
 				93306A3D16C1D19A00F22B0A /* Frameworks */,
 				93306A3C16C1D19A00F22B0A /* Products */,
 			);
@@ -196,11 +196,9 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		93306A4416C1D19A00F22B0A /* GGK Cam A */ = {
+		93306A4416C1D19A00F22B0A /* Mercy Camera */ = {
 			isa = PBXGroup;
 			children = (
-				93306A4D16C1D19A00F22B0A /* GGKCamAppDelegate.h */,
-				93306A4E16C1D19A00F22B0A /* GGKCamAppDelegate.m */,
 				93B7765D171B5B24009CB475 /* GGKCaptureManager.h */,
 				93B7765E171B5B24009CB475 /* GGKCaptureManager.m */,
 				93CE01B5173241CF0025ACB4 /* GGKHelpTheCreatorsViewController.h */,
@@ -209,6 +207,8 @@
 				93CE01B91733B5D50025ACB4 /* GGKInAppPurchaseManager.m */,
 				936804A017461F3E00155F07 /* GGKLongTermViewController.h */,
 				936804A117461F3F00155F07 /* GGKLongTermViewController.m */,
+				93306A4D16C1D19A00F22B0A /* GGKMercyCameraAppDelegate.h */,
+				93306A4E16C1D19A00F22B0A /* GGKMercyCameraAppDelegate.m */,
 				93306A5C16C1D19A00F22B0A /* GGKMercyCameraViewController.h */,
 				93306A5D16C1D19A00F22B0A /* GGKMercyCameraViewController.m */,
 				938A0062172E75A900709AA4 /* GGKSavedPhotosManager.h */,
@@ -245,6 +245,7 @@
 				9343AE2B1743618F000D241E /* UIView+GGKAdditions.m */,
 				93306A4516C1D19A00F22B0A /* Supporting Files */,
 			);
+			name = "Mercy Camera";
 			path = "GGK Cam A";
 			sourceTree = "<group>";
 		};
@@ -255,8 +256,8 @@
 				93306A5016C1D19A00F22B0A /* Default.png */,
 				93306A5216C1D19A00F22B0A /* Default@2x.png */,
 				93306A5416C1D19A00F22B0A /* Default-568h@2x.png */,
-				93306A4616C1D19A00F22B0A /* GGK Cam A-Info.plist */,
-				93306A4C16C1D19A00F22B0A /* GGK Cam A-Prefix.pch */,
+				93306A4616C1D19A00F22B0A /* GGKMercyCamera-Info.plist */,
+				93306A4C16C1D19A00F22B0A /* GGKMercyCamera-Prefix.pch */,
 				93B77660171E09E4009CB475 /* GGKMercyCameraDescription.rtf */,
 				931458FA1751DF8200683821 /* GGKMercyCameraStories.rtf */,
 				93306A4716C1D19A00F22B0A /* InfoPlist.strings */,
@@ -300,7 +301,7 @@
 		93306A3316C1D19A00F22B0A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				CLASSPREFIX = GGKCam;
+				CLASSPREFIX = GGKMercyCamera;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Geoff Hom";
 			};
@@ -354,7 +355,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				93306A4B16C1D19A00F22B0A /* main.m in Sources */,
-				93306A4F16C1D19A00F22B0A /* GGKCamAppDelegate.m in Sources */,
+				93306A4F16C1D19A00F22B0A /* GGKMercyCameraAppDelegate.m in Sources */,
 				93306A5E16C1D19A00F22B0A /* GGKMercyCameraViewController.m in Sources */,
 				93306A7016C4702200F22B0A /* GGKTakeDelayedPhotosViewController.m in Sources */,
 				93471CB51718843800E20F65 /* GGKSoundModel.m in Sources */,
@@ -470,8 +471,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "GGK Cam A/GGK Cam A-Prefix.pch";
-				INFOPLIST_FILE = "GGK Cam A/GGK Cam A-Info.plist";
+				GCC_PREFIX_HEADER = "GGK Cam A/GGKMercyCamera-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/GGK Cam A/GGKMercyCamera-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../Potty Trainer good/TestFlightSDK1\"",
@@ -486,8 +487,8 @@
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Geoffrey Hom";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "GGK Cam A/GGK Cam A-Prefix.pch";
-				INFOPLIST_FILE = "GGK Cam A/GGK Cam A-Info.plist";
+				GCC_PREFIX_HEADER = "GGK Cam A/GGKMercyCamera-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/GGK Cam A/GGKMercyCamera-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../Potty Trainer good/TestFlightSDK1\"",
@@ -529,8 +530,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "GGK Cam A/GGK Cam A-Prefix.pch";
-				INFOPLIST_FILE = "GGK Cam A/GGK Cam A-Info.plist";
+				GCC_PREFIX_HEADER = "GGK Cam A/GGKMercyCamera-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/GGK Cam A/GGKMercyCamera-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../Potty Trainer good/TestFlightSDK1\"",

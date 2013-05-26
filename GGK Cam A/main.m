@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-#import "GGKCamAppDelegate.h"
+#import "GGKMercyCameraAppDelegate.h"
 
 int main(int argc, char *argv[])
 {
     @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([GGKCamAppDelegate class]));
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([GGKMercyCameraAppDelegate class]));
     }
 }

@@ -8,7 +8,7 @@
 
 #import "GGKViewController.h"
 
-#import "GGKCamAppDelegate.h"
+#import "GGKMercyCameraAppDelegate.h"
 #import "GGKSoundModel.h"
 
 @interface GGKViewController ()
@@ -33,7 +33,7 @@
 
 - (IBAction)playButtonSound
 {
-    GGKCamAppDelegate *aCamAppDelegate = (GGKCamAppDelegate *)[UIApplication sharedApplication].delegate;
+    GGKMercyCameraAppDelegate *aCamAppDelegate = (GGKMercyCameraAppDelegate *)[UIApplication sharedApplication].delegate;
     [aCamAppDelegate.soundModel playButtonTapSound];
 }
 
