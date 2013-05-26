@@ -71,22 +71,4 @@
     }];
 }
 
-- (void)viewPhotosViaButton:(UIButton *)theButton
-{
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]) {
-        
-        // UIImagePickerController browser on iPad must be presented in a popover.
-        
-        UIImagePickerController *anImagePickerController = [[UIImagePickerController alloc] init];
-        anImagePickerController.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-        anImagePickerController.mediaTypes = @[(NSString *)kUTTypeImage];
-//        anImagePickerController.delegate = self;
-        anImagePickerController.allowsEditing = NO;
-        
-        UIPopoverController *aPopoverController = [[UIPopoverController alloc] initWithContentViewController:anImagePickerController];
-        [aPopoverController presentPopoverFromRect:theButton.bounds inView:theButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-        self.savedPhotosPopoverController = aPopoverController;
-    }
-}
-
 @end

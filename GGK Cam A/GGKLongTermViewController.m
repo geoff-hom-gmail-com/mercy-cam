@@ -127,6 +127,9 @@ NSString *GGKLongTermTimeUnitKeyString = @"Long-term: Time unit.";
         
         // Set the current time unit.
         aTimeUnitsTableViewController.currentTimeUnit = self.timeUnit;
+    } else {
+        
+        [super prepareForSegue:theSegue sender:theSender];
     }
 }
 

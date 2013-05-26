@@ -301,6 +301,9 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
         
         // Note which button was tapped, to update later.
         self.currentPopoverButton = theSender;
+    } else {
+        
+        [super prepareForSegue:theSegue sender:theSender];
     }
 }
 
