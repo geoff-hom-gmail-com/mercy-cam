@@ -25,12 +25,9 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
 
 @implementation GGKTakePhotoViewController
 
-- (void)dealloc
-{
+- (void)dealloc {
     if (GGKDebugCamera) {
-        
         if (self.captureManager.device != nil) {
-            
             [self removeObserver:self forKeyPath:@"captureManager.device.focusMode"];
             [self removeObserver:self forKeyPath:@"captureManager.device.exposureMode"];
             [self removeObserver:self forKeyPath:@"captureManager.device.whiteBalanceMode"];
@@ -42,7 +39,6 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
         }
     }
 }
-
 - (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     BOOL wasHandledSeparately = NO;

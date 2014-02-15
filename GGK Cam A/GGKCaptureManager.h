@@ -35,27 +35,24 @@ typedef enum {
 @property (nonatomic, strong) AVCaptureDevice *device;
 
 @property (nonatomic, assign) GGKCaptureManagerFocusAndExposureStatus focusAndExposureStatus;
-
-@property (nonatomic, strong) AVCaptureSession *session;
-
 // Add a video preview, with tap-to-focus, to the given view.
 - (void)addPreviewLayerToView:(UIView *)theView;
-
 // Rotate the video preview to the status-bar orientation. Resize for the given view.
 - (void)correctThePreviewOrientation:(UIView *)theView;
-
+// Override.
+// For removing observers.
+- (void)dealloc;
 // Focus at the given point (in device space). Also lock exposure.
 - (void)focusAtPoint:(CGPoint)thePoint;
 
 // Designated initializer.
 - (id)init;
-
 // Create and assign the capture session.
 - (void)setUpSession;
-
 // Start the session. Asychronous.
 - (void)startSession;
-
+// Stop the capture session.
+- (void)stopSession;
 // Take a photo.
 - (void)takePhoto;
 

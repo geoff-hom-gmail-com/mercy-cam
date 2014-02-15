@@ -32,16 +32,16 @@
     self.isShowingLandscapeView = NO;
 }
 - (void)dealloc {
-    NSLog(@"VC dealloc");
+//    NSLog(@"VC dealloc");
     [[NSNotificationCenter defaultCenter] removeObserver:self.appWillEnterForegroundObserver name:UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self.appDidEnterBackgroundObserver name:UIApplicationDidEnterBackgroundNotification object:nil];
     // No need to call super.
 }
-- (void)handleViewWillAppearToUser {
-    NSLog(@"VC hVWATU");
-}
 - (void)handleViewDidDisappearFromUser {
-    NSLog(@"VC hVDDFU");
+//    NSLog(@"VC hVDDFU");
+}
+- (void)handleViewWillAppearToUser {
+//    NSLog(@"VC hVWATU");
 }
 - (IBAction)playButtonSound
 {
@@ -81,9 +81,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self.appWillEnterForegroundObserver name:UIApplicationWillEnterForegroundNotification object:nil];
-//    self.appWillEnterForegroundObserver = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self.appDidEnterBackgroundObserver name:UIApplicationDidEnterBackgroundNotification object:nil];
-//    self.appDidEnterBackgroundObserver = nil;
 }
 - (void)viewWillLayoutSubviews
 {

@@ -144,7 +144,8 @@ extern NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString;
 // Story: User starts timer and leaves. User returns and glances at the screen for only a second or two. User still gets feedback that the app is running properly.
 // We also use the timer to know when to take photos.
 - (void)handleOneSecondTimerFired;
-
+// Override.
+- (void)handleViewWillAppearToUser;
 // Override.
 - (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
 
@@ -178,8 +179,4 @@ extern NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString;
 
 // Override.
 - (void)viewDidLoad;
-
-// Override.
-- (void)viewWillAppear:(BOOL)animated;
-
 @end

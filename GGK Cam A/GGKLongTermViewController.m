@@ -46,16 +46,12 @@ NSString *GGKLongTermTimeUnitKeyString = @"Long-term: Time unit.";
 @end
 
 @implementation GGKLongTermViewController
-
 - (void)dealloc {
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-    
     [self removeObserver:self forKeyPath:GGKLongTermNumberOfTimeUnitsKeyPathString];
     [self removeObserver:self forKeyPath:GGKLongTermTimeUnitKeyPathString];
 }
-
 - (void)getSavedTimerSettings
 {
     // The order of retrieval is important, as the assigned properties may be under KVO and refer to one another. In particular, updating a time unit may update it's corresponding string. That string also depends on the number of time units.

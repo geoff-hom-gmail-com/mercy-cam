@@ -12,15 +12,12 @@
 BOOL GGKDebugCamera = NO;
 
 @interface GGKCaptureManager ()
-
-// For converting the tap point to device space.
+// For showing the user and converting the tap point to device space.
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
 
 // For invalidating the timer if the exposure is adjusted.
 @property (nonatomic, strong) NSTimer *exposureUnadjustedTimer;
-
-// For removing observers.
-- (void)dealloc;
+@property (nonatomic, strong) AVCaptureSession *session;
 
 - (void)handleLockRequestedAndExposureIsSteady:(NSTimer *)theTimer;
 // So, lock it. If the focus is also locked, then notify that both are locked.
@@ -37,35 +34,25 @@ BOOL GGKDebugCamera = NO;
 @end
 
 @implementation GGKCaptureManager
-
-- (void)addPreviewLayerToView:(UIView *)theView
-{
-    AVCaptureVideoPreviewLayer *aCaptureVideoPreviewLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.session];
-    aCaptureVideoPreviewLayer.frame = theView.bounds;
-    aCaptureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspect;
+- (void)addPreviewLayerToView:(UIView *)theView {
+    self.captureVideoPreviewLayer.frame = theView.bounds;
     CALayer *viewLayer = theView.layer;
-    [viewLayer addSublayer:aCaptureVideoPreviewLayer];
-    
+    [viewLayer addSublayer:self.captureVideoPreviewLayer];
     // Story: User taps on object. Focus locks there. User taps again in view. Focus returns to continuous.
     UITapGestureRecognizer *aSingleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleUserTappedInCameraView:)];
     aSingleTapGestureRecognizer.numberOfTapsRequired = 1;
     [theView addGestureRecognizer:aSingleTapGestureRecognizer];
-    
-    self.captureVideoPreviewLayer = aCaptureVideoPreviewLayer;
 }
-
 - (void)correctThePreviewOrientation:(UIView *)theView
 {
     self.captureVideoPreviewLayer.connection.videoOrientation = [self theCorrectCaptureVideoOrientation];
     self.captureVideoPreviewLayer.frame = theView.bounds;
 }
-
-- (void)dealloc
-{
+- (void)dealloc {
+//    NSLog(@"CM dealloc");
     [self removeObserver:self forKeyPath:@"device.adjustingExposure"];
     [self removeObserver:self forKeyPath:@"device.focusMode"];
 }
-
 - (void)focusAtPoint:(CGPoint)thePoint
 {
     NSError *anError;
@@ -151,11 +138,9 @@ BOOL GGKDebugCamera = NO;
     [self.delegate captureManagerDidTakePhoto:self];
 }
 
-- (id)init
-{
+- (id)init {
     self = [super init];
     if (self != nil) {
-		
         [self addObserver:self forKeyPath:@"device.adjustingExposure" options:NSKeyValueObservingOptionNew context:nil];
         [self addObserver:self forKeyPath:@"device.focusMode" options:NSKeyValueObservingOptionNew context:nil];
     }
@@ -243,18 +228,21 @@ BOOL GGKDebugCamera = NO;
         [aCaptureSession addOutput:aCaptureStillImageOutput];
     }
     aCaptureSession.sessionPreset = AVCaptureSessionPresetPhoto;
+    AVCaptureVideoPreviewLayer *aCaptureVideoPreviewLayer = [AVCaptureVideoPreviewLayer layerWithSession:aCaptureSession];
+    aCaptureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspect;
+    self.captureVideoPreviewLayer = aCaptureVideoPreviewLayer;
     self.session = aCaptureSession;
 }
-
-- (void)startSession
-{
+- (void)startSession {
     // This is done asychronously since -startRunning doesn't return until the session is running.
     NSOperationQueue *anOperationQueue = [[NSOperationQueue alloc] init];
     [anOperationQueue addOperationWithBlock:^{
         [self.session startRunning];
     }];
 }
-
+- (void)stopSession {
+    [self.session stopRunning];
+}
 - (void)takePhoto {
     
 //    NSLog(@"CM takePhoto called");

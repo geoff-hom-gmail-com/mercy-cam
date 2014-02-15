@@ -52,10 +52,8 @@ extern NSString *GGKLongTermTimeUnitKeyString;
 // The time unit to use (seconds/minutes/etc.) for waiting.
 // Could retrieve from user defaults each time, but want flexibility to assign without a key.
 @property (nonatomic, assign) GGKTimeUnit timeUnit;
-
 // Override.
 - (void)dealloc;
-
 // Override.
 - (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
 

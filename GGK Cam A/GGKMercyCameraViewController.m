@@ -26,7 +26,10 @@ BOOL GGKCreateLaunchImages = NO;
 @end
 
 @implementation GGKMercyCameraViewController
-
+- (void)handleViewWillAppearToUser {
+    [super handleViewWillAppearToUser];
+    [self updateExamples];
+}
 - (IBAction)rateOrReview
 {
     NSLog(@"rateOrReview");
@@ -173,27 +176,14 @@ BOOL GGKCreateLaunchImages = NO;
     [self.rateThisAppButton ggk_placeAboveView:self.helpTheCreatorsButton gap:aGap1Float];
     [self.rateThisAppButton ggk_alignRightEdgeWithView:self.helpTheCreatorsButton];
 }
-
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-        
     // Make UI blank so we can make launch images via screenshot.
     if (GGKCreateLaunchImages) {
-        
         self.navigationItem.title = @"";
         for (UIView *aSubView in self.view.subviews) {
-            
             aSubView.hidden = YES;
         }
     }
 }
-
-- (void)viewWillAppear:(BOOL)animated
-{    
-    [super viewWillAppear:animated];
-    
-    [self updateExamples];
-}
-
 @end

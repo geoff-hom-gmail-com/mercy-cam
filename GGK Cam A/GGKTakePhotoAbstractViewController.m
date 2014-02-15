@@ -27,12 +27,20 @@ NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString = @"captur
 {
     [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
 }
-
 - (void)dealloc {
-    [self.captureManager.session stopRunning];
+//    NSLog(@"TPAVC dealloc");
+    [self.captureManager stopSession];
     [self removeObserver:self forKeyPath:GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString];
 }
-
+- (void)handleViewDidDisappearFromUser {
+    [super handleViewDidDisappearFromUser];
+    [self.captureManager stopSession];
+}
+- (void)handleViewWillAppearToUser {
+    [super handleViewWillAppearToUser];
+    [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
+    [self.captureManager startSession];
+}
 - (void)imagePickerController:(UIImagePickerController *)theImagePickerController didFinishPickingMediaWithInfo:(NSDictionary *)theInfoDictionary
 {
     // An image picker controller is also a navigation controller. So, we'll push a view controller with the image onto the image picker controller.
@@ -98,7 +106,6 @@ NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString = @"captur
         [super prepareForSegue:theSegue sender:theSender];
     }
 }
-
 - (IBAction)takePhoto
 {
     [self playButtonSound];
@@ -117,35 +124,16 @@ NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString = @"captur
         [aFlashView removeFromSuperview];
     }];
 }
-
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.savedPhotosManager = [[GGKSavedPhotosManager alloc] init];
-    
     // Report focus (and exposure) status in real time.
     [self addObserver:self forKeyPath:GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString options:NSKeyValueObservingOptionNew context:nil];
-    
     // Set up the camera.
     GGKCaptureManager *theCaptureManager = [[GGKCaptureManager alloc] init];
     theCaptureManager.delegate = self;
     [theCaptureManager setUpSession];
     [theCaptureManager addPreviewLayerToView:self.videoPreviewView];
-    [theCaptureManager startSession];
-//    NSLog(@"TPAVC viewDidLoad: session should have started?");
     self.captureManager = theCaptureManager;
 }
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
-}
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-//    NSLog(@"TPAVC viewWillDisappear");
-}
-
 @end

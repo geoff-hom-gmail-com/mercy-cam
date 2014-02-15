@@ -39,10 +39,8 @@
 
 // (For testing.) Report whether currently white balancing.
 @property (strong, nonatomic) IBOutlet UILabel *whiteBalancingLabel;
-
 // Override.
 - (void)dealloc;
-
 // KVO. Story: user (and tester) can see the camera's status in real-time.
 - (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
 

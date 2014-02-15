@@ -35,6 +35,10 @@ extern NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString;
 
 // Override.
 - (void)dealloc;
+// Override.
+- (void)handleViewDidDisappearFromUser;
+// Override.
+- (void)handleViewWillAppearToUser;
 
 - (void)imagePickerController:(UIImagePickerController *)theImagePickerController didFinishPickingMediaWithInfo:(NSDictionary *)theInfoDictionary;
 // So, show the image in the popover.
@@ -51,9 +55,4 @@ extern NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString;
 
 // Override.
 - (void)viewDidLoad;
-
-// Override.
-- (void)viewWillAppear:(BOOL)animated;
-// Override.
-- (void)viewWillDisappear:(BOOL)animated;
 @end
