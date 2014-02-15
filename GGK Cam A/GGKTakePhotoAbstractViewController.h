@@ -54,5 +54,6 @@ extern NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString;
 
 // Override.
 - (void)viewWillAppear:(BOOL)animated;
-
+// Override.
+- (void)viewWillDisappear:(BOOL)animated;
 @end

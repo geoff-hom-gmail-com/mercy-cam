@@ -211,7 +211,7 @@ BOOL GGKDebugCamera = NO;
     if (!aCameraCaptureDeviceInput) {
         
         // handle error
-        NSLog(@"GGK warning: Error getting camera input.");
+        NSLog(@"GGK warning: Error getting camera input: %@", [error localizedDescription]);
     }
     if ([aCaptureSession canAddInput:aCameraCaptureDeviceInput]) {
         
@@ -226,26 +226,23 @@ BOOL GGKDebugCamera = NO;
 //        NSLog(@"CM sUS: capture-device unique ID: %@", self.device.uniqueID);
         
         NSString *aString = (self.device.lowLightBoostSupported) ? @"Yes" : @"No";
-        NSLog(@"CM sUS: low-light boost supported: %@", aString);
+//        NSLog(@"CM sUS: low-light boost supported: %@", aString);
         
         aString = (self.device.subjectAreaChangeMonitoringEnabled) ? @"Yes" : @"No";
-        NSLog(@"CM sUS: subject-area-change monitoring enabled: %@", aString);
+//        NSLog(@"CM sUS: subject-area-change monitoring enabled: %@", aString);
         
         aString = (self.device.focusPointOfInterestSupported) ? @"Yes" : @"No";
-        NSLog(@"CM sUS: focus point-of-interest supported: %@", aString);
+//        NSLog(@"CM sUS: focus point-of-interest supported: %@", aString);
         
         aString = (self.device.exposurePointOfInterestSupported) ? @"Yes" : @"No";
-        NSLog(@"CM sUS: exposure point-of-interest supported: %@", aString);
+//        NSLog(@"CM sUS: exposure point-of-interest supported: %@", aString);
     }
     
     AVCaptureStillImageOutput *aCaptureStillImageOutput = [[AVCaptureStillImageOutput alloc] init];
     if ([aCaptureSession canAddOutput:aCaptureStillImageOutput]) {
-        
         [aCaptureSession addOutput:aCaptureStillImageOutput];
     }
-    
     aCaptureSession.sessionPreset = AVCaptureSessionPresetPhoto;
-    
     self.session = aCaptureSession;
 }
 

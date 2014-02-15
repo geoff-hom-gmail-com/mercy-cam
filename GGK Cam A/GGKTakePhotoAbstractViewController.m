@@ -29,7 +29,6 @@ NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString = @"captur
 }
 
 - (void)dealloc {
-    
     [self.captureManager.session stopRunning];
     [self removeObserver:self forKeyPath:GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString];
 }
@@ -134,6 +133,7 @@ NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString = @"captur
     [theCaptureManager setUpSession];
     [theCaptureManager addPreviewLayerToView:self.videoPreviewView];
     [theCaptureManager startSession];
+//    NSLog(@"TPAVC viewDidLoad: session should have started?");
     self.captureManager = theCaptureManager;
 }
 
@@ -142,6 +142,10 @@ NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString = @"captur
     [super viewWillAppear:animated];
     
     [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
+}
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+//    NSLog(@"TPAVC viewWillDisappear");
 }
 
 @end

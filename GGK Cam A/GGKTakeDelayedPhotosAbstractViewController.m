@@ -158,7 +158,7 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
     
     [self startLongTermTimer];
 }
-
+// maybe if I hid the preview by detaching from the session that would use less energy? can I test this?
 - (void)handleLongTermTimerFired
 {
     UIScreen *aScreen = [UIScreen mainScreen];

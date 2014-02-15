@@ -7,11 +7,19 @@
 //
 
 @interface GGKViewController : UIViewController
-
 // Override.
 // Assume Nib is for portrait orientation.
 - (void)awakeFromNib;
-
+// Override.
+- (void)dealloc;
+// The view will appear to the user, so ensure it's up to date.
+// A view can appear to the user in two ways: the app can make the view appear/disappear, or the app can enter the foreground (from the home screen, another app, or screen lock). -viewWillAppear: is called for the former but not the latter. UIApplicationWillEnterForegroundNotification is sent for the latter but not the former. To have a consistent UI, we'll have both options call -handleViewWillAppearToUser. So, subclasses should call super and override.
+// The foreground notification may be received by a VC whose view isn't visible (e.g., not top of nav stack). To prevent unexpected updates, we'll add the observer in -viewWillAppear: and remove it in -viewWillDisappear:.
+- (void)handleViewWillAppearToUser;
+// The view disappeared from the user, so stop any visible updates.
+// A view can disappear from the user in two ways: the app can make the view appear/disappear, or the app can enter the background (home button, go to another app, screen lock). -viewDidDisappear: is called for the former but not the latter. UIApplicationDidEnterBackgroundNotification is sent for the latter but not the former. To have a consistent UI, we'll have both options call -handleViewDidDisappearFromUser. So, subclasses should call super and override.
+// The background notification may be received by a VC whose view isn't visible (e.g., not top of nav stack). To prevent unexpected updates, we'll add the observer in -viewWillAppear: and remove it in -viewWillDisappear:.
+- (void)handleViewDidDisappearFromUser;
 // Play sound as aural feedback for pressing button.
 - (IBAction)playButtonSound;
 
@@ -22,20 +30,16 @@
 // Story: When the user should see the UI in portrait, she does.
 // Stub.
 - (void)updateLayoutForPortrait;
-
+// Override.
+- (void)viewDidDisappear:(BOOL)animated;
 // Override.
 // Set up for portrait orientation.
 - (void)viewDidLoad;
-
 // Override.
-// Story: View will appear to user. User sees updated view.
-// Listen for app coming from background/lock. Update view.
-// Whether the view appears from another view in this app or from the app entering the foreground, the user should see an updated view. -viewWillAppear: is called for the former but not the latter. So, we listen for UIApplicationWillEnterForegroundNotification (and stop listening in -viewWillDisappear:).
 - (void)viewWillAppear:(BOOL)animated;
-
 // Override.
-// Undo anything from -viewWillAppear:.
 - (void)viewWillDisappear:(BOOL)animated;
+
 
 // Override.
 // Story: Whether user rotates device in the app, or from the home screen, this method will be called. User sees UI in correct orientation.
