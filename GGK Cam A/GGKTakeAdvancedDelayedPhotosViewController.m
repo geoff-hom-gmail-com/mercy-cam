@@ -129,92 +129,40 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
     self.numberOfTimeUnitsBetweenPhotosKeyString = GGKTakeAdvancedDelayedPhotosNumberOfTimeUnitsBetweenPhotosKeyString;
     self.timeUnitBetweenPhotosKeyString = GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString;
 }
+
 //testing
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     NSLog(@"TADPVC vWA");
-    
     // add preview layer if it's not already there
     CALayer *aLayer = self.videoPreviewView.layer.sublayers[0];
     if (aLayer) {
         NSLog(@"TADPVC vWA2 layer exists");
     } else {
         NSLog(@"TADPVC vWA2 layer nil");
-        self.captureManager.captureVideoPreviewLayer.session = nil;
-        
-        
-        
 //        [self.view setNeedsDisplay];
 //        [self.captureManager.captureVideoPreviewLayer setNeedsDisplay];
 //        [self.captureManager.captureVideoPreviewLayer displayIfNeeded];
 //        [self.captureManager.captureVideoPreviewLayer display];
-        
-       
         [self.videoPreviewView.layer addSublayer:self.captureManager.captureVideoPreviewLayer];
-        self.captureManager.captureVideoPreviewLayer.session = nil;
     }
-    
 }
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-
+//- (void)viewDidAppear:(BOOL)animated {
+//    [super viewDidAppear:animated];
+//}
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     NSLog(@"TADPVC vDD");
-    // this color-change works, if the preview layer isn't added
     self.videoPreviewView.layer.backgroundColor = [UIColor greenColor].CGColor;
     
-    
-    // try to remove sublayer
-    // works
-    CALayer *aLayer = self.videoPreviewView.layer.sublayers[0];
-    aLayer.contents = nil;
-    AVCaptureVideoPreviewLayer *aVideoLayer = (AVCaptureVideoPreviewLayer *)aLayer;
-    aVideoLayer.session = nil;
-    aVideoLayer.contents = nil;
-    [aLayer removeFromSuperlayer];
-    aLayer.contents = nil;
-    
-    NSLog(@"preview-layer sublayers:%d", [self.captureManager.captureVideoPreviewLayer.sublayers count]);
+    self.captureManager.captureVideoPreviewLayer.session = nil;
+    [self.captureManager.captureVideoPreviewLayer removeFromSuperlayer];
     
     // testing removing inputs and outputs
     AVCaptureOutput *anOutput = self.captureManager.session.outputs[0];
-    [self.captureManager.session removeOutput:anOutput];
     AVCaptureInput *anInput = self.captureManager.session.inputs[0];
-    [self.captureManager.session removeInput:anInput];
-    
-    NSLog(@"preview-layer sublayers:%d", [self.captureManager.captureVideoPreviewLayer.sublayers count]);
-    
-    self.captureManager.captureVideoPreviewLayer.session = nil;
-    self.captureManager.captureVideoPreviewLayer.contents = nil;
-    
-    // purple square contents
-    UIGraphicsBeginImageContextWithOptions(CGSizeMake(50, 50), NO, 0);
-    UIBezierPath *aBezierPath = [UIBezierPath bezierPathWithRect:CGRectMake(0,0, 50, 50)];
-    [[UIColor purpleColor] setFill];
-    [aBezierPath fill];
-    UIImage *anImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    self.captureManager.captureVideoPreviewLayer.contents = (__bridge id)(anImage.CGImage);
-    
-    [self.view setNeedsDisplay];
-    [self.captureManager.captureVideoPreviewLayer setNeedsDisplay];
-    [self.captureManager.captureVideoPreviewLayer displayIfNeeded];
-    [self.captureManager.captureVideoPreviewLayer display];
-    
-    // main thread
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.view setNeedsDisplay];
-        [self.captureManager.captureVideoPreviewLayer setNeedsDisplay];
-        [self.captureManager.captureVideoPreviewLayer displayIfNeeded];
-        [self.captureManager.captureVideoPreviewLayer display];
-    });
-    
-//    [self.view displayLayer:self.captureManager.captureVideoPreviewLayer];
-//    [self.videoPreviewView.layer addSublayer:self.captureManager.captureVideoPreviewLayer];
-//    self.captureManager.captureVideoPreviewLayer.session = self.captureManager.session;
-    
+//    [self.captureManager.session removeOutput:anOutput];
+//    [self.captureManager.session removeInput:anInput];
     NSLog(@"TADPVC vDD1");
 }
 @end
