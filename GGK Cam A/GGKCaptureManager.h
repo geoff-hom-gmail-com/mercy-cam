@@ -29,6 +29,13 @@ typedef enum {
 
 @interface GGKCaptureManager : NSObject
 
+//temp moved
+@property (strong, nonatomic) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
+@property (nonatomic, strong) AVCaptureSession *session;
+
+
+
+
 @property (weak, nonatomic) id <GGKCaptureManagerDelegate> delegate;
 
 // The input capture device. I.e., the rear camera.
@@ -62,4 +69,10 @@ typedef enum {
 // Set focus, exposure and white balance to be continuous. (And reset points of interest.)
 - (void)unlockFocus;
 
+
+//testing
+//- (void)addPreviewLayerToViewTesting:(UIView *)theView;
+//- (void)removePreviewLayer;
+//- (void)replacePreviewLayerWithNewOneToView:(UIView *)theView;
+//- (void)testAddPreviewLayerToLayer:(CALayer *)theLayer;
 @end

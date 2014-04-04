@@ -35,10 +35,18 @@ NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString = @"captur
 - (void)handleViewDidDisappearFromUser {
     [super handleViewDidDisappearFromUser];
     [self.captureManager stopSession];
+    
+    //testing
+//    [self.captureManager removePreviewLayer];
+
 }
 - (void)handleViewWillAppearToUser {
     [super handleViewWillAppearToUser];
     [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
+    
+    //testing
+//    [self.captureManager replacePreviewLayerWithNewOneToView:self.videoPreviewView];
+    
     [self.captureManager startSession];
 }
 - (void)imagePickerController:(UIImagePickerController *)theImagePickerController didFinishPickingMediaWithInfo:(NSDictionary *)theInfoDictionary
@@ -136,4 +144,11 @@ NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString = @"captur
     [theCaptureManager addPreviewLayerToView:self.videoPreviewView];
     self.captureManager = theCaptureManager;
 }
+
+// testing
+//- (void)viewWillDisappear:(BOOL)animated {
+//    [super viewWillDisappear:animated];
+//    [self.captureManager stopSession];
+////    [self.captureManager removePreviewLayer];
+//}
 @end

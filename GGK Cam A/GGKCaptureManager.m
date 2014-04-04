@@ -13,11 +13,15 @@ BOOL GGKDebugCamera = NO;
 
 @interface GGKCaptureManager ()
 // For showing the user and converting the tap point to device space.
-@property (strong, nonatomic) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
+// temp move to .h
+//@property (strong, nonatomic) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
 
 // For invalidating the timer if the exposure is adjusted.
 @property (nonatomic, strong) NSTimer *exposureUnadjustedTimer;
-@property (nonatomic, strong) AVCaptureSession *session;
+
+
+// temp move to .h
+//@property (nonatomic, strong) AVCaptureSession *session;
 
 - (void)handleLockRequestedAndExposureIsSteady:(NSTimer *)theTimer;
 // So, lock it. If the focus is also locked, then notify that both are locked.
@@ -34,15 +38,40 @@ BOOL GGKDebugCamera = NO;
 @end
 
 @implementation GGKCaptureManager
+
+//- (void)testAddPreviewLayerToLayer:(CALayer *)theLayer {
+//    self.captureVideoPreviewLayer.contents = nil;
+//    self.captureVideoPreviewLayer.session = self.session;
+////    [self.captureVideoPreviewLayer initWithSession:self.session];
+//    [theLayer addSublayer:self.captureVideoPreviewLayer];
+//}
+
 - (void)addPreviewLayerToView:(UIView *)theView {
     self.captureVideoPreviewLayer.frame = theView.bounds;
-    CALayer *viewLayer = theView.layer;
-    [viewLayer addSublayer:self.captureVideoPreviewLayer];
+    CALayer *theViewLayer = theView.layer;
+    
+    // set color to orange; works if preview layer not added
+    // if preview added, orange appears for a bit
+    theViewLayer.backgroundColor = [UIColor orangeColor].CGColor;
+    
+    //testing; add a different layer
+    // shows red (over orange of root layer)
+    CALayer *aTestLayer = [CALayer layer];
+    aTestLayer.frame = theView.bounds;
+//    aTestLayer.backgroundColor = [UIColor redColor].CGColor;
+//    [theViewLayer addSublayer:aTestLayer];
+
+//    self.captureVideoPreviewLayer.backgroundColor = [UIColor redColor].CGColor;
+    [theViewLayer addSublayer:self.captureVideoPreviewLayer];
+    
     // Story: User taps on object. Focus locks there. User taps again in view. Focus returns to continuous.
     UITapGestureRecognizer *aSingleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleUserTappedInCameraView:)];
     aSingleTapGestureRecognizer.numberOfTapsRequired = 1;
     [theView addGestureRecognizer:aSingleTapGestureRecognizer];
 }
+
+
+
 - (void)correctThePreviewOrientation:(UIView *)theView
 {
     self.captureVideoPreviewLayer.connection.videoOrientation = [self theCorrectCaptureVideoOrientation];
@@ -234,6 +263,29 @@ BOOL GGKDebugCamera = NO;
     self.session = aCaptureSession;
 }
 - (void)startSession {
+    //testing
+//    self.captureVideoPreviewLayer.session = self.session;
+    //replace preview layer with new one
+//    if (self.captureVideoPreviewLayer.delegate == nil) {
+//        NSLog(@"delegate1 nil");
+//    } else {
+//        NSLog(@"delegate1 is not nil");
+//    }
+//    if (self.captureVideoPreviewLayer.superlayer.delegate == nil) {
+//        NSLog(@"delegate2 nil");
+//    } else {
+//        NSLog(@"delegate2 is not nil");
+//    }
+//    UIView *thePreviewView = self.captureVideoPreviewLayer.superlayer.delegate;
+//    [self.captureVideoPreviewLayer removeFromSuperlayer];
+//    
+//    AVCaptureVideoPreviewLayer *aCaptureVideoPreviewLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.session];
+//    aCaptureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspect;
+//    aCaptureVideoPreviewLayer.frame = thePreviewView.bounds;
+//    CALayer *viewLayer = thePreviewView.layer;
+//    [viewLayer addSublayer:aCaptureVideoPreviewLayer];
+//    self.captureVideoPreviewLayer = aCaptureVideoPreviewLayer;
+    
     // This is done asychronously since -startRunning doesn't return until the session is running.
     NSOperationQueue *anOperationQueue = [[NSOperationQueue alloc] init];
     [anOperationQueue addOperationWithBlock:^{
@@ -242,6 +294,9 @@ BOOL GGKDebugCamera = NO;
 }
 - (void)stopSession {
     [self.session stopRunning];
+    
+    //testing
+//    self.captureVideoPreviewLayer.session = nil;
 }
 - (void)takePhoto {
     
@@ -306,4 +361,33 @@ BOOL GGKDebugCamera = NO;
     }
 }
 
+//testing
+//- (void)removePreviewLayer {
+//    
+//    
+////    [self.captureVideoPreviewLayer removeFromSuperlayer];
+////    self.captureVideoPreviewLayer.session = nil;
+//    NSLog(@"CM rPL");
+//}
+//testing
+//- (void)addPreviewLayerToViewTesting:(UIView *)theView {
+////    self.captureVideoPreviewLayer.frame = theView.bounds;
+//    NSLog(@"aPLTVT");
+////    CALayer *viewLayer = theView.layer;
+////    [viewLayer addSublayer:self.captureVideoPreviewLayer];
+//}
+//
+//- (void)replacePreviewLayerWithNewOneToView:(UIView *)theView {
+//    NSLog(@"CM rPLWNOTV");
+////    UIView *thePreviewView = self.captureVideoPreviewLayer.superlayer.delegate;
+//    [self.captureVideoPreviewLayer removeFromSuperlayer];
+//    self.captureVideoPreviewLayer.session = nil;
+//    
+//    AVCaptureVideoPreviewLayer *aCaptureVideoPreviewLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.session];
+//    aCaptureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspect;
+//    aCaptureVideoPreviewLayer.frame = theView.bounds;
+//    CALayer *viewLayer = theView.layer;
+//    [viewLayer addSublayer:aCaptureVideoPreviewLayer];
+//    self.captureVideoPreviewLayer = aCaptureVideoPreviewLayer;
+//}
 @end

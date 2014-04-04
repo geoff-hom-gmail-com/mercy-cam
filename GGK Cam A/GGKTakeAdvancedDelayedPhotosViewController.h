@@ -52,5 +52,6 @@ extern NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString;
 
 // Override.
 - (void)viewDidLoad;
-
+// Override.
+- (void)viewWillAppear:(BOOL)animated;
 @end
