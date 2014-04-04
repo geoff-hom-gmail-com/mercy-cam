@@ -52,7 +52,7 @@ BOOL GGKDebugCamera = NO;
     
     // set color to orange; works if preview layer not added
     // if preview added, orange appears for a bit
-    theViewLayer.backgroundColor = [UIColor orangeColor].CGColor;
+//    theViewLayer.backgroundColor = [UIColor orangeColor].CGColor;
     
     //testing; add a different layer
     // shows red (over orange of root layer)

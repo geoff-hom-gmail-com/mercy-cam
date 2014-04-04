@@ -145,6 +145,17 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
 //        [self.captureManager.captureVideoPreviewLayer displayIfNeeded];
 //        [self.captureManager.captureVideoPreviewLayer display];
         [self.videoPreviewView.layer addSublayer:self.captureManager.captureVideoPreviewLayer];
+        NSArray *aCALayersArray = self.captureManager.captureVideoPreviewLayer.sublayers;
+        NSLog(@"sublayers count:%d", [aCALayersArray count]);
+        if ([aCALayersArray count] > 0) {
+            CALayer *aCALayer = aCALayersArray[0];
+            if (aCALayer.contents == nil) {
+                NSLog(@"captureVideoPreviewLayer.sublayer content is nil");
+            } else {
+                NSLog(@"captureVideoPreviewLayer.sublayer content is not nil");
+            }
+//            [aCALayer removeFromSuperlayer];
+        }
     }
 }
 //- (void)viewDidAppear:(BOOL)animated {
@@ -153,16 +164,25 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     NSLog(@"TADPVC vDD");
-    self.videoPreviewView.layer.backgroundColor = [UIColor greenColor].CGColor;
+//    self.videoPreviewView.layer.backgroundColor = [UIColor greenColor].CGColor;
     
     self.captureManager.captureVideoPreviewLayer.session = nil;
     [self.captureManager.captureVideoPreviewLayer removeFromSuperlayer];
     
     // testing removing inputs and outputs
-    AVCaptureOutput *anOutput = self.captureManager.session.outputs[0];
     AVCaptureInput *anInput = self.captureManager.session.inputs[0];
-//    [self.captureManager.session removeOutput:anOutput];
+    // removing input at this point will cause a "snapshot"
 //    [self.captureManager.session removeInput:anInput];
+    NSArray *aCALayersArray = self.captureManager.captureVideoPreviewLayer.sublayers;
+    NSLog(@"sublayers count:%d", [aCALayersArray count]);
+    if ([aCALayersArray count] > 0) {
+        CALayer *aCALayer = aCALayersArray[0];
+        if (aCALayer.contents == nil) {
+            NSLog(@"captureVideoPreviewLayer.sublayer content is nil");
+        } else {
+            NSLog(@"captureVideoPreviewLayer.sublayer content is not nil");
+        }
+    }
     NSLog(@"TADPVC vDD1");
 }
 @end
