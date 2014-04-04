@@ -128,148 +128,63 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
     self.numberOfPhotosToTakeKeyString = GGKTakeAdvancedDelayedPhotosNumberOfPhotosKeyString;
     self.numberOfTimeUnitsBetweenPhotosKeyString = GGKTakeAdvancedDelayedPhotosNumberOfTimeUnitsBetweenPhotosKeyString;
     self.timeUnitBetweenPhotosKeyString = GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString;
-    
-    //testing; trying to get preview to appear here but not in vWA
-//    [self.view addSubview:self.videoPreviewView];
-//    [self.captureManager setUpSession];
-//    [self.captureManager addPreviewLayerToView:self.videoPreviewView];
-//    CALayer *aTestLayer = [CALayer layer];
-//    if (aTestLayer == nil) {
-//        NSLog(@" layer is nil");
-//    } else {
-//        NSLog(@" layer is ok");
-//    }
-//    aTestLayer.backgroundColor = [UIColor orangeColor].CGColor;
-//    [self.videoPreviewView.layer addSublayer:aTestLayer];
-//    [theViewLayer addSublayer:aTestLayer];
-
-    NSArray *anArray = [self.captureManager.captureVideoPreviewLayer.sublayers copy];
-    for (CALayer *aLayer in anArray) {
-//        [aLayer removeFromSuperlayer];
-    }
-    UIGraphicsBeginImageContextWithOptions(CGSizeMake(50, 50), NO, 0);
-    UIBezierPath *aBezierPath = [UIBezierPath bezierPathWithRect:CGRectMake(0,0, 50, 50)];
-    [[UIColor purpleColor] setFill];
-    [aBezierPath fill];
-    UIImage *anImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-// works; view has purple bg
-    // self.view...
-    self.videoPreviewView.layer.contents = (__bridge id)(anImage.CGImage);
-    
-//    self.captureManager.captureVideoPreviewLayer.contents = (__bridge id)(anImage.CGImage);
-    
 }
 //testing
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     NSLog(@"TADPVC vWA");
-//    [self.videoPreviewView removeFromSuperview];
     
     // add preview layer if it's not already there
     CALayer *aLayer = self.videoPreviewView.layer.sublayers[0];
     if (aLayer) {
         NSLog(@"TADPVC vWA2 layer exists");
-        self.captureManager.captureVideoPreviewLayer.contents = nil;
     } else {
         NSLog(@"TADPVC vWA2 layer nil");
-//        self.captureManager.captureVideoPreviewLayer.contents = nil;
         self.captureManager.captureVideoPreviewLayer.session = nil;
-//        self.captureManager.captureVideoPreviewLayer.contents = nil;
-        // purple square contents
-        UIGraphicsBeginImageContextWithOptions(CGSizeMake(50, 50), NO, 0);
-        UIBezierPath *aBezierPath = [UIBezierPath bezierPathWithRect:CGRectMake(0,0, 50, 50)];
-        [[UIColor purpleColor] setFill];
-        [aBezierPath fill];
-        UIImage *anImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        self.captureManager.captureVideoPreviewLayer.contents = (__bridge id)(anImage.CGImage);
         
-        [self.view setNeedsDisplay];
-        [self.captureManager.captureVideoPreviewLayer setNeedsDisplay];
-        [self.captureManager.captureVideoPreviewLayer displayIfNeeded];
-        [self.captureManager.captureVideoPreviewLayer display];
         
-        // main thread
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.view setNeedsDisplay];
-            [self.captureManager.captureVideoPreviewLayer setNeedsDisplay];
-            [self.captureManager.captureVideoPreviewLayer displayIfNeeded];
-            [self.captureManager.captureVideoPreviewLayer display];
-        });
-
-//        [self.view displayLayer:self.captureManager.captureVideoPreviewLayer];
+        
+//        [self.view setNeedsDisplay];
+//        [self.captureManager.captureVideoPreviewLayer setNeedsDisplay];
+//        [self.captureManager.captureVideoPreviewLayer displayIfNeeded];
+//        [self.captureManager.captureVideoPreviewLayer display];
+        
+       
         [self.videoPreviewView.layer addSublayer:self.captureManager.captureVideoPreviewLayer];
         self.captureManager.captureVideoPreviewLayer.session = nil;
-//        self.captureManager.captureVideoPreviewLayer.contents = nil;
-        [self.view setNeedsDisplay];
-        [self.captureManager.captureVideoPreviewLayer setNeedsDisplay];
-        [self.captureManager.captureVideoPreviewLayer displayIfNeeded];
-        [self.captureManager.captureVideoPreviewLayer display];
-        
-        // purple square contents
-        self.captureManager.captureVideoPreviewLayer.contents = (__bridge id)(anImage.CGImage);
-        
-        
-        // main thread
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.view setNeedsDisplay];
-            [self.captureManager.captureVideoPreviewLayer setNeedsDisplay];
-            [self.captureManager.captureVideoPreviewLayer displayIfNeeded];
-            [self.captureManager.captureVideoPreviewLayer display];
-        });
-        
-        // purple square contents
-        self.captureManager.captureVideoPreviewLayer.contents = (__bridge id)(anImage.CGImage);
-        
-
-//        [self.view displayLayer:self.captureManager.captureVideoPreviewLayer];
     }
     
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    // add preview layer if it's not already there
-//    CALayer *aLayer = self.videoPreviewView.layer.sublayers[0];
-//    if (aLayer) {
-//        NSLog(@"TADPVC vDA2 layer exists");
-//    } else {
-//        NSLog(@"TADPVC vDA2 layer nil");
-//        [self.captureManager testAddPreviewLayerToLayer:self.videoPreviewView.layer];
-//        //        [self.videoPreviewView.layer addSublayer:self.captureManager.captureVideoPreviewLayer];
-//    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     NSLog(@"TADPVC vDD");
-    // this makes the layer not appear later (no snapshot)
-//    [self.videoPreviewView removeFromSuperview];
-    
     // this color-change works, if the preview layer isn't added
     self.videoPreviewView.layer.backgroundColor = [UIColor greenColor].CGColor;
     
-    // try to change sub-layer color
-    // works
-//    CALayer *aLayer = self.videoPreviewView.layer.sublayers[0];
-//    aLayer.backgroundColor = [UIColor yellowColor].CGColor;
     
     // try to remove sublayer
     // works
     CALayer *aLayer = self.videoPreviewView.layer.sublayers[0];
     aLayer.contents = nil;
     AVCaptureVideoPreviewLayer *aVideoLayer = (AVCaptureVideoPreviewLayer *)aLayer;
-//    aVideoLayer.session = nil;
+    aVideoLayer.session = nil;
     aVideoLayer.contents = nil;
     [aLayer removeFromSuperlayer];
     aLayer.contents = nil;
+    
+    NSLog(@"preview-layer sublayers:%d", [self.captureManager.captureVideoPreviewLayer.sublayers count]);
     
     // testing removing inputs and outputs
     AVCaptureOutput *anOutput = self.captureManager.session.outputs[0];
     [self.captureManager.session removeOutput:anOutput];
     AVCaptureInput *anInput = self.captureManager.session.inputs[0];
     [self.captureManager.session removeInput:anInput];
+    
+    NSLog(@"preview-layer sublayers:%d", [self.captureManager.captureVideoPreviewLayer.sublayers count]);
     
     self.captureManager.captureVideoPreviewLayer.session = nil;
     self.captureManager.captureVideoPreviewLayer.contents = nil;
