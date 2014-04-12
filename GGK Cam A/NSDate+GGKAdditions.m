@@ -27,7 +27,7 @@
     NSInteger theNumberOfMinutes = theRemainderInSecondsInteger / theNumberOfSecondsInAMinute;
     theRemainderInSecondsInteger = theRemainderInSecondsInteger % theNumberOfSecondsInAMinute;
     NSInteger theNumberOfSeconds = theRemainderInSecondsInteger;
-    NSString *aString = [NSString stringWithFormat:@"%3d:%2d:%2d:%2d", theNumberOfDays, theNumberOfHours, theNumberOfMinutes, theNumberOfSeconds];
+    NSString *aString = [NSString stringWithFormat:@"%3ld:%2ld:%2ld:%2ld", (long)theNumberOfDays, (long)theNumberOfHours, (long)theNumberOfMinutes, (long)theNumberOfSeconds];
     return aString;
 }
 

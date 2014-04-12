@@ -129,9 +129,9 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
     // The order of retrieval is important, as the assigned properties may be under KVO and refer to one another. In particular, updating a time unit may update it's corresponding string. That string also depends on the number of time units.
     
     NSInteger theNumberOfTimeUnitsToWaitBeforeDimmingTheScreenInteger = [[NSUserDefaults standardUserDefaults] integerForKey:GGKLongTermNumberOfTimeUnitsKeyString];
-    GGKTimeUnit aTimeUnit = [[NSUserDefaults standardUserDefaults] integerForKey:GGKLongTermTimeUnitKeyString];
+    GGKTimeUnit aTimeUnit = (GGKTimeUnit)[[NSUserDefaults standardUserDefaults] integerForKey:GGKLongTermTimeUnitKeyString];
     self.numberOfSecondsToWaitBeforeDimmingTheScreenInteger = theNumberOfTimeUnitsToWaitBeforeDimmingTheScreenInteger * [GGKTimeUnits numberOfSecondsInTimeUnit:aTimeUnit];
-    NSLog(@"TDPAVC secToWaitBeforeDimScreen:%d", self.numberOfSecondsToWaitBeforeDimmingTheScreenInteger);
+    NSLog(@"TDPAVC secToWaitBeforeDimScreen:%ld", (long)self.numberOfSecondsToWaitBeforeDimmingTheScreenInteger);
 
     // Template for subclasses.
     
@@ -260,21 +260,21 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
         self.focusLabel.text = [NSString stringWithFormat:@"Focus:\n  %@", aString];
     } else if ([theKeyPath isEqualToString:GGKTakeDelayedPhotosNumberOfTimeUnitsToInitiallyWaitKeyPathString]) {
         
-        self.numberOfTimeUnitsToInitiallyWaitTextField.text = [NSString stringWithFormat:@"%d", self.numberOfTimeUnitsToInitiallyWaitInteger];
+        self.numberOfTimeUnitsToInitiallyWaitTextField.text = [NSString stringWithFormat:@"%ld", (long)self.numberOfTimeUnitsToInitiallyWaitInteger];
     } else if ([theKeyPath isEqualToString:GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString]) {
         
         [GGKTimeUnits setTitleForButton:self.timeUnitsToInitiallyWaitButton withTimeUnit:self.timeUnitForTheInitialWaitTimeUnit ofPlurality:self.numberOfTimeUnitsToInitiallyWaitInteger];
         
     } else if ([theKeyPath isEqualToString:GGKTakeDelayedPhotosNumberOfPhotosToTakeKeyPathString]) {
         
-        self.numberOfPhotosToTakeTextField.text = [NSString stringWithFormat:@"%d", self.numberOfPhotosToTakeInteger];
+        self.numberOfPhotosToTakeTextField.text = [NSString stringWithFormat:@"%ld", (long)self.numberOfPhotosToTakeInteger];
         
         // "photo(s)."
         NSString *aPhotosString = [@"photos" ggk_stringPerhapsWithoutS:self.numberOfPhotosToTakeInteger];
         self.afterNumberOfPhotosTextFieldLabel.text = [NSString stringWithFormat:@"%@ with", aPhotosString];
     } else if ([theKeyPath isEqualToString:GGKTakeDelayedPhotosNumberOfTimeUnitsBetweenPhotosKeyPathString]) {
         
-        self.numberOfTimeUnitsBetweenPhotosTextField.text = [NSString stringWithFormat:@"%d", self.numberOfTimeUnitsBetweenPhotosInteger];
+        self.numberOfTimeUnitsBetweenPhotosTextField.text = [NSString stringWithFormat:@"%ld", (long)self.numberOfTimeUnitsBetweenPhotosInteger];
     } else if ([theKeyPath isEqualToString:GGKTakeDelayedPhotosTimeUnitBetweenPhotosKeyPathString]) {
         
         [GGKTimeUnits setTitleForButton:self.timeUnitsBetweenPhotosButton withTimeUnit:self.timeUnitBetweenPhotosTimeUnit ofPlurality:self.numberOfTimeUnitsBetweenPhotosInteger];
@@ -362,7 +362,7 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
 - (void)takePhoto
 {
     self.numberOfPhotosTakenInteger += 1;
-    self.numberOfPhotosTakenLabel.text = [NSString stringWithFormat:@"%d", self.numberOfPhotosTakenInteger];
+    self.numberOfPhotosTakenLabel.text = [NSString stringWithFormat:@"%ld", (long)self.numberOfPhotosTakenInteger];
     
     [super takePhoto];
 }
@@ -439,7 +439,7 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
         NSString *aString;
         if (self.timeUnitForTheInitialWaitTimeUnit == GGKTimeUnitSeconds) {
             
-            aString = [NSString stringWithFormat:@"%d", self.numberOfSecondsPassedInteger];
+            aString = [NSString stringWithFormat:@"%ld", (long)self.numberOfSecondsPassedInteger];
         } else {
             
             CGFloat theNumberOfTimeUnitsPassedFloat = [GGKTimeUnits numberOfTimeUnitsInTimeInterval:self.numberOfSecondsPassedInteger timeUnit:self.timeUnitForTheInitialWaitTimeUnit];
@@ -451,7 +451,7 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
         NSString *aString;
         if (self.timeUnitBetweenPhotosTimeUnit == GGKTimeUnitSeconds) {
             
-            aString = [NSString stringWithFormat:@"%d", self.numberOfSecondsPassedInteger];
+            aString = [NSString stringWithFormat:@"%ld", (long)self.numberOfSecondsPassedInteger];
         } else {
             
             CGFloat theNumberOfTimeUnitsPassedFloat = [GGKTimeUnits numberOfTimeUnitsInTimeInterval:self.numberOfSecondsPassedInteger timeUnit:self.timeUnitBetweenPhotosTimeUnit];

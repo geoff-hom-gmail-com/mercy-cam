@@ -56,7 +56,7 @@ BOOL GGKCreateLaunchImages = NO;
     
     NSString *aPhotosString = [@"photos" ggk_stringPerhapsWithoutS:theTakeDelayedPhotosNumberOfPhotosInteger];
     
-    self.takeDelayedPhotosExampleLabel.text = [NSString stringWithFormat:@"\"Wait %d %@,\nthen take %d %@.\"", theTakeDelayedPhotosNumberOfSecondsToInitiallyWaitInteger, aSecondsString, theTakeDelayedPhotosNumberOfPhotosInteger, aPhotosString];
+    self.takeDelayedPhotosExampleLabel.text = [NSString stringWithFormat:@"\"Wait %ld %@,\nthen take %ld %@.\"", (long)theTakeDelayedPhotosNumberOfSecondsToInitiallyWaitInteger, aSecondsString, (long)theTakeDelayedPhotosNumberOfPhotosInteger, aPhotosString];
     
     // "Wait X second(s)/day(s)/etc., then take Y photo(s) with Z second(s)/day(s)/etc. between each photo."
     
@@ -76,7 +76,7 @@ BOOL GGKCreateLaunchImages = NO;
     NSString *theTimeUnitBetweenPhotosString = [GGKTimeUnits stringForTimeUnit:(GGKTimeUnit)theTimeUnitBetweenPhotosInteger];
     theTimeUnitBetweenPhotosString = [theTimeUnitBetweenPhotosString ggk_stringPerhapsWithoutS:theTakeAdvancedDelayedPhotosNumberOfTimeUnitsBetweenPhotosInteger];
     
-    self.takeAdvancedDelayedPhotosExampleLabel.text = [NSString stringWithFormat:@"\"Wait %d %@,\nthen take %d %@\nwith %d %@ between each photo.\"", theTakeAdvancedDelayedPhotosNumberOfTimeUnitsToInitiallyWaitInteger, theTimeUnitForTheInitialWaitString, theTakeAdvancedDelayedPhotosNumberOfPhotosInteger, aPhotosString, theTakeAdvancedDelayedPhotosNumberOfTimeUnitsBetweenPhotosInteger, theTimeUnitBetweenPhotosString];
+    self.takeAdvancedDelayedPhotosExampleLabel.text = [NSString stringWithFormat:@"\"Wait %ld %@,\nthen take %ld %@\nwith %ld %@ between each photo.\"", (long)theTakeAdvancedDelayedPhotosNumberOfTimeUnitsToInitiallyWaitInteger, theTimeUnitForTheInitialWaitString, (long)theTakeAdvancedDelayedPhotosNumberOfPhotosInteger, aPhotosString, (long)theTakeAdvancedDelayedPhotosNumberOfTimeUnitsBetweenPhotosInteger, theTimeUnitBetweenPhotosString];
 }
 
 - (void)updateLayoutForLandscape

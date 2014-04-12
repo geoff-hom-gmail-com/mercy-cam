@@ -57,7 +57,7 @@ NSString *GGKLongTermTimeUnitKeyString = @"Long-term: Time unit.";
     // The order of retrieval is important, as the assigned properties may be under KVO and refer to one another. In particular, updating a time unit may update it's corresponding string. That string also depends on the number of time units.
     
     self.numberOfTimeUnitsInteger = [[NSUserDefaults standardUserDefaults] integerForKey:GGKLongTermNumberOfTimeUnitsKeyString];
-    self.timeUnit = [[NSUserDefaults standardUserDefaults] integerForKey:GGKLongTermTimeUnitKeyString];
+    self.timeUnit = (GGKTimeUnit)[[NSUserDefaults standardUserDefaults] integerForKey:GGKLongTermTimeUnitKeyString];
 }
 
 - (void)keyboardWillHide:(NSNotification *)theNotification
@@ -101,7 +101,7 @@ NSString *GGKLongTermTimeUnitKeyString = @"Long-term: Time unit.";
 {
     if ([theKeyPath isEqualToString:GGKLongTermNumberOfTimeUnitsKeyPathString]) {
         
-        self.numberOfTimeUnitsTextField.text = [NSString stringWithFormat:@"%d", self.numberOfTimeUnitsInteger];
+        self.numberOfTimeUnitsTextField.text = [NSString stringWithFormat:@"%ld", (long)self.numberOfTimeUnitsInteger];
     } else if ([theKeyPath isEqualToString:GGKLongTermTimeUnitKeyPathString]) {
         
         [GGKTimeUnits setTitleForButton:self.timeUnitButton withTimeUnit:self.timeUnit ofPlurality:self.numberOfTimeUnitsInteger];

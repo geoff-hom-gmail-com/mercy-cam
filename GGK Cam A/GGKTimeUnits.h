@@ -10,7 +10,6 @@
 
 // The currently selected time unit.
 typedef enum {
-    
     GGKTimeUnitSeconds,
     GGKTimeUnitMinutes,
     GGKTimeUnitHours,
