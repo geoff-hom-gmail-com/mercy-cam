@@ -12,24 +12,14 @@
 #import "GGKTimeUnitsTableViewController.h"
 
 extern const NSInteger GGKTakeDelayedPhotosMinimumNumberOfPhotosInteger;
-
 extern const NSInteger GGKTakeDelayedPhotosMinimumNumberOfTimeUnitsBetweenPhotosInteger;
-
 extern const NSInteger GGKTakeDelayedPhotosMinimumNumberOfTimeUnitsToInitiallyWaitInteger;
 
 // For KVO on that property.
 extern NSString *GGKTakeDelayedPhotosNumberOfPhotosToTakeKeyPathString;
-
-// For KVO on that property.
 extern NSString *GGKTakeDelayedPhotosNumberOfTimeUnitsBetweenPhotosKeyPathString;
-
-// For KVO on that property.
 extern NSString *GGKTakeDelayedPhotosNumberOfTimeUnitsToInitiallyWaitKeyPathString;
-
-// For KVO on that property.
 extern NSString *GGKTakeDelayedPhotosTimeUnitBetweenPhotosKeyPathString;
-
-// For KVO on that property.
 extern NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString;
 
 @interface GGKTakeDelayedPhotosAbstractViewController : GGKTakePhotoAbstractViewController <GGKTimeUnitsTableViewControllerDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate>

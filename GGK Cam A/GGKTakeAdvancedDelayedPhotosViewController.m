@@ -170,7 +170,7 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
     [self.captureManager.captureVideoPreviewLayer removeFromSuperlayer];
     
     // testing removing inputs and outputs
-    AVCaptureInput *anInput = self.captureManager.session.inputs[0];
+//    AVCaptureInput *anInput = self.captureManager.session.inputs[0];
     // removing input at this point will cause a "snapshot"
 //    [self.captureManager.session removeInput:anInput];
     NSArray *aCALayersArray = self.captureManager.captureVideoPreviewLayer.sublayers;

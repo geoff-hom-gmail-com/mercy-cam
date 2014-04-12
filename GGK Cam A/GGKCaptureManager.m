@@ -56,8 +56,8 @@ BOOL GGKDebugCamera = NO;
     
     //testing; add a different layer
     // shows red (over orange of root layer)
-    CALayer *aTestLayer = [CALayer layer];
-    aTestLayer.frame = theView.bounds;
+//    CALayer *aTestLayer = [CALayer layer];
+//    aTestLayer.frame = theView.bounds;
 //    aTestLayer.backgroundColor = [UIColor redColor].CGColor;
 //    [theViewLayer addSublayer:aTestLayer];
 
@@ -81,6 +81,11 @@ BOOL GGKDebugCamera = NO;
 //    NSLog(@"CM dealloc");
     [self removeObserver:self forKeyPath:@"device.adjustingExposure"];
     [self removeObserver:self forKeyPath:@"device.focusMode"];
+}
+- (void)destroySession {
+    [self stopSession];
+    self.session = nil;
+    self.captureVideoPreviewLayer.session = nil;
 }
 - (void)focusAtPoint:(CGPoint)thePoint
 {

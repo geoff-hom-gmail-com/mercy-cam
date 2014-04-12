@@ -28,7 +28,7 @@ NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString = @"captur
     [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
 }
 - (void)dealloc {
-//    NSLog(@"TPAVC dealloc");
+//    NSLog(@"TPAVC dealloc1");
     [self.captureManager stopSession];
     [self removeObserver:self forKeyPath:GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString];
 }
@@ -46,11 +46,9 @@ NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString = @"captur
     
     //testing
 //    [self.captureManager replacePreviewLayerWithNewOneToView:self.videoPreviewView];
-    
     [self.captureManager startSession];
 }
-- (void)imagePickerController:(UIImagePickerController *)theImagePickerController didFinishPickingMediaWithInfo:(NSDictionary *)theInfoDictionary
-{
+- (void)imagePickerController:(UIImagePickerController *)theImagePickerController didFinishPickingMediaWithInfo:(NSDictionary *)theInfoDictionary {
     // An image picker controller is also a navigation controller. So, we'll push a view controller with the image onto the image picker controller.
     // Was going to use a push segue in the storyboard, for clarity. However, this VC is abstract and not instantiated from the storyboard, so that doesn't work.
     // Note that the image picker is assumed to be 320 x 480, as set in the storyboard.
@@ -62,7 +60,24 @@ NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString = @"captur
     [theImagePickerController pushViewController:aSavedPhotoViewController animated:YES];
     aSavedPhotoViewController.imageView.image = anImage;
 }
-
+- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)theOperation fromViewController:(UIViewController *)theFromVC toViewController:(UIViewController *)theToVC {
+    if ((theOperation == UINavigationControllerOperationPop) && (theFromVC == self)) {
+        self.navigationController.delegate = nil;
+    }
+    if ((theOperation == UINavigationControllerOperationPush) && (theFromVC == self)) {
+        NSLog(@"about to push onto self: destroy session");
+        [self.captureManager destroySession];
+    }
+    if ((theOperation == UINavigationControllerOperationPop) && (theToVC == self)) {
+        NSLog(@"about to pop to self: create session");
+        [self.captureManager setUpSession];
+    }
+    
+    return nil;
+}
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    NSLog(@"TPAVC nC dSVC a");
+}
 - (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if ([theKeyPath isEqualToString:GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString]) {
@@ -143,6 +158,8 @@ NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString = @"captur
     [theCaptureManager setUpSession];
     [theCaptureManager addPreviewLayerToView:self.videoPreviewView];
     self.captureManager = theCaptureManager;
+    // Watch for push onto this VC. If so, capture session will snapshot (undesired).
+    self.navigationController.delegate = self;
 }
 
 // testing

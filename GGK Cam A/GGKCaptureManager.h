@@ -49,6 +49,8 @@ typedef enum {
 // Override.
 // For removing observers.
 - (void)dealloc;
+// Remove current session from memory.
+- (void)destroySession;
 // Focus at the given point (in device space). Also lock exposure.
 - (void)focusAtPoint:(CGPoint)thePoint;
 

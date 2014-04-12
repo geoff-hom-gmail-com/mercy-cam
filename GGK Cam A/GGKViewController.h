@@ -13,7 +13,7 @@
 // Override.
 - (void)dealloc;
 // The view disappeared from the user, so stop any visible updates.
-// A view can disappear from the user in two ways: the app can make the view appear/disappear, or the app can enter the background (home button, go to another app, screen lock). -viewDidDisappear: is called for the former but not the latter. UIApplicationDidEnterBackgroundNotification is sent for the latter but not the former. To have a consistent UI, we'll have both options call -handleViewDidDisappearFromUser. So, subclasses should call super and override.
+// A view disappears from the user in two ways: the app can make the view appear/disappear, or the app can enter the background (home button, go to another app, screen lock). -viewDidDisappear: is called for the former but not the latter. UIApplicationDidEnterBackgroundNotification is sent for the latter but not the former. To have a consistent UI, we'll have both options call -handleViewDidDisappearFromUser. So, subclasses should call super and override.
 // The background notification may be received by a VC whose view isn't visible (e.g., not top of nav stack). To prevent unexpected updates, we'll add the observer in -viewWillAppear: and remove it in -viewWillDisappear:.
 - (void)handleViewDidDisappearFromUser;
 // The view will appear to the user, so ensure it's up to date.
