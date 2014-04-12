@@ -63,10 +63,10 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     [super updateLayoutForLandscape];
     
     // An anchor.
-    [self.videoPreviewView ggk_makeSize:CGSizeMake(816, 612)];
-    [self.videoPreviewView ggk_makeBottomGap:0];
-    [self.videoPreviewView ggk_makeLeftGap:0];
-    [self.captureManager correctThePreviewOrientation:self.videoPreviewView];
+    [self.cameraPreviewView ggk_makeSize:CGSizeMake(816, 612)];
+    [self.cameraPreviewView ggk_makeBottomGap:0];
+    [self.cameraPreviewView ggk_makeLeftGap:0];
+    [self.captureManager correctThePreviewOrientation:self.cameraPreviewView];
     
     CGFloat aWidth = 130;
     CGFloat aGap1 = 8;
@@ -102,10 +102,10 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     [super updateLayoutForPortrait];
     
     // An anchor.
-    [self.videoPreviewView ggk_makeSize:CGSizeMake(651, 868)];
-    [self.videoPreviewView ggk_makeBottomGap:0];
-    [self.videoPreviewView ggk_makeLeftGap:0];
-    [self.captureManager correctThePreviewOrientation:self.videoPreviewView];
+    [self.cameraPreviewView ggk_makeSize:CGSizeMake(651, 868)];
+    [self.cameraPreviewView ggk_makeBottomGap:0];
+    [self.cameraPreviewView ggk_makeLeftGap:0];
+    [self.captureManager correctThePreviewOrientation:self.cameraPreviewView];
 
     CGFloat aWidth = 101;
     CGFloat aGap1 = 8;

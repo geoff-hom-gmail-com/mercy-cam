@@ -14,46 +14,38 @@
 extern NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString;
 
 @class GGKSavedPhotosManager;
-
-// Not using UIImagePickerControllerDelegate now, but may if we let the user do more than view thumbnails.
 @interface GGKTakePhotoAbstractViewController : GGKViewController <GGKCaptureManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
-
+// Live stream from camera is shown here.
+@property (weak, nonatomic) IBOutlet UIView *cameraPreviewView;
 // Tap to see camera roll. This button is labeled with the most-recent photo in the roll.
 @property (weak, nonatomic) IBOutlet UIButton *cameraRollButton;
-
-// For creating the session and managing the capture device.
+// For creating the capture session and managing the capture device.
 @property (nonatomic, strong) GGKCaptureManager *captureManager;
-
 // For working with photos in the camera roll.
 @property (nonatomic, strong) GGKSavedPhotosManager *savedPhotosManager;
-
-// Camera input is shown here.
-@property (weak, nonatomic) IBOutlet UIView *videoPreviewView;
-
+// Show the most-recent photo thumbnail.
 - (void)captureManagerDidTakePhoto:(id)sender;
-// So, show the most-recent photo thumbnail.
-
 // Override.
 - (void)dealloc;
+// Notify capture manager.
+- (void)handleUserTappedInCameraView:(UITapGestureRecognizer *)theTapGestureRecognizer;
 // Override.
 - (void)handleViewDidDisappearFromUser;
 // Override.
 - (void)handleViewWillAppearToUser;
-
-// So, show the image in the popover.
+// Show the image in the popover.
 - (void)imagePickerController:(UIImagePickerController *)theImagePickerController didFinishPickingMediaWithInfo:(NSDictionary *)theInfoDictionary;
 // Watching for several things: 1) If pushing onto this VC, destroy the capture session so it won't snapshot. 2) If popping to this VC, create a capture session to offset 1). 3) If this VC will be popped, nil this VC as the NC delegate. (-dealloc is too late.)
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC;
 // KVO. Story: User can see when the focus and exposure is locked.
 // Stub; but it catches the KVO for the capture manager's focus-and-exposure-status.
 - (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
-
 // Override.
 - (void)prepareForSegue:(UIStoryboardSegue *)theSegue sender:(id)sender;
-
 // Take a photo. Includes feedback via sound and a flash on the screen.
 - (IBAction)takePhoto;
-
+// Rotate the camera preview to the device's orientation. Resize the preview view.
+- (void)updatePreviewOrientation;
 // Override.
 - (void)viewDidLoad;
 @end

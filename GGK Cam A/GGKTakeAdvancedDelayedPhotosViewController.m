@@ -52,10 +52,10 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
     [super updateLayoutForLandscape];
     
     // An anchor.
-    [self.videoPreviewView ggk_makeSize:CGSizeMake(820, 615)];
-    [self.videoPreviewView ggk_makeBottomGap:0];
-    [self.videoPreviewView ggk_makeLeftGap:0];
-    [self.captureManager correctThePreviewOrientation:self.videoPreviewView];
+    [self.cameraPreviewView ggk_makeSize:CGSizeMake(820, 615)];
+    [self.cameraPreviewView ggk_makeBottomGap:0];
+    [self.cameraPreviewView ggk_makeLeftGap:0];
+    [self.captureManager correctThePreviewOrientation:self.cameraPreviewView];
     
     CGFloat aGap1 = 8;
     
@@ -88,19 +88,20 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
     [super updateLayoutForPortrait];
     
     // An anchor.
-    [self.videoPreviewView ggk_makeSize:CGSizeMake(654, 872)];
-    [self.videoPreviewView ggk_makeBottomGap:0];
-    [self.videoPreviewView ggk_makeLeftGap:0];
-    [self.captureManager correctThePreviewOrientation:self.videoPreviewView];
+    [self.cameraPreviewView ggk_makeSize:CGSizeMake(654, 872)];
+    [self.cameraPreviewView ggk_makeBottomGap:0];
+    [self.cameraPreviewView ggk_makeLeftGap:0];
+    [self correctThePreviewOrientation];
+//    [self.captureManager correctThePreviewOrientation:self.cameraPreviewView];
     
     CGFloat aGap1 = 8;
     
-    CGFloat aWidth = self.cameraRollButton.superview.frame.size.width - self.videoPreviewView.frame.size.width - (2 * aGap1);
+    CGFloat aWidth = self.cameraRollButton.superview.frame.size.width - self.cameraPreviewView.frame.size.width - (2 * aGap1);
     [self.cameraRollButton ggk_makeSize:CGSizeMake(aWidth, aWidth)];
     [self.cameraRollButton ggk_makeBottomGap:aGap1];
     [self.cameraRollButton ggk_makeRightGap:aGap1];
     
-    [self.focusLabel ggk_alignTopEdgeWithView:self.videoPreviewView];
+    [self.focusLabel ggk_alignTopEdgeWithView:self.cameraPreviewView];
     [self.focusLabel ggk_alignHorizontalCenterWithView:self.cameraRollButton];
     
     CGFloat aGap2 = 50;
@@ -135,7 +136,7 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
     [super viewWillAppear:animated];
     NSLog(@"TADPVC vWA");
     // add preview layer if it's not already there
-    CALayer *aLayer = self.videoPreviewView.layer.sublayers[0];
+    CALayer *aLayer = self.cameraPreviewView.layer.sublayers[0];
     if (aLayer) {
         NSLog(@"TADPVC vWA2 layer exists");
     } else {
@@ -144,7 +145,7 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
 //        [self.captureManager.captureVideoPreviewLayer setNeedsDisplay];
 //        [self.captureManager.captureVideoPreviewLayer displayIfNeeded];
 //        [self.captureManager.captureVideoPreviewLayer display];
-        [self.videoPreviewView.layer addSublayer:self.captureManager.captureVideoPreviewLayer];
+        [self.cameraPreviewView.layer addSublayer:self.captureManager.captureVideoPreviewLayer];
         NSArray *aCALayersArray = self.captureManager.captureVideoPreviewLayer.sublayers;
         NSLog(@"sublayers count:%d", [aCALayersArray count]);
         if ([aCALayersArray count] > 0) {

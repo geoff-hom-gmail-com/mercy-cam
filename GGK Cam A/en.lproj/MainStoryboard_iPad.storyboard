@@ -417,6 +417,7 @@ photos</string>
                     </view>
                     <navigationItem key="navigationItem" title="Mercy Camera: Take a photo" id="Sby-Wb-kNp"/>
                     <connections>
+                        <outlet property="cameraPreviewView" destination="Sin-J3-zg2" id="DME-35-Tlf"/>
                         <outlet property="cameraRollButton" destination="5Vn-Fv-i1w" id="UhE-V6-iSF"/>
                         <outlet property="exposingLabel" destination="AYj-we-zZO" id="DYU-ma-jdA"/>
                         <outlet property="exposureModeLabel" destination="Nhh-kh-QaM" id="Xfc-c7-1DE"/>
@@ -426,7 +427,6 @@ photos</string>
                         <outlet property="focusingLabel" destination="OYC-aF-2MU" id="qQc-a2-Bu9"/>
                         <outlet property="takePhotoButton" destination="UdW-v1-5td" id="iU6-kG-Gw6"/>
                         <outlet property="tipLabel" destination="JBy-3S-HOX" id="YMS-5O-R35"/>
-                        <outlet property="videoPreviewView" destination="Sin-J3-zg2" id="Xc4-8i-K1v"/>
                         <outlet property="whiteBalanceModeLabel" destination="87z-5y-chb" id="zAR-5k-5SL"/>
                         <outlet property="whiteBalancingLabel" destination="jny-pb-JCz" id="nrc-dt-lpn"/>
                     </connections>
@@ -577,6 +577,7 @@ photos</string>
                     <navigationItem key="navigationItem" title="Mercy Camera: Take delayed photos" id="jiP-RF-W4L"/>
                     <connections>
                         <outlet property="afterNumberOfPhotosTextFieldLabel" destination="DRY-lJ-Icz" id="RLN-JR-KWO"/>
+                        <outlet property="cameraPreviewView" destination="7CB-eU-aBL" id="9ba-2f-2zh"/>
                         <outlet property="cameraRollButton" destination="ASC-Mi-8aD" id="xoE-QY-Wiz"/>
                         <outlet property="cancelTimerButton" destination="5Qx-RQ-TiL" id="Gyb-ii-ZA8"/>
                         <outlet property="focusLabel" destination="3Qa-B5-2Rd" id="ToD-Xq-JkB"/>
@@ -586,7 +587,6 @@ photos</string>
                         <outlet property="numberOfTimeUnitsToInitiallyWaitTextField" destination="cLP-P2-6Vg" id="mtc-Pj-NUf"/>
                         <outlet property="secondsLabel" destination="nkc-09-1YZ" id="o25-lh-fnE"/>
                         <outlet property="startTimerButton" destination="jJL-aE-Vqa" id="hhm-nD-8Hh"/>
-                        <outlet property="videoPreviewView" destination="7CB-eU-aBL" id="bJD-Fc-HIp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wdb-xT-cbC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -731,6 +731,7 @@ photos</string>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
+                        <outlet property="cameraPreviewView" destination="CIE-Kx-GhZ" id="tze-hP-uE1"/>
                         <outlet property="cameraRollButton" destination="Abg-Lo-wfI" id="N4R-lf-oTO"/>
                         <outlet property="exposingLabel" destination="x6b-kd-7J7" id="axI-Gw-ziK"/>
                         <outlet property="exposureModeLabel" destination="mi4-U3-S7D" id="jRA-5E-4AA"/>
@@ -739,7 +740,6 @@ photos</string>
                         <outlet property="focusPointOfInterestLabel" destination="sTr-gC-hTe" id="bEy-UL-vfL"/>
                         <outlet property="focusingLabel" destination="HRz-pp-LGC" id="3uf-Ht-1S2"/>
                         <outlet property="tipLabel" destination="pNV-8Q-9mk" id="eS1-fz-0J0"/>
-                        <outlet property="videoPreviewView" destination="CIE-Kx-GhZ" id="gKm-zQ-3Rp"/>
                         <outlet property="whiteBalanceModeLabel" destination="VEi-WB-mEp" id="1K1-Vg-H1b"/>
                         <outlet property="whiteBalancingLabel" destination="7uU-Oa-0ET" id="zVT-Ft-aFN"/>
                     </connections>
@@ -934,6 +934,7 @@ photos</string>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
+                        <outlet property="cameraPreviewView" destination="elb-d7-6LD" id="v4q-PO-TYg"/>
                         <outlet property="cameraRollButton" destination="Gfg-kp-qkz" id="HT8-Wk-7n7"/>
                         <outlet property="cancelTimerButton" destination="kXJ-NO-ZB7" id="ErC-Hm-dhv"/>
                         <outlet property="focusLabel" destination="Nou-JK-9s5" id="gYV-IG-Eey"/>
@@ -944,7 +945,6 @@ photos</string>
                         <outlet property="photosLabel" destination="eaz-Z3-2Qb" id="4Uz-yf-Cjh"/>
                         <outlet property="secondsLabel" destination="RA9-zW-6ln" id="I2z-T5-7Z2"/>
                         <outlet property="startTimerButton" destination="s6f-3g-SfZ" id="9HJ-xT-edn"/>
-                        <outlet property="videoPreviewView" destination="elb-d7-6LD" id="dDq-u9-8hN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rhG-Iq-Qlb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1491,6 +1491,7 @@ photos</string>
                     </navigationItem>
                     <connections>
                         <outlet property="afterNumberOfPhotosTextFieldLabel" destination="ahy-EY-pFa" id="CcY-mB-h6d"/>
+                        <outlet property="cameraPreviewView" destination="KC2-e3-9Yf" id="jyx-aA-mpB"/>
                         <outlet property="cameraRollButton" destination="btA-Ip-ft9" id="Heg-4v-rx7"/>
                         <outlet property="cancelTimerButton" destination="rmS-v3-nJF" id="86e-Wy-PYr"/>
                         <outlet property="focusLabel" destination="LTt-xs-K4V" id="dam-Ft-On2"/>
@@ -1504,7 +1505,6 @@ photos</string>
                         <outlet property="timeRemainingUntilNextPhotoLabel" destination="nbZ-Rw-ibA" id="jgk-P9-c0O"/>
                         <outlet property="timeUnitsBetweenPhotosButton" destination="baA-ad-HE5" id="CtV-Qc-2E6"/>
                         <outlet property="timeUnitsToInitiallyWaitButton" destination="IMl-Pq-BXM" id="Tlk-kj-WrB"/>
-                        <outlet property="videoPreviewView" destination="KC2-e3-9Yf" id="lRm-RF-cdi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mh3-6V-Mch" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1799,6 +1799,7 @@ photos</string>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="afterNumberOfPhotosTextFieldLabel" destination="IUO-Ha-IVk" id="dFv-yd-n5w"/>
+                        <outlet property="cameraPreviewView" destination="Jra-1a-E1b" id="O12-Pu-IsM"/>
                         <outlet property="cameraRollButton" destination="fBB-04-RbQ" id="Rw5-Gl-hVE"/>
                         <outlet property="cancelTimerButton" destination="lSB-L7-0j0" id="Fxp-BK-S81"/>
                         <outlet property="focusLabel" destination="Vx7-XB-opf" id="4XZ-ey-x9u"/>
@@ -1812,7 +1813,6 @@ photos</string>
                         <outlet property="timeRemainingUntilNextPhotoLabel" destination="YVG-Vj-wWU" id="0zY-st-Lvg"/>
                         <outlet property="timeUnitsBetweenPhotosButton" destination="o3l-BO-FcH" id="Z0X-Q6-Ixk"/>
                         <outlet property="timeUnitsToInitiallyWaitButton" destination="8BZ-jJ-eXI" id="DN6-M6-cq6"/>
-                        <outlet property="videoPreviewView" destination="Jra-1a-E1b" id="Nfo-JS-N0t"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZUK-J3-Bhu" userLabel="First Responder" sceneMemberID="firstResponder"/>

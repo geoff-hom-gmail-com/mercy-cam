@@ -12,71 +12,31 @@
 BOOL GGKDebugCamera = NO;
 
 @interface GGKCaptureManager ()
-// For showing the user and converting the tap point to device space.
-// temp move to .h
-//@property (strong, nonatomic) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
-
 // For invalidating the timer if the exposure is adjusted.
 @property (nonatomic, strong) NSTimer *exposureUnadjustedTimer;
-
-
-// temp move to .h
-//@property (nonatomic, strong) AVCaptureSession *session;
-
+// Lock exposure. If the focus is also locked, then notify that both are locked.
 - (void)handleLockRequestedAndExposureIsSteady:(NSTimer *)theTimer;
-// So, lock it. If the focus is also locked, then notify that both are locked.
-
-// Story: User taps on object. Focus and exposure auto-adjust and lock there. User taps again in view. Focus and exposure return to continuous. (If the user taps again before both focus and exposure lock, then the new tap will be the POI and both will relock.)
-- (void)handleUserTappedInCameraView:(UITapGestureRecognizer *)theTapGestureRecognizer;
-
+// Notify delegate.
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
-// So, notify delegate.
-
 // KVO. After setting the exposure POI, we want to know when the exposure is steady, so we can lock it. If the device's exposure stops adjusting, then we see if it stays steady long enough (via a timer). 
 - (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
-
 @end
 
 @implementation GGKCaptureManager
 
-//- (void)testAddPreviewLayerToLayer:(CALayer *)theLayer {
-//    self.captureVideoPreviewLayer.contents = nil;
-//    self.captureVideoPreviewLayer.session = self.session;
-////    [self.captureVideoPreviewLayer initWithSession:self.session];
-//    [theLayer addSublayer:self.captureVideoPreviewLayer];
+//- (void)addPreviewLayerToView:(UIView *)theView {
+//    self.captureVideoPreviewLayer.frame = theView.bounds;
+//    CALayer *theViewLayer = theView.layer;
+//   
+//    [theViewLayer addSublayer:self.captureVideoPreviewLayer];
+//    
+//    // Story: User taps on object. Focus locks there. User taps again in view. Focus returns to continuous.
+//    UITapGestureRecognizer *aSingleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleUserTappedInCameraView:)];
+//    aSingleTapGestureRecognizer.numberOfTapsRequired = 1;
+//    [theView addGestureRecognizer:aSingleTapGestureRecognizer];
 //}
 
-- (void)addPreviewLayerToView:(UIView *)theView {
-    self.captureVideoPreviewLayer.frame = theView.bounds;
-    CALayer *theViewLayer = theView.layer;
-    
-    // set color to orange; works if preview layer not added
-    // if preview added, orange appears for a bit
-//    theViewLayer.backgroundColor = [UIColor orangeColor].CGColor;
-    
-    //testing; add a different layer
-    // shows red (over orange of root layer)
-//    CALayer *aTestLayer = [CALayer layer];
-//    aTestLayer.frame = theView.bounds;
-//    aTestLayer.backgroundColor = [UIColor redColor].CGColor;
-//    [theViewLayer addSublayer:aTestLayer];
 
-//    self.captureVideoPreviewLayer.backgroundColor = [UIColor redColor].CGColor;
-    [theViewLayer addSublayer:self.captureVideoPreviewLayer];
-    
-    // Story: User taps on object. Focus locks there. User taps again in view. Focus returns to continuous.
-    UITapGestureRecognizer *aSingleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleUserTappedInCameraView:)];
-    aSingleTapGestureRecognizer.numberOfTapsRequired = 1;
-    [theView addGestureRecognizer:aSingleTapGestureRecognizer];
-}
-
-
-
-- (void)correctThePreviewOrientation:(UIView *)theView
-{
-    self.captureVideoPreviewLayer.connection.videoOrientation = [self theCorrectCaptureVideoOrientation];
-    self.captureVideoPreviewLayer.frame = theView.bounds;
-}
 - (void)dealloc {
 //    NSLog(@"CM dealloc");
     [self removeObserver:self forKeyPath:@"device.adjustingExposure"];
@@ -85,7 +45,6 @@ BOOL GGKDebugCamera = NO;
 - (void)destroySession {
     [self stopSession];
     self.session = nil;
-    self.captureVideoPreviewLayer.session = nil;
 }
 - (void)focusAtPoint:(CGPoint)thePoint
 {
@@ -130,48 +89,33 @@ BOOL GGKDebugCamera = NO;
         [self.device unlockForConfiguration];
     }
 }
-
-- (void)handleLockRequestedAndExposureIsSteady:(NSTimer *)theTimer
-{
+- (void)handleLockRequestedAndExposureIsSteady:(NSTimer *)theTimer {
     NSError *anError;
     BOOL aDeviceMayBeConfigured = [self.device lockForConfiguration:&anError];
     if (aDeviceMayBeConfigured) {
-        
         self.device.exposureMode = AVCaptureExposureModeLocked;
         [self.device unlockForConfiguration];
         if (self.device.focusMode == AVCaptureFocusModeLocked) {
-            
             self.focusAndExposureStatus = GGKCaptureManagerFocusAndExposureStatusLocked;
         }
     }
 }
-
-- (void)handleUserTappedInCameraView:(UITapGestureRecognizer *)theTapGestureRecognizer
-{
+- (void)handleUserTappedAtDevicePoint:(CGPoint)theDevicePoint {
     AVCaptureDevice *aCaptureDevice = self.device;
     if (aCaptureDevice == nil) {
-        
         NSLog(@"GGK warning: No capture-device input.");
     } else {
-        
         if (aCaptureDevice.focusMode != AVCaptureFocusModeLocked ||
             aCaptureDevice.exposureMode != AVCaptureExposureModeLocked) {
-            
-            CGPoint theTapPoint = [theTapGestureRecognizer locationInView:theTapGestureRecognizer.view];
-            CGPoint theConvertedTapPoint = [self.captureVideoPreviewLayer captureDevicePointOfInterestForPoint:theTapPoint];
-            [self focusAtPoint:theConvertedTapPoint];
+            [self focusAtPoint:theDevicePoint];
         } else {
-            
             [self unlockFocus];
         }
     }
 }
-
--(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
-{
+-(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
     [self.delegate captureManagerDidTakePhoto:self];
 }
-
 - (id)init {
     self = [super init];
     if (self != nil) {
@@ -180,7 +124,39 @@ BOOL GGKDebugCamera = NO;
     }
     return self;
 }
-
+- (void)makeSession {
+    AVCaptureSession *aCaptureSession = [[AVCaptureSession alloc] init];
+    AVCaptureDevice *aCameraCaptureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    NSError *error = nil;
+    AVCaptureDeviceInput *aCameraCaptureDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:aCameraCaptureDevice error:&error];
+    if (!aCameraCaptureDeviceInput) {
+        // handle error
+        NSLog(@"GGK warning: Error getting camera input: %@", [error localizedDescription]);
+    }
+    if ([aCaptureSession canAddInput:aCameraCaptureDeviceInput]) {
+        [aCaptureSession addInput:aCameraCaptureDeviceInput];
+        self.device = aCameraCaptureDeviceInput.device;
+        // Make sure the device has the default settings.
+        [self unlockFocus];
+        //        NSLog(@"CM mS: capture-device model ID: %@", self.device.modelID);
+        NSLog(@"CM sUS: capture-device localized name: %@", self.device.localizedName);
+        //        NSLog(@"CM sUS: capture-device unique ID: %@", self.device.uniqueID);
+        NSString *aString = (self.device.lowLightBoostSupported) ? @"Yes" : @"No";
+        //        NSLog(@"CM sUS: low-light boost supported: %@", aString);
+        aString = (self.device.subjectAreaChangeMonitoringEnabled) ? @"Yes" : @"No";
+        //        NSLog(@"CM sUS: subject-area-change monitoring enabled: %@", aString);
+        aString = (self.device.focusPointOfInterestSupported) ? @"Yes" : @"No";
+        //        NSLog(@"CM sUS: focus point-of-interest supported: %@", aString);
+        aString = (self.device.exposurePointOfInterestSupported) ? @"Yes" : @"No";
+        //        NSLog(@"CM sUS: exposure point-of-interest supported: %@", aString);
+    }
+    AVCaptureStillImageOutput *aCaptureStillImageOutput = [[AVCaptureStillImageOutput alloc] init];
+    if ([aCaptureSession canAddOutput:aCaptureStillImageOutput]) {
+        [aCaptureSession addOutput:aCaptureStillImageOutput];
+    }
+    aCaptureSession.sessionPreset = AVCaptureSessionPresetPhoto;
+    self.session = aCaptureSession;
+}
 - (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if ([theKeyPath isEqualToString:@"device.adjustingExposure"]) {
@@ -218,55 +194,22 @@ BOOL GGKDebugCamera = NO;
         [super observeValueForKeyPath:theKeyPath ofObject:object change:change context:context];
     }
 }
-
-- (void)setUpSession
-{
-    AVCaptureSession *aCaptureSession = [[AVCaptureSession alloc] init];
-    
-    AVCaptureDevice *aCameraCaptureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-    
-    NSError *error = nil;
-    AVCaptureDeviceInput *aCameraCaptureDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:aCameraCaptureDevice error:&error];
-    if (!aCameraCaptureDeviceInput) {
-        
-        // handle error
-        NSLog(@"GGK warning: Error getting camera input: %@", [error localizedDescription]);
+- (AVCaptureVideoOrientation)properCaptureVideoOrientation {
+    AVCaptureVideoOrientation aCaptureVideoOrientation;
+    UIInterfaceOrientation theInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
+    if (theInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
+        aCaptureVideoOrientation = AVCaptureVideoOrientationLandscapeLeft;
+    } else if (theInterfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+        aCaptureVideoOrientation = AVCaptureVideoOrientationLandscapeRight;
+    } else if (theInterfaceOrientation == UIInterfaceOrientationPortrait) {
+        aCaptureVideoOrientation = AVCaptureVideoOrientationPortrait;
+    } else {
+        aCaptureVideoOrientation = AVCaptureVideoOrientationPortraitUpsideDown;
     }
-    if ([aCaptureSession canAddInput:aCameraCaptureDeviceInput]) {
-        
-        [aCaptureSession addInput:aCameraCaptureDeviceInput];
-        self.device = aCameraCaptureDeviceInput.device;
-        
-        // Make sure the device has the default settings.
-        [self unlockFocus];
-        
-//        NSLog(@"CM sUS: capture-device model ID: %@", self.device.modelID);
-        NSLog(@"CM sUS: capture-device localized name: %@", self.device.localizedName);
-//        NSLog(@"CM sUS: capture-device unique ID: %@", self.device.uniqueID);
-        
-        NSString *aString = (self.device.lowLightBoostSupported) ? @"Yes" : @"No";
-//        NSLog(@"CM sUS: low-light boost supported: %@", aString);
-        
-        aString = (self.device.subjectAreaChangeMonitoringEnabled) ? @"Yes" : @"No";
-//        NSLog(@"CM sUS: subject-area-change monitoring enabled: %@", aString);
-        
-        aString = (self.device.focusPointOfInterestSupported) ? @"Yes" : @"No";
-//        NSLog(@"CM sUS: focus point-of-interest supported: %@", aString);
-        
-        aString = (self.device.exposurePointOfInterestSupported) ? @"Yes" : @"No";
-//        NSLog(@"CM sUS: exposure point-of-interest supported: %@", aString);
-    }
-    
-    AVCaptureStillImageOutput *aCaptureStillImageOutput = [[AVCaptureStillImageOutput alloc] init];
-    if ([aCaptureSession canAddOutput:aCaptureStillImageOutput]) {
-        [aCaptureSession addOutput:aCaptureStillImageOutput];
-    }
-    aCaptureSession.sessionPreset = AVCaptureSessionPresetPhoto;
-    AVCaptureVideoPreviewLayer *aCaptureVideoPreviewLayer = [AVCaptureVideoPreviewLayer layerWithSession:aCaptureSession];
-    aCaptureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspect;
-    self.captureVideoPreviewLayer = aCaptureVideoPreviewLayer;
-    self.session = aCaptureSession;
+    return aCaptureVideoOrientation;
 }
+
+
 - (void)startSession {
     //testing
 //    self.captureVideoPreviewLayer.session = self.session;
@@ -327,26 +270,6 @@ BOOL GGKDebugCamera = NO;
         NSLog(@"GGK warning: aCaptureConnection nil");
         UIImageWriteToSavedPhotosAlbum(nil, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
     }
-}
-
-- (AVCaptureVideoOrientation)theCorrectCaptureVideoOrientation
-{
-    AVCaptureVideoOrientation aCaptureVideoOrientation;
-    UIInterfaceOrientation theInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
-    if (theInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
-        
-        aCaptureVideoOrientation = AVCaptureVideoOrientationLandscapeLeft;
-    } else if (theInterfaceOrientation == UIInterfaceOrientationLandscapeRight) {
-        
-        aCaptureVideoOrientation = AVCaptureVideoOrientationLandscapeRight;
-    } else if (theInterfaceOrientation == UIInterfaceOrientationPortrait) {
-        
-        aCaptureVideoOrientation = AVCaptureVideoOrientationPortrait;
-    } else {
-        
-        aCaptureVideoOrientation = AVCaptureVideoOrientationPortraitUpsideDown;
-    }
-    return aCaptureVideoOrientation;
 }
 
 - (void)unlockFocus

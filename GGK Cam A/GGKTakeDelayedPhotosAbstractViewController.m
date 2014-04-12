@@ -144,9 +144,9 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
 
 - (void)handleATapOnScreen:(UIGestureRecognizer *)theGestureRecognizer
 {
-    if (self.videoPreviewView.hidden) {
+    if (self.cameraPreviewView.hidden) {
         
-        self.videoPreviewView.hidden = NO;
+        self.cameraPreviewView.hidden = NO;
         [UIScreen mainScreen].brightness = self.previousBrightnessFloat;
         
         self.overlayView.hidden = YES;
@@ -160,7 +160,7 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
     UIScreen *aScreen = [UIScreen mainScreen];
     self.previousBrightnessFloat = aScreen.brightness;
     aScreen.brightness = 0.0;
-    self.videoPreviewView.hidden = YES;
+    self.cameraPreviewView.hidden = YES;
     
     self.overlayView.hidden = NO;
 }
@@ -469,9 +469,9 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
     self.longTermTimer = nil;
     self.anyTapOnScreenGestureRecognizer.enabled = NO;
     self.overlayView.hidden = YES;
-    if (self.videoPreviewView.hidden) {
+    if (self.cameraPreviewView.hidden) {
         
-        self.videoPreviewView.hidden = NO;
+        self.cameraPreviewView.hidden = NO;
         [UIScreen mainScreen].brightness = self.previousBrightnessFloat;
     }
     

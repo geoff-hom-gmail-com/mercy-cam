@@ -169,14 +169,14 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
     [super updateLayoutForLandscape];
     
     // An anchor.
-    [self.videoPreviewView ggk_makeSize:CGSizeMake(889, 667)];
-    [self.videoPreviewView ggk_makeBottomGap:0];
-    [self.videoPreviewView ggk_makeLeftGap:0];
-    [self.captureManager correctThePreviewOrientation:self.videoPreviewView];
+    [self.cameraPreviewView ggk_makeSize:CGSizeMake(889, 667)];
+    [self.cameraPreviewView ggk_makeBottomGap:0];
+    [self.cameraPreviewView ggk_makeLeftGap:0];
+    [self.captureManager correctThePreviewOrientation:self.cameraPreviewView];
     
     CGFloat aGap1 = 8;
     
-    CGFloat aWidth = self.cameraRollButton.superview.frame.size.width - self.videoPreviewView.frame.size.width - (2 * aGap1);
+    CGFloat aWidth = self.cameraRollButton.superview.frame.size.width - self.cameraPreviewView.frame.size.width - (2 * aGap1);
     [self.cameraRollButton ggk_makeSize:CGSizeMake(aWidth, aWidth)];
     [self.cameraRollButton ggk_makeBottomGap:aGap1];
     [self.cameraRollButton ggk_makeRightGap:aGap1];
@@ -198,14 +198,14 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
     [super updateLayoutForPortrait];
     
     // An anchor.
-    [self.videoPreviewView ggk_makeSize:CGSizeMake(675, 900)];
-    [self.videoPreviewView ggk_makeBottomGap:0];
-    [self.videoPreviewView ggk_makeLeftGap:0];
-    [self.captureManager correctThePreviewOrientation:self.videoPreviewView];
+    [self.cameraPreviewView ggk_makeSize:CGSizeMake(675, 900)];
+    [self.cameraPreviewView ggk_makeBottomGap:0];
+    [self.cameraPreviewView ggk_makeLeftGap:0];
+    [self.captureManager correctThePreviewOrientation:self.cameraPreviewView];
     
     CGFloat aGap1 = 8;
     
-    CGFloat aWidth = self.cameraRollButton.superview.frame.size.width - self.videoPreviewView.frame.size.width - (2 * aGap1);
+    CGFloat aWidth = self.cameraRollButton.superview.frame.size.width - self.cameraPreviewView.frame.size.width - (2 * aGap1);
     [self.cameraRollButton ggk_makeSize:CGSizeMake(aWidth, aWidth)];
     [self.cameraRollButton ggk_makeBottomGap:aGap1];
     [self.cameraRollButton ggk_makeRightGap:aGap1];

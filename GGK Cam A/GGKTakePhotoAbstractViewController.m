@@ -13,39 +13,32 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 
 NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString = @"captureManager.focusAndExposureStatus";
-
 @interface GGKTakePhotoAbstractViewController ()
-
+// For showing camera preview to the user, and for converting taps to device space.
+@property (strong, nonatomic) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
 // For dismissing the current popover. Would name "popoverController," but UIViewController already has a private variable named that.
 @property (nonatomic, strong) UIPopoverController *currentPopoverController;
-
 @end
-
 @implementation GGKTakePhotoAbstractViewController
-
-- (void)captureManagerDidTakePhoto:(id)sender
-{
+- (void)captureManagerDidTakePhoto:(id)sender {
     [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
 }
 - (void)dealloc {
-//    NSLog(@"TPAVC dealloc1");
     [self.captureManager stopSession];
     [self removeObserver:self forKeyPath:GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString];
+}
+- (void)handleUserTappedInCameraView:(UITapGestureRecognizer *)theTapGestureRecognizer {
+    CGPoint theTapPoint = [theTapGestureRecognizer locationInView:theTapGestureRecognizer.view];
+    CGPoint theCaptureDevicePoint = [self.captureVideoPreviewLayer captureDevicePointOfInterestForPoint:theTapPoint];
+    [self.captureManager handleUserTappedAtDevicePoint:theCaptureDevicePoint];
 }
 - (void)handleViewDidDisappearFromUser {
     [super handleViewDidDisappearFromUser];
     [self.captureManager stopSession];
-    
-    //testing
-//    [self.captureManager removePreviewLayer];
-
 }
 - (void)handleViewWillAppearToUser {
     [super handleViewWillAppearToUser];
     [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
-    
-    //testing
-//    [self.captureManager replacePreviewLayerWithNewOneToView:self.videoPreviewView];
     [self.captureManager startSession];
 }
 - (void)imagePickerController:(UIImagePickerController *)theImagePickerController didFinishPickingMediaWithInfo:(NSDictionary *)theInfoDictionary {
@@ -61,63 +54,43 @@ NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString = @"captur
     aSavedPhotoViewController.imageView.image = anImage;
 }
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)theOperation fromViewController:(UIViewController *)theFromVC toViewController:(UIViewController *)theToVC {
-    if ((theOperation == UINavigationControllerOperationPop) && (theFromVC == self)) {
-        self.navigationController.delegate = nil;
-    }
     if ((theOperation == UINavigationControllerOperationPush) && (theFromVC == self)) {
-        NSLog(@"about to push onto self: destroy session");
+        self.captureVideoPreviewLayer.session = nil;
         [self.captureManager destroySession];
     }
     if ((theOperation == UINavigationControllerOperationPop) && (theToVC == self)) {
-        NSLog(@"about to pop to self: create session");
-        [self.captureManager setUpSession];
+        [self.captureManager makeSession];
+        self.captureVideoPreviewLayer.session = self.captureManager.session;
     }
-    
+    if ((theOperation == UINavigationControllerOperationPop) && (theFromVC == self)) {
+        self.navigationController.delegate = nil;
+    }
     return nil;
 }
-- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    NSLog(@"TPAVC nC dSVC a");
-}
-- (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
+- (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([theKeyPath isEqualToString:GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString]) {
-        
 // Template for subclasses.
 //        switch (self.captureManager.focusAndExposureStatus) {
-//                
 //            case GGKCaptureManagerFocusAndExposureStatusContinuous:
 //                break;
-//                
 //            case GGKCaptureManagerFocusAndExposureStatusLocking:
 //                break;
-//                
 //            case GGKCaptureManagerFocusAndExposureStatusLocked:
 //                break;
-//                
 //            default:
 //                break;
 //        }
     } else {
-        
         [super observeValueForKeyPath:theKeyPath ofObject:object change:change context:context];
     }
 }
-
-- (void)prepareForSegue:(UIStoryboardSegue *)theSegue sender:(id)theSender
-{
+- (void)prepareForSegue:(UIStoryboardSegue *)theSegue sender:(id)theSender {
     if ([theSegue.identifier hasPrefix:@"ShowSavedPhotos"]) {
-        
-        // Story: User took photos. User viewed photos. User decided to delete some photos.
-        // So, let the user view the taken photos and (optionally) remove them.
-        // (Oops: Can't delete saved photos like in Apple's camera app. Apple doesn't allow.)
-        // New story: User took photos. User can view thumbnails quickly.
-                
+        // Story: User took photos. User can view thumbnails quickly. (Can't delete saved photos like in Apple's camera app. Apple doesn't allow.)
         // Retain popover controller, to dismiss later.
         self.currentPopoverController = [(UIStoryboardPopoverSegue *)theSegue popoverController];
-        
         // Set up the image picker controller.
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]) {
-            
             UIImagePickerController *anImagePickerController = (UIImagePickerController *)theSegue.destinationViewController;
             anImagePickerController.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
             anImagePickerController.mediaTypes = @[(NSString *)kUTTypeImage];
@@ -125,47 +98,48 @@ NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString = @"captur
             anImagePickerController.allowsEditing = NO;
         }
     } else {
-        
         [super prepareForSegue:theSegue sender:theSender];
     }
 }
-- (IBAction)takePhoto
-{
+- (IBAction)takePhoto {
     [self playButtonSound];
     [self.captureManager takePhoto];
-    
     // Give visual feedback that photo was taken: Flash the screen.
-    UIView *aFlashView = [[UIView alloc] initWithFrame:self.videoPreviewView.frame];
+    UIView *aFlashView = [[UIView alloc] initWithFrame:self.cameraPreviewView.frame];
     aFlashView.backgroundColor = [UIColor whiteColor];
     aFlashView.alpha = 0.8f;
     [self.view addSubview:aFlashView];
     [UIView animateWithDuration:0.6f animations:^{
-        
         aFlashView.alpha = 0.0f;
     } completion:^(BOOL finished) {
-        
         [aFlashView removeFromSuperview];
     }];
+}
+- (void)updatePreviewOrientation {
+    self.captureVideoPreviewLayer.frame = self.cameraPreviewView.bounds;
+    self.captureVideoPreviewLayer.connection.videoOrientation = [self.captureManager properCaptureVideoOrientation];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.savedPhotosManager = [[GGKSavedPhotosManager alloc] init];
     // Report focus (and exposure) status in real time.
     [self addObserver:self forKeyPath:GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString options:NSKeyValueObservingOptionNew context:nil];
-    // Set up the camera.
+    // Set up the camera: add tap-to-focus to the view, add the preview layer and make the capture session.
+    // Story: User taps on object. Focus locks there. User taps again in view. Focus returns to continuous.
+    UITapGestureRecognizer *aSingleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleUserTappedInCameraView:)];
+    aSingleTapGestureRecognizer.numberOfTapsRequired = 1;
+    [self.cameraPreviewView addGestureRecognizer:aSingleTapGestureRecognizer];
+    AVCaptureVideoPreviewLayer *aCaptureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] init];
+    aCaptureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspect;
+    aCaptureVideoPreviewLayer.frame = self.cameraPreviewView.bounds;
+    [self.cameraPreviewView.layer addSublayer:aCaptureVideoPreviewLayer];
     GGKCaptureManager *theCaptureManager = [[GGKCaptureManager alloc] init];
     theCaptureManager.delegate = self;
-    [theCaptureManager setUpSession];
-    [theCaptureManager addPreviewLayerToView:self.videoPreviewView];
+    [theCaptureManager makeSession];
+    aCaptureVideoPreviewLayer.session = theCaptureManager.session;
     self.captureManager = theCaptureManager;
+    self.captureVideoPreviewLayer = aCaptureVideoPreviewLayer;
     // Watch for push onto this VC. If so, capture session will snapshot (undesired).
     self.navigationController.delegate = self;
 }
-
-// testing
-//- (void)viewWillDisappear:(BOOL)animated {
-//    [super viewWillDisappear:animated];
-//    [self.captureManager stopSession];
-////    [self.captureManager removePreviewLayer];
-//}
 @end
