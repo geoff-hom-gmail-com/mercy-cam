@@ -66,7 +66,7 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     [self.cameraPreviewView ggk_makeSize:CGSizeMake(816, 612)];
     [self.cameraPreviewView ggk_makeBottomGap:0];
     [self.cameraPreviewView ggk_makeLeftGap:0];
-    [self.captureManager correctThePreviewOrientation:self.cameraPreviewView];
+    [self updatePreviewOrientation];
     
     CGFloat aWidth = 130;
     CGFloat aGap1 = 8;
@@ -105,8 +105,7 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     [self.cameraPreviewView ggk_makeSize:CGSizeMake(651, 868)];
     [self.cameraPreviewView ggk_makeBottomGap:0];
     [self.cameraPreviewView ggk_makeLeftGap:0];
-    [self.captureManager correctThePreviewOrientation:self.cameraPreviewView];
-
+    [self updatePreviewOrientation];
     CGFloat aWidth = 101;
     CGFloat aGap1 = 8;
     

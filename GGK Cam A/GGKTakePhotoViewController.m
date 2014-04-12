@@ -172,7 +172,7 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
     [self.cameraPreviewView ggk_makeSize:CGSizeMake(889, 667)];
     [self.cameraPreviewView ggk_makeBottomGap:0];
     [self.cameraPreviewView ggk_makeLeftGap:0];
-    [self.captureManager correctThePreviewOrientation:self.cameraPreviewView];
+    [self updatePreviewOrientation];
     
     CGFloat aGap1 = 8;
     
@@ -201,8 +201,7 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
     [self.cameraPreviewView ggk_makeSize:CGSizeMake(675, 900)];
     [self.cameraPreviewView ggk_makeBottomGap:0];
     [self.cameraPreviewView ggk_makeLeftGap:0];
-    [self.captureManager correctThePreviewOrientation:self.cameraPreviewView];
-    
+    [self updatePreviewOrientation];    
     CGFloat aGap1 = 8;
     
     CGFloat aWidth = self.cameraRollButton.superview.frame.size.width - self.cameraPreviewView.frame.size.width - (2 * aGap1);

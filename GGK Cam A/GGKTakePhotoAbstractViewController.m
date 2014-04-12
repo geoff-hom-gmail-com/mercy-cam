@@ -24,7 +24,7 @@ NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString = @"captur
     [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
 }
 - (void)dealloc {
-    [self.captureManager stopSession];
+    [self.captureManager.session stopRunning];
     [self removeObserver:self forKeyPath:GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString];
 }
 - (void)handleUserTappedInCameraView:(UITapGestureRecognizer *)theTapGestureRecognizer {
@@ -34,7 +34,7 @@ NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString = @"captur
 }
 - (void)handleViewDidDisappearFromUser {
     [super handleViewDidDisappearFromUser];
-    [self.captureManager stopSession];
+    [self.captureManager.session stopRunning];
 }
 - (void)handleViewWillAppearToUser {
     [super handleViewWillAppearToUser];
@@ -55,8 +55,8 @@ NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString = @"captur
 }
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)theOperation fromViewController:(UIViewController *)theFromVC toViewController:(UIViewController *)theToVC {
     if ((theOperation == UINavigationControllerOperationPush) && (theFromVC == self)) {
-        self.captureVideoPreviewLayer.session = nil;
         [self.captureManager destroySession];
+        self.captureVideoPreviewLayer.session = nil;
     }
     if ((theOperation == UINavigationControllerOperationPop) && (theToVC == self)) {
         [self.captureManager makeSession];

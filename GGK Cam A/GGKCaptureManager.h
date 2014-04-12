@@ -47,8 +47,6 @@ typedef enum {
 - (AVCaptureVideoOrientation)properCaptureVideoOrientation;
 // Start the session. Asychronous.
 - (void)startSession;
-// Stop the capture session.
-- (void)stopSession;
 // Take a photo.
 - (void)takePhoto;
 // Set focus, exposure and white balance to be continuous. (And reset points of interest.)

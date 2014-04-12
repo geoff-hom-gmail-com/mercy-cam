@@ -11,52 +11,37 @@
 #import "UIView+GGKAdditions.h"
 
 const NSInteger GGKTakeAdvancedDelayedPhotosDefaultNumberOfPhotosInteger = 5;
-
 const NSInteger GGKTakeAdvancedDelayedPhotosDefaultNumberOfTimeUnitsBetweenPhotosInteger = 7;
-
 const NSInteger GGKTakeAdvancedDelayedPhotosDefaultNumberOfTimeUnitsToInitiallyWaitInteger = 10;
-
 const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitBetweenPhotosTimeUnit = GGKTimeUnitSeconds;
-
 const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWaitTimeUnit = GGKTimeUnitSeconds;
 
 NSString *GGKTakeAdvancedDelayedPhotosNumberOfPhotosKeyString = @"Take advanced delayed photos: number of photos.";
-
 NSString *GGKTakeAdvancedDelayedPhotosNumberOfTimeUnitsBetweenPhotosKeyString = @"Take advanced delayed photos: number of time units between photos.";
-
 NSString *GGKTakeAdvancedDelayedPhotosNumberOfTimeUnitsToInitiallyWaitKeyString = @"Take advanced delayed photos: number of time units to initially wait.";
-
 NSString *GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString = @"Take advanced delayed photos: time unit to use between photos.";
-
 NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take advanced delayed photos: time unit to use to initially wait.";
 
 @interface GGKTakeAdvancedDelayedPhotosViewController ()
-
 @end
 
 @implementation GGKTakeAdvancedDelayedPhotosViewController
-
-- (void)getSavedTimerSettings
-{
+- (void)getSavedTimerSettings {
     [super getSavedTimerSettings];
-    
     self.numberOfTimeUnitsToInitiallyWaitInteger = [[NSUserDefaults standardUserDefaults] integerForKey:self.numberOfTimeUnitsToInitiallyWaitKeyString];
     self.timeUnitForTheInitialWaitTimeUnit = [[NSUserDefaults standardUserDefaults] integerForKey:GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString];
     self.numberOfPhotosToTakeInteger = [[NSUserDefaults standardUserDefaults] integerForKey:self.numberOfPhotosToTakeKeyString];
     self.numberOfTimeUnitsBetweenPhotosInteger = [[NSUserDefaults standardUserDefaults] integerForKey:self.numberOfTimeUnitsBetweenPhotosKeyString];
     self.timeUnitBetweenPhotosTimeUnit = [[NSUserDefaults standardUserDefaults] integerForKey:GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString];
 }
-
-- (void)updateLayoutForLandscape
-{
+- (void)updateLayoutForLandscape {
     [super updateLayoutForLandscape];
     
     // An anchor.
     [self.cameraPreviewView ggk_makeSize:CGSizeMake(820, 615)];
     [self.cameraPreviewView ggk_makeBottomGap:0];
     [self.cameraPreviewView ggk_makeLeftGap:0];
-    [self.captureManager correctThePreviewOrientation:self.cameraPreviewView];
-    
+    [self updatePreviewOrientation];
     CGFloat aGap1 = 8;
     
     // An anchor.
@@ -83,17 +68,14 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
     [self.cancelTimerButton ggk_placeBelowView:self.startTimerButton gap:aGap1];
 }
 
-- (void)updateLayoutForPortrait
-{
+- (void)updateLayoutForPortrait {
     [super updateLayoutForPortrait];
     
     // An anchor.
     [self.cameraPreviewView ggk_makeSize:CGSizeMake(654, 872)];
     [self.cameraPreviewView ggk_makeBottomGap:0];
     [self.cameraPreviewView ggk_makeLeftGap:0];
-    [self correctThePreviewOrientation];
-//    [self.captureManager correctThePreviewOrientation:self.cameraPreviewView];
-    
+    [self updatePreviewOrientation];
     CGFloat aGap1 = 8;
     
     CGFloat aWidth = self.cameraRollButton.superview.frame.size.width - self.cameraPreviewView.frame.size.width - (2 * aGap1);
@@ -119,71 +101,13 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
     [self.cancelTimerButton ggk_placeBelowView:self.startTimerButton gap:aGap1];
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-
     // Set keys.
     self.numberOfTimeUnitsToInitiallyWaitKeyString = GGKTakeAdvancedDelayedPhotosNumberOfTimeUnitsToInitiallyWaitKeyString;
     self.timeUnitForInitialWaitKeyString = GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString;
     self.numberOfPhotosToTakeKeyString = GGKTakeAdvancedDelayedPhotosNumberOfPhotosKeyString;
     self.numberOfTimeUnitsBetweenPhotosKeyString = GGKTakeAdvancedDelayedPhotosNumberOfTimeUnitsBetweenPhotosKeyString;
     self.timeUnitBetweenPhotosKeyString = GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString;
-}
-
-//testing
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    NSLog(@"TADPVC vWA");
-    // add preview layer if it's not already there
-    CALayer *aLayer = self.cameraPreviewView.layer.sublayers[0];
-    if (aLayer) {
-        NSLog(@"TADPVC vWA2 layer exists");
-    } else {
-        NSLog(@"TADPVC vWA2 layer nil");
-//        [self.view setNeedsDisplay];
-//        [self.captureManager.captureVideoPreviewLayer setNeedsDisplay];
-//        [self.captureManager.captureVideoPreviewLayer displayIfNeeded];
-//        [self.captureManager.captureVideoPreviewLayer display];
-        [self.cameraPreviewView.layer addSublayer:self.captureManager.captureVideoPreviewLayer];
-        NSArray *aCALayersArray = self.captureManager.captureVideoPreviewLayer.sublayers;
-        NSLog(@"sublayers count:%d", [aCALayersArray count]);
-        if ([aCALayersArray count] > 0) {
-            CALayer *aCALayer = aCALayersArray[0];
-            if (aCALayer.contents == nil) {
-                NSLog(@"captureVideoPreviewLayer.sublayer content is nil");
-            } else {
-                NSLog(@"captureVideoPreviewLayer.sublayer content is not nil");
-            }
-//            [aCALayer removeFromSuperlayer];
-        }
-    }
-}
-//- (void)viewDidAppear:(BOOL)animated {
-//    [super viewDidAppear:animated];
-//}
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    NSLog(@"TADPVC vDD");
-//    self.videoPreviewView.layer.backgroundColor = [UIColor greenColor].CGColor;
-    
-    self.captureManager.captureVideoPreviewLayer.session = nil;
-    [self.captureManager.captureVideoPreviewLayer removeFromSuperlayer];
-    
-    // testing removing inputs and outputs
-//    AVCaptureInput *anInput = self.captureManager.session.inputs[0];
-    // removing input at this point will cause a "snapshot"
-//    [self.captureManager.session removeInput:anInput];
-    NSArray *aCALayersArray = self.captureManager.captureVideoPreviewLayer.sublayers;
-    NSLog(@"sublayers count:%d", [aCALayersArray count]);
-    if ([aCALayersArray count] > 0) {
-        CALayer *aCALayer = aCALayersArray[0];
-        if (aCALayer.contents == nil) {
-            NSLog(@"captureVideoPreviewLayer.sublayer content is nil");
-        } else {
-            NSLog(@"captureVideoPreviewLayer.sublayer content is not nil");
-        }
-    }
-    NSLog(@"TADPVC vDD1");
 }
 @end
