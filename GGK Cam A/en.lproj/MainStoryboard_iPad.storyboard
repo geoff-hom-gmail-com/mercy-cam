@@ -137,7 +137,7 @@ with 324 hours between each photo."</string>
             </objects>
             <point key="canvasLocation" x="470" y="63"/>
         </scene>
-        <!--Mercy Camera View Controller - Mercy Camera: Main menu-->
+        <!--Mercy Camera View Controller - Mercy Cam: Main menu-->
         <scene sceneID="4">
             <objects>
                 <viewController id="2" customClass="GGKMercyCameraViewController" sceneMemberID="viewController">
@@ -195,7 +195,7 @@ with 324 hours between each photo."</string>
                                 <rect key="frame" x="511" y="851" width="237" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
-                                <state key="normal" title="Help the creators">
+                                <state key="normal" title="Help us">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -261,7 +261,7 @@ with 555 minutes between each photo."</string>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                             </attributes>
                                         </fragment>
-                                        <fragment content="Mercy Camera">
+                                        <fragment content="Mercy Cam">
                                             <attributes>
                                                 <color key="NSColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <font key="NSFont" size="22" name="Helvetica-Bold"/>
@@ -279,7 +279,7 @@ with 555 minutes between each photo."</string>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.067454613745212555" blue="0.42392796277999878" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Mercy Camera: Main menu" id="HPz-f1-fBE">
+                    <navigationItem key="navigationItem" title="Mercy Cam: Main menu" id="HPz-f1-fBE">
                         <barButtonItem key="backBarButtonItem" title="Main" id="h7C-H0-Qkw"/>
                     </navigationItem>
                     <connections>
@@ -299,7 +299,7 @@ with 555 minutes between each photo."</string>
             </objects>
             <point key="canvasLocation" x="726" y="931"/>
         </scene>
-        <!--Take Photo View Controller - Mercy Camera: Take a photo-->
+        <!--Take Photo View Controller - Take a photo-->
         <scene sceneID="tpc-po-hHf">
             <objects>
                 <viewController id="BXz-Hw-S72" customClass="GGKTakePhotoViewController" sceneMemberID="viewController">
@@ -415,7 +415,7 @@ photos</string>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.067454613745212555" blue="0.42392796277999878" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Mercy Camera: Take a photo" id="Sby-Wb-kNp"/>
+                    <navigationItem key="navigationItem" title="Take a photo" id="Sby-Wb-kNp"/>
                     <connections>
                         <outlet property="cameraPreviewView" destination="Sin-J3-zg2" id="DME-35-Tlf"/>
                         <outlet property="cameraRollButton" destination="5Vn-Fv-i1w" id="UhE-V6-iSF"/>
@@ -435,7 +435,7 @@ photos</string>
             </objects>
             <point key="canvasLocation" x="1677" y="-222"/>
         </scene>
-        <!--Take Delayed Photos View Controller - Mercy Camera: Take delayed photos-->
+        <!--Take Delayed Photos View Controller - Take delayed photos-->
         <scene sceneID="uVa-qF-Ilh">
             <objects>
                 <viewController id="2ll-qK-FHt" customClass="GGKTakeDelayedPhotosViewController" sceneMemberID="viewController">
@@ -574,7 +574,7 @@ photos</string>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.067454613745212555" blue="0.42392796277999878" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Mercy Camera: Take delayed photos" id="jiP-RF-W4L"/>
+                    <navigationItem key="navigationItem" title="Take delayed photos" id="jiP-RF-W4L"/>
                     <connections>
                         <outlet property="afterNumberOfPhotosTextFieldLabel" destination="DRY-lJ-Icz" id="RLN-JR-KWO"/>
                         <outlet property="cameraPreviewView" destination="7CB-eU-aBL" id="9ba-2f-2zh"/>
@@ -951,7 +951,7 @@ photos</string>
             </objects>
             <point key="canvasLocation" x="2621" y="1059"/>
         </scene>
-        <!--Help The Creators View Controller - Mercy Camera: Help the creators-->
+        <!--Help The Creators View Controller - Mercy Cam: Help the creators-->
         <scene sceneID="NNi-QC-1Ab">
             <objects>
                 <viewController id="wMX-Uo-2b2" customClass="GGKHelpTheCreatorsViewController" sceneMemberID="viewController">
@@ -966,11 +966,9 @@ photos</string>
                             <userLayoutGuide location="411" affinity="minX"/>
                         </userGuides>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ttl-IO-k0U">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="&lt;deprecate>" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ttl-IO-k0U">
                                 <rect key="frame" x="153" y="40" width="463" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <string key="text">If you like Mercy Camera, then please help us!
-</string>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -1003,7 +1001,7 @@ photos</string>
                                 <color key="textColor" red="1" green="1" blue="0.041410073637962341" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Rate Mercy Camera on the App Store!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="y65-cF-ue1">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Rate Mercy Cam on the App Store!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="y65-cF-ue1">
                                 <rect key="frame" x="20" y="320" width="421" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
@@ -1022,7 +1020,7 @@ photos</string>
                                                 <font key="NSFont" size="20" name="Helvetica-Bold"/>
                                             </attributes>
                                         </fragment>
-                                        <fragment content="Mercy Camera">
+                                        <fragment content="Mercy Cam">
                                             <attributes>
                                                 <color key="NSColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <font key="NSFont" size="20" name="Helvetica-Bold"/>
@@ -1035,17 +1033,16 @@ photos</string>
                                     <action selector="rateOrReview" destination="wMX-Uo-2b2" eventType="touchUpInside" id="3hA-vr-3qr"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="We hope to continue to improve Mercy Camera, while keeping it free and without ads. Your donations encourage that." lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ks8-31-BrY">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="We hope to continue to improve Mercy Cam, while keeping it free and without ads. Your donations encourage that." lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ks8-31-BrY">
                                 <rect key="frame" x="20" y="420" width="421" height="72"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VaL-TI-rrq">
-                                <rect key="frame" x="20" y="94" width="421" height="72"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="If you like Mercy Cam, here are 3 ways you can help...." lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VaL-TI-rrq">
+                                <rect key="frame" x="20" y="94" width="307" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <string key="text">Hello! This is Geoff Hom, the lead designer of Mercy Camera. If you like Mercy Camera, then we appreciate any help you can give.</string>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -1076,7 +1073,7 @@ photos</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="You can give feedback on Mercy Camera by writing a review on the App Store or by emailing us." lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fgX-Tu-z5X">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="You can give feedback by writing a review on the App Store or by emailing us." lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fgX-Tu-z5X">
                                 <rect key="frame" x="20" y="734" width="398" height="72"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
@@ -1095,10 +1092,17 @@ photos</string>
                                     <action selector="playButtonSound" destination="wMX-Uo-2b2" eventType="touchDown" id="77t-tY-RnR"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="zW5-id-1kI">
+                                <rect key="frame" x="432" y="715" width="138" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Add a review button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.067454613745212555" blue="0.42392796277999878" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Mercy Camera: Help the creators" id="GXh-wQ-E0l"/>
+                    <navigationItem key="navigationItem" title="Mercy Cam: Help the creators" id="GXh-wQ-E0l"/>
                     <connections>
                         <outlet property="donateHeaderLabel" destination="Ufd-TD-vyq" id="e4g-IY-ZPP"/>
                         <outlet property="donateTextLabel" destination="Ks8-31-BrY" id="13F-32-O8f"/>
@@ -1282,7 +1286,7 @@ photos</string>
             </objects>
             <point key="canvasLocation" x="2666" y="3143"/>
         </scene>
-        <!--Take Advanced Delayed Photos View Controller - Mercy Camera: Take delayed photos (advanced)-->
+        <!--Take Advanced Delayed Photos View Controller - Take delayed photos (advanced)-->
         <scene sceneID="naP-rK-kmE">
             <objects>
                 <viewController id="fx6-eB-Ugt" customClass="GGKTakeAdvancedDelayedPhotosViewController" sceneMemberID="viewController">
@@ -1481,8 +1485,7 @@ photos</string>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.067454613750000003" blue="0.4239279628" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Mercy Camera: Take delayed photos (advanced)" id="yj8-fa-Pus">
-                        <barButtonItem key="backBarButtonItem" title="Take delayed photos (advanced)" id="mmE-yw-933"/>
+                    <navigationItem key="navigationItem" title="Take delayed photos (advanced)" id="yj8-fa-Pus">
                         <barButtonItem key="rightBarButtonItem" title="Long-term" id="caU-n3-w4x">
                             <connections>
                                 <segue destination="M04-Ql-l0k" kind="push" identifier="" id="5z5-JX-4Vg"/>
@@ -1819,7 +1822,7 @@ photos</string>
             </objects>
             <point key="canvasLocation" x="2585" y="2246"/>
         </scene>
-        <!--Long Term View Controller - Mercy Camera: Long-term-->
+        <!--Long Term View Controller - Long-term-->
         <scene sceneID="bIe-ub-LQx">
             <objects>
                 <viewController id="M04-Ql-l0k" customClass="GGKLongTermViewController" sceneMemberID="viewController">
@@ -1890,7 +1893,7 @@ photos</string>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.067454613750000003" blue="0.4239279628" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Mercy Camera: Long-term" id="Rn2-l0-yNW"/>
+                    <navigationItem key="navigationItem" title="Long-term" id="Rn2-l0-yNW"/>
                     <connections>
                         <outlet property="numberOfTimeUnitsTextField" destination="epv-J0-nGr" id="XLL-ip-u7j"/>
                         <outlet property="timeUnitButton" destination="JWQ-2p-NSn" id="7vs-Qz-lbl"/>
@@ -1907,7 +1910,7 @@ photos</string>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="N9j-NP-wLm"/>
         <segue reference="vc6-di-tqf"/>
-        <segue reference="Lh6-il-Zb0"/>
     </inferredMetricsTieBreakers>
 </document>

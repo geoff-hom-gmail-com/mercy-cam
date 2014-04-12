@@ -86,7 +86,7 @@
 		932BEE53173B0F87000A15CB /* NSString+GGKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+GGKAdditions.m"; sourceTree = "<group>"; };
 		932BEE55173B72D2000A15CB /* GGKViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKViewController.h; sourceTree = "<group>"; };
 		932BEE56173B72D2000A15CB /* GGKViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKViewController.m; sourceTree = "<group>"; };
-		93306A3B16C1D19A00F22B0A /* Mercy Camera.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mercy Camera.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		93306A3B16C1D19A00F22B0A /* Mercy Cam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mercy Cam.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93306A3E16C1D19A00F22B0A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		93306A4016C1D19A00F22B0A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		93306A4216C1D19A00F22B0A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -209,7 +209,7 @@
 		93306A3C16C1D19A00F22B0A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				93306A3B16C1D19A00F22B0A /* Mercy Camera.app */,
+				93306A3B16C1D19A00F22B0A /* Mercy Cam.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -329,7 +329,7 @@
 			);
 			name = "GGK Cam A";
 			productName = "GGK Cam A";
-			productReference = 93306A3B16C1D19A00F22B0A /* Mercy Camera.app */;
+			productReference = 93306A3B16C1D19A00F22B0A /* Mercy Cam.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -342,7 +342,7 @@
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Geoff Hom";
 			};
-			buildConfigurationList = 93306A3616C1D19A00F22B0A /* Build configuration list for PBXProject "Mercy Camera" */;
+			buildConfigurationList = 93306A3616C1D19A00F22B0A /* Build configuration list for PBXProject "Mercy Cam" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -521,7 +521,7 @@
 					"$(inherited)",
 					"/Users/geoffrey2/personal/projects/GGK\\ Cam\\ A/TestFlightSDK2",
 				);
-				PRODUCT_NAME = "Mercy Camera";
+				PRODUCT_NAME = "Mercy Cam";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -539,7 +539,7 @@
 					"$(inherited)",
 					"/Users/geoffrey2/personal/projects/GGK\\ Cam\\ A/TestFlightSDK2",
 				);
-				PRODUCT_NAME = "Mercy Camera";
+				PRODUCT_NAME = "Mercy Cam";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7E8EFBB5-7904-4A8D-AEE0-AA4C6F40CA4D";
 				WRAPPER_EXTENSION = app;
 			};
@@ -586,7 +586,7 @@
 					"$(inherited)",
 					"/Users/geoffrey2/personal/projects/GGK\\ Cam\\ A/TestFlightSDK2",
 				);
-				PRODUCT_NAME = "Mercy Camera";
+				PRODUCT_NAME = "Mercy Cam";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F4857425-4CAC-4B16-82A6-0EDC9A6DE91F";
 				WRAPPER_EXTENSION = app;
 			};
@@ -595,7 +595,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		93306A3616C1D19A00F22B0A /* Build configuration list for PBXProject "Mercy Camera" */ = {
+		93306A3616C1D19A00F22B0A /* Build configuration list for PBXProject "Mercy Cam" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				93306A5F16C1D19A00F22B0A /* Debug */,
