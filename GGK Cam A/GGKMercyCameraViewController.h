@@ -25,7 +25,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *takeAPhotoButton;
 
 // Story: User reads example and has a better understanding whether she wants to do that. Also, she can think about that for the future.
-@property (nonatomic, weak) IBOutlet UILabel *takeAPhotoExampleLabel;
+//@property (nonatomic, weak) IBOutlet UILabel *takeAPhotoExampleLabel;
 
 @property (nonatomic, weak) IBOutlet UIButton *takeAdvancedDelayedPhotosButton;
 
@@ -39,13 +39,11 @@
 // Override.
 - (void)handleViewWillAppearToUser;
 // Story: User sees option to "Rate this app." User taps button, is brought to the App Store and the rate/review page. User taps 5 stars. =)
-- (IBAction)rateOrReview;
-
+//- (IBAction)rateOrReview;
 // Override.
-- (void)updateLayoutForLandscape;
-
+//- (void)updateLayoutForLandscape;
 // Override.
-- (void)updateLayoutForPortrait;
+//- (void)updateLayoutForPortrait;
 // Override.
 - (void)viewDidLoad;
 @end

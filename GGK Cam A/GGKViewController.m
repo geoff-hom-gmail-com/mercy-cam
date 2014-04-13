@@ -48,14 +48,10 @@
     GGKMercyCameraAppDelegate *aCamAppDelegate = (GGKMercyCameraAppDelegate *)[UIApplication sharedApplication].delegate;
     [aCamAppDelegate.soundModel playButtonTapSound];
 }
-
-- (void)updateLayoutForLandscape
-{
+- (void)updateLayoutForLandscape {
 //    NSLog(@"updateLayoutForLandscape");
 }
-
-- (void)updateLayoutForPortrait
-{
+- (void)updateLayoutForPortrait {
 //    NSLog(@"updateLayoutForPortrait");
 }
 - (void)viewDidDisappear:(BOOL)animated {
