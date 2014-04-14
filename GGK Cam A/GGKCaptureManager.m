@@ -209,7 +209,6 @@ BOOL GGKDebugCamera = NO;
     NSError *anError;
     BOOL aDeviceMayBeConfigured = [self.device lockForConfiguration:&anError];
     if (aDeviceMayBeConfigured) {
-        
         CGPoint theCenterPoint = CGPointMake(0.5f, 0.5f);
         self.device.focusPointOfInterest = theCenterPoint;
         self.device.focusMode = AVCaptureFocusModeContinuousAutoFocus;

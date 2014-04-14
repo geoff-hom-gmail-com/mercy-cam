@@ -25,7 +25,6 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
 @end
 
 @implementation GGKTakePhotoViewController
-
 - (void)dealloc {
     if (GGKDebugCamera) {
         if (self.captureManager.device != nil) {
@@ -40,11 +39,9 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
         }
     }
 }
-- (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
+- (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     BOOL wasHandledSeparately = NO;
     if (GGKDebugCamera) {
-        
         // To keep this simple, if any of our properties change, then report all of them.
         if ([theKeyPath isEqualToString:@"captureManager.device.focusMode"] ||
             [theKeyPath isEqualToString:@"captureManager.device.exposureMode"] ||
@@ -76,27 +73,21 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
             case GGKCaptureManagerFocusAndExposureStatusLocked:
                 aString = ToUnlockFocusTipString;
                 break;
-                
             default:
                 break;
         }
         self.tipLabel.text = aString;
     } else if (!wasHandledSeparately) {
-        
         [super observeValueForKeyPath:theKeyPath ofObject:object change:change context:context];
     }
 }
-
-- (void)updateCameraDebugLabels
-{
+- (void)updateCameraDebugLabels {
     AVCaptureDevice *aCaptureDevice = self.captureManager.device;
     NSString *aString = @"";
     switch (aCaptureDevice.focusMode) {
-            
         case AVCaptureFocusModeAutoFocus:
             aString = @"auto.";
             break;
-            
         case AVCaptureFocusModeContinuousAutoFocus:
             aString = @"cont.";
             break;
@@ -123,7 +114,6 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
         case AVCaptureExposureModeLocked:
             aString = @"lock.";
             break;
-            
         default:
             break;
     }
@@ -142,7 +132,6 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
         case AVCaptureWhiteBalanceModeLocked:
             aString = @"lock.";
             break;
-            
         default:
             break;
     }
@@ -153,7 +142,6 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
     
     aString = (aCaptureDevice.adjustingExposure) ? @"Yes" : @"No";
     self.exposingLabel.text = [NSString stringWithFormat:@"Exposing: %@", aString];
-    
     aString = (aCaptureDevice.adjustingWhiteBalance) ? @"Yes" : @"No";
     self.whiteBalancingLabel.text = [NSString stringWithFormat:@"Wh. balancing: %@", aString];
     
@@ -164,9 +152,7 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
     aPoint = aCaptureDevice.exposurePointOfInterest;
     self.exposurePointOfInterestLabel.text = [NSString stringWithFormat:@"Exp. POI: {%.1f, %.1f}", aPoint.x, aPoint.y];
 }
-
-- (void)updateLayoutForLandscape
-{
+- (void)updateLayoutForLandscape {
     [super updateLayoutForLandscape];
     
     // An anchor.
@@ -194,33 +180,32 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
     [self.tipLabel ggk_makeTopGap:8];
 }
 
-- (void)updateLayoutForPortrait
-{
-    [super updateLayoutForPortrait];
-    
-    // An anchor.
-    [self.cameraPreviewView ggk_makeSize:CGSizeMake(675, 900)];
-    [self.cameraPreviewView ggk_makeBottomGap:0];
-    [self.cameraPreviewView ggk_makeLeftGap:0];
-    [self updatePreviewOrientation];    
-    CGFloat aGap1 = 8;
-    
-    CGFloat aWidth = self.cameraRollButton.superview.frame.size.width - self.cameraPreviewView.frame.size.width - (2 * aGap1);
-    [self.cameraRollButton ggk_makeSize:CGSizeMake(aWidth, aWidth)];
-    [self.cameraRollButton ggk_makeBottomGap:aGap1];
-    [self.cameraRollButton ggk_makeRightGap:aGap1];
-    
-    CGFloat aGap2 = 50;
-    
-    [self.takePhotoRightButton ggk_makeWidth:self.cameraRollButton.frame.size.width];
-    CGFloat aHeight = self.takePhotoRightButton.superview.frame.size.height - self.cameraRollButton.frame.size.height - aGap2 - (2 * aGap1);
-    [self.takePhotoRightButton ggk_makeHeight:aHeight];
-    [self.takePhotoRightButton ggk_makeTopGap:aGap1];
-    [self.takePhotoRightButton ggk_alignRightEdgeWithView:self.cameraRollButton];
-    
-    // An anchor.
-    [self.tipLabel ggk_makeTopGap:20];
-}
+//- (void)updateLayoutForPortrait {
+//    [super updateLayoutForPortrait];
+//    
+//    // An anchor.
+//    [self.cameraPreviewView ggk_makeSize:CGSizeMake(675, 900)];
+//    [self.cameraPreviewView ggk_makeBottomGap:0];
+//    [self.cameraPreviewView ggk_makeLeftGap:0];
+//    [self updatePreviewOrientation];    
+//    CGFloat aGap1 = 8;
+//    
+//    CGFloat aWidth = self.cameraRollButton.superview.frame.size.width - self.cameraPreviewView.frame.size.width - (2 * aGap1);
+//    [self.cameraRollButton ggk_makeSize:CGSizeMake(aWidth, aWidth)];
+//    [self.cameraRollButton ggk_makeBottomGap:aGap1];
+//    [self.cameraRollButton ggk_makeRightGap:aGap1];
+//    
+//    CGFloat aGap2 = 50;
+//    
+//    [self.takePhotoRightButton ggk_makeWidth:self.cameraRollButton.frame.size.width];
+//    CGFloat aHeight = self.takePhotoRightButton.superview.frame.size.height - self.cameraRollButton.frame.size.height - aGap2 - (2 * aGap1);
+//    [self.takePhotoRightButton ggk_makeHeight:aHeight];
+//    [self.takePhotoRightButton ggk_makeTopGap:aGap1];
+//    [self.takePhotoRightButton ggk_alignRightEdgeWithView:self.cameraRollButton];
+//    
+//    // An anchor.
+//    [self.tipLabel ggk_makeTopGap:20];
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

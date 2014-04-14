@@ -43,7 +43,7 @@
 - (void)updateLayoutForLandscape;
 
 // Override.
-- (void)updateLayoutForPortrait;
+//- (void)updateLayoutForPortrait;
 
 // Override.
 - (void)viewDidLoad;
