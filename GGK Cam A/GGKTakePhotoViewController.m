@@ -8,6 +8,7 @@
 
 #import "GGKTakePhotoViewController.h"
 
+#import "GGKUtilities.h"
 #import "UIView+GGKAdditions.h"
 
 // Story: User sees tip. User learns how to focus on an object.
@@ -183,11 +184,11 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
     
     CGFloat aGap2 = 50;
     
-    [self.takePhotoButton ggk_makeWidth:self.cameraRollButton.frame.size.width];
-    CGFloat aHeight = self.takePhotoButton.superview.frame.size.height - self.cameraRollButton.frame.size.height - aGap2 - (2 * aGap1);
-    [self.takePhotoButton ggk_makeHeight:aHeight];
-    [self.takePhotoButton ggk_makeTopGap:aGap1];
-    [self.takePhotoButton ggk_alignRightEdgeWithView:self.cameraRollButton];
+    [self.takePhotoRightButton ggk_makeWidth:self.cameraRollButton.frame.size.width];
+    CGFloat aHeight = self.takePhotoRightButton.superview.frame.size.height - self.cameraRollButton.frame.size.height - aGap2 - (2 * aGap1);
+    [self.takePhotoRightButton ggk_makeHeight:aHeight];
+    [self.takePhotoRightButton ggk_makeTopGap:aGap1];
+    [self.takePhotoRightButton ggk_alignRightEdgeWithView:self.cameraRollButton];
         
     // An anchor.
     [self.tipLabel ggk_makeTopGap:8];
@@ -211,23 +212,20 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
     
     CGFloat aGap2 = 50;
     
-    [self.takePhotoButton ggk_makeWidth:self.cameraRollButton.frame.size.width];
-    CGFloat aHeight = self.takePhotoButton.superview.frame.size.height - self.cameraRollButton.frame.size.height - aGap2 - (2 * aGap1);
-    [self.takePhotoButton ggk_makeHeight:aHeight];
-    [self.takePhotoButton ggk_makeTopGap:aGap1];
-    [self.takePhotoButton ggk_alignRightEdgeWithView:self.cameraRollButton];
+    [self.takePhotoRightButton ggk_makeWidth:self.cameraRollButton.frame.size.width];
+    CGFloat aHeight = self.takePhotoRightButton.superview.frame.size.height - self.cameraRollButton.frame.size.height - aGap2 - (2 * aGap1);
+    [self.takePhotoRightButton ggk_makeHeight:aHeight];
+    [self.takePhotoRightButton ggk_makeTopGap:aGap1];
+    [self.takePhotoRightButton ggk_alignRightEdgeWithView:self.cameraRollButton];
     
     // An anchor.
     [self.tipLabel ggk_makeTopGap:20];
 }
 
-- (void)viewDidLoad
-{    
+- (void)viewDidLoad {
     [super viewDidLoad];
-    
     // If not debugging, hide those labels. (They're shown by default so we can see them in the storyboard.) If debugging, set up KVO.
     if (!GGKDebugCamera) {
-        
         self.focusModeLabel.hidden = YES;
         self.exposureModeLabel.hidden = YES;
         self.whiteBalanceModeLabel.hidden = YES;
@@ -237,11 +235,8 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
         self.focusPointOfInterestLabel.hidden = YES;
         self.exposurePointOfInterestLabel.hidden = YES;
     } else {
-        
         if (self.captureManager.device != nil) {
-            
             [self updateCameraDebugLabels];
-            
             // Tried adding observer to self.captureManager.device, but it didn't work.
             [self addObserver:self forKeyPath:@"captureManager.device.focusMode" options:NSKeyValueObservingOptionNew context:nil];
             [self addObserver:self forKeyPath:@"captureManager.device.exposureMode" options:NSKeyValueObservingOptionNew context:nil];
@@ -253,6 +248,26 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
             [self addObserver:self forKeyPath:@"captureManager.device.adjustingWhiteBalance" options:NSKeyValueObservingOptionNew context:nil];
         }
     }
+    // Make side buttons. We want vertical/rotated text, so the buttons are rotated. Rotation doesn't work with constraints; no constraints means we have to make the button in code. However, the storyboard has proxy buttons: proper frame (via constraints) but horizontal text.
+    UIButton *aButton = [GGKUtilities buttonWithTextRotated270WithFrame:self.takePhotoLeftProxyButton.frame];
+    aButton.titleLabel.font = self.takePhotoLeftProxyButton.titleLabel.font;
+    self.takePhotoLeftButton = aButton;
+    aButton = [GGKUtilities buttonWithTextRotated90WithFrame:self.takePhotoRightProxyButton.frame];
+    aButton.titleLabel.font = self.takePhotoRightProxyButton.titleLabel.font;
+    self.takePhotoRightButton = aButton;
+    NSString *aButtonTitleString = [self.takePhotoBottomButton titleForState:UIControlStateNormal];
+    for (UIButton *aButton in @[self.takePhotoLeftButton, self.takePhotoRightButton]) {
+        [aButton setTitle:aButtonTitleString forState:UIControlStateNormal];
+        [aButton addTarget:self action:@selector(playButtonSound) forControlEvents:UIControlEventTouchDown];
+        [aButton addTarget:self action:@selector(takePhoto) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:aButton];
+    }
+    // Add border to take-photo buttons.
+    NSArray *aButtonArray = @[self.takePhotoLeftButton, self.takePhotoRightButton, self.takePhotoBottomButton];
+    for (UIButton *aButton in aButtonArray) {
+        [GGKUtilities addBorderToView:aButton];
+    }
+    self.takePhotoLeftButton.layer.cornerRadius = 5.0f;
+    self.takePhotoBottomButton.layer.cornerRadius = 9.0f;
 }
-
 @end

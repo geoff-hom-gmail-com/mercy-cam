@@ -3,6 +3,7 @@
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--View Controller - mock landscape-->
@@ -156,7 +157,7 @@ with 324 hours between each photo."</string>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bLd-Ae-KXn">
                                 <rect key="frame" x="20" y="151" width="728" height="65"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="44"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="44"/>
                                 <state key="normal" title="Take Delayed Photos">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -168,7 +169,7 @@ with 324 hours between each photo."</string>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="zFq-uv-gJl">
                                 <rect key="frame" x="20" y="324" width="728" height="65"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="44"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="44"/>
                                 <state key="normal" title="Take Advanced Delayed Photos">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -180,8 +181,8 @@ with 324 hours between each photo."</string>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vj6-SR-SCJ">
                                 <rect key="frame" x="20" y="20" width="728" height="65"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="44"/>
-                                <state key="normal" title="Take a Photo">
+                                <fontDescription key="fontDescription" type="system" pointSize="44"/>
+                                <state key="normal" title="Take Photo">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -190,9 +191,9 @@ with 324 hours between each photo."</string>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="g0Y-3k-bcL">
-                                <rect key="frame" x="499" y="564" width="249" height="55"/>
+                                <rect key="frame" x="509" y="564" width="239" height="55"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
                                 <state key="normal" title="Give Feedback">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -251,7 +252,7 @@ with 324 hours between each photo."</string>
             </objects>
             <point key="canvasLocation" x="726" y="931"/>
         </scene>
-        <!--Take Photo View Controller - Take a photo-->
+        <!--Take Photo View Controller - Take Photo-->
         <scene sceneID="tpc-po-hHf">
             <objects>
                 <viewController id="BXz-Hw-S72" customClass="GGKTakePhotoViewController" sceneMemberID="viewController">
@@ -262,37 +263,34 @@ with 324 hours between each photo."</string>
                     <view key="view" contentMode="scaleToFill" id="yA7-sQ-ved">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <userGuides>
-                            <userLayoutGuide location="875" affinity="minY"/>
-                            <userLayoutGuide location="821" affinity="minY"/>
-                        </userGuides>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sin-J3-zg2">
-                                <rect key="frame" x="0.0" y="60" width="675" height="900"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sin-J3-zg2">
+                                <rect key="frame" x="96" y="96" width="603" height="804"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Sin-J3-zg2" secondAttribute="height" multiplier="3:4" id="exD-oC-jTH"/>
+                                </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="UdW-v1-5td">
-                                <rect key="frame" x="682" y="8" width="80" height="814"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="UdW-v1-5td">
+                                <rect key="frame" x="707" y="8" width="53" height="892"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
-                                <state key="normal">
-                                    <string key="title">Take
-photo</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <state key="normal" title="Proxy">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="disabled">
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="playButtonSound" destination="BXz-Hw-S72" eventType="touchDown" id="Ipf-Yx-fwM"/>
-                                    <action selector="takePhoto" destination="BXz-Hw-S72" eventType="touchUpInside" id="V3K-Vh-2PU"/>
-                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="5Vn-Fv-i1w">
-                                <rect key="frame" x="682" y="872" width="80" height="80"/>
+                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="5Vn-Fv-i1w">
+                                <rect key="frame" x="8" y="8" width="80" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="5Vn-Fv-i1w" secondAttribute="height" multiplier="1:1" id="R24-E0-NmZ"/>
+                                    <constraint firstAttribute="width" constant="80" id="yj0-I8-1fr"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal">
                                     <string key="title">Saved
 photos</string>
@@ -305,64 +303,110 @@ photos</string>
                                     </segue>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Tip: To focus on an object, tap it." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JBy-3S-HOX">
-                                <rect key="frame" x="20" y="20" width="608" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="To focus on an object, tap it." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JBy-3S-HOX">
+                                <rect key="frame" x="104" y="38" width="224" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Foc. mode: auto." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jof-po-PWC">
-                                <rect key="frame" x="362" y="0.0" width="98" height="21"/>
+                                <rect key="frame" x="441" y="8" width="98" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Exp. mode: auto." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nhh-kh-QaM">
-                                <rect key="frame" x="362" y="26" width="98" height="21"/>
+                                <rect key="frame" x="441" y="34" width="98" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="WB mode: auto." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="87z-5y-chb">
-                                <rect key="frame" x="362" y="46" width="98" height="21"/>
+                                <rect key="frame" x="441" y="54" width="98" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Focusing: Yes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OYC-aF-2MU">
-                                <rect key="frame" x="463" y="0.0" width="88" height="21"/>
+                                <rect key="frame" x="542" y="8" width="88" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Exposing: Yes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYj-we-zZO">
-                                <rect key="frame" x="463" y="26" width="88" height="21"/>
+                                <rect key="frame" x="542" y="34" width="88" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Wh. balancing: Yes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jny-pb-JCz">
-                                <rect key="frame" x="463" y="46" width="116" height="21"/>
+                                <rect key="frame" x="542" y="54" width="116" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Foc. POI: {0.5, 0.3}" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FwH-iM-D9c">
-                                <rect key="frame" x="572" y="6" width="108" height="21"/>
+                                <rect key="frame" x="651" y="14" width="108" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Exp. POI: {1.0, 0.0}" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dHh-Qa-m5x">
-                                <rect key="frame" x="572" y="35" width="109" height="21"/>
+                                <rect key="frame" x="651" y="43" width="109" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OTg-i6-WmW">
+                                <rect key="frame" x="96" y="908" width="664" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Feu-1r-1i8"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <state key="normal" title="Take Photo">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="playButtonSound" destination="BXz-Hw-S72" eventType="touchDown" id="LlV-rl-eE7"/>
+                                    <action selector="takePhoto" destination="BXz-Hw-S72" eventType="touchUpInside" id="Yc5-DS-h2r"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="fGJ-in-PS9">
+                                <rect key="frame" x="8" y="96" width="80" height="856"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <state key="normal" title="Proxy">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="OTg-i6-WmW" firstAttribute="top" secondItem="UdW-v1-5td" secondAttribute="bottom" constant="8" id="361-zS-ePY"/>
+                            <constraint firstAttribute="trailing" secondItem="OTg-i6-WmW" secondAttribute="trailing" constant="8" id="CE5-sG-H1w"/>
+                            <constraint firstAttribute="trailing" secondItem="UdW-v1-5td" secondAttribute="trailing" constant="8" id="GVe-u5-8bA"/>
+                            <constraint firstItem="UdW-v1-5td" firstAttribute="top" secondItem="NzF-hD-I03" secondAttribute="bottom" constant="8" id="KE4-eB-877"/>
+                            <constraint firstItem="fGJ-in-PS9" firstAttribute="leading" secondItem="yA7-sQ-ved" secondAttribute="leading" constant="8" id="Kzv-Mm-HZA"/>
+                            <constraint firstItem="JBy-3S-HOX" firstAttribute="leading" secondItem="Sin-J3-zg2" secondAttribute="leading" constant="8" id="N4H-Xg-gW0"/>
+                            <constraint firstItem="Sin-J3-zg2" firstAttribute="leading" secondItem="5Vn-Fv-i1w" secondAttribute="trailing" constant="8" id="Qsy-xz-LQL"/>
+                            <constraint firstItem="Sin-J3-zg2" firstAttribute="top" secondItem="5Vn-Fv-i1w" secondAttribute="bottom" constant="8" id="TIx-1d-szR"/>
+                            <constraint firstItem="LCi-uL-LEp" firstAttribute="top" secondItem="OTg-i6-WmW" secondAttribute="bottom" constant="8" id="UTf-SC-R4A"/>
+                            <constraint firstItem="5Vn-Fv-i1w" firstAttribute="top" secondItem="NzF-hD-I03" secondAttribute="bottom" constant="8" id="WDd-v2-vAr"/>
+                            <constraint firstItem="LCi-uL-LEp" firstAttribute="top" secondItem="fGJ-in-PS9" secondAttribute="bottom" constant="8" id="WrE-RJ-OfW"/>
+                            <constraint firstItem="UdW-v1-5td" firstAttribute="leading" secondItem="Sin-J3-zg2" secondAttribute="trailing" constant="8" id="ZKs-6J-4NU"/>
+                            <constraint firstItem="OTg-i6-WmW" firstAttribute="top" secondItem="Sin-J3-zg2" secondAttribute="bottom" constant="8" id="eoV-45-O3n"/>
+                            <constraint firstItem="OTg-i6-WmW" firstAttribute="leading" secondItem="Sin-J3-zg2" secondAttribute="leading" id="gcP-sR-KYK"/>
+                            <constraint firstItem="5Vn-Fv-i1w" firstAttribute="leading" secondItem="yA7-sQ-ved" secondAttribute="leading" constant="8" id="gk8-ny-5dG"/>
+                            <constraint firstItem="JBy-3S-HOX" firstAttribute="centerY" secondItem="5Vn-Fv-i1w" secondAttribute="centerY" id="l3X-Ia-9bA"/>
+                            <constraint firstItem="OTg-i6-WmW" firstAttribute="leading" secondItem="fGJ-in-PS9" secondAttribute="trailing" constant="8" id="l4i-68-rXQ"/>
+                            <constraint firstItem="fGJ-in-PS9" firstAttribute="top" secondItem="5Vn-Fv-i1w" secondAttribute="bottom" constant="8" id="qH7-bG-c6d"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Take a photo" id="Sby-Wb-kNp"/>
+                    <navigationItem key="navigationItem" title="Take Photo" id="Sby-Wb-kNp"/>
                     <connections>
                         <outlet property="cameraPreviewView" destination="Sin-J3-zg2" id="DME-35-Tlf"/>
                         <outlet property="cameraRollButton" destination="5Vn-Fv-i1w" id="UhE-V6-iSF"/>
@@ -372,7 +416,9 @@ photos</string>
                         <outlet property="focusModeLabel" destination="jof-po-PWC" id="3yk-iB-sEB"/>
                         <outlet property="focusPointOfInterestLabel" destination="FwH-iM-D9c" id="i8Z-Xc-sCM"/>
                         <outlet property="focusingLabel" destination="OYC-aF-2MU" id="qQc-a2-Bu9"/>
-                        <outlet property="takePhotoButton" destination="UdW-v1-5td" id="iU6-kG-Gw6"/>
+                        <outlet property="takePhotoBottomButton" destination="OTg-i6-WmW" id="bvc-W4-vy4"/>
+                        <outlet property="takePhotoLeftProxyButton" destination="fGJ-in-PS9" id="nzR-aH-tut"/>
+                        <outlet property="takePhotoRightProxyButton" destination="UdW-v1-5td" id="Xwy-8F-cOM"/>
                         <outlet property="tipLabel" destination="JBy-3S-HOX" id="YMS-5O-R35"/>
                         <outlet property="whiteBalanceModeLabel" destination="87z-5y-chb" id="zAR-5k-5SL"/>
                         <outlet property="whiteBalancingLabel" destination="jny-pb-JCz" id="nrc-dt-lpn"/>

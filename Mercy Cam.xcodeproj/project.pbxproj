@@ -23,6 +23,7 @@
 		932BEE4B1738D6F4000A15CB /* GGKTimeUnitsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 932BEE4A1738D6F4000A15CB /* GGKTimeUnitsTableViewController.m */; };
 		932BEE54173B0F87000A15CB /* NSString+GGKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 932BEE53173B0F87000A15CB /* NSString+GGKAdditions.m */; };
 		932BEE57173B72D2000A15CB /* GGKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 932BEE56173B72D2000A15CB /* GGKViewController.m */; };
+		932EC2CD18FB592E00141447 /* GGKUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 932EC2CC18FB592E00141447 /* GGKUtilities.m */; };
 		93306A3F16C1D19A00F22B0A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93306A3E16C1D19A00F22B0A /* UIKit.framework */; };
 		93306A4116C1D19A00F22B0A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93306A4016C1D19A00F22B0A /* Foundation.framework */; };
 		93306A4316C1D19A00F22B0A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93306A4216C1D19A00F22B0A /* CoreGraphics.framework */; };
@@ -86,6 +87,8 @@
 		932BEE53173B0F87000A15CB /* NSString+GGKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+GGKAdditions.m"; sourceTree = "<group>"; };
 		932BEE55173B72D2000A15CB /* GGKViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKViewController.h; sourceTree = "<group>"; };
 		932BEE56173B72D2000A15CB /* GGKViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKViewController.m; sourceTree = "<group>"; };
+		932EC2CB18FB592E00141447 /* GGKUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKUtilities.h; sourceTree = "<group>"; };
+		932EC2CC18FB592E00141447 /* GGKUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKUtilities.m; sourceTree = "<group>"; };
 		93306A3B16C1D19A00F22B0A /* Mercy Cam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mercy Cam.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93306A3E16C1D19A00F22B0A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		93306A4016C1D19A00F22B0A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -266,6 +269,8 @@
 				93DA21E6173E4DF900636617 /* GGKTimeUnits.m */,
 				932BEE491738D6F4000A15CB /* GGKTimeUnitsTableViewController.h */,
 				932BEE4A1738D6F4000A15CB /* GGKTimeUnitsTableViewController.m */,
+				932EC2CB18FB592E00141447 /* GGKUtilities.h */,
+				932EC2CC18FB592E00141447 /* GGKUtilities.m */,
 				932BEE55173B72D2000A15CB /* GGKViewController.h */,
 				932BEE56173B72D2000A15CB /* GGKViewController.m */,
 				93306A5616C1D19A00F22B0A /* MainStoryboard_iPhone.storyboard */,
@@ -399,6 +404,7 @@
 				93306A7016C4702200F22B0A /* GGKTakeDelayedPhotosViewController.m in Sources */,
 				93471CB51718843800E20F65 /* GGKSoundModel.m in Sources */,
 				93B7765A1718AC3A009CB475 /* GGKTakePhotoViewController.m in Sources */,
+				932EC2CD18FB592E00141447 /* GGKUtilities.m in Sources */,
 				93B7765F171B5B24009CB475 /* GGKCaptureManager.m in Sources */,
 				938A0064172E75A900709AA4 /* GGKSavedPhotosManager.m in Sources */,
 				93CE01B7173241CF0025ACB4 /* GGKHelpTheCreatorsViewController.m in Sources */,

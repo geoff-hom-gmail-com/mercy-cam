@@ -9,34 +9,29 @@
 #import "GGKTakePhotoAbstractViewController.h"
 
 @interface GGKTakePhotoViewController : GGKTakePhotoAbstractViewController
-
 // (For testing.) Report whether currently exposing.
 @property (strong, nonatomic) IBOutlet UILabel *exposingLabel;
-
 // (For testing.) Report the current exposure mode.
 @property (strong, nonatomic) IBOutlet UILabel *exposureModeLabel;
-
 // (For testing.) Report the current exposure point-of-interest.
 @property (strong, nonatomic) IBOutlet UILabel *exposurePointOfInterestLabel;
-
 // (For testing.) Report the current focus mode.
 @property (strong, nonatomic) IBOutlet UILabel *focusModeLabel;
-
 // (For testing.) Report the current focus point-of-interest.
 @property (strong, nonatomic) IBOutlet UILabel *focusPointOfInterestLabel;
-
 // (For testing.) Report whether currently focusing.
 @property (strong, nonatomic) IBOutlet UILabel *focusingLabel;
-
 // Tap to take a photo.
-@property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
-
+@property (weak, nonatomic) IBOutlet UIButton *takePhotoBottomButton;
+@property (weak, nonatomic) UIButton *takePhotoLeftButton;
+// Proxy button gives frame (via constraints) for rotated button.
+@property (weak, nonatomic) IBOutlet UIButton *takePhotoLeftProxyButton;
+@property (weak, nonatomic) UIButton *takePhotoRightButton;
+@property (weak, nonatomic) IBOutlet UIButton *takePhotoRightProxyButton;
 // For displaying a context-sensitive tip.
 @property (nonatomic, strong) IBOutlet UILabel *tipLabel;
-
 // (For testing.) Report the current white-balance mode.
 @property (strong, nonatomic) IBOutlet UILabel *whiteBalanceModeLabel;
-
 // (For testing.) Report whether currently white balancing.
 @property (strong, nonatomic) IBOutlet UILabel *whiteBalancingLabel;
 // Override.
@@ -52,5 +47,4 @@
 
 // Override.
 - (void)viewDidLoad;
-
 @end
