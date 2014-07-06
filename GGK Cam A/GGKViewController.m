@@ -77,7 +77,9 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self.appWillEnterForegroundObserver name:UIApplicationWillEnterForegroundNotification object:nil];
+    self.appWillEnterForegroundObserver = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self.appDidEnterBackgroundObserver name:UIApplicationDidEnterBackgroundNotification object:nil];
+    self.appDidEnterBackgroundObserver = nil;
 }
 - (void)viewWillLayoutSubviews
 {
