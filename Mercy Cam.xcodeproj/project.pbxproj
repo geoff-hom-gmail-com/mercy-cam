@@ -42,6 +42,7 @@
 		9343AE2C1743618F000D241E /* UIView+GGKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9343AE2B1743618F000D241E /* UIView+GGKAdditions.m */; };
 		9343AE2F17436BE6000D241E /* NSAttributedString+GGKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9343AE2E17436BE6000D241E /* NSAttributedString+GGKAdditions.m */; };
 		93471CB51718843800E20F65 /* GGKSoundModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 93471CB41718843800E20F65 /* GGKSoundModel.m */; };
+		93498F4219695814009A7259 /* GGKModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 93498F4119695814009A7259 /* GGKModel.m */; };
 		936804A217461F3F00155F07 /* GGKLongTermViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 936804A117461F3F00155F07 /* GGKLongTermViewController.m */; };
 		937A1E271752089F00951401 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 937A1E261752089F00951401 /* libz.dylib */; };
 		937A1E2A175221FD00951401 /* GGKSavedPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 937A1E29175221FD00951401 /* GGKSavedPhotoViewController.m */; };
@@ -116,6 +117,8 @@
 		9343AE2E17436BE6000D241E /* NSAttributedString+GGKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+GGKAdditions.m"; sourceTree = "<group>"; };
 		93471CB31718843800E20F65 /* GGKSoundModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKSoundModel.h; sourceTree = "<group>"; };
 		93471CB41718843800E20F65 /* GGKSoundModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKSoundModel.m; sourceTree = "<group>"; };
+		93498F4019695814009A7259 /* GGKModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKModel.h; sourceTree = "<group>"; };
+		93498F4119695814009A7259 /* GGKModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKModel.m; sourceTree = "<group>"; };
 		936804A017461F3E00155F07 /* GGKLongTermViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKLongTermViewController.h; sourceTree = "<group>"; };
 		936804A117461F3F00155F07 /* GGKLongTermViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKLongTermViewController.m; sourceTree = "<group>"; };
 		937A1E261752089F00951401 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -249,6 +252,8 @@
 				93306A4E16C1D19A00F22B0A /* GGKMercyCameraAppDelegate.m */,
 				93306A5C16C1D19A00F22B0A /* GGKMercyCameraViewController.h */,
 				93306A5D16C1D19A00F22B0A /* GGKMercyCameraViewController.m */,
+				93498F4019695814009A7259 /* GGKModel.h */,
+				93498F4119695814009A7259 /* GGKModel.m */,
 				937A1E28175221FC00951401 /* GGKSavedPhotoViewController.h */,
 				937A1E29175221FD00951401 /* GGKSavedPhotoViewController.m */,
 				938A0062172E75A900709AA4 /* GGKSavedPhotosManager.h */,
@@ -412,6 +417,7 @@
 				932BEE4817379F21000A15CB /* GGKTakeAdvancedDelayedPhotosViewController.m in Sources */,
 				932BEE4B1738D6F4000A15CB /* GGKTimeUnitsTableViewController.m in Sources */,
 				932BEE54173B0F87000A15CB /* NSString+GGKAdditions.m in Sources */,
+				93498F4219695814009A7259 /* GGKModel.m in Sources */,
 				932BEE57173B72D2000A15CB /* GGKViewController.m in Sources */,
 				93DA21DE173C35B700636617 /* GGKTakePhotoAbstractViewController.m in Sources */,
 				93DA21E1173CB1F800636617 /* GGKTakeDelayedPhotosAbstractViewController.m in Sources */,

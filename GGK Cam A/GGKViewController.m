@@ -12,36 +12,30 @@
 #import "GGKSoundModel.h"
 
 @interface GGKViewController ()
-
-// For removing the observer later.
+// To remove the observer later.
 @property (strong, nonatomic) id appDidEnterBackgroundObserver;
 @property (strong, nonatomic) id appWillEnterForegroundObserver;
-
 // Story: The overall orientation (device/status-bar) is checked against the orientation of this app's UI. The user sees the UI in the correct orientation.
 // Whether the landscape view is currently showing.
 @property (nonatomic, assign) BOOL isShowingLandscapeView;
-
 @end
 
 @implementation GGKViewController
-
-- (void)awakeFromNib
-{
+- (void)awakeFromNib {
     [super awakeFromNib];
-    
     self.isShowingLandscapeView = NO;
 }
 - (void)dealloc {
-//    NSLog(@"VC dealloc");
     [[NSNotificationCenter defaultCenter] removeObserver:self.appWillEnterForegroundObserver name:UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self.appDidEnterBackgroundObserver name:UIApplicationDidEnterBackgroundNotification object:nil];
     // No need to call super.
 }
 - (void)handleViewDidDisappearFromUser {
-//    NSLog(@"VC hVDDFU");
+    //    NSLog(@"VC hVDDFU");
 }
 - (void)handleViewWillAppearToUser {
-//    NSLog(@"VC hVWATU");
+    //    NSLog(@"VC hVATU1");
+    [self updateUI];
 }
 - (IBAction)playButtonSound
 {
@@ -54,13 +48,18 @@
 - (void)updateLayoutForPortrait {
 //    NSLog(@"updateLayoutForPortrait");
 }
+- (void)updateUI {
+    //    NSLog(@"VC uI");
+}
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self handleViewDidDisappearFromUser];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.    
+	// Do any additional setup after loading the view.
+    GGKMercyCameraAppDelegate *theAppDelegate = (GGKMercyCameraAppDelegate *)[UIApplication sharedApplication].delegate;
+    self.model = theAppDelegate.model;
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -81,21 +80,16 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self.appDidEnterBackgroundObserver name:UIApplicationDidEnterBackgroundNotification object:nil];
     self.appDidEnterBackgroundObserver = nil;
 }
-- (void)viewWillLayoutSubviews
-{
+- (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-    
     // Using status-bar orientation, not device orientation. Seems to work.
     UIInterfaceOrientation theInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
     if (UIInterfaceOrientationIsLandscape(theInterfaceOrientation) && !self.isShowingLandscapeView) {
-        
         [self updateLayoutForLandscape];
         self.isShowingLandscapeView = YES;
     } else if (UIInterfaceOrientationIsPortrait(theInterfaceOrientation) && self.isShowingLandscapeView) {
-        
         [self updateLayoutForPortrait];
         self.isShowingLandscapeView = NO;
     }
 }
-
 @end

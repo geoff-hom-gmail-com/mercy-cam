@@ -35,7 +35,7 @@ NSString *HasLaunchedBeforeKeyString = @"Has launched before?";
     [TestFlight takeOff:@"7fe86397-6095-4614-b633-25e1d5831861"];
     
     [self handleIfFirstLaunch];
-    
+    self.model = [[GGKModel alloc] init];
     self.soundModel = [[GGKSoundModel alloc] init];
     
     GGKInAppPurchaseManager *theInAppPurchaseManager = [[GGKInAppPurchaseManager alloc] init];
