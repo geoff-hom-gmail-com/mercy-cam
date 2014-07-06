@@ -206,7 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				93306A3D16C1D19A00F22B0A /* Frameworks */,
-				93306A4416C1D19A00F22B0A /* Mercy Camera */,
+				93306A4416C1D19A00F22B0A /* MercyCam */,
 				93306A3C16C1D19A00F22B0A /* Products */,
 				931DA8ED18AF68540005AD44 /* TestFlightSDK2 */,
 			);
@@ -237,7 +237,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		93306A4416C1D19A00F22B0A /* Mercy Camera */ = {
+		93306A4416C1D19A00F22B0A /* MercyCam */ = {
 			isa = PBXGroup;
 			children = (
 				93B7765D171B5B24009CB475 /* GGKCaptureManager.h */,
@@ -292,8 +292,7 @@
 				9343AE2B1743618F000D241E /* UIView+GGKAdditions.m */,
 				93306A4516C1D19A00F22B0A /* Supporting Files */,
 			);
-			name = "Mercy Camera";
-			path = "GGK Cam A";
+			path = MercyCam;
 			sourceTree = "<group>";
 		};
 		93306A4516C1D19A00F22B0A /* Supporting Files */ = {
@@ -325,9 +324,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		93306A3A16C1D19A00F22B0A /* GGK Cam A */ = {
+		93306A3A16C1D19A00F22B0A /* MercyCam */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 93306A6116C1D19A00F22B0A /* Build configuration list for PBXNativeTarget "GGK Cam A" */;
+			buildConfigurationList = 93306A6116C1D19A00F22B0A /* Build configuration list for PBXNativeTarget "MercyCam" */;
 			buildPhases = (
 				93306A3716C1D19A00F22B0A /* Sources */,
 				93306A3816C1D19A00F22B0A /* Frameworks */,
@@ -337,7 +336,7 @@
 			);
 			dependencies = (
 			);
-			name = "GGK Cam A";
+			name = MercyCam;
 			productName = "GGK Cam A";
 			productReference = 93306A3B16C1D19A00F22B0A /* MercyCam.app */;
 			productType = "com.apple.product-type.application";
@@ -364,7 +363,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				93306A3A16C1D19A00F22B0A /* GGK Cam A */,
+				93306A3A16C1D19A00F22B0A /* MercyCam */,
 			);
 		};
 /* End PBXProject section */
@@ -524,8 +523,8 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "GGK Cam A/GGKMercyCamera-Prefix.pch";
-				INFOPLIST_FILE = "$(SRCROOT)/GGK Cam A/GGKMercyCamera-Info.plist";
+				GCC_PREFIX_HEADER = "MercyCam/GGKMercyCamera-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/MercyCam/GGKMercyCamera-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -541,8 +540,8 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "GGK Cam A/GGKMercyCamera-Prefix.pch";
-				INFOPLIST_FILE = "$(SRCROOT)/GGK Cam A/GGKMercyCamera-Info.plist";
+				GCC_PREFIX_HEADER = "MercyCam/GGKMercyCamera-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/MercyCam/GGKMercyCamera-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -566,7 +565,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		93306A6116C1D19A00F22B0A /* Build configuration list for PBXNativeTarget "GGK Cam A" */ = {
+		93306A6116C1D19A00F22B0A /* Build configuration list for PBXNativeTarget "MercyCam" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				93306A6216C1D19A00F22B0A /* Debug */,
