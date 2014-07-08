@@ -11,17 +11,15 @@
 #import "GGKUtilities.h"
 #import "UIView+GGKAdditions.h"
 
-// Story: User sees tip. User learns how to focus on an object.
-NSString *const ToFocusTipString = @"Tip: To focus on an object, tap it.";
-
-// Story: User sees tip. User learns the focus is locked. User learns how to unlock.
-NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, tap anywhere in the view.";
-
+// User sees tip. User knows camera is in process of locking focus.
+NSString *FocusingTipString = @"Locking focus …";
+// User sees tip. User learns about autofocus and how to focus on an object.
+NSString *ToFocusTipString = @"Focus mode: autofocus on center. To focus elsewhere, tap there.";
+// User sees tip. User learns the focus is locked. User learns how to unlock.
+NSString *ToUnlockFocusTipString = @"Focus mode: locked. To unlock, tap anywhere in the view.";
 @interface GGKTakePhotoViewController ()
-
 // (For testing.) Show the current camera settings.
 - (void)updateCameraDebugLabels;
-
 @end
 
 @implementation GGKTakePhotoViewController
@@ -51,25 +49,19 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
             [theKeyPath isEqualToString:@"captureManager.device.adjustingFocus"] ||
             [theKeyPath isEqualToString:@"captureManager.device.adjustingExposure"] ||
             [theKeyPath isEqualToString:@"captureManager.device.adjustingWhiteBalance"]) {
-            
             [self updateCameraDebugLabels];
             wasHandledSeparately = YES;
         }
     }
-    
     if ([theKeyPath isEqualToString:GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString]) {
-        
         NSString *aString = @"";
         switch (self.captureManager.focusAndExposureStatus) {
-                
             case GGKCaptureManagerFocusAndExposureStatusContinuous:
                 aString = ToFocusTipString;
                 break;
-                
             case GGKCaptureManagerFocusAndExposureStatusLocking:
-                aString = @"Focusing…";
+                aString = FocusingTipString;
                 break;
-                
             case GGKCaptureManagerFocusAndExposureStatusLocked:
                 aString = ToUnlockFocusTipString;
                 break;
@@ -77,6 +69,7 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
                 break;
         }
         self.tipLabel.text = aString;
+//        [NSString stringWithFormat:@"%@%@%@", GGKTextPaddingString, aString, GGKTextPaddingString];
     } else if (!wasHandledSeparately) {
         [super observeValueForKeyPath:theKeyPath ofObject:object change:change context:context];
     }
@@ -233,6 +226,7 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
             [self addObserver:self forKeyPath:@"captureManager.device.adjustingWhiteBalance" options:NSKeyValueObservingOptionNew context:nil];
         }
     }
+    self.tipLabel.layer.cornerRadius = 3.0f;
     // Make side buttons. We want vertical/rotated text, so the buttons are rotated. Rotation doesn't work with constraints; no constraints means we have to make the button in code. However, the storyboard has proxy buttons: proper frame (via constraints) but horizontal text.
     UIButton *aButton = [GGKUtilities buttonWithTextRotated270WithFrame:self.takePhotoLeftProxyButton.frame];
     aButton.titleLabel.font = self.takePhotoLeftProxyButton.titleLabel.font;
@@ -242,6 +236,7 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
     self.takePhotoRightButton = aButton;
     NSString *aButtonTitleString = [self.takePhotoBottomButton titleForState:UIControlStateNormal];
     for (UIButton *aButton in @[self.takePhotoLeftButton, self.takePhotoRightButton]) {
+        aButton.backgroundColor = [UIColor whiteColor];
         [aButton setTitle:aButtonTitleString forState:UIControlStateNormal];
         [aButton addTarget:self action:@selector(playButtonSound) forControlEvents:UIControlEventTouchDown];
         [aButton addTarget:self action:@selector(takePhoto) forControlEvents:UIControlEventTouchUpInside];
@@ -250,9 +245,7 @@ NSString *const ToUnlockFocusTipString = @"Tip: The focus is locked. To unlock, 
     // Add border to take-photo buttons.
     NSArray *aButtonArray = @[self.takePhotoLeftButton, self.takePhotoRightButton, self.takePhotoBottomButton];
     for (UIButton *aButton in aButtonArray) {
-        [GGKUtilities addBorderToView:aButton];
+        [GGKUtilities addBorderOfColor:[UIColor clearColor] toView:aButton];
     }
-    self.takePhotoLeftButton.layer.cornerRadius = 5.0f;
-    self.takePhotoBottomButton.layer.cornerRadius = 9.0f;
 }
 @end

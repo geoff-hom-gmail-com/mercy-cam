@@ -8,6 +8,8 @@
 
 #import "GGKModel.h"
 
+//NSString *GGKTextPaddingString = @"  ";
+
 @implementation GGKModel
 
 @end

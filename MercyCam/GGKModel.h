@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+// To provide padding between label's text and border.
+//extern NSString *GGKTextPaddingString;
+
 @interface GGKModel : NSObject
 
 @end

@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface GGKUtilities : NSObject
-// Add a rounded border to the given view.
-+ (void)addBorderToView:(UIView *)theView;
+// Add a rounded border of the given color to the given view.
++ (void)addBorderOfColor:(UIColor *)theColor toView:(UIView *)theView;
 // Return a button with the given frame but text rotated 270°. The button is actually rotated, so the frame is relative. (Looks the same to the user.)
 + (UIButton *)buttonWithTextRotated270WithFrame:(CGRect)theFrame;
 + (UIButton *)buttonWithTextRotated90WithFrame:(CGRect)theFrame;

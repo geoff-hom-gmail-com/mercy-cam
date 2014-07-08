@@ -252,7 +252,7 @@ with 324 hours between each photo."</string>
             </objects>
             <point key="canvasLocation" x="726" y="931"/>
         </scene>
-        <!--Take Photo View Controller - Take Photo-->
+        <!--Take Photo View Controller - Normal Photo-->
         <scene sceneID="tpc-po-hHf">
             <objects>
                 <viewController id="BXz-Hw-S72" customClass="GGKTakePhotoViewController" sceneMemberID="viewController">
@@ -267,7 +267,7 @@ with 324 hours between each photo."</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sin-J3-zg2">
                                 <rect key="frame" x="96" y="96" width="603" height="804"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Sin-J3-zg2" secondAttribute="height" multiplier="3:4" id="exD-oC-jTH"/>
                                 </constraints>
@@ -283,17 +283,18 @@ with 324 hours between each photo."</string>
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="5Vn-Fv-i1w">
+                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="5Vn-Fv-i1w">
                                 <rect key="frame" x="8" y="8" width="80" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="5Vn-Fv-i1w" secondAttribute="height" multiplier="1:1" id="R24-E0-NmZ"/>
                                     <constraint firstAttribute="width" constant="80" id="yj0-I8-1fr"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal">
                                     <string key="title">Saved
 photos</string>
+                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -303,9 +304,16 @@ photos</string>
                                     </segue>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="To focus on an object, tap it." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JBy-3S-HOX">
-                                <rect key="frame" x="104" y="38" width="224" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="603" translatesAutoresizingMaskIntoConstraints="NO" id="JBy-3S-HOX">
+                                <rect key="frame" x="96" y="19" width="603" height="58"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="58" id="G3W-EL-E1l"/>
+                                    <constraint firstAttribute="width" constant="603" id="fNQ-ne-nB1"/>
+                                </constraints>
+                                <string key="text">Feedback placeholder.
+Line2</string>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -360,6 +368,7 @@ photos</string>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OTg-i6-WmW">
                                 <rect key="frame" x="96" y="908" width="664" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="Feu-1r-1i8"/>
                                 </constraints>
@@ -384,14 +393,14 @@ photos</string>
                                 </state>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="OTg-i6-WmW" firstAttribute="top" secondItem="UdW-v1-5td" secondAttribute="bottom" constant="8" id="361-zS-ePY"/>
                             <constraint firstAttribute="trailing" secondItem="OTg-i6-WmW" secondAttribute="trailing" constant="8" id="CE5-sG-H1w"/>
                             <constraint firstAttribute="trailing" secondItem="UdW-v1-5td" secondAttribute="trailing" constant="8" id="GVe-u5-8bA"/>
                             <constraint firstItem="UdW-v1-5td" firstAttribute="top" secondItem="NzF-hD-I03" secondAttribute="bottom" constant="8" id="KE4-eB-877"/>
                             <constraint firstItem="fGJ-in-PS9" firstAttribute="leading" secondItem="yA7-sQ-ved" secondAttribute="leading" constant="8" id="Kzv-Mm-HZA"/>
-                            <constraint firstItem="JBy-3S-HOX" firstAttribute="leading" secondItem="Sin-J3-zg2" secondAttribute="leading" constant="8" id="N4H-Xg-gW0"/>
+                            <constraint firstItem="JBy-3S-HOX" firstAttribute="leading" secondItem="Sin-J3-zg2" secondAttribute="leading" id="N4H-Xg-gW0"/>
                             <constraint firstItem="Sin-J3-zg2" firstAttribute="leading" secondItem="5Vn-Fv-i1w" secondAttribute="trailing" constant="8" id="Qsy-xz-LQL"/>
                             <constraint firstItem="Sin-J3-zg2" firstAttribute="top" secondItem="5Vn-Fv-i1w" secondAttribute="bottom" constant="8" id="TIx-1d-szR"/>
                             <constraint firstItem="LCi-uL-LEp" firstAttribute="top" secondItem="OTg-i6-WmW" secondAttribute="bottom" constant="8" id="UTf-SC-R4A"/>
@@ -406,7 +415,7 @@ photos</string>
                             <constraint firstItem="fGJ-in-PS9" firstAttribute="top" secondItem="5Vn-Fv-i1w" secondAttribute="bottom" constant="8" id="qH7-bG-c6d"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Take Photo" id="Sby-Wb-kNp"/>
+                    <navigationItem key="navigationItem" title="Normal Photo" id="Sby-Wb-kNp"/>
                     <connections>
                         <outlet property="cameraPreviewView" destination="Sin-J3-zg2" id="DME-35-Tlf"/>
                         <outlet property="cameraRollButton" destination="5Vn-Fv-i1w" id="UhE-V6-iSF"/>

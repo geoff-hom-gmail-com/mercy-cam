@@ -39,6 +39,7 @@ NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString = @"captur
 - (void)handleViewWillAppearToUser {
     [super handleViewWillAppearToUser];
     [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
+    [self.captureManager unlockFocus];
     [self.captureManager startSession];
 }
 - (void)imagePickerController:(UIImagePickerController *)theImagePickerController didFinishPickingMediaWithInfo:(NSDictionary *)theInfoDictionary {

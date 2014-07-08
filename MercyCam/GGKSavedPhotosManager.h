@@ -7,8 +7,6 @@
 //
 
 @interface GGKSavedPhotosManager : NSObject <UIImagePickerControllerDelegate>
-
 // Show most-recent photo from camera roll on the given button.
 - (void)showMostRecentPhotoOnButton:(UIButton *)theButton;
-
 @end

@@ -9,10 +9,11 @@
 #import "GGKUtilities.h"
 
 @implementation GGKUtilities
-+ (void)addBorderToView:(UIView *)theView {
++ (void)addBorderOfColor:(UIColor *)theColor toView:(UIView *)theView {
     theView.layer.borderWidth = 1.0f;
-    theView.layer.borderColor = theView.tintColor.CGColor;
-    theView.layer.cornerRadius = 3.0f;
+//    theView.layer.borderColor = theView.tintColor.CGColor;
+    theView.layer.borderColor = theColor.CGColor;
+    theView.layer.cornerRadius = 5.0f;
 }
 + (UIButton *)buttonWithTextRotated270WithFrame:(CGRect)theFrame {
     // We'll rotate around the origin to make sure it's integral and thus sharp. We want a button with the width and height switched, and the origin shifted right by the given width. Then we rotate 90° clockwise.
