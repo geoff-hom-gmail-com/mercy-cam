@@ -142,7 +142,7 @@ with 324 hours between each photo."</string>
             </objects>
             <point key="canvasLocation" x="470" y="63"/>
         </scene>
-        <!--Mercy Cam View Controller - Mercy Cam-->
+        <!--Mercy Cam View Controller - MercyCam: Timed Photos-->
         <scene sceneID="4">
             <objects>
                 <viewController id="2" customClass="GGKMercyCamViewController" sceneMemberID="viewController">
@@ -158,7 +158,7 @@ with 324 hours between each photo."</string>
                                 <rect key="frame" x="20" y="151" width="728" height="65"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="44"/>
-                                <state key="normal" title="Take Delayed Photos">
+                                <state key="normal" title="Delayed Photos">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -167,10 +167,10 @@ with 324 hours between each photo."</string>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="zFq-uv-gJl">
-                                <rect key="frame" x="20" y="324" width="728" height="65"/>
+                                <rect key="frame" x="20" y="316" width="728" height="65"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="44"/>
-                                <state key="normal" title="Take Advanced Delayed Photos">
+                                <state key="normal" title="Advanced Delayed Photos">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -182,7 +182,7 @@ with 324 hours between each photo."</string>
                                 <rect key="frame" x="20" y="20" width="728" height="65"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="44"/>
-                                <state key="normal" title="Take Photo">
+                                <state key="normal" title="Normal Photo">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -191,7 +191,7 @@ with 324 hours between each photo."</string>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="g0Y-3k-bcL">
-                                <rect key="frame" x="509" y="564" width="239" height="55"/>
+                                <rect key="frame" x="509" y="548" width="239" height="55"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="36"/>
                                 <state key="normal" title="Give Feedback">
@@ -202,14 +202,14 @@ with 324 hours between each photo."</string>
                                     <segue destination="wMX-Uo-2b2" kind="push" identifier="" id="c9q-9M-lBh"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Wait 89 seconds, then take 98 photos." lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gvh-U8-4HD">
-                                <rect key="frame" x="20" y="224" width="728" height="34"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Wait __ seconds, then take __ photos." lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gvh-U8-4HD">
+                                <rect key="frame" x="24" y="216" width="724" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(Wait 10 seconds, then take 7 photos with 555 minutes between each photo.)" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="728" translatesAutoresizingMaskIntoConstraints="NO" id="Zls-6G-c7B">
-                                <rect key="frame" x="20" y="397" width="728" height="67"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Wait __ seconds, then take __ photos with ___ minutes between each photo." lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="680" translatesAutoresizingMaskIntoConstraints="NO" id="Zls-6G-c7B">
+                                <rect key="frame" x="24" y="381" width="680" height="67"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <nil key="highlightedColor"/>
@@ -224,19 +224,19 @@ with 324 hours between each photo."</string>
                             <constraint firstItem="Vj6-SR-SCJ" firstAttribute="leading" secondItem="bLd-Ae-KXn" secondAttribute="leading" id="BwI-ac-R1B"/>
                             <constraint firstAttribute="trailing" secondItem="g0Y-3k-bcL" secondAttribute="trailing" constant="20" id="EO6-cR-xwj"/>
                             <constraint firstItem="zFq-uv-gJl" firstAttribute="top" secondItem="gvh-U8-4HD" secondAttribute="bottom" constant="66" id="GtC-tb-dpb"/>
-                            <constraint firstAttribute="trailing" secondItem="Zls-6G-c7B" secondAttribute="trailing" constant="20" id="Taq-hP-Y0e"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Zls-6G-c7B" secondAttribute="trailing" constant="20" id="Taq-hP-Y0e"/>
                             <constraint firstItem="bLd-Ae-KXn" firstAttribute="top" secondItem="Vj6-SR-SCJ" secondAttribute="bottom" constant="66" id="U7C-mR-Ktc"/>
-                            <constraint firstItem="gvh-U8-4HD" firstAttribute="top" secondItem="bLd-Ae-KXn" secondAttribute="bottom" constant="8" symbolic="YES" id="ctK-cW-E8g"/>
-                            <constraint firstItem="Zls-6G-c7B" firstAttribute="top" secondItem="zFq-uv-gJl" secondAttribute="bottom" constant="8" symbolic="YES" id="d9X-BR-92o"/>
+                            <constraint firstItem="gvh-U8-4HD" firstAttribute="top" secondItem="bLd-Ae-KXn" secondAttribute="bottom" id="ctK-cW-E8g"/>
+                            <constraint firstItem="Zls-6G-c7B" firstAttribute="top" secondItem="zFq-uv-gJl" secondAttribute="bottom" id="d9X-BR-92o"/>
                             <constraint firstAttribute="trailing" secondItem="zFq-uv-gJl" secondAttribute="trailing" constant="20" id="elH-bM-y00"/>
                             <constraint firstItem="Vj6-SR-SCJ" firstAttribute="top" secondItem="5" secondAttribute="top" constant="20" symbolic="YES" id="eo4-91-7bf"/>
                             <constraint firstItem="zFq-uv-gJl" firstAttribute="leading" secondItem="bLd-Ae-KXn" secondAttribute="leading" id="kfd-Mz-uNW"/>
-                            <constraint firstItem="gvh-U8-4HD" firstAttribute="leading" secondItem="bLd-Ae-KXn" secondAttribute="leading" id="nan-4q-Lay"/>
+                            <constraint firstItem="gvh-U8-4HD" firstAttribute="leading" relation="lessThanOrEqual" secondItem="bLd-Ae-KXn" secondAttribute="leading" constant="4" id="nan-4q-Lay"/>
                             <constraint firstAttribute="trailing" secondItem="Vj6-SR-SCJ" secondAttribute="trailing" constant="20" symbolic="YES" id="uGG-Aw-Xtm"/>
-                            <constraint firstItem="zFq-uv-gJl" firstAttribute="leading" secondItem="Zls-6G-c7B" secondAttribute="leading" id="vah-rX-Rfu"/>
+                            <constraint firstItem="zFq-uv-gJl" firstAttribute="leading" secondItem="Zls-6G-c7B" secondAttribute="leading" constant="-4" id="vah-rX-Rfu"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Mercy Cam" id="HPz-f1-fBE">
+                    <navigationItem key="navigationItem" title="MercyCam: Timed Photos" id="HPz-f1-fBE">
                         <barButtonItem key="backBarButtonItem" title="Main" id="h7C-H0-Qkw"/>
                     </navigationItem>
                     <connections>
