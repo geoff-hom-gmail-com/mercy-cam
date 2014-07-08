@@ -14,7 +14,7 @@
 @interface GGKSavedPhotosManager ()
 
 // For retaining the popover and its content view controller.
-@property (nonatomic, strong) UIPopoverController *savedPhotosPopoverController;
+//@property (nonatomic, strong) UIPopoverController *savedPhotosPopoverController;
 
 @end
 

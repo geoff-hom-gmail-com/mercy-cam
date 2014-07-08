@@ -9,14 +9,11 @@
 #import "GGKSavedPhotoViewController.h"
 
 @interface GGKSavedPhotoViewController ()
-
 @end
 
 @implementation GGKSavedPhotoViewController
-
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
+    self.imageView.image = self.image;
 }
-
 @end

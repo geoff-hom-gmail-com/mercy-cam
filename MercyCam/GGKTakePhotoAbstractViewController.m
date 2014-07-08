@@ -46,13 +46,11 @@ NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString = @"captur
     // An image picker controller is also a navigation controller. So, we'll push a view controller with the image onto the image picker controller.
     // Was going to use a push segue in the storyboard, for clarity. However, this VC is abstract and not instantiated from the storyboard, so that doesn't work.
     // Note that the image picker is assumed to be 320 x 480, as set in the storyboard.
-    
     GGKSavedPhotoViewController *aSavedPhotoViewController = (GGKSavedPhotoViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"SavedPhotoViewController"];
     UIImage *anImage = theInfoDictionary[UIImagePickerControllerOriginalImage];
-    
-    // If we set the image before pushing the view controller, it doesn't work.
+    // instantiateViewControllerWithIdentifier: doesn't result in viewDidLoad being called. However, viewDidLoad will be called sometime after pushViewController:.
+    aSavedPhotoViewController.image = anImage;
     [theImagePickerController pushViewController:aSavedPhotoViewController animated:YES];
-    aSavedPhotoViewController.imageView.image = anImage;
 }
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)theOperation fromViewController:(UIViewController *)theFromVC toViewController:(UIViewController *)theToVC {
     if ((theOperation == UINavigationControllerOperationPush) && (theFromVC == self)) {
@@ -90,13 +88,15 @@ NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString = @"captur
         // Story: User took photos. User can view thumbnails quickly. (Can't delete saved photos like in Apple's camera app. Apple doesn't allow.)
         // Retain popover controller, to dismiss later.
         self.currentPopoverController = [(UIStoryboardPopoverSegue *)theSegue popoverController];
-        // Set up the image picker controller.
+        // Set up an image picker controller.
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]) {
-            UIImagePickerController *anImagePickerController = (UIImagePickerController *)theSegue.destinationViewController;
+            // Tried creating image-picker controller in storyboard. Worked in iOS 6, but in iOS 7 resulted in only a blank screen.
+            UIImagePickerController *anImagePickerController = [[UIImagePickerController alloc] init];
             anImagePickerController.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
             anImagePickerController.mediaTypes = @[(NSString *)kUTTypeImage];
             anImagePickerController.delegate = self;
             anImagePickerController.allowsEditing = NO;
+            self.currentPopoverController.contentViewController = anImagePickerController;
         }
     } else {
         [super prepareForSegue:theSegue sender:theSender];

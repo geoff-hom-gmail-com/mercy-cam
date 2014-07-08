@@ -758,10 +758,10 @@ photos</string>
             </objects>
             <point key="canvasLocation" x="2477" y="-578"/>
         </scene>
-        <!--Image Picker Controller-->
+        <!--View Controller-->
         <scene sceneID="OzK-v9-CsZ">
             <objects>
-                <viewController id="AbV-MZ-YTc" customClass="UIImagePickerController" sceneMemberID="viewController">
+                <viewController id="AbV-MZ-YTc" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xai-qg-jHQ"/>
                         <viewControllerLayoutGuide type="bottom" id="WKV-6A-OKP"/>
@@ -769,13 +769,18 @@ photos</string>
                     <view key="view" contentMode="scaleToFill" id="C3g-sH-cYr">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="UIImagePickerController goes here" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QXp-Xa-RAv">
+                                <rect key="frame" x="26" y="229" width="268" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="cmL-Xa-bQf"/>
                     <nil key="simulatedStatusBarMetrics"/>
-                    <connections>
-                        <segue destination="R4v-Ya-xYF" kind="push" identifier="DummySegueDoNotUse1" id="UJE-Br-JRJ"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T2K-Io-N4a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -793,23 +798,30 @@ photos</string>
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IWk-Ud-HVQ">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="IWk-Ud-HVQ">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="IWk-Ud-HVQ" firstAttribute="top" secondItem="ZWb-Ps-sIz" secondAttribute="bottom" id="G5y-eF-neh"/>
+                            <constraint firstAttribute="trailing" secondItem="IWk-Ud-HVQ" secondAttribute="trailing" id="IeY-gJ-7zW"/>
+                            <constraint firstItem="IWk-Ud-HVQ" firstAttribute="leading" secondItem="fzp-5G-OXj" secondAttribute="leading" id="j2d-WO-6OQ"/>
+                            <constraint firstAttribute="bottom" secondItem="IWk-Ud-HVQ" secondAttribute="bottom" id="qgj-fC-YDY"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="nES-pr-T3W"/>
                     <nil key="simulatedStatusBarMetrics"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="480"/>
                     <connections>
                         <outlet property="imageView" destination="IWk-Ud-HVQ" id="XXh-gH-eRB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fyn-dQ-LSx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3107" y="365"/>
+            <point key="canvasLocation" x="3109" y="365"/>
         </scene>
         <!--Take Delayed Photos View Controller - mock landscape-->
         <scene sceneID="ApC-rY-S7I">
@@ -1952,7 +1964,7 @@ photos</string>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="N9j-NP-wLm"/>
         <segue reference="vc6-di-tqf"/>
+        <segue reference="N9j-NP-wLm"/>
     </inferredMetricsTieBreakers>
 </document>

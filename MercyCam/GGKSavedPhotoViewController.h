@@ -11,11 +11,10 @@
 #import "GGKViewController.h"
 
 @interface GGKSavedPhotoViewController : GGKViewController
-
+// Image to show.
+@property (nonatomic, strong) UIImage *image;
 // Story: User taps a thumbnail in an image picker. User sees larger version of image.
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
-
 // Override.
 - (void)viewDidLoad;
-
 @end
