@@ -269,12 +269,16 @@ with 324 hours between each photo."</string>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="Sin-J3-zg2" secondAttribute="height" multiplier="3:4" id="exD-oC-jTH"/>
+                                    <constraint firstAttribute="width" secondItem="Sin-J3-zg2" secondAttribute="height" multiplier="3:4" priority="750" id="exD-oC-jTH"/>
                                 </constraints>
                             </view>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="UdW-v1-5td">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="UdW-v1-5td">
                                 <rect key="frame" x="707" y="8" width="53" height="892"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="53" id="bNJ-xA-pYG"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 <state key="normal" title="Proxy">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -304,13 +308,12 @@ photos</string>
                                     </segue>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="603" translatesAutoresizingMaskIntoConstraints="NO" id="JBy-3S-HOX">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="603" translatesAutoresizingMaskIntoConstraints="NO" id="JBy-3S-HOX">
                                 <rect key="frame" x="96" y="19" width="603" height="58"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="58" id="G3W-EL-E1l"/>
-                                    <constraint firstAttribute="width" constant="603" id="fNQ-ne-nB1"/>
                                 </constraints>
                                 <string key="text">Feedback placeholder.
 Line2</string>
@@ -381,9 +384,10 @@ Line2</string>
                                     <action selector="takePhoto" destination="BXz-Hw-S72" eventType="touchUpInside" id="Yc5-DS-h2r"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="fGJ-in-PS9">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="fGJ-in-PS9">
                                 <rect key="frame" x="8" y="96" width="80" height="856"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 <state key="normal" title="Proxy">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -401,8 +405,7 @@ Line2</string>
                             <constraint firstItem="UdW-v1-5td" firstAttribute="top" secondItem="NzF-hD-I03" secondAttribute="bottom" constant="8" id="KE4-eB-877"/>
                             <constraint firstItem="fGJ-in-PS9" firstAttribute="leading" secondItem="yA7-sQ-ved" secondAttribute="leading" constant="8" id="Kzv-Mm-HZA"/>
                             <constraint firstItem="JBy-3S-HOX" firstAttribute="leading" secondItem="Sin-J3-zg2" secondAttribute="leading" id="N4H-Xg-gW0"/>
-                            <constraint firstItem="Sin-J3-zg2" firstAttribute="leading" secondItem="5Vn-Fv-i1w" secondAttribute="trailing" constant="8" id="Qsy-xz-LQL"/>
-                            <constraint firstItem="Sin-J3-zg2" firstAttribute="top" secondItem="5Vn-Fv-i1w" secondAttribute="bottom" constant="8" id="TIx-1d-szR"/>
+                            <constraint firstItem="JBy-3S-HOX" firstAttribute="leading" secondItem="5Vn-Fv-i1w" secondAttribute="trailing" constant="8" id="P1B-uj-sn2"/>
                             <constraint firstItem="LCi-uL-LEp" firstAttribute="top" secondItem="OTg-i6-WmW" secondAttribute="bottom" constant="8" id="UTf-SC-R4A"/>
                             <constraint firstItem="5Vn-Fv-i1w" firstAttribute="top" secondItem="NzF-hD-I03" secondAttribute="bottom" constant="8" id="WDd-v2-vAr"/>
                             <constraint firstItem="LCi-uL-LEp" firstAttribute="top" secondItem="fGJ-in-PS9" secondAttribute="bottom" constant="8" id="WrE-RJ-OfW"/>
@@ -410,15 +413,16 @@ Line2</string>
                             <constraint firstItem="OTg-i6-WmW" firstAttribute="top" secondItem="Sin-J3-zg2" secondAttribute="bottom" constant="8" id="eoV-45-O3n"/>
                             <constraint firstItem="OTg-i6-WmW" firstAttribute="leading" secondItem="Sin-J3-zg2" secondAttribute="leading" id="gcP-sR-KYK"/>
                             <constraint firstItem="5Vn-Fv-i1w" firstAttribute="leading" secondItem="yA7-sQ-ved" secondAttribute="leading" constant="8" id="gk8-ny-5dG"/>
-                            <constraint firstItem="JBy-3S-HOX" firstAttribute="centerY" secondItem="5Vn-Fv-i1w" secondAttribute="centerY" id="l3X-Ia-9bA"/>
                             <constraint firstItem="OTg-i6-WmW" firstAttribute="leading" secondItem="fGJ-in-PS9" secondAttribute="trailing" constant="8" id="l4i-68-rXQ"/>
-                            <constraint firstItem="fGJ-in-PS9" firstAttribute="top" secondItem="5Vn-Fv-i1w" secondAttribute="bottom" constant="8" id="qH7-bG-c6d"/>
+                            <constraint firstItem="fGJ-in-PS9" firstAttribute="top" secondItem="5Vn-Fv-i1w" secondAttribute="bottom" constant="8" id="l7k-dm-xlt"/>
+                            <constraint firstItem="UdW-v1-5td" firstAttribute="leading" secondItem="JBy-3S-HOX" secondAttribute="trailing" constant="8" id="r9w-jP-mpG"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Normal Photo" id="Sby-Wb-kNp"/>
                     <connections>
                         <outlet property="cameraPreviewView" destination="Sin-J3-zg2" id="DME-35-Tlf"/>
                         <outlet property="cameraRollButton" destination="5Vn-Fv-i1w" id="UhE-V6-iSF"/>
+                        <outlet property="cameraRollButtonWidthLayoutConstraint" destination="yj0-I8-1fr" id="6gW-GD-Bha"/>
                         <outlet property="exposingLabel" destination="AYj-we-zZO" id="DYU-ma-jdA"/>
                         <outlet property="exposureModeLabel" destination="Nhh-kh-QaM" id="Xfc-c7-1DE"/>
                         <outlet property="exposurePointOfInterestLabel" destination="dHh-Qa-m5x" id="SbD-jW-fva"/>
@@ -429,6 +433,7 @@ Line2</string>
                         <outlet property="takePhotoLeftProxyButton" destination="fGJ-in-PS9" id="nzR-aH-tut"/>
                         <outlet property="takePhotoRightProxyButton" destination="UdW-v1-5td" id="Xwy-8F-cOM"/>
                         <outlet property="tipLabel" destination="JBy-3S-HOX" id="YMS-5O-R35"/>
+                        <outlet property="tipLabelHeightLayoutConstraint" destination="G3W-EL-E1l" id="ldm-tL-jrj"/>
                         <outlet property="whiteBalanceModeLabel" destination="87z-5y-chb" id="zAR-5k-5SL"/>
                         <outlet property="whiteBalancingLabel" destination="jny-pb-JCz" id="nrc-dt-lpn"/>
                     </connections>
@@ -634,35 +639,23 @@ photos</string>
                             <userLayoutGuide location="520" affinity="minY"/>
                         </userGuides>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CIE-Kx-GhZ">
-                                <rect key="frame" x="0.0" y="37" width="889" height="667"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CIE-Kx-GhZ">
+                                <rect key="frame" x="135" y="101" width="820" height="607"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="afl-kp-zrm">
-                                <rect key="frame" x="897" y="8" width="119" height="513"/>
+                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Abg-Lo-wfI">
+                                <rect key="frame" x="8" y="72" width="119" height="119"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
-                                <state key="normal">
-                                    <string key="title">Take
-photo</string>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="disabled">
-                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="playButtonSound" destination="Ptl-Qr-JK0" eventType="touchDown" id="QZX-jc-Pyu"/>
-                                    <action selector="takePhoto" destination="Ptl-Qr-JK0" eventType="touchUpInside" id="Z4r-1Q-xPP"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Abg-Lo-wfI">
-                                <rect key="frame" x="897" y="577" width="119" height="119"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="119" id="Egj-gp-OoQ"/>
+                                    <constraint firstAttribute="height" constant="119" id="Uhi-q8-1mA"/>
+                                </constraints>
                                 <state key="normal">
                                     <string key="title">Saved
 photos</string>
+                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -670,13 +663,6 @@ photos</string>
                                     <action selector="viewPhotos" destination="Ptl-Qr-JK0" eventType="touchUpInside" id="ROD-ZR-uYC"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Tip: To focus on an object, tap it." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pNV-8Q-9mk">
-                                <rect key="frame" x="20" y="8" width="608" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Foc. mode: auto." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6A2-3d-qe1">
                                 <rect key="frame" x="508" y="8" width="98" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -733,11 +719,82 @@ photos</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tip: To focus on an object, tap it." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9kZ-Uz-DkP">
+                                <rect key="frame" x="135" y="72" width="820" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="TDk-Sm-yGl">
+                                <rect key="frame" x="8" y="199" width="119" height="561"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <state key="normal" title="Proxy">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MaM-hh-ksJ">
+                                <rect key="frame" x="135" y="716" width="881" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="6PE-im-ozJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <state key="normal" title="Take Photo">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="playButtonSound" destination="BXz-Hw-S72" eventType="touchDown" id="y5v-dt-0ys"/>
+                                    <action selector="takePhoto" destination="BXz-Hw-S72" eventType="touchUpInside" id="RNO-qj-pLR"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="gGd-t7-oJe">
+                                <rect key="frame" x="963" y="72" width="53" height="636"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <state key="normal" title="Proxy">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.067454613745212555" blue="0.42392796277999878" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="gGd-t7-oJe" secondAttribute="trailing" constant="8" id="8rj-eo-KPB"/>
+                            <constraint firstItem="Abg-Lo-wfI" firstAttribute="leading" secondItem="kJQ-dd-e1n" secondAttribute="leading" constant="8" id="9Ga-wL-5Na"/>
+                            <constraint firstItem="TDk-Sm-yGl" firstAttribute="leading" secondItem="kJQ-dd-e1n" secondAttribute="leading" constant="8" id="Bp6-am-KJJ"/>
+                            <constraint firstItem="MaM-hh-ksJ" firstAttribute="top" secondItem="gGd-t7-oJe" secondAttribute="bottom" constant="8" id="KF0-sA-Cuu"/>
+                            <constraint firstAttribute="trailing" secondItem="CIE-Kx-GhZ" secondAttribute="trailing" constant="69" id="KXa-in-DqL"/>
+                            <constraint firstItem="9kZ-Uz-DkP" firstAttribute="top" secondItem="sNz-WZ-X9f" secondAttribute="bottom" constant="8" id="KZe-OF-gfr"/>
+                            <constraint firstItem="MaM-hh-ksJ" firstAttribute="top" secondItem="CIE-Kx-GhZ" secondAttribute="bottom" constant="8" id="KxU-66-NPx"/>
+                            <constraint firstAttribute="bottom" secondItem="CIE-Kx-GhZ" secondAttribute="bottom" constant="60" id="Mjp-gk-rEj"/>
+                            <constraint firstItem="KB0-eK-HWq" firstAttribute="top" secondItem="TDk-Sm-yGl" secondAttribute="bottom" constant="8" id="Pdy-6x-knD"/>
+                            <constraint firstItem="gGd-t7-oJe" firstAttribute="leading" secondItem="CIE-Kx-GhZ" secondAttribute="trailing" constant="8" id="QMz-yo-8jy"/>
+                            <constraint firstItem="CIE-Kx-GhZ" firstAttribute="top" secondItem="9kZ-Uz-DkP" secondAttribute="bottom" constant="8" id="Rhr-f0-rPJ"/>
+                            <constraint firstItem="CIE-Kx-GhZ" firstAttribute="leading" secondItem="Abg-Lo-wfI" secondAttribute="trailing" constant="8" symbolic="YES" id="SQU-T5-9H5"/>
+                            <constraint firstItem="Abg-Lo-wfI" firstAttribute="top" secondItem="sNz-WZ-X9f" secondAttribute="bottom" constant="8" id="Vhm-eb-kv4"/>
+                            <constraint firstAttribute="trailing" secondItem="MaM-hh-ksJ" secondAttribute="trailing" constant="8" id="XHW-Xn-B6a"/>
+                            <constraint firstItem="9kZ-Uz-DkP" firstAttribute="leading" secondItem="Abg-Lo-wfI" secondAttribute="trailing" constant="8" id="jQR-4k-WQC"/>
+                            <constraint firstItem="TDk-Sm-yGl" firstAttribute="top" secondItem="Abg-Lo-wfI" secondAttribute="bottom" constant="8" id="mCP-NP-ouM"/>
+                            <constraint firstItem="MaM-hh-ksJ" firstAttribute="leading" secondItem="TDk-Sm-yGl" secondAttribute="trailing" constant="8" id="pbZ-p3-Jns"/>
+                            <constraint firstItem="gGd-t7-oJe" firstAttribute="top" secondItem="sNz-WZ-X9f" secondAttribute="bottom" constant="8" id="sHi-1H-WfG"/>
+                            <constraint firstItem="gGd-t7-oJe" firstAttribute="leading" secondItem="9kZ-Uz-DkP" secondAttribute="trailing" constant="8" id="smD-gj-bCb"/>
+                            <constraint firstItem="CIE-Kx-GhZ" firstAttribute="leading" secondItem="TDk-Sm-yGl" secondAttribute="trailing" constant="8" id="w60-Tm-2VU"/>
+                        </constraints>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Mercy Camera: Take a photo" id="fNj-Ek-FZF"/>
+                    <navigationItem key="navigationItem" title="Normal Photo" id="fNj-Ek-FZF">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="pce-fo-oK5"/>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
@@ -749,7 +806,6 @@ photos</string>
                         <outlet property="focusModeLabel" destination="6A2-3d-qe1" id="IwW-ZO-ih5"/>
                         <outlet property="focusPointOfInterestLabel" destination="sTr-gC-hTe" id="bEy-UL-vfL"/>
                         <outlet property="focusingLabel" destination="HRz-pp-LGC" id="3uf-Ht-1S2"/>
-                        <outlet property="tipLabel" destination="pNV-8Q-9mk" id="eS1-fz-0J0"/>
                         <outlet property="whiteBalanceModeLabel" destination="VEi-WB-mEp" id="1K1-Vg-H1b"/>
                         <outlet property="whiteBalancingLabel" destination="7uU-Oa-0ET" id="zVT-Ft-aFN"/>
                     </connections>
@@ -770,8 +826,8 @@ photos</string>
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="UIImagePickerController goes here" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QXp-Xa-RAv">
-                                <rect key="frame" x="26" y="229" width="268" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="UIImagePickerController replaces here" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="235" translatesAutoresizingMaskIntoConstraints="NO" id="QXp-Xa-RAv">
+                                <rect key="frame" x="43" y="188" width="235" height="57"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>

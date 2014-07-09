@@ -8,6 +8,7 @@
 
 #import "GGKTakePhotoViewController.h"
 
+#import "GGKSavedPhotosManager.h"
 #import "GGKUtilities.h"
 #import "UIView+GGKAdditions.h"
 
@@ -18,6 +19,10 @@ NSString *ToFocusTipString = @"Focus mode: autofocus on center. To focus elsewhe
 // User sees tip. User learns the focus is locked. User learns how to unlock.
 NSString *ToUnlockFocusTipString = @"Focus mode: locked. To unlock, tap anywhere in the view.";
 @interface GGKTakePhotoViewController ()
+// Constraints needed only when device in landscape.
+@property (nonatomic, strong) NSArray *landscapeOnlyLayoutConstraintsArray;
+// Constraints needed only when device in portrait.
+@property (nonatomic, strong) NSArray *portraitOnlyLayoutConstraintsArray;
 // (For testing.) Show the current camera settings.
 - (void)updateCameraDebugLabels;
 @end
@@ -147,35 +152,43 @@ NSString *ToUnlockFocusTipString = @"Focus mode: locked. To unlock, tap anywhere
 }
 - (void)updateLayoutForLandscape {
     [super updateLayoutForLandscape];
-    
+    NSLog(@"TPVC uLFL1");
+    self.cameraRollButtonWidthLayoutConstraint.constant = 119;
+    self.tipLabelHeightLayoutConstraint.constant = 21;
+    [self.view removeConstraints:self.portraitOnlyLayoutConstraintsArray];
+    [self.view addConstraints:self.landscapeOnlyLayoutConstraintsArray];
+    [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
     // An anchor.
-    [self.cameraPreviewView ggk_makeSize:CGSizeMake(889, 667)];
-    [self.cameraPreviewView ggk_makeBottomGap:0];
-    [self.cameraPreviewView ggk_makeLeftGap:0];
-    [self updatePreviewOrientation];
-    
-    CGFloat aGap1 = 8;
-    
-    CGFloat aWidth = self.cameraRollButton.superview.frame.size.width - self.cameraPreviewView.frame.size.width - (2 * aGap1);
-    [self.cameraRollButton ggk_makeSize:CGSizeMake(aWidth, aWidth)];
-    [self.cameraRollButton ggk_makeBottomGap:aGap1];
-    [self.cameraRollButton ggk_makeRightGap:aGap1];
-    
-    CGFloat aGap2 = 50;
-    
-    [self.takePhotoRightButton ggk_makeWidth:self.cameraRollButton.frame.size.width];
-    CGFloat aHeight = self.takePhotoRightButton.superview.frame.size.height - self.cameraRollButton.frame.size.height - aGap2 - (2 * aGap1);
-    [self.takePhotoRightButton ggk_makeHeight:aHeight];
-    [self.takePhotoRightButton ggk_makeTopGap:aGap1];
-    [self.takePhotoRightButton ggk_alignRightEdgeWithView:self.cameraRollButton];
-        
-    // An anchor.
-    [self.tipLabel ggk_makeTopGap:8];
-}
-
-//- (void)updateLayoutForPortrait {
-//    [super updateLayoutForPortrait];
+//    [self.cameraPreviewView ggk_makeSize:CGSizeMake(889, 667)];
+//    [self.cameraPreviewView ggk_makeBottomGap:0];
+//    [self.cameraPreviewView ggk_makeLeftGap:0];
+//    [self updatePreviewOrientation];
 //    
+//    CGFloat aGap1 = 8;
+//    
+//    CGFloat aWidth = self.cameraRollButton.superview.frame.size.width - self.cameraPreviewView.frame.size.width - (2 * aGap1);
+//    [self.cameraRollButton ggk_makeSize:CGSizeMake(aWidth, aWidth)];
+//    [self.cameraRollButton ggk_makeBottomGap:aGap1];
+//    [self.cameraRollButton ggk_makeRightGap:aGap1];
+//    
+//    CGFloat aGap2 = 50;
+//    
+//    [self.takePhotoRightButton ggk_makeWidth:self.cameraRollButton.frame.size.width];
+//    CGFloat aHeight = self.takePhotoRightButton.superview.frame.size.height - self.cameraRollButton.frame.size.height - aGap2 - (2 * aGap1);
+//    [self.takePhotoRightButton ggk_makeHeight:aHeight];
+//    [self.takePhotoRightButton ggk_makeTopGap:aGap1];
+//    [self.takePhotoRightButton ggk_alignRightEdgeWithView:self.cameraRollButton];
+//        
+//    // An anchor.
+//    [self.tipLabel ggk_makeTopGap:8];
+}
+- (void)updateLayoutForPortrait {
+    [super updateLayoutForPortrait];
+    NSLog(@"uLFP1");
+    self.cameraRollButtonWidthLayoutConstraint.constant = 80;
+    self.tipLabelHeightLayoutConstraint.constant = 58;
+    [self.view removeConstraints:self.landscapeOnlyLayoutConstraintsArray];
+    [self.view addConstraints:self.portraitOnlyLayoutConstraintsArray];
 //    // An anchor.
 //    [self.cameraPreviewView ggk_makeSize:CGSizeMake(675, 900)];
 //    [self.cameraPreviewView ggk_makeBottomGap:0];
@@ -198,8 +211,11 @@ NSString *ToUnlockFocusTipString = @"Focus mode: locked. To unlock, tap anywhere
 //    
 //    // An anchor.
 //    [self.tipLabel ggk_makeTopGap:20];
+}
+//- (void)updateViewConstraints {
+//    [super updateViewConstraints];
+//    NSLog(@"TPVC uVC1");
 //}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // If not debugging, hide those labels. (They're shown by default so we can see them in the storyboard.) If debugging, set up KVO.
@@ -228,6 +244,11 @@ NSString *ToUnlockFocusTipString = @"Focus mode: locked. To unlock, tap anywhere
     }
     self.tipLabel.layer.cornerRadius = 3.0f;
     // Make side buttons. We want vertical/rotated text, so the buttons are rotated. Rotation doesn't work with constraints; no constraints means we have to make the button in code. However, the storyboard has proxy buttons: proper frame (via constraints) but horizontal text.
+
+    // temp; should be hidden (once we get UI laid out properly)
+//    self.takePhotoLeftProxyButton.hidden = YES;
+//    self.takePhotoRightProxyButton.hidden = YES;
+    
     UIButton *aButton = [GGKUtilities buttonWithTextRotated270WithFrame:self.takePhotoLeftProxyButton.frame];
     aButton.titleLabel.font = self.takePhotoLeftProxyButton.titleLabel.font;
     self.takePhotoLeftButton = aButton;
@@ -247,5 +268,22 @@ NSString *ToUnlockFocusTipString = @"Focus mode: locked. To unlock, tap anywhere
     for (UIButton *aButton in aButtonArray) {
         [GGKUtilities addBorderOfColor:[UIColor clearColor] toView:aButton];
     }
+    
+    //temp
+//    self.takePhotoLeftButton.hidden = YES;
+//    self.takePhotoRightButton.hidden = YES;
+    
+    // Orientation-specific layout constraints.
+    NSArray *anArray = @[];
+    NSDictionary *aDictionary = @{@"topGuide":self.topLayoutGuide, @"tipLabel":self.tipLabel, @"cameraPreviewView":self.cameraPreviewView};
+//    anArray = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[topGuide]-[tipLabel]-[cameraPreviewView]" options:0 metrics:nil views:aDictionary];
+    self.portraitOnlyLayoutConstraintsArray = anArray;
+    aDictionary = @{@"topGuide":self.topLayoutGuide, @"tipLabel":self.tipLabel, @"cameraPreviewView":self.cameraPreviewView};
+    anArray = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[topGuide]-[tipLabel]-[cameraPreviewView]" options:0 metrics:nil views:aDictionary];
+    self.landscapeOnlyLayoutConstraintsArray = anArray;
+    
+    //testing
+    [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
+
 }
 @end

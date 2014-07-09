@@ -28,6 +28,7 @@
             return;
         }
         CGImageRef aPhotoThumbnailImageRef = [thePhotoAsset thumbnail];
+//        aPhotoThumbnailImageRef = [[thePhotoAsset defaultRepresentation] fullScreenImage];
         UIImage *aPhotoImage = [UIImage imageWithCGImage:aPhotoThumbnailImageRef];
 //                NSLog(@"TPVC sMRPOB image size: %@", NSStringFromCGSize(aPhotoImage.size));
         // Show photo and no text.

@@ -9,6 +9,8 @@
 #import "GGKTakePhotoAbstractViewController.h"
 
 @interface GGKTakePhotoViewController : GGKTakePhotoAbstractViewController
+// Width changes depending on device rotation.
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *cameraRollButtonWidthLayoutConstraint;
 // (For testing.) Report whether currently exposing.
 @property (strong, nonatomic) IBOutlet UILabel *exposingLabel;
 // (For testing.) Report the current exposure mode.
@@ -30,6 +32,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *takePhotoRightProxyButton;
 // For displaying a context-sensitive tip.
 @property (nonatomic, strong) IBOutlet UILabel *tipLabel;
+// Height changes depending on device rotation.
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tipLabelHeightLayoutConstraint;
 // (For testing.) Report the current white-balance mode.
 @property (strong, nonatomic) IBOutlet UILabel *whiteBalanceModeLabel;
 // (For testing.) Report whether currently white balancing.
@@ -42,6 +46,8 @@
 - (void)updateLayoutForLandscape;
 // Override.
 //- (void)updateLayoutForPortrait;
+// Override.
+//- (void)updateViewConstraints;
 // Override.
 - (void)viewDidLoad;
 @end
