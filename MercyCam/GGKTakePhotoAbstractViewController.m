@@ -122,8 +122,6 @@ NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString = @"captur
 }
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    //    NSLog(@"vDLS1 f:%@", NSStringFromCGRect(self.cameraPreviewView.frame));
-    //    NSLog(@"vDLS1 b:%@", NSStringFromCGRect(self.cameraPreviewView.bounds));
     [self updatePreviewOrientation];
 }
 - (void)viewDidLoad {

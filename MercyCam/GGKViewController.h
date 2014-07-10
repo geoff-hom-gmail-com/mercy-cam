@@ -30,10 +30,10 @@
 // Play sound as aural feedback for pressing button.
 - (IBAction)playButtonSound;
 // Story: When the user should see the UI in landscape, she does.
-// Stub.
+// Modify constraints.
 - (void)updateLayoutForLandscape;
 // Story: When the user should see the UI in portrait, she does.
-// Stub.
+// Modify constraints.
 - (void)updateLayoutForPortrait;
 // Update the UI here. This will be called whenever the view will appear to the user.
 - (void)updateUI;

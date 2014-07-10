@@ -51,5 +51,8 @@
 // Override.
 - (void)updateLayoutForPortrait;
 // Override.
+// Update things after constraints have been applied.
+- (void)viewDidLayoutSubviews;
+// Override.
 - (void)viewDidLoad;
 @end

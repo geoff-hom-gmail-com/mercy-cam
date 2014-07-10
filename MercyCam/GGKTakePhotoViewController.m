@@ -19,11 +19,6 @@ NSString *ToFocusTipString = @"Focus mode: autofocus on center. To focus elsewhe
 // User sees tip. User learns the focus is locked. User learns how to unlock.
 NSString *ToUnlockFocusTipString = @"Focus mode: locked. To unlock, tap anywhere in the view.";
 @interface GGKTakePhotoViewController ()
-//// Constraints needed only when device in landscape.
-//@property (nonatomic, strong) NSArray *landscapeOnlyLayoutConstraintsArray;
-//// Constraints needed only when device in portrait.
-//@property (nonatomic, strong) NSArray *portraitOnlyLayoutConstraintsArray;
-// (For testing.) Show the current camera settings.
 - (void)updateCameraDebugLabels;
 @end
 
@@ -160,13 +155,11 @@ NSString *ToUnlockFocusTipString = @"Focus mode: locked. To unlock, tap anywhere
     self.takePhotoRightProxyButtonWidthLayoutConstraint.constant = 53;
     self.tipLabelHeightLayoutConstraint.constant = 58;
 }
-// Override.
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     [GGKUtilities matchFrameOfRotated90View:self.takePhotoLeftButton withView:self.takePhotoLeftProxyButton];
     [GGKUtilities matchFrameOfRotated90View:self.takePhotoRightButton withView:self.takePhotoRightProxyButton];
 }
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // If not debugging, hide those labels. (They're shown by default so we can see them in the storyboard.) If debugging, set up KVO.
@@ -195,43 +188,16 @@ NSString *ToUnlockFocusTipString = @"Focus mode: locked. To unlock, tap anywhere
     }
     self.tipLabel.layer.cornerRadius = 3.0f;
     // Make side buttons. We want vertical/rotated text, so the buttons are rotated. Rotation doesn't work with constraints; no constraints means we have to make the button in code. However, the storyboard has proxy buttons: proper frame (via constraints) but horizontal text.
-
-    // temp; should be hidden (once we get UI laid out properly)
-//    self.takePhotoLeftProxyButton.hidden = YES;
-//    self.takePhotoRightProxyButton.hidden = YES;
-    
-    //{{8, 96}, {80, 856}}
-//    UIButton *aButton = [GGKUtilities buttonWithTextRotated270WithFrame:self.takePhotoLeftProxyButton.frame];
-
-//    UIButton *aButton = [GGKUtilities buttonWithTextRotated270WithButton:self.takePhotoLeftProxyButton];
-
     UIButton *aButton = [UIButton buttonWithType:UIButtonTypeSystem];
     aButton.transform = CGAffineTransformMakeRotation(M_PI_2);
     aButton.titleLabel.font = self.takePhotoLeftProxyButton.titleLabel.font;
     [GGKUtilities matchFrameOfRotated90View:aButton withView:self.takePhotoLeftProxyButton];
     self.takePhotoLeftButton = aButton;
-    
     aButton = [UIButton buttonWithType:UIButtonTypeSystem];
     aButton.transform = CGAffineTransformMakeRotation(-M_PI_2);
     aButton.titleLabel.font = self.takePhotoRightProxyButton.titleLabel.font;
     [GGKUtilities matchFrameOfRotated90View:self.takePhotoRightButton withView:self.takePhotoRightProxyButton];
     self.takePhotoRightButton = aButton;
-
-    
-    
-    
-    //{{-768, 96}, {856, 80}}
-//    UIButton *aButton = [UIButton buttonWithType:UIButtonTypeSystem];
-//    aButton.layer.anchorPoint = CGPointZero;
-//    aButton.frame = [GGKUtilities frameToRotate270ToMatchFrame:self.takePhotoLeftProxyButton.frame];
-//    aButton.transform = CGAffineTransformMakeRotation(M_PI_2);
-    NSLog(@"frame12:%@", NSStringFromCGRect(aButton.frame));
-    
-//    aButton.titleLabel.font = self.takePhotoLeftProxyButton.titleLabel.font;
-//    self.takePhotoLeftButton = aButton;
-//    aButton = [GGKUtilities buttonWithTextRotated90WithFrame:self.takePhotoRightProxyButton.frame];
-//    aButton.titleLabel.font = self.takePhotoRightProxyButton.titleLabel.font;
-//    self.takePhotoRightButton = aButton;
     NSString *aButtonTitleString = [self.takePhotoBottomButton titleForState:UIControlStateNormal];
     for (UIButton *aButton in @[self.takePhotoLeftButton, self.takePhotoRightButton]) {
         aButton.backgroundColor = [UIColor whiteColor];
@@ -240,16 +206,13 @@ NSString *ToUnlockFocusTipString = @"Focus mode: locked. To unlock, tap anywhere
         [aButton addTarget:self action:@selector(takePhoto) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:aButton];
     }
+    self.takePhotoLeftProxyButton.hidden = YES;
+    self.takePhotoRightProxyButton.hidden = YES;
     // Add border to take-photo buttons.
     NSArray *aButtonArray = @[self.takePhotoLeftButton, self.takePhotoRightButton, self.takePhotoBottomButton];
     for (UIButton *aButton in aButtonArray) {
         [GGKUtilities addBorderOfColor:[UIColor clearColor] toView:aButton];
     }
-    
-    //temp
-//    self.takePhotoLeftButton.hidden = YES;
-//    self.takePhotoRightButton.hidden = YES;
-    
     // Orientation-specific layout constraints.
     self.portraitOnlyLayoutConstraintsArray = @[self.tipLabelAlignCenterYLayoutConstraint];
     NSDictionary *aDictionary = @{@"topGuide":self.topLayoutGuide, @"tipLabel":self.tipLabel, @"cameraPreviewView":self.cameraPreviewView};
