@@ -19,10 +19,10 @@ NSString *ToFocusTipString = @"Focus mode: autofocus on center. To focus elsewhe
 // User sees tip. User learns the focus is locked. User learns how to unlock.
 NSString *ToUnlockFocusTipString = @"Focus mode: locked. To unlock, tap anywhere in the view.";
 @interface GGKTakePhotoViewController ()
-// Constraints needed only when device in landscape.
-@property (nonatomic, strong) NSArray *landscapeOnlyLayoutConstraintsArray;
-// Constraints needed only when device in portrait.
-@property (nonatomic, strong) NSArray *portraitOnlyLayoutConstraintsArray;
+//// Constraints needed only when device in landscape.
+//@property (nonatomic, strong) NSArray *landscapeOnlyLayoutConstraintsArray;
+//// Constraints needed only when device in portrait.
+//@property (nonatomic, strong) NSArray *portraitOnlyLayoutConstraintsArray;
 // (For testing.) Show the current camera settings.
 - (void)updateCameraDebugLabels;
 @end
@@ -152,30 +152,13 @@ NSString *ToUnlockFocusTipString = @"Focus mode: locked. To unlock, tap anywhere
 }
 - (void)updateLayoutForLandscape {
     [super updateLayoutForLandscape];
-    NSLog(@"TPVC uLFL1");
-    // Edit, remove and add constraints for this orientation.
     self.takePhotoRightProxyButtonWidthLayoutConstraint.constant = 103;
     self.tipLabelHeightLayoutConstraint.constant = 21;
-    [self.view removeConstraints:self.portraitOnlyLayoutConstraintsArray];
-    for (NSLayoutConstraint *aLayoutConstraint in self.landscapeOnlyLayoutConstraintsArray) {
-        if ([self.view.constraints indexOfObject:aLayoutConstraint] == NSNotFound) {
-            [self.view addConstraint:aLayoutConstraint];
-        }
-    }
 }
 - (void)updateLayoutForPortrait {
     [super updateLayoutForPortrait];
-    NSLog(@"uLFP1");
-    // Edit, remove and add constraints for this orientation.
     self.takePhotoRightProxyButtonWidthLayoutConstraint.constant = 53;
     self.tipLabelHeightLayoutConstraint.constant = 58;
-    // this part can be done in more abstract VC?
-    [self.view removeConstraints:self.landscapeOnlyLayoutConstraintsArray];
-    for (NSLayoutConstraint *aLayoutConstraint in self.portraitOnlyLayoutConstraintsArray) {
-        if ([self.view.constraints indexOfObject:aLayoutConstraint] == NSNotFound) {
-            [self.view addConstraint:aLayoutConstraint];
-        }
-    }
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -235,16 +218,10 @@ NSString *ToUnlockFocusTipString = @"Focus mode: locked. To unlock, tap anywhere
 //    self.takePhotoRightButton.hidden = YES;
     
     // Orientation-specific layout constraints.
-    NSArray *anArray = @[];
-    NSDictionary *aDictionary = @{@"topGuide":self.topLayoutGuide, @"tipLabel":self.tipLabel, @"cameraPreviewView":self.cameraPreviewView};
-//    anArray = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[topGuide]-[tipLabel]-[cameraPreviewView]" options:0 metrics:nil views:aDictionary];
     self.portraitOnlyLayoutConstraintsArray = @[self.tipLabelAlignCenterYLayoutConstraint];
-    aDictionary = @{@"topGuide":self.topLayoutGuide, @"tipLabel":self.tipLabel, @"cameraPreviewView":self.cameraPreviewView};
-    anArray = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[topGuide]-[tipLabel]-[cameraPreviewView]" options:0 metrics:nil views:aDictionary];
+    NSDictionary *aDictionary = @{@"topGuide":self.topLayoutGuide, @"tipLabel":self.tipLabel, @"cameraPreviewView":self.cameraPreviewView};
+    // Standard vertical gap between top layout guide, tip label and camera preview.
+    NSArray *anArray = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[topGuide]-[tipLabel]-[cameraPreviewView]" options:0 metrics:nil views:aDictionary];
     self.landscapeOnlyLayoutConstraintsArray = anArray;
-    
-    //testing
-//    [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
-
 }
 @end

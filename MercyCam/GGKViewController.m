@@ -43,10 +43,24 @@
     [aCamAppDelegate.soundModel playButtonTapSound];
 }
 - (void)updateLayoutForLandscape {
-    NSLog(@"VC updateLayoutForLandscape");
+    if (self.portraitOnlyLayoutConstraintsArray != nil) {
+        [self.view removeConstraints:self.portraitOnlyLayoutConstraintsArray];
+    }
+    for (NSLayoutConstraint *aLayoutConstraint in self.landscapeOnlyLayoutConstraintsArray) {
+        if ([self.view.constraints indexOfObject:aLayoutConstraint] == NSNotFound) {
+            [self.view addConstraint:aLayoutConstraint];
+        }
+    }
 }
 - (void)updateLayoutForPortrait {
-    NSLog(@"VC updateLayoutForPortrait");
+    if (self.landscapeOnlyLayoutConstraintsArray != nil) {
+        [self.view removeConstraints:self.landscapeOnlyLayoutConstraintsArray];
+    }
+    for (NSLayoutConstraint *aLayoutConstraint in self.portraitOnlyLayoutConstraintsArray) {
+        if ([self.view.constraints indexOfObject:aLayoutConstraint] == NSNotFound) {
+            [self.view addConstraint:aLayoutConstraint];
+        }
+    }
 }
 - (void)updateUI {
     //    NSLog(@"VC uI");
