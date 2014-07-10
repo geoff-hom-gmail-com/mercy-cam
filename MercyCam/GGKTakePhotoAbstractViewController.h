@@ -47,5 +47,8 @@ extern NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString;
 // Rotate the camera preview to the device's orientation. Resize the preview view.
 - (void)updatePreviewOrientation;
 // Override.
+// Device orientation may have changed. Make sure preview layer matches.
+- (void)viewDidLayoutSubviews;
+// Override.
 - (void)viewDidLoad;
 @end

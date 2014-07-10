@@ -120,6 +120,12 @@ NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString = @"captur
     self.captureVideoPreviewLayer.frame = self.cameraPreviewView.bounds;
     self.captureVideoPreviewLayer.connection.videoOrientation = [self.captureManager properCaptureVideoOrientation];
 }
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    //    NSLog(@"vDLS1 f:%@", NSStringFromCGRect(self.cameraPreviewView.frame));
+    //    NSLog(@"vDLS1 b:%@", NSStringFromCGRect(self.cameraPreviewView.bounds));
+    [self updatePreviewOrientation];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.savedPhotosManager = [[GGKSavedPhotosManager alloc] init];

@@ -10,7 +10,7 @@
 
 @interface GGKTakePhotoViewController : GGKTakePhotoAbstractViewController
 // Width changes depending on device rotation.
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *cameraRollButtonWidthLayoutConstraint;
+//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *cameraRollButtonWidthLayoutConstraint;
 // (For testing.) Report whether currently exposing.
 @property (strong, nonatomic) IBOutlet UILabel *exposingLabel;
 // (For testing.) Report the current exposure mode.
@@ -30,8 +30,12 @@
 @property (weak, nonatomic) IBOutlet UIButton *takePhotoLeftProxyButton;
 @property (weak, nonatomic) UIButton *takePhotoRightButton;
 @property (weak, nonatomic) IBOutlet UIButton *takePhotoRightProxyButton;
+// Width changes depending on device orientation/rotation.
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *takePhotoRightProxyButtonWidthLayoutConstraint;
 // For displaying a context-sensitive tip.
 @property (nonatomic, strong) IBOutlet UILabel *tipLabel;
+// In portrait, tip label and camera-roll button are center-Y aligned.
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tipLabelAlignCenterYLayoutConstraint;
 // Height changes depending on device rotation.
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tipLabelHeightLayoutConstraint;
 // (For testing.) Report the current white-balance mode.
@@ -45,9 +49,7 @@
 // Override.
 - (void)updateLayoutForLandscape;
 // Override.
-//- (void)updateLayoutForPortrait;
-// Override.
-//- (void)updateViewConstraints;
+- (void)updateLayoutForPortrait;
 // Override.
 - (void)viewDidLoad;
 @end

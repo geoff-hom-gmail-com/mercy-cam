@@ -43,10 +43,10 @@
     [aCamAppDelegate.soundModel playButtonTapSound];
 }
 - (void)updateLayoutForLandscape {
-//    NSLog(@"updateLayoutForLandscape");
+    NSLog(@"VC updateLayoutForLandscape");
 }
 - (void)updateLayoutForPortrait {
-//    NSLog(@"updateLayoutForPortrait");
+    NSLog(@"VC updateLayoutForPortrait");
 }
 - (void)updateUI {
     //    NSLog(@"VC uI");
@@ -84,12 +84,10 @@
     [super viewWillLayoutSubviews];
     // Using status-bar orientation, not device orientation. Seems to work.
     UIInterfaceOrientation theInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
-    if (UIInterfaceOrientationIsLandscape(theInterfaceOrientation) && !self.isShowingLandscapeView) {
+    if (UIInterfaceOrientationIsLandscape(theInterfaceOrientation)) {
         [self updateLayoutForLandscape];
-        self.isShowingLandscapeView = YES;
-    } else if (UIInterfaceOrientationIsPortrait(theInterfaceOrientation) && self.isShowingLandscapeView) {
+    } else if (UIInterfaceOrientationIsPortrait(theInterfaceOrientation)) {
         [self updateLayoutForPortrait];
-        self.isShowingLandscapeView = NO;
     }
 }
 @end

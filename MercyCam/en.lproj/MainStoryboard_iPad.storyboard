@@ -269,7 +269,7 @@ with 324 hours between each photo."</string>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="Sin-J3-zg2" secondAttribute="height" multiplier="3:4" priority="750" id="exD-oC-jTH"/>
+                                    <constraint firstAttribute="width" secondItem="Sin-J3-zg2" secondAttribute="height" multiplier="3:4" priority="250" id="exD-oC-jTH"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="UdW-v1-5td">
@@ -308,7 +308,7 @@ photos</string>
                                     </segue>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="603" translatesAutoresizingMaskIntoConstraints="NO" id="JBy-3S-HOX">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="603" translatesAutoresizingMaskIntoConstraints="NO" id="JBy-3S-HOX">
                                 <rect key="frame" x="96" y="19" width="603" height="58"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -404,25 +404,25 @@ Line2</string>
                             <constraint firstAttribute="trailing" secondItem="UdW-v1-5td" secondAttribute="trailing" constant="8" id="GVe-u5-8bA"/>
                             <constraint firstItem="UdW-v1-5td" firstAttribute="top" secondItem="NzF-hD-I03" secondAttribute="bottom" constant="8" id="KE4-eB-877"/>
                             <constraint firstItem="fGJ-in-PS9" firstAttribute="leading" secondItem="yA7-sQ-ved" secondAttribute="leading" constant="8" id="Kzv-Mm-HZA"/>
-                            <constraint firstItem="JBy-3S-HOX" firstAttribute="leading" secondItem="Sin-J3-zg2" secondAttribute="leading" id="N4H-Xg-gW0"/>
+                            <constraint firstItem="5Vn-Fv-i1w" firstAttribute="trailing" secondItem="fGJ-in-PS9" secondAttribute="trailing" id="LEf-Kq-P9k"/>
                             <constraint firstItem="JBy-3S-HOX" firstAttribute="leading" secondItem="5Vn-Fv-i1w" secondAttribute="trailing" constant="8" id="P1B-uj-sn2"/>
                             <constraint firstItem="LCi-uL-LEp" firstAttribute="top" secondItem="OTg-i6-WmW" secondAttribute="bottom" constant="8" id="UTf-SC-R4A"/>
                             <constraint firstItem="5Vn-Fv-i1w" firstAttribute="top" secondItem="NzF-hD-I03" secondAttribute="bottom" constant="8" id="WDd-v2-vAr"/>
                             <constraint firstItem="LCi-uL-LEp" firstAttribute="top" secondItem="fGJ-in-PS9" secondAttribute="bottom" constant="8" id="WrE-RJ-OfW"/>
                             <constraint firstItem="UdW-v1-5td" firstAttribute="leading" secondItem="Sin-J3-zg2" secondAttribute="trailing" constant="8" id="ZKs-6J-4NU"/>
                             <constraint firstItem="OTg-i6-WmW" firstAttribute="top" secondItem="Sin-J3-zg2" secondAttribute="bottom" constant="8" id="eoV-45-O3n"/>
-                            <constraint firstItem="OTg-i6-WmW" firstAttribute="leading" secondItem="Sin-J3-zg2" secondAttribute="leading" id="gcP-sR-KYK"/>
                             <constraint firstItem="5Vn-Fv-i1w" firstAttribute="leading" secondItem="yA7-sQ-ved" secondAttribute="leading" constant="8" id="gk8-ny-5dG"/>
+                            <constraint firstItem="Sin-J3-zg2" firstAttribute="leading" secondItem="fGJ-in-PS9" secondAttribute="trailing" constant="8" id="jQQ-ck-Pjn"/>
                             <constraint firstItem="OTg-i6-WmW" firstAttribute="leading" secondItem="fGJ-in-PS9" secondAttribute="trailing" constant="8" id="l4i-68-rXQ"/>
                             <constraint firstItem="fGJ-in-PS9" firstAttribute="top" secondItem="5Vn-Fv-i1w" secondAttribute="bottom" constant="8" id="l7k-dm-xlt"/>
                             <constraint firstItem="UdW-v1-5td" firstAttribute="leading" secondItem="JBy-3S-HOX" secondAttribute="trailing" constant="8" id="r9w-jP-mpG"/>
+                            <constraint firstItem="5Vn-Fv-i1w" firstAttribute="centerY" secondItem="JBy-3S-HOX" secondAttribute="centerY" id="tIh-6X-dC4"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Normal Photo" id="Sby-Wb-kNp"/>
                     <connections>
                         <outlet property="cameraPreviewView" destination="Sin-J3-zg2" id="DME-35-Tlf"/>
                         <outlet property="cameraRollButton" destination="5Vn-Fv-i1w" id="UhE-V6-iSF"/>
-                        <outlet property="cameraRollButtonWidthLayoutConstraint" destination="yj0-I8-1fr" id="6gW-GD-Bha"/>
                         <outlet property="exposingLabel" destination="AYj-we-zZO" id="DYU-ma-jdA"/>
                         <outlet property="exposureModeLabel" destination="Nhh-kh-QaM" id="Xfc-c7-1DE"/>
                         <outlet property="exposurePointOfInterestLabel" destination="dHh-Qa-m5x" id="SbD-jW-fva"/>
@@ -432,7 +432,9 @@ Line2</string>
                         <outlet property="takePhotoBottomButton" destination="OTg-i6-WmW" id="bvc-W4-vy4"/>
                         <outlet property="takePhotoLeftProxyButton" destination="fGJ-in-PS9" id="nzR-aH-tut"/>
                         <outlet property="takePhotoRightProxyButton" destination="UdW-v1-5td" id="Xwy-8F-cOM"/>
+                        <outlet property="takePhotoRightProxyButtonWidthLayoutConstraint" destination="bNJ-xA-pYG" id="4Jp-dw-ZZU"/>
                         <outlet property="tipLabel" destination="JBy-3S-HOX" id="YMS-5O-R35"/>
+                        <outlet property="tipLabelAlignCenterYLayoutConstraint" destination="tIh-6X-dC4" id="lNR-ee-0dk"/>
                         <outlet property="tipLabelHeightLayoutConstraint" destination="G3W-EL-E1l" id="ldm-tL-jrj"/>
                         <outlet property="whiteBalanceModeLabel" destination="87z-5y-chb" id="zAR-5k-5SL"/>
                         <outlet property="whiteBalancingLabel" destination="jny-pb-JCz" id="nrc-dt-lpn"/>
@@ -640,17 +642,17 @@ photos</string>
                         </userGuides>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CIE-Kx-GhZ">
-                                <rect key="frame" x="135" y="101" width="820" height="607"/>
+                                <rect key="frame" x="96" y="101" width="809" height="607"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Abg-Lo-wfI">
-                                <rect key="frame" x="8" y="72" width="119" height="119"/>
+                                <rect key="frame" x="8" y="72" width="80" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="119" id="Egj-gp-OoQ"/>
-                                    <constraint firstAttribute="height" constant="119" id="Uhi-q8-1mA"/>
+                                    <constraint firstAttribute="width" constant="80" id="Egj-gp-OoQ"/>
+                                    <constraint firstAttribute="height" constant="80" id="Uhi-q8-1mA"/>
                                 </constraints>
                                 <state key="normal">
                                     <string key="title">Saved
@@ -720,14 +722,14 @@ photos</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tip: To focus on an object, tap it." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9kZ-Uz-DkP">
-                                <rect key="frame" x="135" y="72" width="820" height="21"/>
+                                <rect key="frame" x="96" y="72" width="809" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="TDk-Sm-yGl">
-                                <rect key="frame" x="8" y="199" width="119" height="561"/>
+                                <rect key="frame" x="8" y="160" width="80" height="600"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
@@ -739,7 +741,7 @@ photos</string>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MaM-hh-ksJ">
-                                <rect key="frame" x="135" y="716" width="881" height="44"/>
+                                <rect key="frame" x="96" y="716" width="920" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -755,9 +757,12 @@ photos</string>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="gGd-t7-oJe">
-                                <rect key="frame" x="963" y="72" width="53" height="636"/>
+                                <rect key="frame" x="913" y="72" width="103" height="636"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="103" id="ZOv-Mx-fEx"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 <state key="normal" title="Proxy">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -773,7 +778,6 @@ photos</string>
                             <constraint firstItem="Abg-Lo-wfI" firstAttribute="leading" secondItem="kJQ-dd-e1n" secondAttribute="leading" constant="8" id="9Ga-wL-5Na"/>
                             <constraint firstItem="TDk-Sm-yGl" firstAttribute="leading" secondItem="kJQ-dd-e1n" secondAttribute="leading" constant="8" id="Bp6-am-KJJ"/>
                             <constraint firstItem="MaM-hh-ksJ" firstAttribute="top" secondItem="gGd-t7-oJe" secondAttribute="bottom" constant="8" id="KF0-sA-Cuu"/>
-                            <constraint firstAttribute="trailing" secondItem="CIE-Kx-GhZ" secondAttribute="trailing" constant="69" id="KXa-in-DqL"/>
                             <constraint firstItem="9kZ-Uz-DkP" firstAttribute="top" secondItem="sNz-WZ-X9f" secondAttribute="bottom" constant="8" id="KZe-OF-gfr"/>
                             <constraint firstItem="MaM-hh-ksJ" firstAttribute="top" secondItem="CIE-Kx-GhZ" secondAttribute="bottom" constant="8" id="KxU-66-NPx"/>
                             <constraint firstAttribute="bottom" secondItem="CIE-Kx-GhZ" secondAttribute="bottom" constant="60" id="Mjp-gk-rEj"/>
