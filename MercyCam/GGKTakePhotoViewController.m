@@ -160,6 +160,13 @@ NSString *ToUnlockFocusTipString = @"Focus mode: locked. To unlock, tap anywhere
     self.takePhotoRightProxyButtonWidthLayoutConstraint.constant = 53;
     self.tipLabelHeightLayoutConstraint.constant = 58;
 }
+// Override.
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [GGKUtilities matchFrameOfRotated90View:self.takePhotoLeftButton withView:self.takePhotoLeftProxyButton];
+    [GGKUtilities matchFrameOfRotated90View:self.takePhotoRightButton withView:self.takePhotoRightProxyButton];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // If not debugging, hide those labels. (They're shown by default so we can see them in the storyboard.) If debugging, set up KVO.
@@ -193,12 +200,38 @@ NSString *ToUnlockFocusTipString = @"Focus mode: locked. To unlock, tap anywhere
 //    self.takePhotoLeftProxyButton.hidden = YES;
 //    self.takePhotoRightProxyButton.hidden = YES;
     
-    UIButton *aButton = [GGKUtilities buttonWithTextRotated270WithFrame:self.takePhotoLeftProxyButton.frame];
+    //{{8, 96}, {80, 856}}
+//    UIButton *aButton = [GGKUtilities buttonWithTextRotated270WithFrame:self.takePhotoLeftProxyButton.frame];
+
+//    UIButton *aButton = [GGKUtilities buttonWithTextRotated270WithButton:self.takePhotoLeftProxyButton];
+
+    UIButton *aButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    aButton.transform = CGAffineTransformMakeRotation(M_PI_2);
     aButton.titleLabel.font = self.takePhotoLeftProxyButton.titleLabel.font;
+    [GGKUtilities matchFrameOfRotated90View:aButton withView:self.takePhotoLeftProxyButton];
     self.takePhotoLeftButton = aButton;
-    aButton = [GGKUtilities buttonWithTextRotated90WithFrame:self.takePhotoRightProxyButton.frame];
+    
+    aButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    aButton.transform = CGAffineTransformMakeRotation(-M_PI_2);
     aButton.titleLabel.font = self.takePhotoRightProxyButton.titleLabel.font;
+    [GGKUtilities matchFrameOfRotated90View:self.takePhotoRightButton withView:self.takePhotoRightProxyButton];
     self.takePhotoRightButton = aButton;
+
+    
+    
+    
+    //{{-768, 96}, {856, 80}}
+//    UIButton *aButton = [UIButton buttonWithType:UIButtonTypeSystem];
+//    aButton.layer.anchorPoint = CGPointZero;
+//    aButton.frame = [GGKUtilities frameToRotate270ToMatchFrame:self.takePhotoLeftProxyButton.frame];
+//    aButton.transform = CGAffineTransformMakeRotation(M_PI_2);
+    NSLog(@"frame12:%@", NSStringFromCGRect(aButton.frame));
+    
+//    aButton.titleLabel.font = self.takePhotoLeftProxyButton.titleLabel.font;
+//    self.takePhotoLeftButton = aButton;
+//    aButton = [GGKUtilities buttonWithTextRotated90WithFrame:self.takePhotoRightProxyButton.frame];
+//    aButton.titleLabel.font = self.takePhotoRightProxyButton.titleLabel.font;
+//    self.takePhotoRightButton = aButton;
     NSString *aButtonTitleString = [self.takePhotoBottomButton titleForState:UIControlStateNormal];
     for (UIButton *aButton in @[self.takePhotoLeftButton, self.takePhotoRightButton]) {
         aButton.backgroundColor = [UIColor whiteColor];
