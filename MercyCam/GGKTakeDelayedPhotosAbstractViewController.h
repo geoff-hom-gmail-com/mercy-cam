@@ -31,9 +31,6 @@ extern NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString;
 // Tap to cancel the timer for taking photos.
 @property (weak, nonatomic) IBOutlet UIButton *cancelTimerButton;
 
-// For displaying when the focus is continuous or locked. (Displays "locked" only when both focus and exposure are locked. Otherwise, displays "continuous" or "locking.")
-@property (nonatomic, strong) IBOutlet UILabel *focusLabel;
-
 // Story: User enters a value greater than the max. The value is replaced with the max.
 // The max is arbitrary and for cosmetic reasons and keeping edge cases simple.
 @property (nonatomic, assign) NSInteger maximumNumberOfPhotosInteger;
@@ -84,10 +81,12 @@ extern NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString;
 
 // Number of time units to wait before taking the first photo.
 @property (weak, nonatomic) IBOutlet UITextField *numberOfTimeUnitsToInitiallyWaitTextField;
-
+// Portrait-only constraint. Is set in storyboard to avoid compiler warnings.
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *previewViewAspectRatioPortraitLayoutConstraint;
 // Tap to start the timer for taking photos.
 @property (weak, nonatomic) IBOutlet UIButton *startTimerButton;
-
+// Gives frame for actual rotated button.
+@property (weak, nonatomic) IBOutlet UIButton *startTimerRightProxyButton;
 // Story: User taps "Start timer." Regardless of how long-term the timer parameters are, the user understands that the timer has started and is still working (because of the counter in seconds). She also understands when the next photo will be taken.
 @property (nonatomic, weak) IBOutlet UILabel *timeRemainingUntilNextPhotoLabel;
 
@@ -114,7 +113,8 @@ extern NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString;
 // Story: User sets number of time units to initially wait to 1. User sees singular text for that time unit.
 // The type of time units to wait before taking the first photo.
 @property (weak, nonatomic) IBOutlet UIButton *timeUnitsToInitiallyWaitButton;
-
+// For displaying a context-sensitive tip. (E.g., about focus state.)
+@property (nonatomic, strong) IBOutlet UILabel *tipLabel;
 // Update UI to take photos again.
 - (IBAction)cancelTimer;
 

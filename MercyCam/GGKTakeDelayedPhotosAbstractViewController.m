@@ -257,7 +257,7 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
             default:
                 break;
         }
-        self.focusLabel.text = [NSString stringWithFormat:@"Focus:\n  %@", aString];
+        self.tipLabel.text = [NSString stringWithFormat:@"Focus:\n  %@", aString];
     } else if ([theKeyPath isEqualToString:GGKTakeDelayedPhotosNumberOfTimeUnitsToInitiallyWaitKeyPathString]) {
         
         self.numberOfTimeUnitsToInitiallyWaitTextField.text = [NSString stringWithFormat:@"%ld", (long)self.numberOfTimeUnitsToInitiallyWaitInteger];

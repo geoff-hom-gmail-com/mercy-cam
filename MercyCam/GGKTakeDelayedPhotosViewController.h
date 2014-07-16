@@ -9,13 +9,10 @@
 
 // The default number of photos to take.
 extern const NSInteger GGKTakeDelayedPhotosDefaultNumberOfPhotosInteger;
-
 // The default number of seconds to initially wait.
 extern const NSInteger GGKTakeDelayedPhotosDefaultNumberOfSecondsToInitiallyWaitInteger;
-
 // Key for storing the number of photos to take.
 extern NSString *GGKTakeDelayedPhotosNumberOfPhotosKeyString;
-
 // Key for storing the number of seconds to initially wait.
 extern NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString;
 
@@ -23,20 +20,20 @@ extern NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString;
 
 // In "Wait X seconds, then take Y photos," it's "seconds, then take." But may be singular or plural.
 @property (weak, nonatomic) IBOutlet UILabel *secondsLabel;
-
+// Portrait-only constraint. Is set in storyboard to avoid compiler warnings.
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *takePhotoRightProxyButtonTopGapPortraitLayoutConstraint;
+// Width depends on device orientation/rotation.
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *takePhotoRightProxyButtonWidthLayoutConstraint;
+// Portrait-only constraint. Is set in storyboard to avoid compiler warnings.
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tipLabelRightGapPortraitLayoutConstraint;
 // Override.
 - (void)getSavedTimerSettings;
-
 // Override.
 - (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
-
 // Override.
 - (void)updateLayoutForLandscape;
-
 // Override.
 - (void)updateLayoutForPortrait;
-
 // Override.
 - (void)viewDidLoad;
-
 @end

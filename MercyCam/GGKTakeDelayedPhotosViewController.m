@@ -55,84 +55,83 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     }
 }
 
-- (void)updateLayoutForLandscape
-{
+- (void)updateLayoutForLandscape {
     [super updateLayoutForLandscape];
-    
-    // An anchor.
-    [self.cameraPreviewView ggk_makeSize:CGSizeMake(816, 612)];
-    [self.cameraPreviewView ggk_makeBottomGap:0];
-    [self.cameraPreviewView ggk_makeLeftGap:0];
-    [self updatePreviewOrientation];
-    
-    CGFloat aWidth = 130;
-    CGFloat aGap1 = 8;
-    
-    // An anchor.
-    [self.cameraRollButton ggk_makeSize:CGSizeMake(aWidth, aWidth)];
-    [self.cameraRollButton ggk_makeBottomGap:aGap1];
-    [self.cameraRollButton ggk_makeRightGap:aGap1];
-    
-    CGFloat aGap2 = 40;
-    
-    [self.startTimerButton ggk_makeWidth:self.cameraRollButton.frame.size.width];
-    CGFloat aHeight = self.startTimerButton.superview.frame.size.height - self.cameraRollButton.frame.size.height - self.cancelTimerButton.frame.size.height - aGap2 - (3 * aGap1);
-    [self.startTimerButton ggk_makeHeight:aHeight];
-    [self.startTimerButton ggk_alignRightEdgeWithView:self.cameraRollButton];
-    [self.startTimerButton ggk_makeTopGap:aGap1];
-    
-    
-    self.focusLabel.font = [UIFont boldSystemFontOfSize:17.0];
-    [self.focusLabel ggk_makeSize:CGSizeMake(113, 50)];
-    [self.focusLabel ggk_makeTopGap:aGap1];
-    [self.focusLabel ggk_placeLeftOfView:self.startTimerButton gap:aGap1];
-    
-    CGFloat aGap3 = 30;
-    
-    [self.cancelTimerButton ggk_makeWidth:(self.startTimerButton.frame.size.width - aGap3)];
-    [self.cancelTimerButton ggk_alignRightEdgeWithView:self.cameraRollButton];
-    [self.cancelTimerButton ggk_placeBelowView:self.startTimerButton gap:aGap1];
-}
+    self.takePhotoRightProxyButtonWidthLayoutConstraint.constant = 212;
 
-- (void)updateLayoutForPortrait
-{
+//    // An anchor.
+//    [self.cameraPreviewView ggk_makeSize:CGSizeMake(816, 612)];
+//    [self.cameraPreviewView ggk_makeBottomGap:0];
+//    [self.cameraPreviewView ggk_makeLeftGap:0];
+//    [self updatePreviewOrientation];
+//    
+//    CGFloat aWidth = 130;
+//    CGFloat aGap1 = 8;
+//    
+//    // An anchor.
+//    [self.cameraRollButton ggk_makeSize:CGSizeMake(aWidth, aWidth)];
+//    [self.cameraRollButton ggk_makeBottomGap:aGap1];
+//    [self.cameraRollButton ggk_makeRightGap:aGap1];
+//    
+//    CGFloat aGap2 = 40;
+//    
+//    [self.startTimerButton ggk_makeWidth:self.cameraRollButton.frame.size.width];
+//    CGFloat aHeight = self.startTimerButton.superview.frame.size.height - self.cameraRollButton.frame.size.height - self.cancelTimerButton.frame.size.height - aGap2 - (3 * aGap1);
+//    [self.startTimerButton ggk_makeHeight:aHeight];
+//    [self.startTimerButton ggk_alignRightEdgeWithView:self.cameraRollButton];
+//    [self.startTimerButton ggk_makeTopGap:aGap1];
+//    
+//    
+//    self.focusLabel.font = [UIFont boldSystemFontOfSize:17.0];
+//    [self.focusLabel ggk_makeSize:CGSizeMake(113, 50)];
+//    [self.focusLabel ggk_makeTopGap:aGap1];
+//    [self.focusLabel ggk_placeLeftOfView:self.startTimerButton gap:aGap1];
+//    
+//    CGFloat aGap3 = 30;
+//    
+//    [self.cancelTimerButton ggk_makeWidth:(self.startTimerButton.frame.size.width - aGap3)];
+//    [self.cancelTimerButton ggk_alignRightEdgeWithView:self.cameraRollButton];
+//    [self.cancelTimerButton ggk_placeBelowView:self.startTimerButton gap:aGap1];
+}
+- (void)updateLayoutForPortrait {
     [super updateLayoutForPortrait];
-    
-    // An anchor.
-    [self.cameraPreviewView ggk_makeSize:CGSizeMake(651, 868)];
-    [self.cameraPreviewView ggk_makeBottomGap:0];
-    [self.cameraPreviewView ggk_makeLeftGap:0];
-    [self updatePreviewOrientation];
-    CGFloat aWidth = 101;
-    CGFloat aGap1 = 8;
-    
-    // An anchor.
-    [self.cameraRollButton ggk_makeSize:CGSizeMake(aWidth, aWidth)];
-    [self.cameraRollButton ggk_makeBottomGap:aGap1];
-    [self.cameraRollButton ggk_makeRightGap:aGap1];
-    
-    self.focusLabel.font = [UIFont boldSystemFontOfSize:15.0];
-    [self.focusLabel ggk_makeSize:CGSizeMake(94, 38)];
-    [self.focusLabel ggk_makeTopGap:aGap1];
-    [self.focusLabel ggk_alignHorizontalCenterWithView:self.cameraRollButton];
-    
-    CGFloat aGap2 = 40;
-    
-    [self.startTimerButton ggk_makeWidth:self.cameraRollButton.frame.size.width];
-    CGFloat aHeight = self.startTimerButton.superview.frame.size.height - self.cameraRollButton.frame.size.height - self.cancelTimerButton.frame.size.height - aGap2 - self.focusLabel.frame.size.height - (4 * aGap1);
-    [self.startTimerButton ggk_makeHeight:aHeight];
-    [self.startTimerButton ggk_alignRightEdgeWithView:self.cameraRollButton];
-    [self.startTimerButton ggk_placeBelowView:self.focusLabel gap:aGap1];
-    
-    CGFloat aGap3 = 20;
-    
-    [self.cancelTimerButton ggk_makeWidth:(self.startTimerButton.frame.size.width - aGap3)];
-    [self.cancelTimerButton ggk_alignRightEdgeWithView:self.cameraRollButton];
-    [self.cancelTimerButton ggk_placeBelowView:self.startTimerButton gap:aGap1];
-}
+    self.takePhotoRightProxyButtonWidthLayoutConstraint.constant = 71;
+//    self.tipLabelRightGapPortraitLayoutConstraint.secondItem = self.view;
 
-- (void)viewDidLoad
-{    
+    
+//    // An anchor.
+//    [self.cameraPreviewView ggk_makeSize:CGSizeMake(651, 868)];
+//    [self.cameraPreviewView ggk_makeBottomGap:0];
+//    [self.cameraPreviewView ggk_makeLeftGap:0];
+//    [self updatePreviewOrientation];
+//    CGFloat aWidth = 101;
+//    CGFloat aGap1 = 8;
+//    
+//    // An anchor.
+//    [self.cameraRollButton ggk_makeSize:CGSizeMake(aWidth, aWidth)];
+//    [self.cameraRollButton ggk_makeBottomGap:aGap1];
+//    [self.cameraRollButton ggk_makeRightGap:aGap1];
+//    
+//    self.focusLabel.font = [UIFont boldSystemFontOfSize:15.0];
+//    [self.focusLabel ggk_makeSize:CGSizeMake(94, 38)];
+//    [self.focusLabel ggk_makeTopGap:aGap1];
+//    [self.focusLabel ggk_alignHorizontalCenterWithView:self.cameraRollButton];
+//    
+//    CGFloat aGap2 = 40;
+//    
+//    [self.startTimerButton ggk_makeWidth:self.cameraRollButton.frame.size.width];
+//    CGFloat aHeight = self.startTimerButton.superview.frame.size.height - self.cameraRollButton.frame.size.height - self.cancelTimerButton.frame.size.height - aGap2 - self.focusLabel.frame.size.height - (4 * aGap1);
+//    [self.startTimerButton ggk_makeHeight:aHeight];
+//    [self.startTimerButton ggk_alignRightEdgeWithView:self.cameraRollButton];
+//    [self.startTimerButton ggk_placeBelowView:self.focusLabel gap:aGap1];
+//    
+//    CGFloat aGap3 = 20;
+//    
+//    [self.cancelTimerButton ggk_makeWidth:(self.startTimerButton.frame.size.width - aGap3)];
+//    [self.cancelTimerButton ggk_alignRightEdgeWithView:self.cameraRollButton];
+//    [self.cancelTimerButton ggk_placeBelowView:self.startTimerButton gap:aGap1];
+}
+- (void)viewDidLoad {
     [super viewDidLoad];
         
     self.maximumNumberOfTimeUnitsToInitiallyWaitInteger = 99;
@@ -145,6 +144,15 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     self.numberOfPhotosToTakeKeyString = GGKTakeDelayedPhotosNumberOfPhotosKeyString;
     self.numberOfTimeUnitsBetweenPhotosKeyString = nil;
     self.timeUnitBetweenPhotosKeyString = nil;
+    // Orientation-specific layout constraints.
+    self.portraitOnlyLayoutConstraintArray = @[self.takePhotoRightProxyButtonTopGapPortraitLayoutConstraint, self.tipLabelRightGapPortraitLayoutConstraint, self.previewViewAspectRatioPortraitLayoutConstraint];
+    // Right proxy button's top neighbor: top layout guide.
+    NSDictionary *aDictionary = @{@"topGuide":self.topLayoutGuide, @"rightProxy":self.startTimerRightProxyButton, @"tipLabel":self.tipLabel};
+    NSArray *anArray1 = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[topGuide]-[rightProxy]" options:0 metrics:nil views:aDictionary];
+    // Tip label's right neighbor: right proxy button.
+    NSArray *anArray2 = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[tipLabel]-[rightProxy]" options:0 metrics:nil views:aDictionary];
+    // Camera-preview view: 4:3 aspect ratio.
+    NSLayoutConstraint *aLayoutConstraint = [NSLayoutConstraint constraintWithItem:self.cameraPreviewView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.cameraPreviewView attribute:NSLayoutAttributeHeight multiplier:(4.0 / 3.0) constant:0];
+    self.landscapeOnlyLayoutConstraintArray = @[anArray1[0], anArray2[0], aLayoutConstraint];
 }
-
 @end

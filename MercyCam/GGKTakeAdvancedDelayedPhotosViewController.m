@@ -50,16 +50,16 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
     [self.cameraRollButton ggk_makeBottomGap:aGap1];
     [self.cameraRollButton ggk_makeRightGap:aGap1];
     
-    [self.focusLabel ggk_makeTopGap:aGap1];
-    [self.focusLabel ggk_alignHorizontalCenterWithView:self.cameraRollButton];
+    [self.tipLabel ggk_makeTopGap:aGap1];
+    [self.tipLabel ggk_alignHorizontalCenterWithView:self.cameraRollButton];
     
     CGFloat aGap2 = 40;
     
     [self.startTimerButton ggk_makeWidth:self.cameraRollButton.frame.size.width];
-    CGFloat aHeight = self.startTimerButton.superview.frame.size.height - self.focusLabel.frame.size.height - self.cameraRollButton.frame.size.height - self.cancelTimerButton.frame.size.height - aGap2 - (4 * aGap1);
+    CGFloat aHeight = self.startTimerButton.superview.frame.size.height - self.tipLabel.frame.size.height - self.cameraRollButton.frame.size.height - self.cancelTimerButton.frame.size.height - aGap2 - (4 * aGap1);
     [self.startTimerButton ggk_makeHeight:aHeight];
     [self.startTimerButton ggk_alignRightEdgeWithView:self.cameraRollButton];
-    [self.startTimerButton ggk_placeBelowView:self.focusLabel gap:aGap1];
+    [self.startTimerButton ggk_placeBelowView:self.tipLabel gap:aGap1];
     
     CGFloat aGap3 = 30;
     
@@ -83,16 +83,16 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
     [self.cameraRollButton ggk_makeBottomGap:aGap1];
     [self.cameraRollButton ggk_makeRightGap:aGap1];
     
-    [self.focusLabel ggk_alignTopEdgeWithView:self.cameraPreviewView];
-    [self.focusLabel ggk_alignHorizontalCenterWithView:self.cameraRollButton];
+    [self.tipLabel ggk_alignTopEdgeWithView:self.cameraPreviewView];
+    [self.tipLabel ggk_alignHorizontalCenterWithView:self.cameraRollButton];
     
     CGFloat aGap2 = 50;
     
     [self.startTimerButton ggk_makeWidth:self.cameraRollButton.frame.size.width];
-    CGFloat aHeight = self.startTimerButton.superview.frame.size.height - self.focusLabel.frame.origin.y - self.focusLabel.frame.size.height - self.cameraRollButton.frame.size.height - self.cancelTimerButton.frame.size.height - aGap2 - (3 * aGap1);
+    CGFloat aHeight = self.startTimerButton.superview.frame.size.height - self.tipLabel.frame.origin.y - self.tipLabel.frame.size.height - self.cameraRollButton.frame.size.height - self.cancelTimerButton.frame.size.height - aGap2 - (3 * aGap1);
     [self.startTimerButton ggk_makeHeight:aHeight];
     [self.startTimerButton ggk_alignRightEdgeWithView:self.cameraRollButton];
-    [self.startTimerButton ggk_placeBelowView:self.focusLabel gap:aGap1];
+    [self.startTimerButton ggk_placeBelowView:self.tipLabel gap:aGap1];
     
     CGFloat aGap3 = 20;
     

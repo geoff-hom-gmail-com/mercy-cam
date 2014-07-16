@@ -449,6 +449,9 @@ Line2</string>
                                 <rect key="frame" x="667" y="37" width="93" height="74"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="93" id="7Eg-al-2JL"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal">
                                     <string key="title">Cancel
@@ -602,18 +605,17 @@ Photos</string>
                             <constraint firstItem="qU0-yA-RuX" firstAttribute="top" secondItem="iwH-Da-K81" secondAttribute="bottom" constant="8" id="A3D-CJ-RXM"/>
                             <constraint firstItem="oSr-eD-ssI" firstAttribute="top" secondItem="zRc-Lz-aZl" secondAttribute="bottom" constant="8" id="Aet-SD-HVp"/>
                             <constraint firstItem="E0r-ie-Arj" firstAttribute="width" secondItem="zRc-Lz-aZl" secondAttribute="width" id="Flq-DB-8UF"/>
-                            <constraint firstAttribute="trailing" secondItem="5Qx-RQ-TiL" secondAttribute="trailing" constant="8" id="FmX-Gq-B0p"/>
-                            <constraint firstAttribute="trailing" secondItem="iwH-Da-K81" secondAttribute="trailing" constant="8" id="H2L-5u-uzo"/>
+                            <constraint firstItem="iwH-Da-K81" firstAttribute="trailing" secondItem="3JC-Z9-zsJ" secondAttribute="trailing" constant="-8" id="H2L-5u-uzo"/>
                             <constraint firstItem="xHx-LI-ocw" firstAttribute="leading" secondItem="7CB-eU-aBL" secondAttribute="trailing" constant="8" id="Jcn-v4-NHd"/>
                             <constraint firstItem="5Qx-RQ-TiL" firstAttribute="height" secondItem="qU0-yA-RuX" secondAttribute="height" id="L81-9Q-jBb"/>
                             <constraint firstItem="5Qx-RQ-TiL" firstAttribute="leading" secondItem="qU0-yA-RuX" secondAttribute="trailing" constant="8" id="LXc-jc-Wiu"/>
                             <constraint firstAttribute="trailing" secondItem="jJL-aE-Vqa" secondAttribute="trailing" constant="8" id="Lcy-Zi-OpR"/>
                             <constraint firstItem="jJL-aE-Vqa" firstAttribute="top" secondItem="7CB-eU-aBL" secondAttribute="bottom" constant="8" id="ME7-Ni-jIw"/>
+                            <constraint firstItem="5Qx-RQ-TiL" firstAttribute="trailing" secondItem="iwH-Da-K81" secondAttribute="trailing" id="VFS-HB-eSV"/>
                             <constraint firstItem="jJL-aE-Vqa" firstAttribute="leading" secondItem="zRc-Lz-aZl" secondAttribute="trailing" constant="8" id="Yx8-Cd-Q0V"/>
                             <constraint firstItem="5Qx-RQ-TiL" firstAttribute="top" secondItem="iwH-Da-K81" secondAttribute="bottom" constant="8" id="ayh-jK-mNW"/>
                             <constraint firstItem="iwH-Da-K81" firstAttribute="leading" secondItem="E0r-ie-Arj" secondAttribute="trailing" constant="8" id="b4Q-9g-lDO"/>
                             <constraint firstItem="zRc-Lz-aZl" firstAttribute="top" secondItem="E0r-ie-Arj" secondAttribute="bottom" constant="8" id="cIK-LV-eHb"/>
-                            <constraint firstItem="qU0-yA-RuX" firstAttribute="leading" secondItem="E0r-ie-Arj" secondAttribute="trailing" constant="8" id="dwz-9P-amI"/>
                             <constraint firstItem="E0r-ie-Arj" firstAttribute="leading" secondItem="3JC-Z9-zsJ" secondAttribute="leading" constant="8" id="feI-Bp-gMh"/>
                             <constraint firstItem="iwH-Da-K81" firstAttribute="top" secondItem="K2g-QC-sDf" secondAttribute="bottom" constant="8" id="kFi-22-ne8"/>
                             <constraint firstItem="E0r-ie-Arj" firstAttribute="top" secondItem="K2g-QC-sDf" secondAttribute="bottom" constant="8" id="olo-tK-dc5"/>
@@ -627,13 +629,18 @@ Photos</string>
                         <outlet property="cameraPreviewView" destination="7CB-eU-aBL" id="9ba-2f-2zh"/>
                         <outlet property="cameraRollButton" destination="E0r-ie-Arj" id="aCD-Si-AQJ"/>
                         <outlet property="cancelTimerButton" destination="5Qx-RQ-TiL" id="Gyb-ii-ZA8"/>
-                        <outlet property="focusLabel" destination="iwH-Da-K81" id="jZR-E1-i4t"/>
                         <outlet property="numberOfPhotosTakenLabel" destination="bJN-Lv-qeG" id="Djl-ur-jSF"/>
                         <outlet property="numberOfPhotosToTakeTextField" destination="OxC-nq-duy" id="ibR-lg-kPx"/>
                         <outlet property="numberOfTimeUnitsInitiallyWaitedLabel" destination="Utp-CL-D4q" id="sCh-rx-I0y"/>
                         <outlet property="numberOfTimeUnitsToInitiallyWaitTextField" destination="cLP-P2-6Vg" id="mtc-Pj-NUf"/>
+                        <outlet property="previewViewAspectRatioPortraitLayoutConstraint" destination="uLc-bH-LaE" id="L6o-1t-aIq"/>
                         <outlet property="secondsLabel" destination="nkc-09-1YZ" id="o25-lh-fnE"/>
                         <outlet property="startTimerButton" destination="jJL-aE-Vqa" id="hhm-nD-8Hh"/>
+                        <outlet property="startTimerRightProxyButton" destination="xHx-LI-ocw" id="bhh-P8-3Y0"/>
+                        <outlet property="takePhotoRightProxyButtonTopGapPortraitLayoutConstraint" destination="rC8-an-rcz" id="EpK-bn-x2r"/>
+                        <outlet property="takePhotoRightProxyButtonWidthLayoutConstraint" destination="Ieg-l2-Urw" id="RCm-iR-uLJ"/>
+                        <outlet property="tipLabel" destination="iwH-Da-K81" id="9SM-lt-Wlh"/>
+                        <outlet property="tipLabelRightGapPortraitLayoutConstraint" destination="H2L-5u-uzo" id="fZX-Wx-uNh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wdb-xT-cbC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1108,6 +1115,7 @@ Timer</string>
                             <constraint firstItem="SpO-Z8-ZOk" firstAttribute="top" secondItem="tNN-86-kuJ" secondAttribute="bottom" constant="8" id="1Mv-UN-J0t"/>
                             <constraint firstItem="xWc-ki-ZRz" firstAttribute="top" secondItem="SpO-Z8-ZOk" secondAttribute="bottom" constant="8" id="7UT-Kr-Ez3"/>
                             <constraint firstItem="ugA-0e-pnJ" firstAttribute="leading" secondItem="r1b-Ie-0vd" secondAttribute="trailing" constant="8" id="8Zj-nX-38T"/>
+                            <constraint firstItem="ugA-0e-pnJ" firstAttribute="trailing" secondItem="Oyz-rK-oTw" secondAttribute="trailing" id="A94-Jw-c3H"/>
                             <constraint firstAttribute="trailing" secondItem="SpO-Z8-ZOk" secondAttribute="trailing" constant="8" id="BZZ-o3-KIR"/>
                             <constraint firstItem="pVo-qf-f4p" firstAttribute="leading" secondItem="m6d-Js-1ZA" secondAttribute="trailing" constant="8" id="FhK-SY-7eM"/>
                             <constraint firstItem="SpO-Z8-ZOk" firstAttribute="top" secondItem="pVo-qf-f4p" secondAttribute="bottom" constant="8" id="JWX-6l-VIg"/>
@@ -1126,7 +1134,6 @@ Timer</string>
                             <constraint firstItem="tGt-Cu-K64" firstAttribute="leading" secondItem="TH7-be-lrF" secondAttribute="leading" constant="8" id="puf-JN-OT0"/>
                             <constraint firstItem="m6d-Js-1ZA" firstAttribute="width" secondItem="tGt-Cu-K64" secondAttribute="width" id="rj4-0w-sbO"/>
                             <constraint firstItem="tGt-Cu-K64" firstAttribute="top" secondItem="9ar-3t-JsH" secondAttribute="bottom" constant="8" id="sfa-j3-NYg"/>
-                            <constraint firstItem="tNN-86-kuJ" firstAttribute="leading" secondItem="ugA-0e-pnJ" secondAttribute="trailing" constant="8" id="uSq-QU-gb7"/>
                             <constraint firstItem="ugA-0e-pnJ" firstAttribute="top" secondItem="Oyz-rK-oTw" secondAttribute="bottom" constant="8" id="xHB-BK-cmr"/>
                         </constraints>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -1697,7 +1704,6 @@ photos</string>
                         <outlet property="cameraPreviewView" destination="KC2-e3-9Yf" id="jyx-aA-mpB"/>
                         <outlet property="cameraRollButton" destination="btA-Ip-ft9" id="Heg-4v-rx7"/>
                         <outlet property="cancelTimerButton" destination="rmS-v3-nJF" id="86e-Wy-PYr"/>
-                        <outlet property="focusLabel" destination="LTt-xs-K4V" id="dam-Ft-On2"/>
                         <outlet property="numberOfPhotosTakenLabel" destination="fwv-t7-ZYd" id="8Z6-sD-2P4"/>
                         <outlet property="numberOfPhotosToTakeTextField" destination="qgC-ZO-NKV" id="U3s-k4-Udi"/>
                         <outlet property="numberOfTimeUnitsBetweenPhotosTextField" destination="xDK-Mz-vlp" id="4JC-I4-2vK"/>
@@ -1708,6 +1714,7 @@ photos</string>
                         <outlet property="timeRemainingUntilNextPhotoLabel" destination="nbZ-Rw-ibA" id="jgk-P9-c0O"/>
                         <outlet property="timeUnitsBetweenPhotosButton" destination="baA-ad-HE5" id="CtV-Qc-2E6"/>
                         <outlet property="timeUnitsToInitiallyWaitButton" destination="IMl-Pq-BXM" id="Tlk-kj-WrB"/>
+                        <outlet property="tipLabel" destination="LTt-xs-K4V" id="Oj2-rY-v0F"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mh3-6V-Mch" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2009,7 +2016,6 @@ photos</string>
                         <outlet property="cameraPreviewView" destination="Jra-1a-E1b" id="O12-Pu-IsM"/>
                         <outlet property="cameraRollButton" destination="fBB-04-RbQ" id="Rw5-Gl-hVE"/>
                         <outlet property="cancelTimerButton" destination="lSB-L7-0j0" id="Fxp-BK-S81"/>
-                        <outlet property="focusLabel" destination="Vx7-XB-opf" id="4XZ-ey-x9u"/>
                         <outlet property="numberOfPhotosTakenLabel" destination="5gc-bD-R2D" id="EfM-D0-rww"/>
                         <outlet property="numberOfPhotosToTakeTextField" destination="lcT-8D-oKC" id="vD6-nu-s2o"/>
                         <outlet property="numberOfTimeUnitsBetweenPhotosTextField" destination="kjM-Tz-Ap2" id="KaJ-ou-KHm"/>
@@ -2020,6 +2026,7 @@ photos</string>
                         <outlet property="timeRemainingUntilNextPhotoLabel" destination="YVG-Vj-wWU" id="0zY-st-Lvg"/>
                         <outlet property="timeUnitsBetweenPhotosButton" destination="o3l-BO-FcH" id="Z0X-Q6-Ixk"/>
                         <outlet property="timeUnitsToInitiallyWaitButton" destination="8BZ-jJ-eXI" id="DN6-M6-cq6"/>
+                        <outlet property="tipLabel" destination="Vx7-XB-opf" id="57j-3P-rnr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZUK-J3-Bhu" userLabel="First Responder" sceneMemberID="firstResponder"/>

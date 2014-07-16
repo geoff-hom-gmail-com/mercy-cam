@@ -43,20 +43,20 @@
     [aCamAppDelegate.soundModel playButtonTapSound];
 }
 - (void)updateLayoutForLandscape {
-    if (self.portraitOnlyLayoutConstraintsArray != nil) {
-        [self.view removeConstraints:self.portraitOnlyLayoutConstraintsArray];
+    if (self.portraitOnlyLayoutConstraintArray != nil) {
+        [self.view removeConstraints:self.portraitOnlyLayoutConstraintArray];
     }
-    for (NSLayoutConstraint *aLayoutConstraint in self.landscapeOnlyLayoutConstraintsArray) {
+    for (NSLayoutConstraint *aLayoutConstraint in self.landscapeOnlyLayoutConstraintArray) {
         if ([self.view.constraints indexOfObject:aLayoutConstraint] == NSNotFound) {
             [self.view addConstraint:aLayoutConstraint];
         }
     }
 }
 - (void)updateLayoutForPortrait {
-    if (self.landscapeOnlyLayoutConstraintsArray != nil) {
-        [self.view removeConstraints:self.landscapeOnlyLayoutConstraintsArray];
+    if (self.landscapeOnlyLayoutConstraintArray != nil) {
+        [self.view removeConstraints:self.landscapeOnlyLayoutConstraintArray];
     }
-    for (NSLayoutConstraint *aLayoutConstraint in self.portraitOnlyLayoutConstraintsArray) {
+    for (NSLayoutConstraint *aLayoutConstraint in self.portraitOnlyLayoutConstraintArray) {
         if ([self.view.constraints indexOfObject:aLayoutConstraint] == NSNotFound) {
             [self.view addConstraint:aLayoutConstraint];
         }

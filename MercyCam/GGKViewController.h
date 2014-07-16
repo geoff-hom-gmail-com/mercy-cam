@@ -10,10 +10,10 @@
 
 @interface GGKViewController : UIViewController
 // Constraints needed only when device in landscape. Stub.
-@property (nonatomic, strong) NSArray *landscapeOnlyLayoutConstraintsArray;
+@property (nonatomic, strong) NSArray *landscapeOnlyLayoutConstraintArray;
 @property (strong, nonatomic) GGKModel *model;
 // Constraints needed only when device in portrait. Stub.
-@property (nonatomic, strong) NSArray *portraitOnlyLayoutConstraintsArray;
+@property (nonatomic, strong) NSArray *portraitOnlyLayoutConstraintArray;
 // Override.
 // Assume Nib is for portrait orientation.
 - (void)awakeFromNib;

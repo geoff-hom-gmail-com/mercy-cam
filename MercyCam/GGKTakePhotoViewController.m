@@ -214,10 +214,10 @@ NSString *ToUnlockFocusTipString = @"Focus mode: locked. To unlock, tap anywhere
         [GGKUtilities addBorderOfColor:[UIColor clearColor] toView:aButton];
     }
     // Orientation-specific layout constraints.
-    self.portraitOnlyLayoutConstraintsArray = @[self.tipLabelAlignCenterYLayoutConstraint];
+    self.portraitOnlyLayoutConstraintArray = @[self.tipLabelAlignCenterYLayoutConstraint];
     NSDictionary *aDictionary = @{@"topGuide":self.topLayoutGuide, @"tipLabel":self.tipLabel, @"cameraPreviewView":self.cameraPreviewView};
     // Standard vertical gap between top layout guide, tip label and camera preview.
     NSArray *anArray = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[topGuide]-[tipLabel]-[cameraPreviewView]" options:0 metrics:nil views:aDictionary];
-    self.landscapeOnlyLayoutConstraintsArray = anArray;
+    self.landscapeOnlyLayoutConstraintArray = anArray;
 }
 @end
