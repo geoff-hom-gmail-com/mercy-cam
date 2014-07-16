@@ -6,8 +6,8 @@
 #import "GGKTakeDelayedPhotosViewController.h"
 
 #import "NSString+GGKAdditions.h"
+#import "GGKUtilities.h"
 #import "UIView+GGKAdditions.h"
-
 const NSInteger GGKTakeDelayedPhotosDefaultNumberOfPhotosInteger = 3;
 
 const NSInteger GGKTakeDelayedPhotosDefaultNumberOfSecondsToInitiallyWaitInteger = 2;
@@ -22,8 +22,7 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 
 @implementation GGKTakeDelayedPhotosViewController
 
-- (void)getSavedTimerSettings
-{
+- (void)getSavedTimerSettings {
     [super getSavedTimerSettings];
 
     self.numberOfTimeUnitsToInitiallyWaitInteger = [[NSUserDefaults standardUserDefaults] integerForKey:self.numberOfTimeUnitsToInitiallyWaitKeyString];
@@ -58,78 +57,15 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 - (void)updateLayoutForLandscape {
     [super updateLayoutForLandscape];
     self.takePhotoRightProxyButtonWidthLayoutConstraint.constant = 212;
-
-//    // An anchor.
-//    [self.cameraPreviewView ggk_makeSize:CGSizeMake(816, 612)];
-//    [self.cameraPreviewView ggk_makeBottomGap:0];
-//    [self.cameraPreviewView ggk_makeLeftGap:0];
-//    [self updatePreviewOrientation];
-//    
-//    CGFloat aWidth = 130;
-//    CGFloat aGap1 = 8;
-//    
-//    // An anchor.
-//    [self.cameraRollButton ggk_makeSize:CGSizeMake(aWidth, aWidth)];
-//    [self.cameraRollButton ggk_makeBottomGap:aGap1];
-//    [self.cameraRollButton ggk_makeRightGap:aGap1];
-//    
-//    CGFloat aGap2 = 40;
-//    
-//    [self.startTimerButton ggk_makeWidth:self.cameraRollButton.frame.size.width];
-//    CGFloat aHeight = self.startTimerButton.superview.frame.size.height - self.cameraRollButton.frame.size.height - self.cancelTimerButton.frame.size.height - aGap2 - (3 * aGap1);
-//    [self.startTimerButton ggk_makeHeight:aHeight];
-//    [self.startTimerButton ggk_alignRightEdgeWithView:self.cameraRollButton];
-//    [self.startTimerButton ggk_makeTopGap:aGap1];
-//    
-//    
-//    self.focusLabel.font = [UIFont boldSystemFontOfSize:17.0];
-//    [self.focusLabel ggk_makeSize:CGSizeMake(113, 50)];
-//    [self.focusLabel ggk_makeTopGap:aGap1];
-//    [self.focusLabel ggk_placeLeftOfView:self.startTimerButton gap:aGap1];
-//    
-//    CGFloat aGap3 = 30;
-//    
-//    [self.cancelTimerButton ggk_makeWidth:(self.startTimerButton.frame.size.width - aGap3)];
-//    [self.cancelTimerButton ggk_alignRightEdgeWithView:self.cameraRollButton];
-//    [self.cancelTimerButton ggk_placeBelowView:self.startTimerButton gap:aGap1];
 }
 - (void)updateLayoutForPortrait {
     [super updateLayoutForPortrait];
     self.takePhotoRightProxyButtonWidthLayoutConstraint.constant = 71;
-//    self.tipLabelRightGapPortraitLayoutConstraint.secondItem = self.view;
-
-    
-//    // An anchor.
-//    [self.cameraPreviewView ggk_makeSize:CGSizeMake(651, 868)];
-//    [self.cameraPreviewView ggk_makeBottomGap:0];
-//    [self.cameraPreviewView ggk_makeLeftGap:0];
-//    [self updatePreviewOrientation];
-//    CGFloat aWidth = 101;
-//    CGFloat aGap1 = 8;
-//    
-//    // An anchor.
-//    [self.cameraRollButton ggk_makeSize:CGSizeMake(aWidth, aWidth)];
-//    [self.cameraRollButton ggk_makeBottomGap:aGap1];
-//    [self.cameraRollButton ggk_makeRightGap:aGap1];
-//    
-//    self.focusLabel.font = [UIFont boldSystemFontOfSize:15.0];
-//    [self.focusLabel ggk_makeSize:CGSizeMake(94, 38)];
-//    [self.focusLabel ggk_makeTopGap:aGap1];
-//    [self.focusLabel ggk_alignHorizontalCenterWithView:self.cameraRollButton];
-//    
-//    CGFloat aGap2 = 40;
-//    
-//    [self.startTimerButton ggk_makeWidth:self.cameraRollButton.frame.size.width];
-//    CGFloat aHeight = self.startTimerButton.superview.frame.size.height - self.cameraRollButton.frame.size.height - self.cancelTimerButton.frame.size.height - aGap2 - self.focusLabel.frame.size.height - (4 * aGap1);
-//    [self.startTimerButton ggk_makeHeight:aHeight];
-//    [self.startTimerButton ggk_alignRightEdgeWithView:self.cameraRollButton];
-//    [self.startTimerButton ggk_placeBelowView:self.focusLabel gap:aGap1];
-//    
-//    CGFloat aGap3 = 20;
-//    
-//    [self.cancelTimerButton ggk_makeWidth:(self.startTimerButton.frame.size.width - aGap3)];
-//    [self.cancelTimerButton ggk_alignRightEdgeWithView:self.cameraRollButton];
-//    [self.cancelTimerButton ggk_placeBelowView:self.startTimerButton gap:aGap1];
+}
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [GGKUtilities matchFrameOfRotated90View:self.startTimerLeftButton withView:self.startTimerLeftProxyButton];
+    [GGKUtilities matchFrameOfRotated90View:self.startTimerRightButton withView:self.startTimerRightProxyButton];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -144,6 +80,39 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     self.numberOfPhotosToTakeKeyString = GGKTakeDelayedPhotosNumberOfPhotosKeyString;
     self.numberOfTimeUnitsBetweenPhotosKeyString = nil;
     self.timeUnitBetweenPhotosKeyString = nil;
+    
+    
+    // Make side buttons.
+    // this should be in abstract vc
+    UIButton *aButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    aButton.transform = CGAffineTransformMakeRotation(M_PI_2);
+    aButton.titleLabel.font = self.startTimerLeftProxyButton.titleLabel.font;
+    [GGKUtilities matchFrameOfRotated90View:aButton withView:self.startTimerLeftProxyButton];
+    self.startTimerLeftButton = aButton;
+    aButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    aButton.transform = CGAffineTransformMakeRotation(-M_PI_2);
+    aButton.titleLabel.font = self.startTimerRightProxyButton.titleLabel.font;
+    [GGKUtilities matchFrameOfRotated90View:aButton withView:self.startTimerRightProxyButton];
+    self.startTimerRightButton = aButton;
+    NSString *aButtonTitleString = [self.startTimerBottomButton titleForState:UIControlStateNormal];
+    for (UIButton *aButton in @[self.startTimerLeftButton, self.startTimerRightButton]) {
+        aButton.backgroundColor = [UIColor whiteColor];
+        [aButton setTitle:aButtonTitleString forState:UIControlStateNormal];
+        [aButton addTarget:self action:@selector(playButtonSound) forControlEvents:UIControlEventTouchDown];
+        [aButton addTarget:self action:@selector(startTimer) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:aButton];
+    }
+    self.startTimerLeftProxyButton.hidden = YES;
+    self.startTimerRightProxyButton.hidden = YES;
+    // Add border to take-photo buttons.
+    NSArray *aButtonArray = @[self.startTimerLeftButton, self.startTimerRightButton, self.startTimerBottomButton];
+    for (UIButton *aButton in aButtonArray) {
+        [GGKUtilities addBorderOfColor:[UIColor clearColor] toView:aButton];
+    }
+    self.tipLabel.layer.cornerRadius = 3.0f;
+    self.cancelTimerButton.layer.cornerRadius = 5.0f;
+    self.timerSettingsView.layer.cornerRadius = 5.0f;
+    
     // Orientation-specific layout constraints.
     self.portraitOnlyLayoutConstraintArray = @[self.takePhotoRightProxyButtonTopGapPortraitLayoutConstraint, self.tipLabelRightGapPortraitLayoutConstraint, self.previewViewAspectRatioPortraitLayoutConstraint];
     // Right proxy button's top neighbor: top layout guide.

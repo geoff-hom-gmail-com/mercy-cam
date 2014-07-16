@@ -84,7 +84,15 @@ extern NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString;
 // Portrait-only constraint. Is set in storyboard to avoid compiler warnings.
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *previewViewAspectRatioPortraitLayoutConstraint;
 // Tap to start the timer for taking photos.
-@property (weak, nonatomic) IBOutlet UIButton *startTimerButton;
+@property (weak, nonatomic) IBOutlet UIButton *startTimerBottomButton;
+// Button along left edge of screen. Created in code.
+// We want vertical/rotated text, so the button is rotated via its transform property. Layout constraints won't work with rotated buttons. However, the storyboard has a proxy button that maintains the proper frame (via constraints).
+@property (weak, nonatomic) UIButton *startTimerLeftButton;
+// Gives frame for actual rotated button.
+@property (weak, nonatomic) IBOutlet UIButton *startTimerLeftProxyButton;
+// Button along right edge of screen. Created in code.
+// We want vertical/rotated text, so the button is rotated via its transform property. Layout constraints won't work with rotated buttons. However, the storyboard has a proxy button that maintains the proper frame (via constraints).
+@property (weak, nonatomic) UIButton *startTimerRightButton;
 // Gives frame for actual rotated button.
 @property (weak, nonatomic) IBOutlet UIButton *startTimerRightProxyButton;
 // Story: User taps "Start timer." Regardless of how long-term the timer parameters are, the user understands that the timer has started and is still working (because of the counter in seconds). She also understands when the next photo will be taken.

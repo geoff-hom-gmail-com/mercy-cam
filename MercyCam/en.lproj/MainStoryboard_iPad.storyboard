@@ -635,10 +635,12 @@ Photos</string>
                         <outlet property="numberOfTimeUnitsToInitiallyWaitTextField" destination="cLP-P2-6Vg" id="mtc-Pj-NUf"/>
                         <outlet property="previewViewAspectRatioPortraitLayoutConstraint" destination="uLc-bH-LaE" id="L6o-1t-aIq"/>
                         <outlet property="secondsLabel" destination="nkc-09-1YZ" id="o25-lh-fnE"/>
-                        <outlet property="startTimerButton" destination="jJL-aE-Vqa" id="hhm-nD-8Hh"/>
+                        <outlet property="startTimerBottomButton" destination="jJL-aE-Vqa" id="df2-25-n3f"/>
+                        <outlet property="startTimerLeftProxyButton" destination="zRc-Lz-aZl" id="hKS-Vw-ndJ"/>
                         <outlet property="startTimerRightProxyButton" destination="xHx-LI-ocw" id="bhh-P8-3Y0"/>
                         <outlet property="takePhotoRightProxyButtonTopGapPortraitLayoutConstraint" destination="rC8-an-rcz" id="EpK-bn-x2r"/>
                         <outlet property="takePhotoRightProxyButtonWidthLayoutConstraint" destination="Ieg-l2-Urw" id="RCm-iR-uLJ"/>
+                        <outlet property="timerSettingsView" destination="qU0-yA-RuX" id="Yeb-6d-GUO"/>
                         <outlet property="tipLabel" destination="iwH-Da-K81" id="9SM-lt-Wlh"/>
                         <outlet property="tipLabelRightGapPortraitLayoutConstraint" destination="H2L-5u-uzo" id="fZX-Wx-uNh"/>
                     </connections>
@@ -1710,7 +1712,7 @@ photos</string>
                         <outlet property="numberOfTimeUnitsInitiallyWaitedLabel" destination="Ysa-wk-iQ1" id="m2S-Tz-ewF"/>
                         <outlet property="numberOfTimeUnitsToInitiallyWaitTextField" destination="KRM-EG-b9V" id="hxq-vL-91x"/>
                         <outlet property="numberOfTimeUnitsWaitedBetweenPhotosLabel" destination="f05-Ag-oS2" id="YvZ-gO-VzD"/>
-                        <outlet property="startTimerButton" destination="OGt-yg-6PM" id="l3O-K6-0dL"/>
+                        <outlet property="startTimerBottomButton" destination="OGt-yg-6PM" id="69f-nV-rSw"/>
                         <outlet property="timeRemainingUntilNextPhotoLabel" destination="nbZ-Rw-ibA" id="jgk-P9-c0O"/>
                         <outlet property="timeUnitsBetweenPhotosButton" destination="baA-ad-HE5" id="CtV-Qc-2E6"/>
                         <outlet property="timeUnitsToInitiallyWaitButton" destination="IMl-Pq-BXM" id="Tlk-kj-WrB"/>
@@ -2022,7 +2024,7 @@ photos</string>
                         <outlet property="numberOfTimeUnitsInitiallyWaitedLabel" destination="Fql-P4-LaO" id="HwA-mg-DNP"/>
                         <outlet property="numberOfTimeUnitsToInitiallyWaitTextField" destination="PbZ-0k-jlm" id="2QF-PP-Q6n"/>
                         <outlet property="numberOfTimeUnitsWaitedBetweenPhotosLabel" destination="Smc-1b-6ms" id="EZN-KU-0hv"/>
-                        <outlet property="startTimerButton" destination="Hap-lJ-61m" id="hGB-ZK-2ud"/>
+                        <outlet property="startTimerBottomButton" destination="Hap-lJ-61m" id="Beh-f3-UQq"/>
                         <outlet property="timeRemainingUntilNextPhotoLabel" destination="YVG-Vj-wWU" id="0zY-st-Lvg"/>
                         <outlet property="timeUnitsBetweenPhotosButton" destination="o3l-BO-FcH" id="Z0X-Q6-Ixk"/>
                         <outlet property="timeUnitsToInitiallyWaitButton" destination="8BZ-jJ-eXI" id="DN6-M6-cq6"/>

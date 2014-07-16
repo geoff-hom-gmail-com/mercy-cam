@@ -324,7 +324,7 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
 {
     // Update UI.
     
-    self.startTimerButton.enabled = NO;
+    self.startTimerBottomButton.enabled = NO;
     self.cancelTimerButton.enabled = YES;
     
     self.numberOfTimeUnitsToInitiallyWaitTextField.enabled = NO;
@@ -475,7 +475,7 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
         [UIScreen mainScreen].brightness = self.previousBrightnessFloat;
     }
     
-    self.startTimerButton.enabled = YES;
+    self.startTimerBottomButton.enabled = YES;
     self.cancelTimerButton.enabled = NO;
     
     self.numberOfTimeUnitsToInitiallyWaitTextField.enabled = YES;

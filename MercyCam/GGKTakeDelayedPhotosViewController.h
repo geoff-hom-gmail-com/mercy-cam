@@ -26,6 +26,8 @@ extern NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *takePhotoRightProxyButtonWidthLayoutConstraint;
 // Portrait-only constraint. Is set in storyboard to avoid compiler warnings.
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tipLabelRightGapPortraitLayoutConstraint;
+// View showing the timer settings.
+@property (weak, nonatomic) IBOutlet UIView *timerSettingsView;
 // Override.
 - (void)getSavedTimerSettings;
 // Override.
@@ -34,6 +36,9 @@ extern NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString;
 - (void)updateLayoutForLandscape;
 // Override.
 - (void)updateLayoutForPortrait;
+// Override.
+// Update things after constraints have been applied.
+- (void)viewDidLayoutSubviews;
 // Override.
 - (void)viewDidLoad;
 @end

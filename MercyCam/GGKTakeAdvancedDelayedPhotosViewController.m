@@ -55,17 +55,17 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
     
     CGFloat aGap2 = 40;
     
-    [self.startTimerButton ggk_makeWidth:self.cameraRollButton.frame.size.width];
-    CGFloat aHeight = self.startTimerButton.superview.frame.size.height - self.tipLabel.frame.size.height - self.cameraRollButton.frame.size.height - self.cancelTimerButton.frame.size.height - aGap2 - (4 * aGap1);
-    [self.startTimerButton ggk_makeHeight:aHeight];
-    [self.startTimerButton ggk_alignRightEdgeWithView:self.cameraRollButton];
-    [self.startTimerButton ggk_placeBelowView:self.tipLabel gap:aGap1];
+    [self.startTimerBottomButton ggk_makeWidth:self.cameraRollButton.frame.size.width];
+    CGFloat aHeight = self.startTimerBottomButton.superview.frame.size.height - self.tipLabel.frame.size.height - self.cameraRollButton.frame.size.height - self.cancelTimerButton.frame.size.height - aGap2 - (4 * aGap1);
+    [self.startTimerBottomButton ggk_makeHeight:aHeight];
+    [self.startTimerBottomButton ggk_alignRightEdgeWithView:self.cameraRollButton];
+    [self.startTimerBottomButton ggk_placeBelowView:self.tipLabel gap:aGap1];
     
     CGFloat aGap3 = 30;
     
-    [self.cancelTimerButton ggk_makeWidth:(self.startTimerButton.frame.size.width - aGap3)];
+    [self.cancelTimerButton ggk_makeWidth:(self.startTimerBottomButton.frame.size.width - aGap3)];
     [self.cancelTimerButton ggk_alignRightEdgeWithView:self.cameraRollButton];
-    [self.cancelTimerButton ggk_placeBelowView:self.startTimerButton gap:aGap1];
+    [self.cancelTimerButton ggk_placeBelowView:self.startTimerBottomButton gap:aGap1];
 }
 
 - (void)updateLayoutForPortrait {
@@ -88,17 +88,17 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
     
     CGFloat aGap2 = 50;
     
-    [self.startTimerButton ggk_makeWidth:self.cameraRollButton.frame.size.width];
-    CGFloat aHeight = self.startTimerButton.superview.frame.size.height - self.tipLabel.frame.origin.y - self.tipLabel.frame.size.height - self.cameraRollButton.frame.size.height - self.cancelTimerButton.frame.size.height - aGap2 - (3 * aGap1);
-    [self.startTimerButton ggk_makeHeight:aHeight];
-    [self.startTimerButton ggk_alignRightEdgeWithView:self.cameraRollButton];
-    [self.startTimerButton ggk_placeBelowView:self.tipLabel gap:aGap1];
+    [self.startTimerBottomButton ggk_makeWidth:self.cameraRollButton.frame.size.width];
+    CGFloat aHeight = self.startTimerBottomButton.superview.frame.size.height - self.tipLabel.frame.origin.y - self.tipLabel.frame.size.height - self.cameraRollButton.frame.size.height - self.cancelTimerButton.frame.size.height - aGap2 - (3 * aGap1);
+    [self.startTimerBottomButton ggk_makeHeight:aHeight];
+    [self.startTimerBottomButton ggk_alignRightEdgeWithView:self.cameraRollButton];
+    [self.startTimerBottomButton ggk_placeBelowView:self.tipLabel gap:aGap1];
     
     CGFloat aGap3 = 20;
     
-    [self.cancelTimerButton ggk_makeWidth:(self.startTimerButton.frame.size.width - aGap3)];
+    [self.cancelTimerButton ggk_makeWidth:(self.startTimerBottomButton.frame.size.width - aGap3)];
     [self.cancelTimerButton ggk_alignRightEdgeWithView:self.cameraRollButton];
-    [self.cancelTimerButton ggk_placeBelowView:self.startTimerButton gap:aGap1];
+    [self.cancelTimerButton ggk_placeBelowView:self.startTimerBottomButton gap:aGap1];
 }
 
 - (void)viewDidLoad {

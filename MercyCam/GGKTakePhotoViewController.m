@@ -196,7 +196,7 @@ NSString *ToUnlockFocusTipString = @"Focus mode: locked. To unlock, tap anywhere
     aButton = [UIButton buttonWithType:UIButtonTypeSystem];
     aButton.transform = CGAffineTransformMakeRotation(-M_PI_2);
     aButton.titleLabel.font = self.takePhotoRightProxyButton.titleLabel.font;
-    [GGKUtilities matchFrameOfRotated90View:self.takePhotoRightButton withView:self.takePhotoRightProxyButton];
+    [GGKUtilities matchFrameOfRotated90View:aButton withView:self.takePhotoRightProxyButton];
     self.takePhotoRightButton = aButton;
     NSString *aButtonTitleString = [self.takePhotoBottomButton titleForState:UIControlStateNormal];
     for (UIButton *aButton in @[self.takePhotoLeftButton, self.takePhotoRightButton]) {
