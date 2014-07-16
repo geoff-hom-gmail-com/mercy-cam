@@ -6,7 +6,6 @@
 #import "GGKTakeDelayedPhotosViewController.h"
 
 #import "NSString+GGKAdditions.h"
-#import "GGKUtilities.h"
 #import "UIView+GGKAdditions.h"
 const NSInteger GGKTakeDelayedPhotosDefaultNumberOfPhotosInteger = 3;
 
@@ -62,11 +61,6 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     [super updateLayoutForPortrait];
     self.takePhotoRightProxyButtonWidthLayoutConstraint.constant = 71;
 }
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    [GGKUtilities matchFrameOfRotated90View:self.startTimerLeftButton withView:self.startTimerLeftProxyButton];
-    [GGKUtilities matchFrameOfRotated90View:self.startTimerRightButton withView:self.startTimerRightProxyButton];
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
         
@@ -80,38 +74,6 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     self.numberOfPhotosToTakeKeyString = GGKTakeDelayedPhotosNumberOfPhotosKeyString;
     self.numberOfTimeUnitsBetweenPhotosKeyString = nil;
     self.timeUnitBetweenPhotosKeyString = nil;
-    
-    
-    // Make side buttons.
-    // this should be in abstract vc
-    UIButton *aButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    aButton.transform = CGAffineTransformMakeRotation(M_PI_2);
-    aButton.titleLabel.font = self.startTimerLeftProxyButton.titleLabel.font;
-    [GGKUtilities matchFrameOfRotated90View:aButton withView:self.startTimerLeftProxyButton];
-    self.startTimerLeftButton = aButton;
-    aButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    aButton.transform = CGAffineTransformMakeRotation(-M_PI_2);
-    aButton.titleLabel.font = self.startTimerRightProxyButton.titleLabel.font;
-    [GGKUtilities matchFrameOfRotated90View:aButton withView:self.startTimerRightProxyButton];
-    self.startTimerRightButton = aButton;
-    NSString *aButtonTitleString = [self.startTimerBottomButton titleForState:UIControlStateNormal];
-    for (UIButton *aButton in @[self.startTimerLeftButton, self.startTimerRightButton]) {
-        aButton.backgroundColor = [UIColor whiteColor];
-        [aButton setTitle:aButtonTitleString forState:UIControlStateNormal];
-        [aButton addTarget:self action:@selector(playButtonSound) forControlEvents:UIControlEventTouchDown];
-        [aButton addTarget:self action:@selector(startTimer) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:aButton];
-    }
-    self.startTimerLeftProxyButton.hidden = YES;
-    self.startTimerRightProxyButton.hidden = YES;
-    // Add border to take-photo buttons.
-    NSArray *aButtonArray = @[self.startTimerLeftButton, self.startTimerRightButton, self.startTimerBottomButton];
-    for (UIButton *aButton in aButtonArray) {
-        [GGKUtilities addBorderOfColor:[UIColor clearColor] toView:aButton];
-    }
-    self.tipLabel.layer.cornerRadius = 3.0f;
-    self.cancelTimerButton.layer.cornerRadius = 5.0f;
-    self.timerSettingsView.layer.cornerRadius = 5.0f;
     
     // Orientation-specific layout constraints.
     self.portraitOnlyLayoutConstraintArray = @[self.takePhotoRightProxyButtonTopGapPortraitLayoutConstraint, self.tipLabelRightGapPortraitLayoutConstraint, self.previewViewAspectRatioPortraitLayoutConstraint];

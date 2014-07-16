@@ -121,6 +121,8 @@ extern NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString;
 // Story: User sets number of time units to initially wait to 1. User sees singular text for that time unit.
 // The type of time units to wait before taking the first photo.
 @property (weak, nonatomic) IBOutlet UIButton *timeUnitsToInitiallyWaitButton;
+// View showing the timer settings.
+@property (weak, nonatomic) IBOutlet UIView *timerSettingsView;
 // For displaying a context-sensitive tip. (E.g., about focus state.)
 @property (nonatomic, strong) IBOutlet UILabel *tipLabel;
 // Update UI to take photos again.
@@ -174,7 +176,9 @@ extern NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString;
 
 // Story: User sees UI and knows she can tap "Start timer."
 - (void)updateToAllowStartTimer;
-
+// Override.
+// Update things after constraints have been applied. (E.g., rotate buttons.)
+- (void)viewDidLayoutSubviews;
 // Override.
 - (void)viewDidLoad;
 @end

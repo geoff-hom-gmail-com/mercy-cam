@@ -640,7 +640,7 @@ Photos</string>
                         <outlet property="startTimerRightProxyButton" destination="xHx-LI-ocw" id="bhh-P8-3Y0"/>
                         <outlet property="takePhotoRightProxyButtonTopGapPortraitLayoutConstraint" destination="rC8-an-rcz" id="EpK-bn-x2r"/>
                         <outlet property="takePhotoRightProxyButtonWidthLayoutConstraint" destination="Ieg-l2-Urw" id="RCm-iR-uLJ"/>
-                        <outlet property="timerSettingsView" destination="qU0-yA-RuX" id="Yeb-6d-GUO"/>
+                        <outlet property="timerSettingsView" destination="qU0-yA-RuX" id="GSF-Is-mwa"/>
                         <outlet property="tipLabel" destination="iwH-Da-K81" id="9SM-lt-Wlh"/>
                         <outlet property="tipLabelRightGapPortraitLayoutConstraint" destination="H2L-5u-uzo" id="fZX-Wx-uNh"/>
                     </connections>

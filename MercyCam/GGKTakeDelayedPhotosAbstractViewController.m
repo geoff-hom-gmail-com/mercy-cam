@@ -12,6 +12,7 @@
 #import "NSDate+GGKAdditions.h"
 #import "NSNumber+GGKAdditions.h"
 #import "NSString+GGKAdditions.h"
+#import "GGKUtilities.h"
 
 const NSInteger GGKTakeDelayedPhotosMinimumNumberOfPhotosInteger = 1;
 
@@ -492,9 +493,12 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
     [self.oneSecondRepeatingTimer invalidate];
     self.oneSecondRepeatingTimer = nil;
 }
-
-- (void)viewDidLoad
-{
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [GGKUtilities matchFrameOfRotated90View:self.startTimerLeftButton withView:self.startTimerLeftProxyButton];
+    [GGKUtilities matchFrameOfRotated90View:self.startTimerRightButton withView:self.startTimerRightProxyButton];
+}
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     // Observe keyboard notifications to shift the screen up/down appropriately.
@@ -530,6 +534,36 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
     [self.view addSubview:anOverlayView];
     self.overlayView = anOverlayView;
 
+    // Side buttons.
+    UIButton *aButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    aButton.transform = CGAffineTransformMakeRotation(M_PI_2);
+    aButton.titleLabel.font = self.startTimerLeftProxyButton.titleLabel.font;
+    [GGKUtilities matchFrameOfRotated90View:aButton withView:self.startTimerLeftProxyButton];
+    self.startTimerLeftButton = aButton;
+    aButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    aButton.transform = CGAffineTransformMakeRotation(-M_PI_2);
+    aButton.titleLabel.font = self.startTimerRightProxyButton.titleLabel.font;
+    [GGKUtilities matchFrameOfRotated90View:aButton withView:self.startTimerRightProxyButton];
+    self.startTimerRightButton = aButton;
+    NSString *aButtonTitleString = [self.startTimerBottomButton titleForState:UIControlStateNormal];
+    for (UIButton *aButton in @[self.startTimerLeftButton, self.startTimerRightButton]) {
+        aButton.backgroundColor = [UIColor whiteColor];
+        [aButton setTitle:aButtonTitleString forState:UIControlStateNormal];
+        [aButton addTarget:self action:@selector(playButtonSound) forControlEvents:UIControlEventTouchDown];
+        [aButton addTarget:self action:@selector(startTimer) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:aButton];
+    }
+    self.startTimerLeftProxyButton.hidden = YES;
+    self.startTimerRightProxyButton.hidden = YES;
+    // Corner radii.
+    NSArray *aButtonArray = @[self.startTimerLeftButton, self.startTimerRightButton, self.startTimerBottomButton];
+    for (UIButton *aButton in aButtonArray) {
+        [GGKUtilities addBorderOfColor:[UIColor clearColor] toView:aButton];
+    }
+    self.tipLabel.layer.cornerRadius = 3.0f;
+    self.timerSettingsView.layer.cornerRadius = 3.0f;
+    self.cancelTimerButton.layer.cornerRadius = 5.0f;
+    
     // Template for subclasses.
     
     // Set keys.
