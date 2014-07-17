@@ -81,8 +81,6 @@ extern NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString;
 
 // Number of time units to wait before taking the first photo.
 @property (weak, nonatomic) IBOutlet UITextField *numberOfTimeUnitsToInitiallyWaitTextField;
-// Portrait-only constraint. Is set in storyboard to avoid compiler warnings.
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *previewViewAspectRatioPortraitLayoutConstraint;
 // Tap to start the timer for taking photos.
 @property (weak, nonatomic) IBOutlet UIButton *startTimerBottomButton;
 // Button along left edge of screen. Created in code.

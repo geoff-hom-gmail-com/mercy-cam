@@ -37,18 +37,10 @@ NSString *GGKLongTermTimeUnitKeyString = @"Long-term: Time unit.";
 // Retrieve the timer settings from user defaults.
 - (void)getSavedTimerSettings;
 
-- (void)keyboardWillHide:(NSNotification *)theNotification;
-// So, shift the view back to normal.
-
-- (void)keyboardWillShow:(NSNotification *)theNotification;
-// So, shift the view up, if necessary.
-
 @end
 
 @implementation GGKLongTermViewController
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     [self removeObserver:self forKeyPath:GGKLongTermNumberOfTimeUnitsKeyPathString];
     [self removeObserver:self forKeyPath:GGKLongTermTimeUnitKeyPathString];
 }
@@ -58,43 +50,6 @@ NSString *GGKLongTermTimeUnitKeyString = @"Long-term: Time unit.";
     
     self.numberOfTimeUnitsInteger = [[NSUserDefaults standardUserDefaults] integerForKey:GGKLongTermNumberOfTimeUnitsKeyString];
     self.timeUnit = (GGKTimeUnit)[[NSUserDefaults standardUserDefaults] integerForKey:GGKLongTermTimeUnitKeyString];
-}
-
-- (void)keyboardWillHide:(NSNotification *)theNotification
-{
-    CGRect newFrame = self.view.frame;
-    newFrame.origin.y = 0;
-    
-    NSDictionary* theUserInfo = [theNotification userInfo];
-    NSTimeInterval keyboardAnimationDurationTimeInterval = [ theUserInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue ];
-    [UIView animateWithDuration:keyboardAnimationDurationTimeInterval animations:^{
-        
-        self.view.frame = newFrame;
-    }];
-}
-
-- (void)keyboardWillShow:(NSNotification *)theNotification
-{
-    // Shift the view so that the active text field can be seen above the keyboard. We do this by comparing where the keyboard will end up vs. where the text field is. If a shift is needed, we shift the entire view up, synced with the keyboard shifting into place.
-    
-    NSDictionary *theUserInfo = [theNotification userInfo];
-    CGRect keyboardFrameEndRect = [theUserInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-	keyboardFrameEndRect = [self.view convertRect:keyboardFrameEndRect fromView:nil];
-    CGFloat keyboardTop = keyboardFrameEndRect.origin.y;
-    CGFloat activeTextFieldBottom = CGRectGetMaxY(self.activeTextField.frame);
-    CGFloat overlap = activeTextFieldBottom - keyboardTop;
-    CGFloat margin = 10;
-    CGFloat amountToShift = overlap + margin;
-    if (amountToShift > 0) {
-        
-        CGRect newFrame = self.view.frame;
-        newFrame.origin.y = newFrame.origin.y - amountToShift;
-        NSTimeInterval keyboardAnimationDurationTimeInterval = [ theUserInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue ];
-        [UIView animateWithDuration:keyboardAnimationDurationTimeInterval animations:^{
-            
-            self.view.frame = newFrame;
-        }];
-    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -180,10 +135,6 @@ NSString *GGKLongTermTimeUnitKeyString = @"Long-term: Time unit.";
 {
     [super viewDidLoad];
     
-    // Observe keyboard notifications to shift the screen up/down appropriately.
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-
     // Observe changes to the timer settings.
     [self addObserver:self forKeyPath:GGKLongTermNumberOfTimeUnitsKeyPathString options:NSKeyValueObservingOptionNew context:nil];
     [self addObserver:self forKeyPath:GGKLongTermTimeUnitKeyPathString options:NSKeyValueObservingOptionNew context:nil];

@@ -231,7 +231,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="Sin-J3-zg2" secondAttribute="height" multiplier="3:4" priority="250" id="exD-oC-jTH"/>
+                                    <constraint firstAttribute="width" secondItem="Sin-J3-zg2" secondAttribute="height" multiplier="3:4" priority="750" id="exD-oC-jTH"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="UdW-v1-5td">
@@ -438,12 +438,9 @@ Line2</string>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7CB-eU-aBL">
-                                <rect key="frame" x="96" y="120" width="585" height="780"/>
+                                <rect key="frame" x="96" y="119" width="586" height="781"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="7CB-eU-aBL" secondAttribute="height" multiplier="3:4" id="uLc-bH-LaE"/>
-                                </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="5Qx-RQ-TiL">
                                 <rect key="frame" x="667" y="37" width="93" height="74"/>
@@ -467,11 +464,11 @@ Timer</string>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="xHx-LI-ocw">
-                                <rect key="frame" x="689" y="119" width="71" height="781"/>
+                                <rect key="frame" x="690" y="119" width="70" height="781"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="71" id="Ieg-l2-Urw"/>
+                                    <constraint firstAttribute="width" constant="70" id="Ieg-l2-Urw"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <state key="normal" title="Proxy">
@@ -611,6 +608,7 @@ Photos</string>
                             <constraint firstItem="5Qx-RQ-TiL" firstAttribute="leading" secondItem="qU0-yA-RuX" secondAttribute="trailing" constant="8" id="LXc-jc-Wiu"/>
                             <constraint firstAttribute="trailing" secondItem="jJL-aE-Vqa" secondAttribute="trailing" constant="8" id="Lcy-Zi-OpR"/>
                             <constraint firstItem="jJL-aE-Vqa" firstAttribute="top" secondItem="7CB-eU-aBL" secondAttribute="bottom" constant="8" id="ME7-Ni-jIw"/>
+                            <constraint firstItem="7CB-eU-aBL" firstAttribute="top" secondItem="qU0-yA-RuX" secondAttribute="bottom" constant="8" id="SVX-Ke-mYX"/>
                             <constraint firstItem="5Qx-RQ-TiL" firstAttribute="trailing" secondItem="iwH-Da-K81" secondAttribute="trailing" id="VFS-HB-eSV"/>
                             <constraint firstItem="jJL-aE-Vqa" firstAttribute="leading" secondItem="zRc-Lz-aZl" secondAttribute="trailing" constant="8" id="Yx8-Cd-Q0V"/>
                             <constraint firstItem="5Qx-RQ-TiL" firstAttribute="top" secondItem="iwH-Da-K81" secondAttribute="bottom" constant="8" id="ayh-jK-mNW"/>
@@ -633,7 +631,6 @@ Photos</string>
                         <outlet property="numberOfPhotosToTakeTextField" destination="OxC-nq-duy" id="ibR-lg-kPx"/>
                         <outlet property="numberOfTimeUnitsInitiallyWaitedLabel" destination="Utp-CL-D4q" id="sCh-rx-I0y"/>
                         <outlet property="numberOfTimeUnitsToInitiallyWaitTextField" destination="cLP-P2-6Vg" id="mtc-Pj-NUf"/>
-                        <outlet property="previewViewAspectRatioPortraitLayoutConstraint" destination="uLc-bH-LaE" id="L6o-1t-aIq"/>
                         <outlet property="secondsLabel" destination="nkc-09-1YZ" id="o25-lh-fnE"/>
                         <outlet property="startTimerBottomButton" destination="jJL-aE-Vqa" id="df2-25-n3f"/>
                         <outlet property="startTimerLeftProxyButton" destination="zRc-Lz-aZl" id="hKS-Vw-ndJ"/>
@@ -2127,7 +2124,7 @@ photos</string>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="uhn-gS-RUd"/>
         <segue reference="vc6-di-tqf"/>
+        <segue reference="uhn-gS-RUd"/>
     </inferredMetricsTieBreakers>
 </document>

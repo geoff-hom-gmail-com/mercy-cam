@@ -51,7 +51,7 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
 }
 - (void)updateLayoutForPortrait {
     [super updateLayoutForPortrait];
-    self.takePhotoRightProxyButtonWidthLayoutConstraint.constant = 71;
+    self.takePhotoRightProxyButtonWidthLayoutConstraint.constant = 70;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -68,14 +68,12 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     self.timeUnitBetweenPhotosKeyString = nil;
     
     // Orientation-specific layout constraints.
-    self.portraitOnlyLayoutConstraintArray = @[self.takePhotoRightProxyButtonTopGapPortraitLayoutConstraint, self.tipLabelRightGapPortraitLayoutConstraint, self.previewViewAspectRatioPortraitLayoutConstraint];
+    self.portraitOnlyLayoutConstraintArray = @[self.takePhotoRightProxyButtonTopGapPortraitLayoutConstraint, self.tipLabelRightGapPortraitLayoutConstraint];
     // Right proxy button's top neighbor: top layout guide.
     NSDictionary *aDictionary = @{@"topGuide":self.topLayoutGuide, @"rightProxy":self.startTimerRightProxyButton, @"tipLabel":self.tipLabel};
     NSArray *anArray1 = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[topGuide]-[rightProxy]" options:0 metrics:nil views:aDictionary];
     // Tip label's right neighbor: right proxy button.
     NSArray *anArray2 = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[tipLabel]-[rightProxy]" options:0 metrics:nil views:aDictionary];
-    // Camera-preview view: 4:3 aspect ratio.
-    NSLayoutConstraint *aLayoutConstraint = [NSLayoutConstraint constraintWithItem:self.cameraPreviewView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.cameraPreviewView attribute:NSLayoutAttributeHeight multiplier:(4.0 / 3.0) constant:0];
-    self.landscapeOnlyLayoutConstraintArray = @[anArray1[0], anArray2[0], aLayoutConstraint];
+    self.landscapeOnlyLayoutConstraintArray = @[anArray1[0], anArray2[0]];
 }
 @end
