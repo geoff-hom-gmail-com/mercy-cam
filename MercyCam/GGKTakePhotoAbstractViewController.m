@@ -13,6 +13,12 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 
 NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString = @"captureManager.focusAndExposureStatus";
+
+// Tips shown to user.
+NSString *GGKFocusingTipString = @"Locking focus …";
+NSString *GGKToFocusTipString = @"Focus mode: Autofocus on center. To focus elsewhere, tap there.";
+NSString *GGKToUnlockFocusTipString = @"Focus: LOCKED. To unlock, tap anywhere in the view.";
+
 @interface GGKTakePhotoAbstractViewController ()
 // For showing camera preview to the user, and for converting taps to device space.
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;

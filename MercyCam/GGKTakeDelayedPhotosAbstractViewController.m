@@ -236,29 +236,39 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
     }
 }
 
-- (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
+- (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([theKeyPath isEqualToString:GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString]) {
-        
         NSString *aString = @"";
         switch (self.captureManager.focusAndExposureStatus) {
-                
             case GGKCaptureManagerFocusAndExposureStatusContinuous:
-                aString = @"Continuous";
+                aString = GGKToFocusTipString;
                 break;
-                
             case GGKCaptureManagerFocusAndExposureStatusLocking:
-                aString = @"Locking…";
+                aString = GGKFocusingTipString;
                 break;
-                
             case GGKCaptureManagerFocusAndExposureStatusLocked:
-                aString = @"Locked";
+                aString = GGKToUnlockFocusTipString;
                 break;
-                
             default:
                 break;
         }
-        self.tipLabel.text = [NSString stringWithFormat:@"Focus:\n  %@", aString];
+        self.tipLabel.text = aString;
+//    if ([theKeyPath isEqualToString:GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString]) {
+//        NSString *aString = @"";
+//        switch (self.captureManager.focusAndExposureStatus) {
+//            case GGKCaptureManagerFocusAndExposureStatusContinuous:
+//                aString = @"Continuous";
+//                break;
+//            case GGKCaptureManagerFocusAndExposureStatusLocking:
+//                aString = @"Locking…";
+//                break;
+//            case GGKCaptureManagerFocusAndExposureStatusLocked:
+//                aString = @"Locked";
+//                break;
+//            default:
+//                break;
+//        }
+//        self.tipLabel.text = [NSString stringWithFormat:@"Focus:  %@", aString];
     } else if ([theKeyPath isEqualToString:GGKTakeDelayedPhotosNumberOfTimeUnitsToInitiallyWaitKeyPathString]) {
         
         self.numberOfTimeUnitsToInitiallyWaitTextField.text = [NSString stringWithFormat:@"%ld", (long)self.numberOfTimeUnitsToInitiallyWaitInteger];

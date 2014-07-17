@@ -13,6 +13,14 @@
 // Key path for doing KVO on the capture manager's focus-and-exposure-status.
 extern NSString *GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString;
 
+// Tips shown to user.
+// User knows camera is in process of locking focus.
+extern NSString *GGKFocusingTipString;
+// User learns about autofocus and how to focus on an object.
+extern NSString *GGKToFocusTipString;
+// User learns the focus is locked. User learns how to unlock.
+extern NSString *GGKToUnlockFocusTipString;
+
 @class GGKSavedPhotosManager;
 @interface GGKTakePhotoAbstractViewController : GGKViewController <GGKCaptureManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 // Live stream from camera is shown here.

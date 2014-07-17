@@ -12,12 +12,6 @@
 #import "GGKUtilities.h"
 #import "UIView+GGKAdditions.h"
 
-// User sees tip. User knows camera is in process of locking focus.
-NSString *FocusingTipString = @"Locking focus …";
-// User sees tip. User learns about autofocus and how to focus on an object.
-NSString *ToFocusTipString = @"Focus mode: autofocus on center. To focus elsewhere, tap there.";
-// User sees tip. User learns the focus is locked. User learns how to unlock.
-NSString *ToUnlockFocusTipString = @"Focus mode: locked. To unlock, tap anywhere in the view.";
 @interface GGKTakePhotoViewController ()
 - (void)updateCameraDebugLabels;
 @end
@@ -57,19 +51,18 @@ NSString *ToUnlockFocusTipString = @"Focus mode: locked. To unlock, tap anywhere
         NSString *aString = @"";
         switch (self.captureManager.focusAndExposureStatus) {
             case GGKCaptureManagerFocusAndExposureStatusContinuous:
-                aString = ToFocusTipString;
+                aString = GGKToFocusTipString;
                 break;
             case GGKCaptureManagerFocusAndExposureStatusLocking:
-                aString = FocusingTipString;
+                aString = GGKFocusingTipString;
                 break;
             case GGKCaptureManagerFocusAndExposureStatusLocked:
-                aString = ToUnlockFocusTipString;
+                aString = GGKToUnlockFocusTipString;
                 break;
             default:
                 break;
         }
         self.tipLabel.text = aString;
-//        [NSString stringWithFormat:@"%@%@%@", GGKTextPaddingString, aString, GGKTextPaddingString];
     } else if (!wasHandledSeparately) {
         [super observeValueForKeyPath:theKeyPath ofObject:object change:change context:context];
     }

@@ -30,29 +30,21 @@ NSString *GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString = @"Take d
     self.numberOfTimeUnitsBetweenPhotosInteger = 0;
     self.timeUnitBetweenPhotosTimeUnit = GGKTimeUnitSeconds;
 }
-
-- (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
+- (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([theKeyPath isEqualToString:GGKTakeDelayedPhotosNumberOfTimeUnitsToInitiallyWaitKeyPathString]) {
-        
         self.numberOfTimeUnitsToInitiallyWaitTextField.text = [NSString stringWithFormat:@"%ld", (long)self.numberOfTimeUnitsToInitiallyWaitInteger];
-        
         // "second(s), then take"
         NSString *aSecondsString = [@"seconds" ggk_stringPerhapsWithoutS:self.numberOfTimeUnitsToInitiallyWaitInteger];
         self.secondsLabel.text = [NSString stringWithFormat:@"%@, then take", aSecondsString];
     } else if ([theKeyPath isEqualToString:GGKTakeDelayedPhotosNumberOfPhotosToTakeKeyPathString]) {
-        
         self.numberOfPhotosToTakeTextField.text = [NSString stringWithFormat:@"%ld", (long)self.numberOfPhotosToTakeInteger];
-        
         // "photo(s)."
         NSString *aPhotosString = [@"photos" ggk_stringPerhapsWithoutS:self.numberOfPhotosToTakeInteger];
         self.afterNumberOfPhotosTextFieldLabel.text = [NSString stringWithFormat:@"%@.", aPhotosString];
     } else {
-        
         [super observeValueForKeyPath:theKeyPath ofObject:object change:change context:context];
     }
 }
-
 - (void)updateLayoutForLandscape {
     [super updateLayoutForLandscape];
     self.takePhotoRightProxyButtonWidthLayoutConstraint.constant = 212;
