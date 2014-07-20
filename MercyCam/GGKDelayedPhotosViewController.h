@@ -30,7 +30,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tipLabelRightGapPortraitLayoutConstraint;
 
 // Override.
-// Now that we can: Show how many photos taken. If enough, stop. Else, take another photo.
+// Now that we can: If all photos taken, stop. Else, take another photo.
 - (void)captureManagerDidTakePhoto:(id)sender;
 // Called after user taps cancel-timer button.
 // What: Stop repeating timer. Stop taking photos. Change to planning mode.
@@ -48,6 +48,9 @@
 - (void)startTimer;
 // Stops repeating timer.
 - (void)stopOneSecondRepeatingTimer;
+// Override.
+// What: Show how many photos taken, including this one. Done here instead of captureManagerDidTakePhoto:, because latter didn't update screen in time.
+- (void)takePhoto;
 // Now that we can: Ensure we have a valid value.
 - (void)textFieldDidEndEditing:(UITextField *)textField;
 // Now that we can: Dismiss the keyboard.

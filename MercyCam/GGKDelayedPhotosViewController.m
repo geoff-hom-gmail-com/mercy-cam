@@ -17,15 +17,8 @@
 @implementation GGKDelayedPhotosViewController
 - (void)captureManagerDidTakePhoto:(id)sender {
     [super captureManagerDidTakePhoto:sender];
-    self.delayedPhotosModel.numberOfPhotosTakenInteger++;
-    NSInteger theNumberOfPhotosTakenInteger = self.delayedPhotosModel.numberOfPhotosTakenInteger;
-    self.numberOfPhotosTakenLabel.text = [NSString stringWithFormat:@"%ld", (long)theNumberOfPhotosTakenInteger];
-    // After first photo taken, show label.
-    if (theNumberOfPhotosTakenInteger == 1) {
-         self.numberOfPhotosTakenLabel.hidden = NO;
-    }
     // If all photos taken, stop. Else, if still in shooting mode, take another photo. So, we can stop photo taking by changing the mode.
-    if (theNumberOfPhotosTakenInteger >= self.delayedPhotosModel.numberOfPhotosToTakeInteger) {
+    if (self.delayedPhotosModel.numberOfPhotosTakenInteger >= self.delayedPhotosModel.numberOfPhotosToTakeInteger) {
         self.model.appMode = GGKAppModePlanning;
         [self updateUI];
     } else if (self.model.appMode == GGKAppModeShooting) {
@@ -42,6 +35,7 @@
     self.delayedPhotosModel.numberOfSecondsWaitedInteger++;
     NSInteger theNumberOfSecondsWaitedInteger = self.delayedPhotosModel.numberOfSecondsWaitedInteger;
     self.numberOfSecondsWaitedLabel.text = [NSString stringWithFormat:@"%ld", (long)theNumberOfSecondsWaitedInteger];
+    [self.numberOfSecondsWaitedLabel setNeedsDisplay];
     if (theNumberOfSecondsWaitedInteger == self.delayedPhotosModel.numberOfSecondsToWaitInteger) {
         [self stopOneSecondRepeatingTimer];
         [self takePhoto];
@@ -73,6 +67,13 @@
     //this timer is in the model, so even if this VC goes away, the timer will keep running... need to stop timer if cancel, if time runs out, if vc goes back, if new vc added, if home/lock
     [self.delayedPhotosModel.oneSecondRepeatingTimer invalidate];
     self.delayedPhotosModel.oneSecondRepeatingTimer = nil;
+}
+- (void)takePhoto {
+    [super takePhoto];
+    self.delayedPhotosModel.numberOfPhotosTakenInteger++;
+    NSInteger theNumberOfPhotosTakenInteger = self.delayedPhotosModel.numberOfPhotosTakenInteger;
+    self.numberOfPhotosTakenLabel.text = [NSString stringWithFormat:@"%ld", (long)theNumberOfPhotosTakenInteger];
+    [self.numberOfPhotosTakenLabel setNeedsDisplay];
 }
 - (void)textFieldDidEndEditing:(UITextField *)theTextField {
     // Ensure we have a valid value. Update model. Update view.
@@ -126,7 +127,8 @@
         }
         self.numberOfSecondsWaitedLabel.hidden = NO;
         self.numberOfSecondsWaitedLabel.text = @"0";
-        self.numberOfPhotosTakenLabel.hidden = YES;
+        self.numberOfPhotosTakenLabel.hidden = NO;
+        self.numberOfPhotosTakenLabel.text = @"";
     }
 }
 - (void)updateLayoutForLandscape {

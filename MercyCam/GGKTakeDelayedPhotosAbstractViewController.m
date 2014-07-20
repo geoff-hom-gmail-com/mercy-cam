@@ -86,9 +86,9 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
 
 @implementation GGKTakeDelayedPhotosAbstractViewController
 
-- (IBAction)cancelTimer {
-    [self updateToAllowStartTimer];
-}
+//- (IBAction)cancelTimer {
+//    [self updateToAllowStartTimer];
+//}
 //- (void)captureManagerDidTakePhoto:(id)sender {
 //    [super captureManagerDidTakePhoto:sender];
 //    // If all photos taken, stop.
