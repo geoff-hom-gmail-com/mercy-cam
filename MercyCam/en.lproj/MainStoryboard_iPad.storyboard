@@ -214,10 +214,10 @@
             </objects>
             <point key="canvasLocation" x="726" y="931"/>
         </scene>
-        <!--Take Photo View Controller - Normal Photo-->
+        <!--Normal Photo View Controller - Normal Photo-->
         <scene sceneID="tpc-po-hHf">
             <objects>
-                <viewController id="BXz-Hw-S72" customClass="GGKTakePhotoViewController" sceneMemberID="viewController">
+                <viewController id="BXz-Hw-S72" customClass="GGKNormalPhotoViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="NzF-hD-I03"/>
                         <viewControllerLayoutGuide type="bottom" id="LCi-uL-LEp"/>
@@ -406,10 +406,10 @@ Line2</string>
             </objects>
             <point key="canvasLocation" x="1677" y="-222"/>
         </scene>
-        <!--Take Delayed Photos View Controller - Delayed Photos-->
+        <!--Delayed Photos View Controller - Delayed Photos-->
         <scene sceneID="uVa-qF-Ilh">
             <objects>
-                <viewController id="2ll-qK-FHt" customClass="GGKTakeDelayedPhotosViewController" sceneMemberID="viewController">
+                <viewController id="2ll-qK-FHt" customClass="GGKDelayedPhotosViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="K2g-QC-sDf"/>
                         <viewControllerLayoutGuide type="bottom" id="oSr-eD-ssI"/>
@@ -433,8 +433,8 @@ Line2</string>
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="handleStartTimerTapped:" destination="2ll-qK-FHt" eventType="touchUpInside" id="Ehs-OZ-g3g"/>
                                     <action selector="playButtonSound" destination="2ll-qK-FHt" eventType="touchDown" id="CED-77-WiB"/>
-                                    <action selector="startTimer" destination="2ll-qK-FHt" eventType="touchUpInside" id="CDX-x5-bg1"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7CB-eU-aBL">
@@ -459,7 +459,7 @@ Timer</string>
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="cancelTimer" destination="2ll-qK-FHt" eventType="touchUpInside" id="QXF-f4-CDD"/>
+                                    <action selector="handleCancelTimerTapped" destination="2ll-qK-FHt" eventType="touchUpInside" id="nFT-WN-bwp"/>
                                     <action selector="playButtonSound" destination="2ll-qK-FHt" eventType="touchDown" id="C13-P8-sOS"/>
                                 </connections>
                             </button>
@@ -623,14 +623,14 @@ Photos</string>
                     </view>
                     <navigationItem key="navigationItem" title="Delayed Photos" id="jiP-RF-W4L"/>
                     <connections>
-                        <outlet property="afterNumberOfPhotosTextFieldLabel" destination="DRY-lJ-Icz" id="RLN-JR-KWO"/>
                         <outlet property="cameraPreviewView" destination="7CB-eU-aBL" id="9ba-2f-2zh"/>
                         <outlet property="cameraRollButton" destination="E0r-ie-Arj" id="aCD-Si-AQJ"/>
                         <outlet property="cancelTimerButton" destination="5Qx-RQ-TiL" id="Gyb-ii-ZA8"/>
                         <outlet property="numberOfPhotosTakenLabel" destination="bJN-Lv-qeG" id="Djl-ur-jSF"/>
                         <outlet property="numberOfPhotosToTakeTextField" destination="OxC-nq-duy" id="ibR-lg-kPx"/>
-                        <outlet property="numberOfTimeUnitsInitiallyWaitedLabel" destination="Utp-CL-D4q" id="sCh-rx-I0y"/>
-                        <outlet property="numberOfTimeUnitsToInitiallyWaitTextField" destination="cLP-P2-6Vg" id="mtc-Pj-NUf"/>
+                        <outlet property="numberOfSecondsToWaitTextField" destination="cLP-P2-6Vg" id="Doe-WN-cHo"/>
+                        <outlet property="numberOfSecondsWaitedLabel" destination="Utp-CL-D4q" id="cZ1-vT-noe"/>
+                        <outlet property="photosLabel" destination="DRY-lJ-Icz" id="V3M-Ov-zmF"/>
                         <outlet property="secondsLabel" destination="nkc-09-1YZ" id="o25-lh-fnE"/>
                         <outlet property="startTimerBottomButton" destination="jJL-aE-Vqa" id="df2-25-n3f"/>
                         <outlet property="startTimerLeftProxyButton" destination="zRc-Lz-aZl" id="hKS-Vw-ndJ"/>
@@ -665,10 +665,10 @@ Photos</string>
             </objects>
             <point key="canvasLocation" x="-122" y="931"/>
         </scene>
-        <!--Take Photo View Controller - mock landscape-->
+        <!--Normal Photo View Controller - mock landscape-->
         <scene sceneID="HZL-aa-EUN">
             <objects>
-                <viewController storyboardIdentifier="dummyIDDoNotUse2" title="mock landscape" id="Ptl-Qr-JK0" customClass="GGKTakePhotoViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="dummyIDDoNotUse2" title="mock landscape" id="Ptl-Qr-JK0" customClass="GGKNormalPhotoViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sNz-WZ-X9f"/>
                         <viewControllerLayoutGuide type="bottom" id="KB0-eK-HWq"/>
@@ -919,10 +919,10 @@ photos</string>
             </objects>
             <point key="canvasLocation" x="3109" y="365"/>
         </scene>
-        <!--Take Delayed Photos View Controller - mock landscape-->
+        <!--Delayed Photos View Controller - mock landscape-->
         <scene sceneID="ApC-rY-S7I">
             <objects>
-                <viewController storyboardIdentifier="dummyIDDoNotUse3" title="mock landscape" id="HhU-vD-D6V" customClass="GGKTakeDelayedPhotosViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="dummyIDDoNotUse3" title="mock landscape" id="HhU-vD-D6V" customClass="GGKDelayedPhotosViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="9ar-3t-JsH"/>
                         <viewControllerLayoutGuide type="bottom" id="xWc-ki-ZRz"/>

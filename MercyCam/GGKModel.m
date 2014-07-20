@@ -8,8 +8,12 @@
 
 #import "GGKModel.h"
 
-//NSString *GGKTextPaddingString = @"  ";
-
 @implementation GGKModel
-
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.appMode = GGKAppModePlanning;
+    }
+    return self;
+}
 @end

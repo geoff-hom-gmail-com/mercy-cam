@@ -6,17 +6,17 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import "GGKTakePhotoViewController.h"
+#import "GGKNormalPhotoViewController.h"
 
 #import "GGKSavedPhotosManager.h"
 #import "GGKUtilities.h"
 #import "UIView+GGKAdditions.h"
 
-@interface GGKTakePhotoViewController ()
+@interface GGKNormalPhotoViewController ()
 - (void)updateCameraDebugLabels;
 @end
 
-@implementation GGKTakePhotoViewController
+@implementation GGKNormalPhotoViewController
 - (void)dealloc {
     if (GGKDebugCamera) {
         if (self.captureManager.device != nil) {

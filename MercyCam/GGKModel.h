@@ -8,9 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
-// To provide padding between label's text and border.
-//extern NSString *GGKTextPaddingString;
+
+// App mode.
+// Planning: default.
+// Shooting: user takes photo or starts photo timer.
+typedef NS_ENUM(NSInteger, GGKAppMode) {
+    GGKAppModePlanning,
+    GGKAppModeShooting
+};
 
 @interface GGKModel : NSObject
-
+@property (assign, nonatomic) GGKAppMode appMode;
+// Override.
+- (id)init;
 @end

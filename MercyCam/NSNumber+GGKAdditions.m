@@ -10,14 +10,11 @@
 
 @implementation NSNumber (GGKAdditions)
 
-+ (NSInteger)ggk_integerBoundedByRange:(NSInteger)theCurrentInteger minimum:(NSInteger)theMinimumInteger maximum:(NSInteger)theMaximumInteger
-{
++ (NSInteger)ggk_integerBoundedByRange:(NSInteger)theCurrentInteger minimum:(NSInteger)theMinimumInteger maximum:(NSInteger)theMaximumInteger {
     NSInteger anInteger = theCurrentInteger;
     if (theCurrentInteger < theMinimumInteger) {
-        
         anInteger = theMinimumInteger;
     } else if (theCurrentInteger > theMaximumInteger) {
-        
         anInteger = theMaximumInteger;
     }
     return anInteger;

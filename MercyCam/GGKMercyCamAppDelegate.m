@@ -6,21 +6,16 @@
 // Import order is modeled from http://qualitycoding.org/import-order/.
 #import "GGKMercyCamAppDelegate.h"
 
+#import "GGKDelayedPhotosModel.h"
 #import "GGKInAppPurchaseManager.h"
 #import "GGKLongTermViewController.h"
+#import "GGKModel.h"
 #import "GGKSoundModel.h"
 #import "GGKTakeAdvancedDelayedPhotosViewController.h"
-#import "GGKTakeDelayedPhotosViewController.h"
+//#import "GGKDelayedPhotosViewController.h"
 #import "TestFlight.h"
 
-// Key for storing whether this app has launched before.
-NSString *HasLaunchedBeforeKeyString = @"Has launched before?";
-
 @interface GGKMercyCamAppDelegate ()
-
-// If it's the first time this app has been launched, do stuff. (E.g., initialize with default data.)
-- (void)handleIfFirstLaunch;
-
 @end
 
 @implementation GGKMercyCamAppDelegate
@@ -31,7 +26,9 @@ NSString *HasLaunchedBeforeKeyString = @"Has launched before?";
     
     [TestFlight takeOff:@"7fe86397-6095-4614-b633-25e1d5831861"];
     
-    [self handleIfFirstLaunch];
+    [self registerDefaults];
+//    [self handleIfFirstLaunch];
+    self.delayedPhotosModel = [[GGKDelayedPhotosModel alloc] init];
     self.model = [[GGKModel alloc] init];
     self.soundModel = [[GGKSoundModel alloc] init];
     
@@ -70,36 +67,9 @@ NSString *HasLaunchedBeforeKeyString = @"Has launched before?";
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
-
-- (void)handleIfFirstLaunch
-{
-    // Check for a stored BOOL. If the first launch, it will be NO. So we'll do stuff and then set that to YES.
-    BOOL hasLaunchedBefore = [[NSUserDefaults standardUserDefaults] boolForKey:HasLaunchedBeforeKeyString];
-    
-    // Uncomment this to reset defaults.
-//    hasLaunchedBefore = NO;
-    
-    if (!hasLaunchedBefore) {
-        
-        // Set defaults.
-        
-        // Take delayed photos.
-        [[NSUserDefaults standardUserDefaults] setInteger:GGKTakeDelayedPhotosDefaultNumberOfSecondsToInitiallyWaitInteger forKey:GGKTakeDelayedPhotosNumberOfSecondsToInitiallyWaitKeyString];
-        [[NSUserDefaults standardUserDefaults] setInteger:GGKTakeDelayedPhotosDefaultNumberOfPhotosInteger forKey:GGKTakeDelayedPhotosNumberOfPhotosKeyString];
-        
-        // Take advanced delayed photos.
-        [[NSUserDefaults standardUserDefaults] setInteger:GGKTakeAdvancedDelayedPhotosDefaultNumberOfTimeUnitsToInitiallyWaitInteger forKey:GGKTakeAdvancedDelayedPhotosNumberOfTimeUnitsToInitiallyWaitKeyString];
-        [[NSUserDefaults standardUserDefaults] setInteger:GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWaitTimeUnit forKey:GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString];
-        [[NSUserDefaults standardUserDefaults] setInteger:GGKTakeAdvancedDelayedPhotosDefaultNumberOfPhotosInteger forKey:GGKTakeAdvancedDelayedPhotosNumberOfPhotosKeyString];
-        [[NSUserDefaults standardUserDefaults] setInteger:GGKTakeAdvancedDelayedPhotosDefaultNumberOfTimeUnitsBetweenPhotosInteger forKey:GGKTakeAdvancedDelayedPhotosNumberOfTimeUnitsBetweenPhotosKeyString];
-        [[NSUserDefaults standardUserDefaults] setInteger:GGKTakeAdvancedDelayedPhotosDefaultTimeUnitBetweenPhotosTimeUnit forKey:GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString];
-        
-        // Long-term power-reduction timer.
-        [[NSUserDefaults standardUserDefaults] setInteger:GGKLongTermDefaultNumberOfTimeUnitsInteger forKey:GGKLongTermNumberOfTimeUnitsKeyString];
-        [[NSUserDefaults standardUserDefaults] setInteger:GGKLongTermDefaultTimeUnit forKey:GGKLongTermTimeUnitKeyString];
-        
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HasLaunchedBeforeKeyString];
-    }
+- (void)registerDefaults {
+    NSDictionary *aDefaultsDictionary = @{GGKDelayedPhotosNumberOfPhotosToTakeIntegerKeyString:@3,
+                                          GGKDelayedPhotosNumberOfSecondsToWaitIntegerKeyString:@2};
+    [[NSUserDefaults standardUserDefaults] registerDefaults:aDefaultsDictionary];
 }
-
 @end

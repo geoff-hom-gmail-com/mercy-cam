@@ -43,8 +43,8 @@ extern NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString;
 // The max is arbitrary and for cosmetic reasons and keeping edge cases simple.
 @property (nonatomic, assign) NSInteger maximumNumberOfTimeUnitsToInitiallyWaitInteger;
 
-// Story: User taps "Start timer." User sees label below appear and increment with each photo taken. User implicitly understands when photos are taken, how many photos remain, and how long it will take.
-@property (nonatomic, weak) IBOutlet UILabel *numberOfPhotosTakenLabel;
+//// Story: User taps "Start timer." User sees label below appear and increment with each photo taken. User implicitly understands when photos are taken, how many photos remain, and how long it will take.
+//@property (nonatomic, weak) IBOutlet UILabel *numberOfPhotosTakenLabel;
 
 // How many photos to have taken when all the timers are done.
 // Could retrieve from user defaults each time, but want flexibility to assign without a key.
@@ -54,7 +54,7 @@ extern NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString;
 @property (nonatomic, strong) NSString *numberOfPhotosToTakeKeyString;
 
 // Number of photos to take for a given tap of the shutter button.
-@property (weak, nonatomic) IBOutlet UITextField *numberOfPhotosToTakeTextField;
+//@property (weak, nonatomic) IBOutlet UITextField *numberOfPhotosToTakeTextField;
 
 // How many seconds/minutes/etc. to wait between photos.
 // Could retrieve from user defaults each time, but want flexibility to assign without a key.

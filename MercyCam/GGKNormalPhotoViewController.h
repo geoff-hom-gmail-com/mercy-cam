@@ -8,7 +8,7 @@
 
 #import "GGKTakePhotoAbstractViewController.h"
 
-@interface GGKTakePhotoViewController : GGKTakePhotoAbstractViewController
+@interface GGKNormalPhotoViewController : GGKTakePhotoAbstractViewController
 // Width changes depending on device rotation.
 //@property (weak, nonatomic) IBOutlet NSLayoutConstraint *cameraRollButtonWidthLayoutConstraint;
 // (For testing.) Report whether currently exposing.
