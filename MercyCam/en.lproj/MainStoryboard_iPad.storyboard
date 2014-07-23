@@ -587,7 +587,7 @@ Photos</string>
                                 </state>
                                 <connections>
                                     <action selector="playButtonSound" destination="BXz-Hw-S72" eventType="touchDown" id="dnn-HM-veP"/>
-                                    <segue destination="AbV-MZ-YTc" kind="popover" popoverAnchorView="E0r-ie-Arj" id="uhn-gS-RUd">
+                                    <segue destination="AbV-MZ-YTc" kind="popover" identifier="ShowSavedPhotos2" popoverAnchorView="E0r-ie-Arj" id="uhn-gS-RUd">
                                         <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                     </segue>
                                 </connections>
@@ -2124,7 +2124,7 @@ photos</string>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="z8x-hc-xb8"/>
         <segue reference="vc6-di-tqf"/>
-        <segue reference="uhn-gS-RUd"/>
     </inferredMetricsTieBreakers>
 </document>
