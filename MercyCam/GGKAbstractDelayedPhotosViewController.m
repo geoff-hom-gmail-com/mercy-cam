@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import "GGKTakeDelayedPhotosAbstractViewController.h"
+#import "GGKAbstractDelayedPhotosViewController.h"
 
 #import "GGKLongTermViewController.h"
 #import "NSDate+GGKAdditions.h"
@@ -30,7 +30,7 @@ NSString *GGKTakeDelayedPhotosTimeUnitBetweenPhotosKeyPathString = @"timeUnitBet
 
 NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUnitForTheInitialWaitTimeUnit";
 
-@interface GGKTakeDelayedPhotosAbstractViewController ()
+@interface GGKAbstractDelayedPhotosViewController ()
 
 // The text field currently being edited.
 @property (nonatomic, strong) UITextField *activeTextField;
@@ -84,7 +84,7 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
 
 @end
 
-@implementation GGKTakeDelayedPhotosAbstractViewController
+@implementation GGKAbstractDelayedPhotosViewController
 
 //- (IBAction)cancelTimer {
 //    [self updateToAllowStartTimer];
@@ -177,22 +177,6 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
 }
 
 - (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([theKeyPath isEqualToString:GGKObserveCaptureManagerFocusAndExposureStatusKeyPathString]) {
-        NSString *aString = @"";
-        switch (self.captureManager.focusAndExposureStatus) {
-            case GGKCaptureManagerFocusAndExposureStatusContinuous:
-                aString = GGKToFocusTipString;
-                break;
-            case GGKCaptureManagerFocusAndExposureStatusLocking:
-                aString = GGKFocusingTipString;
-                break;
-            case GGKCaptureManagerFocusAndExposureStatusLocked:
-                aString = GGKToUnlockFocusTipString;
-                break;
-            default:
-                break;
-        }
-        self.tipLabel.text = aString;
 //    } else if ([theKeyPath isEqualToString:GGKTakeDelayedPhotosNumberOfTimeUnitsToInitiallyWaitKeyPathString]) {
 //        
 //        self.numberOfTimeUnitsToInitiallyWaitTextField.text = [NSString stringWithFormat:@"%ld", (long)self.numberOfTimeUnitsToInitiallyWaitInteger];
@@ -210,7 +194,7 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
 //    } else if ([theKeyPath isEqualToString:GGKTakeDelayedPhotosNumberOfTimeUnitsBetweenPhotosKeyPathString]) {
 //        
 //        self.numberOfTimeUnitsBetweenPhotosTextField.text = [NSString stringWithFormat:@"%ld", (long)self.numberOfTimeUnitsBetweenPhotosInteger];
-    } else if ([theKeyPath isEqualToString:GGKTakeDelayedPhotosTimeUnitBetweenPhotosKeyPathString]) {
+    if ([theKeyPath isEqualToString:GGKTakeDelayedPhotosTimeUnitBetweenPhotosKeyPathString]) {
         
         [GGKTimeUnits setTitleForButton:self.timeUnitsBetweenPhotosButton withTimeUnit:self.timeUnitBetweenPhotosTimeUnit ofPlurality:self.numberOfTimeUnitsBetweenPhotosInteger];
     } else {

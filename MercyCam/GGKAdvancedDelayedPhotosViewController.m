@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import "GGKTakeAdvancedDelayedPhotosViewController.h"
+#import "GGKAdvancedDelayedPhotosViewController.h"
 
 #import "UIView+GGKAdditions.h"
 
@@ -22,10 +22,10 @@ NSString *GGKTakeAdvancedDelayedPhotosNumberOfTimeUnitsToInitiallyWaitKeyString 
 NSString *GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString = @"Take advanced delayed photos: time unit to use between photos.";
 NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take advanced delayed photos: time unit to use to initially wait.";
 
-@interface GGKTakeAdvancedDelayedPhotosViewController ()
+@interface GGKAdvancedDelayedPhotosViewController ()
 @end
 
-@implementation GGKTakeAdvancedDelayedPhotosViewController
+@implementation GGKAdvancedDelayedPhotosViewController
 - (void)getSavedTimerSettings {
     [super getSavedTimerSettings];
     self.numberOfTimeUnitsToInitiallyWaitInteger = [[NSUserDefaults standardUserDefaults] integerForKey:self.numberOfTimeUnitsToInitiallyWaitKeyString];

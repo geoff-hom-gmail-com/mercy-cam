@@ -282,54 +282,6 @@ Line2</string>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Foc. mode: auto." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jof-po-PWC">
-                                <rect key="frame" x="441" y="8" width="98" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Exp. mode: auto." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nhh-kh-QaM">
-                                <rect key="frame" x="441" y="34" width="98" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="WB mode: auto." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="87z-5y-chb">
-                                <rect key="frame" x="441" y="54" width="98" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Focusing: Yes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OYC-aF-2MU">
-                                <rect key="frame" x="542" y="8" width="88" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Exposing: Yes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYj-we-zZO">
-                                <rect key="frame" x="542" y="34" width="88" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Wh. balancing: Yes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jny-pb-JCz">
-                                <rect key="frame" x="542" y="54" width="116" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Foc. POI: {0.5, 0.3}" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FwH-iM-D9c">
-                                <rect key="frame" x="651" y="14" width="108" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Exp. POI: {1.0, 0.0}" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dHh-Qa-m5x">
-                                <rect key="frame" x="651" y="43" width="109" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OTg-i6-WmW">
                                 <rect key="frame" x="96" y="908" width="664" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -342,8 +294,8 @@ Line2</string>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="handleTriggerButtonTapped:" destination="BXz-Hw-S72" eventType="touchUpInside" id="WrE-n8-6tI"/>
                                     <action selector="playButtonSound" destination="BXz-Hw-S72" eventType="touchDown" id="LlV-rl-eE7"/>
-                                    <action selector="takePhoto" destination="BXz-Hw-S72" eventType="touchUpInside" id="Yc5-DS-h2r"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="fGJ-in-PS9">
@@ -383,23 +335,15 @@ Line2</string>
                     </view>
                     <navigationItem key="navigationItem" title="Normal Photo" id="Sby-Wb-kNp"/>
                     <connections>
+                        <outlet property="bottomTriggerButton" destination="OTg-i6-WmW" id="2Pq-Am-9H3"/>
                         <outlet property="cameraPreviewView" destination="Sin-J3-zg2" id="DME-35-Tlf"/>
                         <outlet property="cameraRollButton" destination="5Vn-Fv-i1w" id="UhE-V6-iSF"/>
-                        <outlet property="exposingLabel" destination="AYj-we-zZO" id="DYU-ma-jdA"/>
-                        <outlet property="exposureModeLabel" destination="Nhh-kh-QaM" id="Xfc-c7-1DE"/>
-                        <outlet property="exposurePointOfInterestLabel" destination="dHh-Qa-m5x" id="SbD-jW-fva"/>
-                        <outlet property="focusModeLabel" destination="jof-po-PWC" id="3yk-iB-sEB"/>
-                        <outlet property="focusPointOfInterestLabel" destination="FwH-iM-D9c" id="i8Z-Xc-sCM"/>
-                        <outlet property="focusingLabel" destination="OYC-aF-2MU" id="qQc-a2-Bu9"/>
-                        <outlet property="takePhotoBottomButton" destination="OTg-i6-WmW" id="bvc-W4-vy4"/>
-                        <outlet property="takePhotoLeftProxyButton" destination="fGJ-in-PS9" id="nzR-aH-tut"/>
-                        <outlet property="takePhotoRightProxyButton" destination="UdW-v1-5td" id="Xwy-8F-cOM"/>
-                        <outlet property="takePhotoRightProxyButtonWidthLayoutConstraint" destination="bNJ-xA-pYG" id="4Jp-dw-ZZU"/>
-                        <outlet property="tipLabel" destination="JBy-3S-HOX" id="YMS-5O-R35"/>
+                        <outlet property="proxyLeftTriggerButton" destination="fGJ-in-PS9" id="Qru-Mf-ZCp"/>
+                        <outlet property="proxyRightTriggerButton" destination="UdW-v1-5td" id="XY5-lk-tn7"/>
+                        <outlet property="proxyRightTriggerButtonWidthLayoutConstraint" destination="bNJ-xA-pYG" id="MoO-uS-gA0"/>
+                        <outlet property="tipLabel" destination="JBy-3S-HOX" id="K8n-tD-mBe"/>
                         <outlet property="tipLabelAlignCenterYLayoutConstraint" destination="tIh-6X-dC4" id="lNR-ee-0dk"/>
                         <outlet property="tipLabelHeightLayoutConstraint" destination="G3W-EL-E1l" id="ldm-tL-jrj"/>
-                        <outlet property="whiteBalanceModeLabel" destination="87z-5y-chb" id="zAR-5k-5SL"/>
-                        <outlet property="whiteBalancingLabel" destination="jny-pb-JCz" id="nrc-dt-lpn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vQV-4J-HJi" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1488,10 +1432,10 @@ Timer</string>
             </objects>
             <point key="canvasLocation" x="2666" y="3143"/>
         </scene>
-        <!--Take Advanced Delayed Photos View Controller - Take delayed photos (advanced)-->
+        <!--Advanced Delayed Photos View Controller - Take delayed photos (advanced)-->
         <scene sceneID="naP-rK-kmE">
             <objects>
-                <viewController id="fx6-eB-Ugt" customClass="GGKTakeAdvancedDelayedPhotosViewController" sceneMemberID="viewController">
+                <viewController id="fx6-eB-Ugt" customClass="GGKAdvancedDelayedPhotosViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="iyV-9t-AVe"/>
                         <viewControllerLayoutGuide type="bottom" id="KBe-e8-p7y"/>
@@ -1813,10 +1757,10 @@ photos</string>
             </objects>
             <point key="canvasLocation" x="2585" y="1973"/>
         </scene>
-        <!--Take Advanced Delayed Photos View Controller - mock landscape-->
+        <!--Advanced Delayed Photos View Controller - mock landscape-->
         <scene sceneID="WKo-Fz-Xaf">
             <objects>
-                <viewController storyboardIdentifier="dummyIDDoNotUse4" title="mock landscape" id="3W5-Pc-q33" customClass="GGKTakeAdvancedDelayedPhotosViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="dummyIDDoNotUse4" title="mock landscape" id="3W5-Pc-q33" customClass="GGKAdvancedDelayedPhotosViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="JOK-Ph-JNe"/>
                         <viewControllerLayoutGuide type="bottom" id="PEI-eI-nW0"/>
@@ -2124,7 +2068,7 @@ photos</string>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="z8x-hc-xb8"/>
+        <segue reference="N9j-NP-wLm"/>
         <segue reference="vc6-di-tqf"/>
     </inferredMetricsTieBreakers>
 </document>

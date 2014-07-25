@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import "GGKTakeDelayedPhotosAbstractViewController.h"
+#import "GGKAbstractDelayedPhotosViewController.h"
 #import "GGKTimeUnits.h"
 
 // The default number of photos to take.
@@ -31,7 +31,7 @@ extern NSString *GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString;
 // Key for storing the time unit to use for the initial wait.
 extern NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString;
 
-@interface GGKTakeAdvancedDelayedPhotosViewController : GGKTakeDelayedPhotosAbstractViewController
+@interface GGKAdvancedDelayedPhotosViewController : GGKAbstractDelayedPhotosViewController
 // Override.
 - (void)getSavedTimerSettings;
 // Override.

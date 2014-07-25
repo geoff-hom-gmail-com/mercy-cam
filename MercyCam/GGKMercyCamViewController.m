@@ -7,7 +7,7 @@
 
 #import "GGKDelayedPhotosModel.h"
 #import "GGKMercyCamAppDelegate.h"
-#import "GGKTakeAdvancedDelayedPhotosViewController.h"
+#import "GGKAdvancedDelayedPhotosViewController.h"
 #import "GGKTimeUnits.h"
 #import "NSAttributedString+GGKAdditions.h"
 #import "NSString+GGKAdditions.h"

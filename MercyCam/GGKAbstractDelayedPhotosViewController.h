@@ -7,7 +7,7 @@
 //
 // Abstract class for taking delayed photos. It should include most of what you need. Subclasses should work by blanking out features rather than adding them, so add new features here. 
 
-#import "GGKTakePhotoAbstractViewController.h"
+#import "GGKAbstractPhotoViewController.h"
 #import "GGKTimeUnits.h"
 #import "GGKTimeUnitsTableViewController.h"
 
@@ -22,7 +22,7 @@ extern NSString *GGKTakeDelayedPhotosNumberOfTimeUnitsToInitiallyWaitKeyPathStri
 extern NSString *GGKTakeDelayedPhotosTimeUnitBetweenPhotosKeyPathString;
 extern NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString;
 
-@interface GGKTakeDelayedPhotosAbstractViewController : GGKTakePhotoAbstractViewController <GGKTimeUnitsTableViewControllerDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate>
+@interface GGKAbstractDelayedPhotosViewController : GGKAbstractPhotoViewController <GGKTimeUnitsTableViewControllerDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate>
 
 // Story: User sets number of photos to 1. User sees "1 photo…" instead of "1 photos…."
 // The label following the number-of-photos-to-take text field.
@@ -121,13 +121,11 @@ extern NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString;
 @property (weak, nonatomic) IBOutlet UIButton *timeUnitsToInitiallyWaitButton;
 // View showing the timer settings.
 @property (weak, nonatomic) IBOutlet UIView *timerSettingsView;
-// For displaying a context-sensitive tip. (E.g., about focus state.)
-@property (nonatomic, strong) IBOutlet UILabel *tipLabel;
 // Update UI to take photos again.
 - (IBAction)cancelTimer;
 
 // Override.
-- (void)captureManagerDidTakePhoto:(id)sender;
+- (void)takePhotoModelDidTakePhoto:(id)sender;
 
 // Override.
 - (void)dealloc;

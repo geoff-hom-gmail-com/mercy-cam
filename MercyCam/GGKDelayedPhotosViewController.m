@@ -15,8 +15,8 @@
 @end
 
 @implementation GGKDelayedPhotosViewController
-- (void)captureManagerDidTakePhoto:(id)sender {
-    [super captureManagerDidTakePhoto:sender];
+- (void)takePhotoModelDidTakePhoto:(id)sender {
+    [super takePhotoModelDidTakePhoto:sender];
     // If all photos taken, stop. Else, if still in shooting mode, take another photo. So, we can stop photo taking by changing the mode.
     if (self.delayedPhotosModel.numberOfPhotosTakenInteger >= self.delayedPhotosModel.numberOfPhotosToTakeInteger) {
         self.model.appMode = GGKAppModePlanning;

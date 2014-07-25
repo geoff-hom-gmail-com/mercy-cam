@@ -3,11 +3,11 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import "GGKTakeDelayedPhotosAbstractViewController.h"
+#import "GGKAbstractDelayedPhotosViewController.h"
 
 @class GGKDelayedPhotosModel;
 
-@interface GGKDelayedPhotosViewController : GGKTakeDelayedPhotosAbstractViewController <UITextFieldDelegate>
+@interface GGKDelayedPhotosViewController : GGKAbstractDelayedPhotosViewController <UITextFieldDelegate>
 @property (strong, nonatomic) GGKDelayedPhotosModel *delayedPhotosModel;
 // User taps trigger button. User sees label appear and increment with each photo taken. User implicitly understands when photos are taken, how many photos remain and how long it will take.
 @property (nonatomic, weak) IBOutlet UILabel *numberOfPhotosTakenLabel;
@@ -31,7 +31,7 @@
 
 // Override.
 // Now that we can: If all photos taken, stop. Else, take another photo.
-- (void)captureManagerDidTakePhoto:(id)sender;
+- (void)takePhotoModelDidTakePhoto:(id)sender;
 // Called after user taps cancel-timer button.
 // What: Stop repeating timer. Stop taking photos. Change to planning mode.
 - (IBAction)handleCancelTimerTapped;

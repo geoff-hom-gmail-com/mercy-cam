@@ -6,55 +6,55 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import "GGKCaptureManager.h"
+#import "GGKTakePhotoModel.h"
 
 //BOOL GGKDebugCamera = YES;
 BOOL GGKDebugCamera = NO;
 
-@interface GGKCaptureManager ()
+// For KVO.
+NSString *ObserveFocusAndExposureStatusKeyPathString = @"focusAndExposureStatus";
+NSString *ObserveCaptureDeviceFocusModeKeyPathString = @"captureDevice.focusMode";
+
+@interface GGKTakePhotoModel ()
 // For invalidating the timer if the exposure is adjusted.
 @property (nonatomic, strong) NSTimer *exposureUnadjustedTimer;
-// Lock exposure. If the focus is also locked, then notify that both are locked.
-- (void)handleLockRequestedAndExposureIsSteady:(NSTimer *)theTimer;
-// Notify delegate.
-- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
-// KVO. After setting the exposure POI, we want to know when the exposure is steady, so we can lock it. If the device's exposure stops adjusting, then we see if it stays steady long enough (via a timer). 
-- (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
+
 @end
 
-@implementation GGKCaptureManager
+@implementation GGKTakePhotoModel
 - (void)dealloc {
-//    NSLog(@"CM dealloc");
-    [self removeObserver:self forKeyPath:@"device.adjustingExposure"];
-    [self removeObserver:self forKeyPath:@"device.focusMode"];
+    [self removeObserver:self forKeyPath:ObserveFocusAndExposureStatusKeyPathString];
+    // these need to be made into constant strings at the top
+    [self removeObserver:self forKeyPath:@"captureDevice.adjustingExposure"];
+    [self removeObserver:self forKeyPath:ObserveCaptureDeviceFocusModeKeyPathString];
 }
-- (void)destroySession {
-    [self.session stopRunning];
-    self.session = nil;
+- (void)destroyCaptureSession {
+    [self.captureSession stopRunning];
+    self.captureSession = nil;
 }
 - (void)focusAtPoint:(CGPoint)thePoint {
     NSError *anError;
-    BOOL aDeviceMayBeConfigured = [self.device lockForConfiguration:&anError];
+    BOOL aDeviceMayBeConfigured = [self.captureDevice lockForConfiguration:&anError];
     if (aDeviceMayBeConfigured) {
-        self.focusAndExposureStatus = GGKCaptureManagerFocusAndExposureStatusLocking;
+        self.focusAndExposureStatus = GGKTakePhotoModelFocusAndExposureStatusLocking;
         // To lock the focus at a point, we set the POI, then do an auto-focus.
-        if (self.device.focusPointOfInterestSupported) {
-            self.device.focusPointOfInterest = thePoint;
+        if (self.captureDevice.focusPointOfInterestSupported) {
+            self.captureDevice.focusPointOfInterest = thePoint;
         }
-        self.device.focusMode = AVCaptureFocusModeAutoFocus;
+        self.captureDevice.focusMode = AVCaptureFocusModeAutoFocus;
         
         // To lock the exposure at a point, we can do the same as with focus. However, if AVCaptureExposureModeAutoExpose isn't supported, then we need a trick to get the POI recognized (lock exposure, then go back to continuous exposure), and we need to listen for when the exposure stops adjusting.
-        if (self.device.exposurePointOfInterestSupported) {
+        if (self.captureDevice.exposurePointOfInterestSupported) {
             
-            self.device.exposurePointOfInterest = thePoint;
+            self.captureDevice.exposurePointOfInterest = thePoint;
         }
-        if ([self.device isExposureModeSupported:AVCaptureExposureModeAutoExpose]) {
+        if ([self.captureDevice isExposureModeSupported:AVCaptureExposureModeAutoExpose]) {
             
-            self.device.exposureMode = AVCaptureExposureModeAutoExpose;
+            self.captureDevice.exposureMode = AVCaptureExposureModeAutoExpose;
         } else {
             
-            self.device.exposureMode = AVCaptureExposureModeLocked;
-            self.device.exposureMode = AVCaptureExposureModeContinuousAutoExposure;
+            self.captureDevice.exposureMode = AVCaptureExposureModeLocked;
+            self.captureDevice.exposureMode = AVCaptureExposureModeContinuousAutoExposure;
         }
         
         // Not changing white balance in this release.
@@ -68,22 +68,22 @@ BOOL GGKDebugCamera = NO;
 //            NSLog(@"CM fAP: AVCaptureWhiteBalanceModeLocked.");
 //        }
         
-        [self.device unlockForConfiguration];
+        [self.captureDevice unlockForConfiguration];
     }
 }
 - (void)handleLockRequestedAndExposureIsSteady:(NSTimer *)theTimer {
     NSError *anError;
-    BOOL aDeviceMayBeConfigured = [self.device lockForConfiguration:&anError];
+    BOOL aDeviceMayBeConfigured = [self.captureDevice lockForConfiguration:&anError];
     if (aDeviceMayBeConfigured) {
-        self.device.exposureMode = AVCaptureExposureModeLocked;
-        [self.device unlockForConfiguration];
-        if (self.device.focusMode == AVCaptureFocusModeLocked) {
-            self.focusAndExposureStatus = GGKCaptureManagerFocusAndExposureStatusLocked;
+        self.captureDevice.exposureMode = AVCaptureExposureModeLocked;
+        [self.captureDevice unlockForConfiguration];
+        if (self.captureDevice.focusMode == AVCaptureFocusModeLocked) {
+            self.focusAndExposureStatus = GGKTakePhotoModelFocusAndExposureStatusLocked;
         }
     }
 }
 - (void)handleUserTappedAtDevicePoint:(CGPoint)theDevicePoint {
-    AVCaptureDevice *aCaptureDevice = self.device;
+    AVCaptureDevice *aCaptureDevice = self.captureDevice;
     if (aCaptureDevice == nil) {
         NSLog(@"GGK warning: No capture-device input.");
     } else {
@@ -96,17 +96,19 @@ BOOL GGKDebugCamera = NO;
     }
 }
 -(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-    [self.delegate captureManagerDidTakePhoto:self];
+    [self.delegate takePhotoModelDidTakePhoto:self];
 }
 - (id)init {
     self = [super init];
     if (self != nil) {
-        [self addObserver:self forKeyPath:@"device.adjustingExposure" options:NSKeyValueObservingOptionNew context:nil];
-        [self addObserver:self forKeyPath:@"device.focusMode" options:NSKeyValueObservingOptionNew context:nil];
+        [self addObserver:self forKeyPath:@"captureDevice.adjustingExposure" options:NSKeyValueObservingOptionNew context:nil];
+        [self addObserver:self forKeyPath:@"captureDevice.focusMode" options:NSKeyValueObservingOptionNew context:nil];
+        // Report focus (and exposure) status in real time.
+        [self addObserver:self forKeyPath:ObserveFocusAndExposureStatusKeyPathString options:NSKeyValueObservingOptionNew context:nil];
     }
     return self;
 }
-- (void)makeSession {
+- (void)makeCaptureSession {
     AVCaptureSession *aCaptureSession = [[AVCaptureSession alloc] init];
     AVCaptureDevice *aCameraCaptureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     NSError *error = nil;
@@ -117,19 +119,19 @@ BOOL GGKDebugCamera = NO;
     }
     if ([aCaptureSession canAddInput:aCameraCaptureDeviceInput]) {
         [aCaptureSession addInput:aCameraCaptureDeviceInput];
-        self.device = aCameraCaptureDeviceInput.device;
+        self.captureDevice = aCameraCaptureDeviceInput.device;
         // Make sure the device has the default settings.
         [self unlockFocus];
         //        NSLog(@"CM mS: capture-device model ID: %@", self.device.modelID);
-        NSLog(@"CM sUS: capture-device localized name: %@", self.device.localizedName);
+        NSLog(@"CM sUS: capture-device localized name: %@", self.captureDevice.localizedName);
         //        NSLog(@"CM sUS: capture-device unique ID: %@", self.device.uniqueID);
-        NSString *aString = (self.device.lowLightBoostSupported) ? @"Yes" : @"No";
+        NSString *aString = (self.captureDevice.lowLightBoostSupported) ? @"Yes" : @"No";
         //        NSLog(@"CM sUS: low-light boost supported: %@", aString);
-        aString = (self.device.subjectAreaChangeMonitoringEnabled) ? @"Yes" : @"No";
+        aString = (self.captureDevice.subjectAreaChangeMonitoringEnabled) ? @"Yes" : @"No";
         //        NSLog(@"CM sUS: subject-area-change monitoring enabled: %@", aString);
-        aString = (self.device.focusPointOfInterestSupported) ? @"Yes" : @"No";
+        aString = (self.captureDevice.focusPointOfInterestSupported) ? @"Yes" : @"No";
         //        NSLog(@"CM sUS: focus point-of-interest supported: %@", aString);
-        aString = (self.device.exposurePointOfInterestSupported) ? @"Yes" : @"No";
+        aString = (self.captureDevice.exposurePointOfInterestSupported) ? @"Yes" : @"No";
         //        NSLog(@"CM sUS: exposure point-of-interest supported: %@", aString);
     }
     AVCaptureStillImageOutput *aCaptureStillImageOutput = [[AVCaptureStillImageOutput alloc] init];
@@ -137,17 +139,13 @@ BOOL GGKDebugCamera = NO;
         [aCaptureSession addOutput:aCaptureStillImageOutput];
     }
     aCaptureSession.sessionPreset = AVCaptureSessionPresetPhoto;
-    self.session = aCaptureSession;
+    self.captureSession = aCaptureSession;
 }
 - (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([theKeyPath isEqualToString:@"device.adjustingExposure"]) {
-        if (GGKDebugCamera) {
-            NSString *aString = (self.device.adjustingExposure) ? @"Yes" : @"No";
-            NSLog(@"adjusting exposure: %@", aString);
-        }
-        if (self.focusAndExposureStatus == GGKCaptureManagerFocusAndExposureStatusLocking) {
+        if (self.focusAndExposureStatus == GGKTakePhotoModelFocusAndExposureStatusLocking) {
             // When the exposure isn't being adjusted, time it to see if it stays steady.
-            if (self.device.adjustingExposure) {
+            if (self.captureDevice.adjustingExposure) {
                 [self.exposureUnadjustedTimer invalidate];
                 self.exposureUnadjustedTimer = nil;
             } else {
@@ -157,11 +155,13 @@ BOOL GGKDebugCamera = NO;
             }
         }
     } else if ([theKeyPath isEqualToString:@"device.focusMode"]) {
-        if (self.focusAndExposureStatus == GGKCaptureManagerFocusAndExposureStatusLocking &&
-            self.device.focusMode == AVCaptureFocusModeLocked &&
-            self.device.exposureMode == AVCaptureExposureModeLocked) {
-            self.focusAndExposureStatus = GGKCaptureManagerFocusAndExposureStatusLocked;
+        if (self.focusAndExposureStatus == GGKTakePhotoModelFocusAndExposureStatusLocking &&
+            self.captureDevice.focusMode == AVCaptureFocusModeLocked &&
+            self.captureDevice.exposureMode == AVCaptureExposureModeLocked) {
+            self.focusAndExposureStatus = GGKTakePhotoModelFocusAndExposureStatusLocked;
         }
+    } else if ([theKeyPath isEqualToString:ObserveFocusAndExposureStatusKeyPathString]) {
+        [self.delegate takePhotoModelFocusAndExposureStatusDidChange:self];
     } else {
         [super observeValueForKeyPath:theKeyPath ofObject:object change:change context:context];
     }
@@ -180,16 +180,19 @@ BOOL GGKDebugCamera = NO;
     }
     return aCaptureVideoOrientation;
 }
-- (void)startSession {
+- (void)startCaptureSession {
     // This is done asychronously since -startRunning doesn't return until the session is running.
     NSOperationQueue *anOperationQueue = [[NSOperationQueue alloc] init];
     [anOperationQueue addOperationWithBlock:^{
-        [self.session startRunning];
+        [self.captureSession startRunning];
     }];
+}
+- (void)stopCaptureSession {
+    [self.captureSession stopRunning];
 }
 - (void)takePhoto {
 //    NSLog(@"CM takePhoto called");
-    AVCaptureStillImageOutput *aCaptureStillImageOutput = (AVCaptureStillImageOutput *)self.session.outputs[0];
+    AVCaptureStillImageOutput *aCaptureStillImageOutput = (AVCaptureStillImageOutput *)self.captureSession.outputs[0];
     AVCaptureConnection *aCaptureConnection = [aCaptureStillImageOutput connectionWithMediaType:AVMediaTypeVideo];
     if (aCaptureConnection != nil) {
         aCaptureConnection.videoOrientation = [self properCaptureVideoOrientation];
@@ -207,16 +210,16 @@ BOOL GGKDebugCamera = NO;
 }
 - (void)unlockFocus {
     NSError *anError;
-    BOOL aDeviceMayBeConfigured = [self.device lockForConfiguration:&anError];
+    BOOL aDeviceMayBeConfigured = [self.captureDevice lockForConfiguration:&anError];
     if (aDeviceMayBeConfigured) {
         CGPoint theCenterPoint = CGPointMake(0.5f, 0.5f);
-        self.device.focusPointOfInterest = theCenterPoint;
-        self.device.focusMode = AVCaptureFocusModeContinuousAutoFocus;
-        self.device.exposurePointOfInterest = theCenterPoint;
-        self.device.exposureMode = AVCaptureExposureModeContinuousAutoExposure;
-        self.device.whiteBalanceMode = AVCaptureWhiteBalanceModeContinuousAutoWhiteBalance;
-        [self.device unlockForConfiguration];
-        self.focusAndExposureStatus = GGKCaptureManagerFocusAndExposureStatusContinuous;
+        self.captureDevice.focusPointOfInterest = theCenterPoint;
+        self.captureDevice.focusMode = AVCaptureFocusModeContinuousAutoFocus;
+        self.captureDevice.exposurePointOfInterest = theCenterPoint;
+        self.captureDevice.exposureMode = AVCaptureExposureModeContinuousAutoExposure;
+        self.captureDevice.whiteBalanceMode = AVCaptureWhiteBalanceModeContinuousAutoWhiteBalance;
+        [self.captureDevice unlockForConfiguration];
+        self.focusAndExposureStatus = GGKTakePhotoModelFocusAndExposureStatusContinuous;
     }
 }
 @end
