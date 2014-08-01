@@ -9,6 +9,8 @@
 #import "GGKAbstractPhotoViewController.h"
 #import "GGKTimeUnits.h"
 
+@class GGKDelayedSpacedPhotosModel;
+
 // The default number of photos to take.
 extern const NSInteger GGKTakeAdvancedDelayedPhotosDefaultNumberOfPhotosInteger;
 // The default number of time units between each photo.
@@ -31,11 +33,21 @@ extern NSString *GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString;
 // Key for storing the time unit to use for the initial wait.
 extern NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString;
 
-@interface GGKDelayedSpacedPhotosViewController : GGKAbstractPhotoViewController
+@interface GGKDelayedSpacedPhotosViewController : GGKAbstractPhotoViewController <UITextFieldDelegate>
 // Portrait-only constraint. Is set in storyboard to avoid compiler warnings.
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *cameraRollButtonTopGapPortraitLayoutConstraint;
 // Width depends on device orientation/rotation.
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *cancelTimerButtonWidthLayoutConstraint;
+@property (strong, nonatomic) GGKDelayedSpacedPhotosModel *delayedSpacedPhotosModel;
+// User taps trigger button. The number in the text field is how many photos are taken.
+@property (weak, nonatomic) IBOutlet UITextField *numberOfPhotosToTakeTextField;
+// Number of time units to wait before taking the first photo.
+@property (weak, nonatomic) IBOutlet UITextField *numberOfTimeUnitsToDelayTextField;
+// Number of time units to wait between each photo.
+@property (weak, nonatomic) IBOutlet UITextField *numberOfTimeUnitsToSpaceTextField;
+// In "Wait __, then take __ photo(s)," it's "photo(s)."
+// Story: User sets number of photos. User may see "photo" or "photos."
+@property (weak, nonatomic) IBOutlet UILabel *photosLabel;
 // Width depends on device orientation/rotation.
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *proxyRightTriggerButtonWidthLayoutConstraint;
 // User taps button. She can select seconds/minutes/hours/days/etc. from a popover. She taps selection and  button is updated.
@@ -46,6 +58,10 @@ extern NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *timerSettingsViewLeftGapPortraitLayoutConstraint;
 // Override.
 - (void)getSavedTimerSettings;
+// Now that we can: Ensure we have a valid value.
+- (void)textFieldDidEndEditing:(UITextField *)textField;
+// Now that we can: Dismiss the keyboard.
+- (BOOL)textFieldShouldReturn:(UITextField *)textField;
 // Override.
 - (void)updateLayoutForLandscape;
 // Override.

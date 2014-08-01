@@ -55,11 +55,11 @@
 // Now that we can: Dismiss the keyboard.
 - (BOOL)textFieldShouldReturn:(UITextField *)textField;
 // Override.
-- (void)updateUI;
-// Override.
 - (void)updateLayoutForLandscape;
 // Override.
 - (void)updateLayoutForPortrait;
+// Override.
+- (void)updateUI;
 // Override.
 - (void)viewDidLoad;
 @end

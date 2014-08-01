@@ -89,6 +89,14 @@
     [textField resignFirstResponder];
     return YES;
 }
+- (void)updateLayoutForLandscape {
+    [super updateLayoutForLandscape];
+    self.proxyRightTriggerButtonWidthLayoutConstraint.constant = 212;
+}
+- (void)updateLayoutForPortrait {
+    [super updateLayoutForPortrait];
+    self.proxyRightTriggerButtonWidthLayoutConstraint.constant = 70;
+}
 - (void)updateUI {
     [super updateUI];
     // "Wait X second(s), then take"
@@ -127,14 +135,6 @@
         self.numberOfPhotosTakenLabel.hidden = NO;
         self.numberOfPhotosTakenLabel.text = @"";
     }
-}
-- (void)updateLayoutForLandscape {
-    [super updateLayoutForLandscape];
-    self.proxyRightTriggerButtonWidthLayoutConstraint.constant = 212;
-}
-- (void)updateLayoutForPortrait {
-    [super updateLayoutForPortrait];
-    self.proxyRightTriggerButtonWidthLayoutConstraint.constant = 70;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
