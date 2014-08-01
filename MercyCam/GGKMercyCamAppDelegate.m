@@ -11,7 +11,7 @@
 #import "GGKLongTermViewController.h"
 #import "GGKModel.h"
 #import "GGKSoundModel.h"
-#import "GGKAdvancedDelayedPhotosViewController.h"
+#import "GGKDelayedSpacedPhotosViewController.h"
 //#import "GGKDelayedPhotosViewController.h"
 #import "TestFlight.h"
 

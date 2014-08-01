@@ -19,7 +19,7 @@
 		932BEE4317378226000A15CB /* icon-57px@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 932BEE3B17378226000A15CB /* icon-57px@2x.png */; };
 		932BEE4417378226000A15CB /* icon-72px.png in Resources */ = {isa = PBXBuildFile; fileRef = 932BEE3C17378226000A15CB /* icon-72px.png */; };
 		932BEE4517378226000A15CB /* icon-72px@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 932BEE3D17378226000A15CB /* icon-72px@2x.png */; };
-		932BEE4817379F21000A15CB /* GGKAdvancedDelayedPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 932BEE4717379F21000A15CB /* GGKAdvancedDelayedPhotosViewController.m */; };
+		932BEE4817379F21000A15CB /* GGKDelayedSpacedPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 932BEE4717379F21000A15CB /* GGKDelayedSpacedPhotosViewController.m */; };
 		932BEE4B1738D6F4000A15CB /* GGKTimeUnitsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 932BEE4A1738D6F4000A15CB /* GGKTimeUnitsTableViewController.m */; };
 		932BEE54173B0F87000A15CB /* NSString+GGKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 932BEE53173B0F87000A15CB /* NSString+GGKAdditions.m */; };
 		932BEE57173B72D2000A15CB /* GGKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 932BEE56173B72D2000A15CB /* GGKViewController.m */; };
@@ -81,8 +81,8 @@
 		932BEE3B17378226000A15CB /* icon-57px@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-57px@2x.png"; path = "icons/icon-57px@2x.png"; sourceTree = "<group>"; };
 		932BEE3C17378226000A15CB /* icon-72px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-72px.png"; path = "icons/icon-72px.png"; sourceTree = "<group>"; };
 		932BEE3D17378226000A15CB /* icon-72px@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-72px@2x.png"; path = "icons/icon-72px@2x.png"; sourceTree = "<group>"; };
-		932BEE4617379F21000A15CB /* GGKAdvancedDelayedPhotosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKAdvancedDelayedPhotosViewController.h; sourceTree = "<group>"; };
-		932BEE4717379F21000A15CB /* GGKAdvancedDelayedPhotosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKAdvancedDelayedPhotosViewController.m; sourceTree = "<group>"; };
+		932BEE4617379F21000A15CB /* GGKDelayedSpacedPhotosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKDelayedSpacedPhotosViewController.h; sourceTree = "<group>"; };
+		932BEE4717379F21000A15CB /* GGKDelayedSpacedPhotosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKDelayedSpacedPhotosViewController.m; sourceTree = "<group>"; };
 		932BEE491738D6F4000A15CB /* GGKTimeUnitsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKTimeUnitsTableViewController.h; sourceTree = "<group>"; };
 		932BEE4A1738D6F4000A15CB /* GGKTimeUnitsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKTimeUnitsTableViewController.m; sourceTree = "<group>"; };
 		932BEE52173B0F86000A15CB /* NSString+GGKAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+GGKAdditions.h"; sourceTree = "<group>"; };
@@ -247,12 +247,12 @@
 				93DA21E0173CB1F700636617 /* GGKAbstractDelayedPhotosViewController.m */,
 				93DA21DC173C35B700636617 /* GGKAbstractPhotoViewController.h */,
 				93DA21DD173C35B700636617 /* GGKAbstractPhotoViewController.m */,
-				932BEE4617379F21000A15CB /* GGKAdvancedDelayedPhotosViewController.h */,
-				932BEE4717379F21000A15CB /* GGKAdvancedDelayedPhotosViewController.m */,
 				93A852CC197B34F20085D456 /* GGKDelayedPhotosModel.h */,
 				93A852CD197B34F20085D456 /* GGKDelayedPhotosModel.m */,
 				93306A6E16C4702100F22B0A /* GGKDelayedPhotosViewController.h */,
 				93306A6F16C4702200F22B0A /* GGKDelayedPhotosViewController.m */,
+				932BEE4617379F21000A15CB /* GGKDelayedSpacedPhotosViewController.h */,
+				932BEE4717379F21000A15CB /* GGKDelayedSpacedPhotosViewController.m */,
 				93CE01B5173241CF0025ACB4 /* GGKHelpTheCreatorsViewController.h */,
 				93CE01B6173241CF0025ACB4 /* GGKHelpTheCreatorsViewController.m */,
 				93CE01B81733B5D50025ACB4 /* GGKInAppPurchaseManager.h */,
@@ -418,7 +418,7 @@
 				938A0064172E75A900709AA4 /* GGKSavedPhotosManager.m in Sources */,
 				93CE01B7173241CF0025ACB4 /* GGKHelpTheCreatorsViewController.m in Sources */,
 				93CE01BA1733B5D60025ACB4 /* GGKInAppPurchaseManager.m in Sources */,
-				932BEE4817379F21000A15CB /* GGKAdvancedDelayedPhotosViewController.m in Sources */,
+				932BEE4817379F21000A15CB /* GGKDelayedSpacedPhotosViewController.m in Sources */,
 				932BEE4B1738D6F4000A15CB /* GGKTimeUnitsTableViewController.m in Sources */,
 				932BEE54173B0F87000A15CB /* NSString+GGKAdditions.m in Sources */,
 				93498F4219695814009A7259 /* GGKModel.m in Sources */,

@@ -3,7 +3,7 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import "GGKAbstractDelayedPhotosViewController.h"
+#import "GGKAbstractPhotoViewController.h"
 
 @class GGKDelayedPhotosModel;
 
