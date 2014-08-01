@@ -27,8 +27,8 @@ BOOL GGKCreateLaunchImages = NO;
     NSString *aSecondsString = [@"seconds" ggk_stringPerhapsWithoutS:theDelayedPhotosNumberOfSecondsToWaitInteger];
     NSInteger theDelayedPhotosNumberOfPhotosToTakeInteger = self.delayedPhotosModel.numberOfPhotosToTakeInteger;
     NSString *aPhotosString = [@"photos" ggk_stringPerhapsWithoutS:theDelayedPhotosNumberOfPhotosToTakeInteger];
-    self.takeDelayedPhotosExampleLabel.text = [NSString stringWithFormat:@"Wait %ld %@, then take %ld %@.", (long)theDelayedPhotosNumberOfSecondsToWaitInteger, aSecondsString, (long)theDelayedPhotosNumberOfPhotosToTakeInteger, aPhotosString];
-
+//    self.takeDelayedPhotosExampleLabel.text = [NSString stringWithFormat:@"Wait %ld %@, then take %ld %@.", (long)theDelayedPhotosNumberOfSecondsToWaitInteger, aSecondsString, (long)theDelayedPhotosNumberOfPhotosToTakeInteger, aPhotosString];
+    self.takeDelayedPhotosExampleLabel.text = [NSString stringWithFormat:@"Wait __ seconds, then take __ photos."];
     
     // "Wait X second(s)/day(s)/etc., then take Y photo(s) with Z second(s)/day(s)/etc. between each photo."
     NSInteger theTakeAdvancedDelayedPhotosNumberOfTimeUnitsToInitiallyWaitInteger = [[NSUserDefaults standardUserDefaults] integerForKey:GGKTakeAdvancedDelayedPhotosNumberOfTimeUnitsToInitiallyWaitKeyString];
@@ -41,7 +41,8 @@ BOOL GGKCreateLaunchImages = NO;
     NSInteger theTimeUnitBetweenPhotosInteger = [[NSUserDefaults standardUserDefaults] integerForKey:GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString];
     NSString *theTimeUnitBetweenPhotosString = [GGKTimeUnits stringForTimeUnit:(GGKTimeUnit)theTimeUnitBetweenPhotosInteger];
     theTimeUnitBetweenPhotosString = [theTimeUnitBetweenPhotosString ggk_stringPerhapsWithoutS:theTakeAdvancedDelayedPhotosNumberOfTimeUnitsBetweenPhotosInteger];
-    self.takeAdvancedDelayedPhotosExampleLabel.text = [NSString stringWithFormat:@"Wait %ld %@, then take %ld %@ with %ld %@ between each photo.", (long)theTakeAdvancedDelayedPhotosNumberOfTimeUnitsToInitiallyWaitInteger, theTimeUnitForTheInitialWaitString, (long)theTakeAdvancedDelayedPhotosNumberOfPhotosInteger, aPhotosString, (long)theTakeAdvancedDelayedPhotosNumberOfTimeUnitsBetweenPhotosInteger, theTimeUnitBetweenPhotosString];
+//    self.takeAdvancedDelayedPhotosExampleLabel.text = [NSString stringWithFormat:@"Wait %ld %@, then take %ld %@ with %ld %@ between each photo.", (long)theTakeAdvancedDelayedPhotosNumberOfTimeUnitsToInitiallyWaitInteger, theTimeUnitForTheInitialWaitString, (long)theTakeAdvancedDelayedPhotosNumberOfPhotosInteger, aPhotosString, (long)theTakeAdvancedDelayedPhotosNumberOfTimeUnitsBetweenPhotosInteger, theTimeUnitBetweenPhotosString];
+    self.takeAdvancedDelayedPhotosExampleLabel.text = [NSString stringWithFormat:@"Wait __, then take __ photos with __ between each photo."];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
