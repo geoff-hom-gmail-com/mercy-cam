@@ -8,8 +8,6 @@
 @class GGKDelayedPhotosModel;
 
 @interface GGKDelayedPhotosViewController : GGKAbstractPhotoViewController <UITextFieldDelegate>
-// Tap to cancel the timer for taking photos.
-@property (weak, nonatomic) IBOutlet UIButton *cancelTimerButton;
 @property (strong, nonatomic) GGKDelayedPhotosModel *delayedPhotosModel;
 // User taps trigger button. User sees label appear and increment with each photo taken. User implicitly understands when photos are taken, how many photos remain and how long it will take.
 @property (nonatomic, weak) IBOutlet UILabel *numberOfPhotosTakenLabel;
@@ -28,8 +26,6 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *proxyRightTriggerButtonWidthLayoutConstraint;
 // In "Wait X seconds, then take Y photos," it's "seconds, then take." But may be singular or plural.
 @property (weak, nonatomic) IBOutlet UILabel *secondsLabel;
-// View showing the timer settings.
-@property (weak, nonatomic) IBOutlet UIView *timerSettingsView;
 // Portrait-only constraint. Is set in storyboard to avoid compiler warnings.
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tipLabelRightGapPortraitLayoutConstraint;
 // Override.

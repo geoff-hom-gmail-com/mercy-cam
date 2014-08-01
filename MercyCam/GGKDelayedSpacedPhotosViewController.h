@@ -32,10 +32,18 @@ extern NSString *GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString;
 extern NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString;
 
 @interface GGKDelayedSpacedPhotosViewController : GGKAbstractPhotoViewController
+// Portrait-only constraint. Is set in storyboard to avoid compiler warnings.
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *cameraRollButtonTopGapPortraitLayoutConstraint;
+// Width depends on device orientation/rotation.
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *cancelTimerButtonWidthLayoutConstraint;
+// Width depends on device orientation/rotation.
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *proxyRightTriggerButtonWidthLayoutConstraint;
 // User taps button. She can select seconds/minutes/hours/days/etc. from a popover. She taps selection and  button is updated.
 // User sets number of time units to initially wait to 1. She sees singular text for that time unit.
 // The type of time units to wait before taking the first photo.
 @property (weak, nonatomic) IBOutlet UIButton *timeUnitsToInitiallyWaitButton;
+// Portrait-only constraint. Is set in storyboard to avoid compiler warnings.
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *timerSettingsViewLeftGapPortraitLayoutConstraint;
 // Override.
 - (void)getSavedTimerSettings;
 // Override.

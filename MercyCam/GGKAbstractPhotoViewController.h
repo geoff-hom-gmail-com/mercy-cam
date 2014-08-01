@@ -19,6 +19,8 @@
 @property (weak, nonatomic) IBOutlet UIView *cameraPreviewView;
 // Tap to see camera roll. This button is labeled with the most-recent photo in the roll.
 @property (weak, nonatomic) IBOutlet UIButton *cameraRollButton;
+// Tap to cancel the timer for taking photos.
+@property (weak, nonatomic) IBOutlet UIButton *cancelTimerButton;
 // For showing camera preview to the user, and for converting taps to device space.
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
 // For dismissing the current popover. Would name "popoverController," but UIViewController already has a private variable named that.
@@ -34,6 +36,8 @@
 @property (nonatomic, strong) GGKSavedPhotosManager *savedPhotosManager;
 // To take photos via a capture session.
 @property (nonatomic, strong) GGKTakePhotoModel *takePhotoModel;
+// View showing the timer settings.
+@property (weak, nonatomic) IBOutlet UIView *timerSettingsView;
 // For displaying a context-sensitive tip. (E.g., about focus state.)
 @property (nonatomic, strong) IBOutlet UILabel *tipLabel;
 // Override.

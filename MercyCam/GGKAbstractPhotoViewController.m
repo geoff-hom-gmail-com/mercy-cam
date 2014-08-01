@@ -126,6 +126,8 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.cancelTimerButton.layer.cornerRadius = 3.0f;
+    self.timerSettingsView.layer.cornerRadius = 3.0f;
     self.tipLabel.layer.cornerRadius = 3.0f;
     // Make side buttons. We want vertical/rotated text, so the buttons are rotated. Rotation doesn't work with constraints; no constraints means we have to make the button in code. However, the storyboard has proxy buttons: proper frame (via constraints) but horizontal text.
     UIButton *aButton = [UIButton buttonWithType:UIButtonTypeSystem];

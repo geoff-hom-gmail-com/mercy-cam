@@ -37,73 +37,27 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
 }
 - (void)updateLayoutForLandscape {
     [super updateLayoutForLandscape];
-    
-//    // An anchor.
-//    [self.cameraPreviewView ggk_makeSize:CGSizeMake(820, 615)];
-//    [self.cameraPreviewView ggk_makeBottomGap:0];
-//    [self.cameraPreviewView ggk_makeLeftGap:0];
-//    [self updatePreviewOrientation];
-//    CGFloat aGap1 = 8;
-//    
-//    // An anchor.
-//    CGFloat aWidth = 130;
-//    [self.cameraRollButton ggk_makeSize:CGSizeMake(aWidth, aWidth)];
-//    [self.cameraRollButton ggk_makeBottomGap:aGap1];
-//    [self.cameraRollButton ggk_makeRightGap:aGap1];
-//    
-//    [self.tipLabel ggk_makeTopGap:aGap1];
-//    [self.tipLabel ggk_alignHorizontalCenterWithView:self.cameraRollButton];
-//    
-//    CGFloat aGap2 = 40;
-//    
-//    [self.startTimerBottomButton ggk_makeWidth:self.cameraRollButton.frame.size.width];
-//    CGFloat aHeight = self.startTimerBottomButton.superview.frame.size.height - self.tipLabel.frame.size.height - self.cameraRollButton.frame.size.height - self.cancelTimerButton.frame.size.height - aGap2 - (4 * aGap1);
-//    [self.startTimerBottomButton ggk_makeHeight:aHeight];
-//    [self.startTimerBottomButton ggk_alignRightEdgeWithView:self.cameraRollButton];
-//    [self.startTimerBottomButton ggk_placeBelowView:self.tipLabel gap:aGap1];
-//    
-//    CGFloat aGap3 = 30;
-//    
-//    [self.cancelTimerButton ggk_makeWidth:(self.startTimerBottomButton.frame.size.width - aGap3)];
-//    [self.cancelTimerButton ggk_alignRightEdgeWithView:self.cameraRollButton];
-//    [self.cancelTimerButton ggk_placeBelowView:self.startTimerBottomButton gap:aGap1];
+    self.cancelTimerButtonWidthLayoutConstraint.constant = 174;
+    self.proxyRightTriggerButtonWidthLayoutConstraint.constant = 217;
 }
-
 - (void)updateLayoutForPortrait {
     [super updateLayoutForPortrait];
-    
-//    // An anchor.
-//    [self.cameraPreviewView ggk_makeSize:CGSizeMake(654, 872)];
-//    [self.cameraPreviewView ggk_makeBottomGap:0];
-//    [self.cameraPreviewView ggk_makeLeftGap:0];
-//    [self updatePreviewOrientation];
-//    CGFloat aGap1 = 8;
-//    
-//    CGFloat aWidth = self.cameraRollButton.superview.frame.size.width - self.cameraPreviewView.frame.size.width - (2 * aGap1);
-//    [self.cameraRollButton ggk_makeSize:CGSizeMake(aWidth, aWidth)];
-//    [self.cameraRollButton ggk_makeBottomGap:aGap1];
-//    [self.cameraRollButton ggk_makeRightGap:aGap1];
-//    
-//    [self.tipLabel ggk_alignTopEdgeWithView:self.cameraPreviewView];
-//    [self.tipLabel ggk_alignHorizontalCenterWithView:self.cameraRollButton];
-//    
-//    CGFloat aGap2 = 50;
-//    
-//    [self.startTimerBottomButton ggk_makeWidth:self.cameraRollButton.frame.size.width];
-//    CGFloat aHeight = self.startTimerBottomButton.superview.frame.size.height - self.tipLabel.frame.origin.y - self.tipLabel.frame.size.height - self.cameraRollButton.frame.size.height - self.cancelTimerButton.frame.size.height - aGap2 - (3 * aGap1);
-//    [self.startTimerBottomButton ggk_makeHeight:aHeight];
-//    [self.startTimerBottomButton ggk_alignRightEdgeWithView:self.cameraRollButton];
-//    [self.startTimerBottomButton ggk_placeBelowView:self.tipLabel gap:aGap1];
-//    
-//    CGFloat aGap3 = 20;
-//    
-//    [self.cancelTimerButton ggk_makeWidth:(self.startTimerBottomButton.frame.size.width - aGap3)];
-//    [self.cancelTimerButton ggk_alignRightEdgeWithView:self.cameraRollButton];
-//    [self.cancelTimerButton ggk_placeBelowView:self.startTimerBottomButton gap:aGap1];
+    self.cancelTimerButtonWidthLayoutConstraint.constant = 66;
+    self.proxyRightTriggerButtonWidthLayoutConstraint.constant = 80;
 }
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // Orientation-specific layout constraints.
+    self.portraitOnlyLayoutConstraintArray = @[self.cameraRollButtonTopGapPortraitLayoutConstraint, self.timerSettingsViewLeftGapPortraitLayoutConstraint];
+    // Camera roll's top neighbor: top layout guide.
+    NSDictionary *aDictionary = @{@"topGuide":self.topLayoutGuide, @"cameraRollButton":self.cameraRollButton, @"timerSettingsView":self.timerSettingsView};
+    NSArray *anArray1 = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[topGuide]-[cameraRollButton]" options:0 metrics:nil views:aDictionary];
+    // Camera roll's right neighbor: timer-settings view.
+    NSArray *anArray2 = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[cameraRollButton]-[timerSettingsView]" options:0 metrics:nil views:aDictionary];
+    self.landscapeOnlyLayoutConstraintArray = @[anArray1[0], anArray2[0]];
+    
+    
     // Time-unit buttons.
 //    [GGKUtilities addBorderOfColor:[UIColor blackColor] toView:self.timeUnitsToInitiallyWaitButton];
 
