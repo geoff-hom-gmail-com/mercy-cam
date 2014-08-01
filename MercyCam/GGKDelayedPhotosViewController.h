@@ -7,7 +7,9 @@
 
 @class GGKDelayedPhotosModel;
 
-@interface GGKDelayedPhotosViewController : GGKAbstractDelayedPhotosViewController <UITextFieldDelegate>
+@interface GGKDelayedPhotosViewController : GGKAbstractPhotoViewController <UITextFieldDelegate>
+// Tap to cancel the timer for taking photos.
+@property (weak, nonatomic) IBOutlet UIButton *cancelTimerButton;
 @property (strong, nonatomic) GGKDelayedPhotosModel *delayedPhotosModel;
 // User taps trigger button. User sees label appear and increment with each photo taken. User implicitly understands when photos are taken, how many photos remain and how long it will take.
 @property (nonatomic, weak) IBOutlet UILabel *numberOfPhotosTakenLabel;
@@ -20,15 +22,16 @@
 // In "Wait X second(s), then take Y photo(s)," it's "photo(s)."
 // Story: User sets number of photos. User may see "photo" or "photos."
 @property (weak, nonatomic) IBOutlet UILabel *photosLabel;
+// Portrait-only constraint. Is set in storyboard to avoid compiler warnings.
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *proxyRightTriggerButtonTopGapPortraitLayoutConstraint;
+// Width depends on device orientation/rotation.
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *proxyRightTriggerButtonWidthLayoutConstraint;
 // In "Wait X seconds, then take Y photos," it's "seconds, then take." But may be singular or plural.
 @property (weak, nonatomic) IBOutlet UILabel *secondsLabel;
-// Portrait-only constraint. Is set in storyboard to avoid compiler warnings.
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *takePhotoRightProxyButtonTopGapPortraitLayoutConstraint;
-// Width depends on device orientation/rotation.
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *takePhotoRightProxyButtonWidthLayoutConstraint;
+// View showing the timer settings.
+@property (weak, nonatomic) IBOutlet UIView *timerSettingsView;
 // Portrait-only constraint. Is set in storyboard to avoid compiler warnings.
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tipLabelRightGapPortraitLayoutConstraint;
-
 // Override.
 // Now that we can: If all photos taken, stop. Else, take another photo.
 - (void)takePhotoModelDidTakePhoto:(id)sender;
@@ -40,7 +43,7 @@
 - (void)handleOneSecondTimerFired;
 // Called after user taps a start-timer button.
 // What: Change to shooting mode. Either start taking photos or start timer to wait.
-- (IBAction)handleStartTimerTapped:(id)sender;
+- (IBAction)handleTriggerButtonTapped:(id)sender;
 // Override.
 // What: Stop repeating timer. Stop taking photos.
 - (void)handleViewDidDisappearFromUser;

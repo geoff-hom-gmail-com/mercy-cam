@@ -11,9 +11,6 @@
 #import "NSString+GGKAdditions.h"
 #import "UIView+GGKAdditions.h"
 
-@interface GGKDelayedPhotosViewController ()
-@end
-
 @implementation GGKDelayedPhotosViewController
 - (void)takePhotoModelDidTakePhoto:(id)sender {
     [super takePhotoModelDidTakePhoto:sender];
@@ -41,7 +38,8 @@
         [self takePhoto];
     }
 }
-- (IBAction)handleStartTimerTapped:(id)sender {
+- (IBAction)handleTriggerButtonTapped:(id)sender {
+    [super handleTriggerButtonTapped:sender];
     self.model.appMode = GGKAppModeShooting;
     self.delayedPhotosModel.numberOfPhotosTakenInteger = 0;
     [self updateUI];
@@ -64,7 +62,6 @@
     self.delayedPhotosModel.oneSecondRepeatingTimer = aTimer;
 }
 - (void)stopOneSecondRepeatingTimer {
-    //this timer is in the model, so even if this VC goes away, the timer will keep running... need to stop timer if cancel, if time runs out, if vc goes back, if new vc added, if home/lock
     [self.delayedPhotosModel.oneSecondRepeatingTimer invalidate];
     self.delayedPhotosModel.oneSecondRepeatingTimer = nil;
 }
@@ -105,7 +102,7 @@
     NSString *aPhotosString = [@"photos" ggk_stringPerhapsWithoutS:theNumberOfPhotosToTakeInteger];
     self.photosLabel.text = [NSString stringWithFormat:@"%@.", aPhotosString];
     // Update UI for current mode.
-    NSArray *aTriggerButtonArray = @[self.startTimerBottomButton, self.startTimerLeftButton, self.startTimerRightButton];
+    NSArray *aTriggerButtonArray = @[self.bottomTriggerButton, self.leftTriggerButton, self.rightTriggerButton];
     NSArray *aTextFieldArray = @[self.numberOfPhotosToTakeTextField, self.numberOfSecondsToWaitTextField];
     if (self.model.appMode == GGKAppModePlanning) {
         for (UIButton *aButton in aTriggerButtonArray) {
@@ -133,25 +130,21 @@
 }
 - (void)updateLayoutForLandscape {
     [super updateLayoutForLandscape];
-    self.takePhotoRightProxyButtonWidthLayoutConstraint.constant = 212;
+    self.proxyRightTriggerButtonWidthLayoutConstraint.constant = 212;
 }
 - (void)updateLayoutForPortrait {
     [super updateLayoutForPortrait];
-    self.takePhotoRightProxyButtonWidthLayoutConstraint.constant = 70;
+    self.proxyRightTriggerButtonWidthLayoutConstraint.constant = 70;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     GGKMercyCamAppDelegate *theAppDelegate = (GGKMercyCamAppDelegate *)[UIApplication sharedApplication].delegate;
     self.delayedPhotosModel = theAppDelegate.delayedPhotosModel;
     self.model.appMode = GGKAppModePlanning;
-    // Side buttons.
-    for (UIButton *aButton in @[self.startTimerLeftButton, self.startTimerRightButton]) {
-        [aButton addTarget:self action:@selector(handleStartTimerTapped:) forControlEvents:UIControlEventTouchUpInside];
-    }
     // Orientation-specific layout constraints.
-    self.portraitOnlyLayoutConstraintArray = @[self.takePhotoRightProxyButtonTopGapPortraitLayoutConstraint, self.tipLabelRightGapPortraitLayoutConstraint];
-    // Right proxy button's top neighbor: top layout guide.
-    NSDictionary *aDictionary = @{@"topGuide":self.topLayoutGuide, @"rightProxy":self.startTimerRightProxyButton, @"tipLabel":self.tipLabel};
+    self.portraitOnlyLayoutConstraintArray = @[self.proxyRightTriggerButtonTopGapPortraitLayoutConstraint, self.tipLabelRightGapPortraitLayoutConstraint];
+    // Proxy right button's top neighbor: top layout guide.
+    NSDictionary *aDictionary = @{@"topGuide":self.topLayoutGuide, @"rightProxy":self.proxyRightTriggerButton, @"tipLabel":self.tipLabel};
     NSArray *anArray1 = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[topGuide]-[rightProxy]" options:0 metrics:nil views:aDictionary];
     // Tip label's right neighbor: right proxy button.
     NSArray *anArray2 = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[tipLabel]-[rightProxy]" options:0 metrics:nil views:aDictionary];

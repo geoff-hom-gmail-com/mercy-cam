@@ -27,14 +27,16 @@ typedef NS_ENUM(NSInteger, GGKTakePhotoModelFocusAndExposureStatus) {
 @end
 
 @interface GGKTakePhotoModel : NSObject
-@property (weak, nonatomic) id <GGKTakePhotoModelDelegate> delegate;
 // The input capture device. E.g., the rear camera.
 @property (nonatomic, strong) AVCaptureDevice *captureDevice;
-@property (nonatomic, assign) GGKTakePhotoModelFocusAndExposureStatus focusAndExposureStatus;
 @property (nonatomic, strong) AVCaptureSession *captureSession;
+@property (weak, nonatomic) id <GGKTakePhotoModelDelegate> delegate;
+// For invalidating the timer if the exposure is adjusted.
+@property (nonatomic, strong) NSTimer *exposureUnadjustedTimer;
+@property (nonatomic, assign) GGKTakePhotoModelFocusAndExposureStatus focusAndExposureStatus;
 // Override.
 - (void)dealloc;
-// Remove current session from memory.
+// Remove current session from memory. (C.f., stopCaptureSession.)
 - (void)destroyCaptureSession;
 // Focus at the given point (in device space). Also lock exposure.
 - (void)focusAtPoint:(CGPoint)thePoint;
@@ -44,19 +46,21 @@ typedef NS_ENUM(NSInteger, GGKTakePhotoModelFocusAndExposureStatus) {
 // Story: User taps on object. Focus and exposure auto-adjust and lock there. User taps again in view. Focus and exposure return to continuous. (If the user taps again before both focus and exposure lock, then the new tap will be the POI and both will relock.)
 - (void)handleUserTappedAtDevicePoint:(CGPoint)theDevicePoint;
 // Notify delegate.
-- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
+- (void)image:(UIImage *)theImage didFinishSavingWithError:(NSError *)theError contextInfo:(void *)theContextInfo;
 // Override.
 - (id)init;
 // Make a new capture session.
 - (void)makeCaptureSession;
 // Override.
-// KVO. After setting the exposure POI, we want to know when the exposure is steady, so we can lock it. If the device's exposure stops adjusting, then we see if it stays steady long enough (via a timer).
+// After setting the exposure POI, we want to know when the exposure is steady, so we can lock it. If the device's exposure stops adjusting, then we see if it stays steady long enough (via a timer).
+// Check if both focus and exposure are locked.
+// If focus-and-exposure status changed, notify delegate.
 - (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
-// Return the video orientation matching the device orientation.
+// Return the video orientation that matches the device orientation.
 - (AVCaptureVideoOrientation)properCaptureVideoOrientation;
 // Start the capture session. Asychronous.
 - (void)startCaptureSession;
-// Stop the capture session.
+// Stop the capture session. (Remains in memory. C.f., destroyCaptureSession.)
 - (void)stopCaptureSession;
 // Take a photo.
 - (void)takePhoto;

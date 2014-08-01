@@ -25,7 +25,6 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tipLabel.layer.cornerRadius = 3.0f;
     // Orientation-specific layout constraints.
     self.portraitOnlyLayoutConstraintArray = @[self.tipLabelAlignCenterYLayoutConstraint];
     NSDictionary *aDictionary = @{@"topGuide":self.topLayoutGuide, @"tipLabel":self.tipLabel, @"cameraPreviewView":self.cameraPreviewView};

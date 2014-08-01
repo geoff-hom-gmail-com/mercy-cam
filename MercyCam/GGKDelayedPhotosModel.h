@@ -22,5 +22,4 @@ extern NSString *GGKDelayedPhotosNumberOfSecondsToWaitIntegerKeyString;
 // Timer goes off each second and serves two purposes: 1) UI can be updated each second, so user can get visual feedback. 2) We can track how many seconds have passed, to know when to take a photo.
 // Need this property to invalidate the timer later.
 @property (nonatomic, strong) NSTimer *oneSecondRepeatingTimer;
-
 @end

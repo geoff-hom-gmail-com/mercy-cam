@@ -377,7 +377,7 @@ Line2</string>
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="handleStartTimerTapped:" destination="2ll-qK-FHt" eventType="touchUpInside" id="Ehs-OZ-g3g"/>
+                                    <action selector="handleTriggerButtonTapped:" destination="2ll-qK-FHt" eventType="touchUpInside" id="Blb-WE-tbd"/>
                                     <action selector="playButtonSound" destination="2ll-qK-FHt" eventType="touchDown" id="CED-77-WiB"/>
                                 </connections>
                             </button>
@@ -421,10 +421,6 @@ Timer</string>
                                 <state key="disabled">
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="playButtonSound" destination="2ll-qK-FHt" eventType="touchDown" id="m64-VR-V7V"/>
-                                    <action selector="startTimer" destination="2ll-qK-FHt" eventType="touchUpInside" id="0aV-02-hN4"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="zRc-Lz-aZl">
                                 <rect key="frame" x="8" y="96" width="80" height="856"/>
@@ -437,10 +433,6 @@ Timer</string>
                                 <state key="disabled">
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="playButtonSound" destination="2ll-qK-FHt" eventType="touchDown" id="on9-p8-XC0"/>
-                                    <action selector="startTimer" destination="2ll-qK-FHt" eventType="touchUpInside" id="8le-Id-jxZ"/>
-                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qU0-yA-RuX">
                                 <rect key="frame" x="96" y="37" width="563" height="74"/>
@@ -567,6 +559,7 @@ Photos</string>
                     </view>
                     <navigationItem key="navigationItem" title="Delayed Photos" id="jiP-RF-W4L"/>
                     <connections>
+                        <outlet property="bottomTriggerButton" destination="jJL-aE-Vqa" id="trb-UD-VlA"/>
                         <outlet property="cameraPreviewView" destination="7CB-eU-aBL" id="9ba-2f-2zh"/>
                         <outlet property="cameraRollButton" destination="E0r-ie-Arj" id="aCD-Si-AQJ"/>
                         <outlet property="cancelTimerButton" destination="5Qx-RQ-TiL" id="Gyb-ii-ZA8"/>
@@ -575,13 +568,12 @@ Photos</string>
                         <outlet property="numberOfSecondsToWaitTextField" destination="cLP-P2-6Vg" id="Doe-WN-cHo"/>
                         <outlet property="numberOfSecondsWaitedLabel" destination="Utp-CL-D4q" id="cZ1-vT-noe"/>
                         <outlet property="photosLabel" destination="DRY-lJ-Icz" id="V3M-Ov-zmF"/>
+                        <outlet property="proxyLeftTriggerButton" destination="zRc-Lz-aZl" id="nbY-d2-DGf"/>
+                        <outlet property="proxyRightTriggerButton" destination="xHx-LI-ocw" id="8Hp-jF-GjN"/>
+                        <outlet property="proxyRightTriggerButtonTopGapPortraitLayoutConstraint" destination="rC8-an-rcz" id="HCn-Gc-4Rp"/>
+                        <outlet property="proxyRightTriggerButtonWidthLayoutConstraint" destination="Ieg-l2-Urw" id="8Ra-98-KBA"/>
                         <outlet property="secondsLabel" destination="nkc-09-1YZ" id="o25-lh-fnE"/>
-                        <outlet property="startTimerBottomButton" destination="jJL-aE-Vqa" id="df2-25-n3f"/>
-                        <outlet property="startTimerLeftProxyButton" destination="zRc-Lz-aZl" id="hKS-Vw-ndJ"/>
-                        <outlet property="startTimerRightProxyButton" destination="xHx-LI-ocw" id="bhh-P8-3Y0"/>
-                        <outlet property="takePhotoRightProxyButtonTopGapPortraitLayoutConstraint" destination="rC8-an-rcz" id="EpK-bn-x2r"/>
-                        <outlet property="takePhotoRightProxyButtonWidthLayoutConstraint" destination="Ieg-l2-Urw" id="RCm-iR-uLJ"/>
-                        <outlet property="timerSettingsView" destination="qU0-yA-RuX" id="GSF-Is-mwa"/>
+                        <outlet property="timerSettingsView" destination="qU0-yA-RuX" id="Gbc-DC-K76"/>
                         <outlet property="tipLabel" destination="iwH-Da-K81" id="9SM-lt-Wlh"/>
                         <outlet property="tipLabelRightGapPortraitLayoutConstraint" destination="H2L-5u-uzo" id="fZX-Wx-uNh"/>
                     </connections>
@@ -733,7 +725,6 @@ photos</string>
                                 </state>
                                 <connections>
                                     <action selector="playButtonSound" destination="BXz-Hw-S72" eventType="touchDown" id="y5v-dt-0ys"/>
-                                    <action selector="takePhoto" destination="BXz-Hw-S72" eventType="touchUpInside" id="RNO-qj-pLR"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="gGd-t7-oJe">
@@ -2068,7 +2059,7 @@ photos</string>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="N9j-NP-wLm"/>
+        <segue reference="uhn-gS-RUd"/>
         <segue reference="vc6-di-tqf"/>
     </inferredMetricsTieBreakers>
 </document>
