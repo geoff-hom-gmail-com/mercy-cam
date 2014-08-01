@@ -170,8 +170,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Wait __ seconds, then take __ photos with ___ minutes between each photo." lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="680" translatesAutoresizingMaskIntoConstraints="NO" id="Zls-6G-c7B">
-                                <rect key="frame" x="24" y="381" width="680" height="67"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Wait __, then take __ photos with ___ between each photo." lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="643" translatesAutoresizingMaskIntoConstraints="NO" id="Zls-6G-c7B">
+                                <rect key="frame" x="24" y="381" width="643" height="67"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <nil key="highlightedColor"/>
@@ -201,14 +201,6 @@
                     <navigationItem key="navigationItem" title="MercyCam: Timed Photos" id="HPz-f1-fBE">
                         <barButtonItem key="backBarButtonItem" title="Main" id="h7C-H0-Qkw"/>
                     </navigationItem>
-                    <connections>
-                        <outlet property="helpTheCreatorsButton" destination="g0Y-3k-bcL" id="NF7-lh-be4"/>
-                        <outlet property="takeAPhotoButton" destination="Vj6-SR-SCJ" id="ffP-kB-SPE"/>
-                        <outlet property="takeAdvancedDelayedPhotosButton" destination="zFq-uv-gJl" id="l1w-Jj-lu7"/>
-                        <outlet property="takeAdvancedDelayedPhotosExampleLabel" destination="Zls-6G-c7B" id="Xwk-9m-DST"/>
-                        <outlet property="takeDelayedPhotosButton" destination="bLd-Ae-KXn" id="61z-9C-IWj"/>
-                        <outlet property="takeDelayedPhotosExampleLabel" destination="gvh-U8-4HD" id="Wa7-hq-j2f"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3" sceneMemberID="firstResponder"/>
             </objects>
