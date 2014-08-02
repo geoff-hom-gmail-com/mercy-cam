@@ -64,10 +64,17 @@ extern const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWa
 // Portrait-only constraint. Is set in storyboard to avoid compiler warnings.
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *timerSettingsViewLeftGapPortraitLayoutConstraint;
 // Override.
-- (void)getSavedTimerSettings;
+// Now that we can: Update timer labels. If enough time has passed, take a photo.
+- (void)handleOneSecondTimerFired;
+// Called after user taps a start-timer button.
+// What: Either start taking photos or start timer to wait.
+- (IBAction)handleTriggerButtonTapped:(id)sender;
 // Override.
 // Prepare for time-unit selector.
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender;
+// Override.
+// Now that we can: If all photos taken, stop. Else, if spacing time is 0, take another photo.
+- (void)takePhotoModelDidTakePhoto:(id)sender;
 // Now that we can: Ensure we have a valid value.
 - (void)textFieldDidEndEditing:(UITextField *)textField;
 // Now that we can: Dismiss the keyboard.

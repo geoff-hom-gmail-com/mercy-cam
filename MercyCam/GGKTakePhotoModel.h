@@ -34,6 +34,11 @@ typedef NS_ENUM(NSInteger, GGKTakePhotoModelFocusAndExposureStatus) {
 // For invalidating the timer if the exposure is adjusted.
 @property (nonatomic, strong) NSTimer *exposureUnadjustedTimer;
 @property (nonatomic, assign) GGKTakePhotoModelFocusAndExposureStatus focusAndExposureStatus;
+@property (assign, nonatomic) NSInteger numberOfPhotosTakenInteger;
+@property (assign, nonatomic) NSInteger numberOfSecondsWaitedInteger;
+// Timer goes off each second and serves two purposes: 1) UI can be updated each second, so user can get visual feedback. 2) We can track how many seconds have passed, to know when to take a photo.
+// Need this property to invalidate the timer later.
+@property (nonatomic, strong) NSTimer *oneSecondRepeatingTimer;
 // Override.
 - (void)dealloc;
 // Remove current session from memory. (C.f., stopCaptureSession.)

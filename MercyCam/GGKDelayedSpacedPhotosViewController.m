@@ -26,8 +26,77 @@ const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWaitTimeU
 //NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take advanced delayed photos: time unit to use to initially wait.";
 
 @implementation GGKDelayedSpacedPhotosViewController
-- (void)getSavedTimerSettings {
-//    [super getSavedTimerSettings];
+
+// Override.
+- (NSInteger)numberOfSecondsToWaitInteger {
+    // well, if photos taken = 0, this is delay seconds
+    // else, it's the space time
+    return self.delayedPhotosModel.numberOfSecondsToWaitInteger;
+}
+
+- (void)handleOneSecondTimerFired {
+    
+    if (self.takePhotoModel.numberOfSecondsWaitedInteger == self.takePhotoModel.numberOfSecondsToWaitInteger) {
+//        [self stopOneSecondRepeatingTimer];
+        [self takePhoto];
+    }
+    
+    // don't put in super?
+    NSInteger theNumberOfSecondsWaitedInteger = self.takePhotoModel.numberOfSecondsWaitedInteger;
+    NSInteger theNumberOfSecondsToWaitInteger;
+//    theNumberOfSecondsToWaitInteger = self.delayedPhotosModel.numberOfSecondsToWaitInteger
+    //    theNumberOfSecondsToWaitInteger = self.takePhotosModel.numberOfSecondsToWaitInteger
+    theNumberOfSecondsToWaitInteger = // either delay time or space time
+    if (theNumberOfSecondsWaitedInteger == theNumberOfSecondsToWaitInteger) {
+        <#statements#>
+    }
+    //
+    
+    NSInteger theNumberOfSecondsWaitedInteger = self.takePhotoModel.numberOfSecondsWaitedInteger;
+    self.numberOfSecondsWaitedLabel.text = [NSString stringWithFormat:@"%ld", (long)theNumberOfSecondsWaitedInteger];
+    [self.numberOfSecondsWaitedLabel setNeedsDisplay];
+    if (theNumberOfSecondsWaitedInteger == self.delayedPhotosModel.numberOfSecondsToWaitInteger) {
+        [self stopOneSecondRepeatingTimer];
+        [self takePhoto];
+    }
+}
+
+//- (void)handleOneSecondTimerFired {
+//    self.numberOfSecondsPassedInteger += 1;
+//    [self updateTimerLabels];
+//    // If enough time has passed, take a photo. Then set the counters for waiting between photos.
+//    // Note that using == instead of >= works properly if seconds-to-wait is 0, as it skips taking a photo here (and takes it instead after the capture manager returns).
+//    if (self.numberOfSecondsPassedInteger == self.numberOfTotalSecondsToWaitInteger) {
+//
+//        // If the first photo, then show the photos label and the between-photos label.
+//        if (self.numberOfPhotosTakenInteger == 0) {
+//
+//            self.numberOfPhotosTakenLabel.hidden = NO;
+//            self.numberOfTimeUnitsWaitedBetweenPhotosLabel.hidden = NO;
+//
+//            // The first time the between-photos label is shown, it should show 0. Subsequently, 0 will also be when the between-photos time for the previous photo has passed, and we want to show that value instead. So we'll initialize at 0 here, only.
+//            // If time is in seconds, then we don't need/want decimal precision.
+//            NSString *aString = (self.timeUnitBetweenPhotosTimeUnit == GGKTimeUnitSeconds) ? @"0" : @"0.0";
+//            self.numberOfTimeUnitsWaitedBetweenPhotosLabel.text = aString;
+//        }
+//
+//        self.numberOfSecondsPassedInteger = 0;
+//        self.numberOfTotalSecondsToWaitInteger = self.numberOfTimeUnitsBetweenPhotosInteger * [GGKTimeUnits numberOfSecondsInTimeUnit:self.timeUnitBetweenPhotosTimeUnit];
+//
+//        // We'll take the photo last, in case there's something there that causes significant delay.
+//        [self takePhoto];
+//    }
+//}
+
+- (IBAction)handleTriggerButtonTapped:(id)sender {
+    [super handleTriggerButtonTapped:sender];
+    if (self.delayedSpacedPhotosModel.numberOfTimeUnitsToDelayInteger == 0 && self.delayedSpacedPhotosModel.numberOfTimeUnitsToSpaceInteger == 0) {
+        [self takePhoto];
+    } else {
+        NSInteger theNumberOfSecondsToWait = //calc from time units
+        self.takePhotoModel.numberOfSecondsToWaitInteger = theNumberOfSecondsToWait;
+        [self startTimer];
+    }
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)theSegue sender:(id)theSender {
     if ([theSegue.identifier hasPrefix:@"ShowTimeUnitsSelector"]) {
@@ -47,6 +116,16 @@ const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWaitTimeU
         self.currentPopoverButton = theSender;
     } else {
         [super prepareForSegue:theSegue sender:theSender];
+    }
+}
+- (void)takePhotoModelDidTakePhoto:(id)sender {
+    [super takePhotoModelDidTakePhoto:sender];
+    // If all photos taken, stop. Else, if still in shooting mode, take another photo. So, we can stop photo taking by changing the mode.
+    if (self.takePhotoModel.numberOfPhotosTakenInteger >= self.delayedSpacedPhotosModel.numberOfPhotosToTakeInteger) {
+        self.model.appMode = GGKAppModePlanning;
+        [self updateUI];
+    } else if (self.model.appMode == GGKAppModeShooting) {
+        [self takePhoto];
     }
 }
 - (void)textFieldDidEndEditing:(UITextField *)theTextField {

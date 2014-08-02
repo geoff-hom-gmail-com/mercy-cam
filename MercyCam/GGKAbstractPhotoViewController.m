@@ -17,7 +17,62 @@
 - (void)dealloc {
     [self.takePhotoModel destroyCaptureSession];
 }
+- (IBAction)handleCancelTimerTapped {
+    [self stopOneSecondRepeatingTimer];
+    self.model.appMode = GGKAppModePlanning;
+    [self updateUI];
+}
+- (void)handleEnoughTimePassedToTakePhoto {
+    [self takePhoto];
+    // In subclass, determine whether to stop timer.
+    
+    // if delayed only, then stop timer here.
+    // if spaced and this will be last photo, stop timer.
+    
+    // if spaced and not last photo, need to set how many seconds to wait again
+    
+}
+- (void)handleOneSecondTimerFired {
+    // Each tick of this timer is 1 sec, so we can use that both to show how much time has passed and to determine if enough time has passed.
+    self.takePhotoModel.numberOfSecondsWaitedInteger++;
+    // notify delegate to do this?
+    [self updateTimerUI];
+    // shouldn't this be like [self.model numberOfSecondsToWaitInteger]?
+    if (self.takePhotoModel.numberOfSecondsWaitedInteger == [self.takePhotoModel numberOfSecondsToWaitInteger]) {
+        // and this one... we need the flash... use another delegate method? like takePhotoModelWillTakePhoto?
+        [self takePhoto];
+        if (![self.takePhotoModel timerIsNeeded]) {
+            [self.takePhotoModel stopOneSecondRepeatingTimer];
+        }
+    }
+}
+// Stub.
+- (void)updateTimerUI {
+}
+// Whether the timer is currently needed before taking a photo. Presumably, if
+// presumably, if all photos have been taken, no timer needed. if all timers 0, no timer needed
+// Stub. Returns NO.
+- (BOOL)timerIsNeeded {
+    BOOL theTimerIsNeeded;
+    if ([self ]) {
+        <#statements#>
+    } else if (self.takePhotoModel.numberOfPhotosTakenInteger == [self number])
+    return NO;
+}
+// Should override.
+// Seconds to wait to take photo. When seconds waited matches this, handleEnoughTimePassedToTakePhoto is called.
+- (NSInteger)numberOfSecondsToWaitInteger {
+    return 0;
+}
 - (IBAction)handleTriggerButtonTapped:(id)sender {
+    self.model.appMode = GGKAppModeShooting;
+    self.takePhotoModel.numberOfPhotosTakenInteger = 0;
+    [self updateUI];
+    if ([self timerIsNeeded]) {
+        [self.takePhotoModel startTimer];
+    } else {
+        [self takePhoto];
+    }
 }
 - (void)handleUserTappedInCameraView:(UITapGestureRecognizer *)theTapGestureRecognizer {
     CGPoint theTapPoint = [theTapGestureRecognizer locationInView:theTapGestureRecognizer.view];
@@ -76,6 +131,16 @@
     } else {
         [super prepareForSegue:theSegue sender:theSender];
     }
+}
+- (void)startTimer {
+    self.takePhotoModel.numberOfSecondsWaitedInteger = 0;
+    // Start a timer to count seconds.
+    NSTimer *aTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(handleOneSecondTimerFired) userInfo:nil repeats:YES];
+    self.takePhotoModel.oneSecondRepeatingTimer = aTimer;
+}
+- (void)stopOneSecondRepeatingTimer {
+    [self.takePhotoModel.oneSecondRepeatingTimer invalidate];
+    self.takePhotoModel.oneSecondRepeatingTimer = nil;
 }
 - (void)takePhoto {
     [self playButtonSound];

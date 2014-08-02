@@ -28,15 +28,17 @@
 @property (weak, nonatomic) IBOutlet UILabel *secondsLabel;
 // Portrait-only constraint. Is set in storyboard to avoid compiler warnings.
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tipLabelRightGapPortraitLayoutConstraint;
-// Override.
-// Now that we can: If all photos taken, stop. Else, take another photo.
-- (void)takePhotoModelDidTakePhoto:(id)sender;
 // Called after user taps cancel-timer button.
 // What: Stop repeating timer. Stop taking photos. Change to planning mode.
-- (IBAction)handleCancelTimerTapped;
-// Called after repeating one-second timer fires.
+//- (IBAction)handleCancelTimerTapped;
+
+
+// Override.
+// Now that we can: Update timer labels. If enough time has passed, take a photo.
+
 // Now that we can: Show how many seconds have passed. If enough seconds, take the first photo.
 - (void)handleOneSecondTimerFired;
+
 // Called after user taps a start-timer button.
 // What: Change to shooting mode. Either start taking photos or start timer to wait.
 - (IBAction)handleTriggerButtonTapped:(id)sender;
@@ -44,12 +46,15 @@
 // What: Stop repeating timer. Stop taking photos.
 - (void)handleViewDidDisappearFromUser;
 // Starts timer to take first photo.
-- (void)startTimer;
+//- (void)startTimer;
 // Stops repeating timer.
-- (void)stopOneSecondRepeatingTimer;
+//- (void)stopOneSecondRepeatingTimer;
 // Override.
 // What: Show how many photos taken, including this one. Done here instead of captureManagerDidTakePhoto:, because latter didn't update screen in time.
 - (void)takePhoto;
+// Override.
+// Now that we can: If all photos taken, stop. Else, take another photo.
+- (void)takePhotoModelDidTakePhoto:(id)sender;
 // Now that we can: Ensure we have a valid value.
 - (void)textFieldDidEndEditing:(UITextField *)textField;
 // Now that we can: Dismiss the keyboard.
