@@ -19,23 +19,35 @@ const NSInteger GGKTakeAdvancedDelayedPhotosDefaultNumberOfTimeUnitsToInitiallyW
 const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitBetweenPhotosTimeUnit = GGKTimeUnitSeconds;
 const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWaitTimeUnit = GGKTimeUnitSeconds;
 
-NSString *GGKTakeAdvancedDelayedPhotosNumberOfPhotosKeyString = @"Take advanced delayed photos: number of photos.";
-NSString *GGKTakeAdvancedDelayedPhotosNumberOfTimeUnitsBetweenPhotosKeyString = @"Take advanced delayed photos: number of time units between photos.";
-NSString *GGKTakeAdvancedDelayedPhotosNumberOfTimeUnitsToInitiallyWaitKeyString = @"Take advanced delayed photos: number of time units to initially wait.";
-NSString *GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString = @"Take advanced delayed photos: time unit to use between photos.";
-NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take advanced delayed photos: time unit to use to initially wait.";
-
-@interface GGKDelayedSpacedPhotosViewController ()
-@end
+//NSString *GGKTakeAdvancedDelayedPhotosNumberOfPhotosKeyString = @"Take advanced delayed photos: number of photos.";
+//NSString *GGKTakeAdvancedDelayedPhotosNumberOfTimeUnitsBetweenPhotosKeyString = @"Take advanced delayed photos: number of time units between photos.";
+//NSString *GGKTakeAdvancedDelayedPhotosNumberOfTimeUnitsToInitiallyWaitKeyString = @"Take advanced delayed photos: number of time units to initially wait.";
+//NSString *GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString = @"Take advanced delayed photos: time unit to use between photos.";
+//NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take advanced delayed photos: time unit to use to initially wait.";
 
 @implementation GGKDelayedSpacedPhotosViewController
 - (void)getSavedTimerSettings {
 //    [super getSavedTimerSettings];
-//    self.numberOfTimeUnitsToInitiallyWaitInteger = [[NSUserDefaults standardUserDefaults] integerForKey:self.numberOfTimeUnitsToInitiallyWaitKeyString];
-//    self.timeUnitForTheInitialWaitTimeUnit = (GGKTimeUnit)[[NSUserDefaults standardUserDefaults] integerForKey:GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString];
-//    self.numberOfPhotosToTakeInteger = [[NSUserDefaults standardUserDefaults] integerForKey:self.numberOfPhotosToTakeKeyString];
-//    self.numberOfTimeUnitsBetweenPhotosInteger = [[NSUserDefaults standardUserDefaults] integerForKey:self.numberOfTimeUnitsBetweenPhotosKeyString];
-//    self.timeUnitBetweenPhotosTimeUnit = (GGKTimeUnit)[[NSUserDefaults standardUserDefaults] integerForKey:GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString];
+}
+- (void)prepareForSegue:(UIStoryboardSegue *)theSegue sender:(id)theSender {
+    if ([theSegue.identifier hasPrefix:@"ShowTimeUnitsSelector"]) {
+        // Retain popover controller, to dismiss later.
+        self.currentPopoverController = [(UIStoryboardPopoverSegue *)theSegue popoverController];
+        GGKTimeUnitsTableViewController *aTimeUnitsTableViewController = (GGKTimeUnitsTableViewController *)self.currentPopoverController.contentViewController;
+        aTimeUnitsTableViewController.delegate = self;
+        // Set the current time unit.
+        GGKTimeUnit theCurrentTimeUnit;
+        if (theSender == self.timeUnitToDelayButton) {
+            theCurrentTimeUnit = self.delayedSpacedPhotosModel.delayTimeUnit;
+        } else if (theSender == self.timeUnitToSpaceButton) {
+            theCurrentTimeUnit = self.delayedSpacedPhotosModel.spaceTimeUnit;
+        }
+        aTimeUnitsTableViewController.currentTimeUnit = theCurrentTimeUnit;
+        // Note which button was tapped, to update later.
+        self.currentPopoverButton = theSender;
+    } else {
+        [super prepareForSegue:theSegue sender:theSender];
+    }
 }
 - (void)textFieldDidEndEditing:(UITextField *)theTextField {
     // Ensure we have a valid value. Update model. Update view.
@@ -57,6 +69,18 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
     [textField resignFirstResponder];
     return YES;
 }
+- (void)timeUnitsTableViewControllerDidSelectTimeUnit:(id)sender {
+    // Set time unit.
+    GGKTimeUnitsTableViewController *aTimeUnitsTableViewController = (GGKTimeUnitsTableViewController *)sender;
+    GGKTimeUnit theCurrentTimeUnit = aTimeUnitsTableViewController.currentTimeUnit;
+    if (self.currentPopoverButton == self.timeUnitToDelayButton) {
+        self.delayedSpacedPhotosModel.delayTimeUnit = theCurrentTimeUnit;
+    } else if (self.currentPopoverButton == self.timeUnitToSpaceButton) {
+        self.delayedSpacedPhotosModel.spaceTimeUnit = theCurrentTimeUnit;
+    }
+    [self updateUI];
+    [self.currentPopoverController dismissPopoverAnimated:YES];
+}
 - (void)updateLayoutForLandscape {
     [super updateLayoutForLandscape];
     self.cancelTimerButtonWidthLayoutConstraint.constant = 174;
@@ -73,8 +97,7 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
     // Wait __, then take"
     NSInteger theNumberOfTimeUnitsToDelayInteger = self.delayedSpacedPhotosModel.numberOfTimeUnitsToDelayInteger;
     self.numberOfTimeUnitsToDelayTextField.text = [NSString stringWithFormat:@"%ld", (long)theNumberOfTimeUnitsToDelayInteger];
-    //
-    
+    [GGKTimeUnits setTitleForButton:self.timeUnitToDelayButton withTimeUnit:self.delayedSpacedPhotosModel.delayTimeUnit ofPlurality:self.delayedSpacedPhotosModel.numberOfTimeUnitsToDelayInteger];
     // "__ photos, with"
     NSInteger theNumberOfPhotosToTakeInteger = self.delayedSpacedPhotosModel.numberOfPhotosToTakeInteger;
     self.numberOfPhotosToTakeTextField.text = [NSString stringWithFormat:@"%ld", (long)theNumberOfPhotosToTakeInteger];
@@ -83,18 +106,8 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
     // "__ between each photo."
     NSInteger theNumberOfTimeUnitsToSpaceInteger = self.delayedSpacedPhotosModel.numberOfTimeUnitsToSpaceInteger;
     self.numberOfTimeUnitsToSpaceTextField.text = [NSString stringWithFormat:@"%ld", (long)theNumberOfTimeUnitsToSpaceInteger];
-    //
+    [GGKTimeUnits setTitleForButton:self.timeUnitToSpaceButton withTimeUnit:self.delayedSpacedPhotosModel.spaceTimeUnit ofPlurality:self.delayedSpacedPhotosModel.numberOfTimeUnitsToSpaceInteger];
     
-    // "Wait X second(s), then take"
-//    NSInteger theNumberOfSecondsToWaitInteger = self.delayedPhotosModel.numberOfSecondsToWaitInteger;
-//    self.numberOfSecondsToWaitTextField.text = [NSString stringWithFormat:@"%ld", (long)theNumberOfSecondsToWaitInteger];
-//    NSString *aSecondsString = [@"seconds" ggk_stringPerhapsWithoutS:theNumberOfSecondsToWaitInteger];
-//    self.secondsLabel.text = [NSString stringWithFormat:@"%@, then take", aSecondsString];
-//    //  "Y photo(s)."
-//    NSInteger theNumberOfPhotosToTakeInteger = self.delayedPhotosModel.numberOfPhotosToTakeInteger;
-//    self.numberOfPhotosToTakeTextField.text = [NSString stringWithFormat:@"%ld", (long)theNumberOfPhotosToTakeInteger];
-//    NSString *aPhotosString = [@"photos" ggk_stringPerhapsWithoutS:theNumberOfPhotosToTakeInteger];
-//    self.photosLabel.text = [NSString stringWithFormat:@"%@.", aPhotosString];
     // Update UI for current mode.
     NSArray *aTriggerButtonArray = @[self.bottomTriggerButton, self.leftTriggerButton, self.rightTriggerButton];
 //    NSArray *aTextFieldArray = @[self.numberOfPhotosToTakeTextField, self.numberOfSecondsToWaitTextField];
@@ -125,7 +138,6 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.delayedSpacedPhotosModel = [[GGKDelayedSpacedPhotosModel alloc] init];
-    
     // Orientation-specific layout constraints.
     self.portraitOnlyLayoutConstraintArray = @[self.cameraRollButtonTopGapPortraitLayoutConstraint, self.timerSettingsViewLeftGapPortraitLayoutConstraint];
     // Camera roll's top neighbor: top layout guide.
@@ -134,16 +146,5 @@ NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take a
     // Camera roll's right neighbor: timer-settings view.
     NSArray *anArray2 = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[cameraRollButton]-[timerSettingsView]" options:0 metrics:nil views:aDictionary];
     self.landscapeOnlyLayoutConstraintArray = @[anArray1[0], anArray2[0]];
-    
-    
-    // Time-unit buttons.
-//    [GGKUtilities addBorderOfColor:[UIColor blackColor] toView:self.timeUnitsToInitiallyWaitButton];
-
-    // Set keys.
-//    self.numberOfTimeUnitsToInitiallyWaitKeyString = GGKTakeAdvancedDelayedPhotosNumberOfTimeUnitsToInitiallyWaitKeyString;
-//    self.timeUnitForInitialWaitKeyString = GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString;
-//    self.numberOfPhotosToTakeKeyString = GGKTakeAdvancedDelayedPhotosNumberOfPhotosKeyString;
-//    self.numberOfTimeUnitsBetweenPhotosKeyString = GGKTakeAdvancedDelayedPhotosNumberOfTimeUnitsBetweenPhotosKeyString;
-//    self.timeUnitBetweenPhotosKeyString = GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString;
 }
 @end

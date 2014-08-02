@@ -7,7 +7,7 @@
 //
 
 #import "GGKAbstractPhotoViewController.h"
-#import "GGKTimeUnits.h"
+#import "GGKTimeUnitsTableViewController.h"
 
 @class GGKDelayedSpacedPhotosModel;
 
@@ -23,21 +23,24 @@ extern const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitBetweenPhoto
 extern const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWaitTimeUnit;
 
 // Key for storing the number of photos to take.
-extern NSString *GGKTakeAdvancedDelayedPhotosNumberOfPhotosKeyString;
-// Key for storing the number of time units between each photo.
-extern NSString *GGKTakeAdvancedDelayedPhotosNumberOfTimeUnitsBetweenPhotosKeyString;
-// Key for storing the number of time units to initially wait.
-extern NSString *GGKTakeAdvancedDelayedPhotosNumberOfTimeUnitsToInitiallyWaitKeyString;
-// Key for storing the time unit to use between each photo.
-extern NSString *GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString;
-// Key for storing the time unit to use for the initial wait.
-extern NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString;
+//extern NSString *GGKTakeAdvancedDelayedPhotosNumberOfPhotosKeyString;
+//// Key for storing the number of time units between each photo.
+//extern NSString *GGKTakeAdvancedDelayedPhotosNumberOfTimeUnitsBetweenPhotosKeyString;
+//// Key for storing the number of time units to initially wait.
+//extern NSString *GGKTakeAdvancedDelayedPhotosNumberOfTimeUnitsToInitiallyWaitKeyString;
+//// Key for storing the time unit to use between each photo.
+//extern NSString *GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString;
+//// Key for storing the time unit to use for the initial wait.
+//extern NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString;
 
-@interface GGKDelayedSpacedPhotosViewController : GGKAbstractPhotoViewController <UITextFieldDelegate>
+@interface GGKDelayedSpacedPhotosViewController : GGKAbstractPhotoViewController <GGKTimeUnitsTableViewControllerDelegate, UITextFieldDelegate>
 // Portrait-only constraint. Is set in storyboard to avoid compiler warnings.
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *cameraRollButtonTopGapPortraitLayoutConstraint;
 // Width depends on device orientation/rotation.
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *cancelTimerButtonWidthLayoutConstraint;
+// User taps button. Popover appears. She selects item in popover and sees updated button.
+// Button displaying the popover.
+@property (nonatomic, strong) UIButton *currentPopoverButton;
 @property (strong, nonatomic) GGKDelayedSpacedPhotosModel *delayedSpacedPhotosModel;
 // User taps trigger button. The number in the text field is how many photos are taken.
 @property (weak, nonatomic) IBOutlet UITextField *numberOfPhotosToTakeTextField;
@@ -51,17 +54,26 @@ extern NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString;
 // Width depends on device orientation/rotation.
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *proxyRightTriggerButtonWidthLayoutConstraint;
 // User taps button. She can select seconds/minutes/hours/days/etc. from a popover. She taps selection and  button is updated.
-// User sets number of time units to initially wait to 1. She sees singular text for that time unit.
-// The type of time units to wait before taking the first photo.
-@property (weak, nonatomic) IBOutlet UIButton *timeUnitsToInitiallyWaitButton;
+// User sets number of time units to 1. She sees singular text for that time unit.
+// The type of time unit to wait before taking the first photo.
+@property (weak, nonatomic) IBOutlet UIButton *timeUnitToDelayButton;
+// User taps button. She can select seconds/minutes/hours/days/etc. from a popover. She taps selection and  button is updated.
+// User sets number of time units to 1. She sees singular text for that time unit.
+// The type of time unit to wait between each photo.
+@property (weak, nonatomic) IBOutlet UIButton *timeUnitToSpaceButton;
 // Portrait-only constraint. Is set in storyboard to avoid compiler warnings.
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *timerSettingsViewLeftGapPortraitLayoutConstraint;
 // Override.
 - (void)getSavedTimerSettings;
+// Override.
+// Prepare for time-unit selector.
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender;
 // Now that we can: Ensure we have a valid value.
 - (void)textFieldDidEndEditing:(UITextField *)textField;
 // Now that we can: Dismiss the keyboard.
 - (BOOL)textFieldShouldReturn:(UITextField *)textField;
+// Set the selected time unit, update UI and dismiss popover.
+- (void)timeUnitsTableViewControllerDidSelectTimeUnit:(id)sender;
 // Override.
 - (void)updateLayoutForLandscape;
 // Override.

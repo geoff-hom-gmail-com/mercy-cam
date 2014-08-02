@@ -879,7 +879,7 @@ Photos</string>
                                     <action selector="playButtonSound" destination="BXz-Hw-S72" eventType="touchDown" id="ukk-Qo-tsl"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="m6d-Js-1ZA">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="m6d-Js-1ZA">
                                 <rect key="frame" x="8" y="160" width="81" height="600"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -895,7 +895,7 @@ Photos</string>
                                     <action selector="startTimer" destination="2ll-qK-FHt" eventType="touchUpInside" id="LRd-uJ-IAV"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="SpO-Z8-ZOk">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="SpO-Z8-ZOk">
                                 <rect key="frame" x="97" y="716" width="919" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1027,7 +1027,7 @@ Timer</string>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pVo-qf-f4p">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pVo-qf-f4p">
                                 <rect key="frame" x="97" y="183" width="699" height="524"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1749,7 +1749,8 @@ Timer</string>
                         <outlet property="proxyLeftTriggerButton" destination="n4u-2o-KBP" id="LJA-QS-sGy"/>
                         <outlet property="proxyRightTriggerButton" destination="RQn-rV-Zyu" id="oql-eq-HCf"/>
                         <outlet property="proxyRightTriggerButtonWidthLayoutConstraint" destination="8r1-oi-eQf" id="sVS-hL-BBB"/>
-                        <outlet property="timeUnitsToInitiallyWaitButton" destination="IMl-Pq-BXM" id="eY8-vS-L03"/>
+                        <outlet property="timeUnitToDelayButton" destination="IMl-Pq-BXM" id="MNn-jD-MFi"/>
+                        <outlet property="timeUnitToSpaceButton" destination="baA-ad-HE5" id="ReS-AX-Xa2"/>
                         <outlet property="timerSettingsView" destination="HI6-ow-i5J" id="nBM-2S-9Kw"/>
                         <outlet property="timerSettingsViewLeftGapPortraitLayoutConstraint" destination="8am-jA-KCV" id="FAd-7y-cPv"/>
                         <outlet property="tipLabel" destination="zJv-9o-UTo" id="BLo-1g-IMX"/>

@@ -8,16 +8,24 @@
 
 #import "GGKDelayedSpacedPhotosModel.h"
 
-//NSString *GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString = @"Take advanced delayed photos: time unit to use between photos.";
-//NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take advanced delayed photos: time unit to use to initially wait.";
-
 // Keys for saving data.
+NSString *GGKDelayedSpacedPhotosDelayTimeUnitIntegerKeyString = @"Take advanced delayed photos: time unit to use to initially wait.";
 NSString *GGKDelayedSpacedPhotosNumberOfPhotosToTakeIntegerKeyString = @"Take advanced delayed photos: number of photos.";
 NSString *GGKDelayedSpacedPhotosNumberOfTimeUnitsToDelayIntegerKeyString = @"Take advanced delayed photos: number of time units to initially wait.";
 NSString *GGKDelayedSpacedPhotosNumberOfTimeUnitsToSpaceIntegerKeyString = @"Take advanced delayed photos: number of time units between photos.";
+NSString *GGKDelayedSpacedPhotosSpaceTimeUnitIntegerKeyString = @"Take advanced delayed photos: time unit to use between photos.";
 
 @implementation GGKDelayedSpacedPhotosModel
 // Custom accessors.
+- (GGKTimeUnit)delayTimeUnit {
+    NSInteger anInteger = [[NSUserDefaults standardUserDefaults] integerForKey:GGKDelayedSpacedPhotosDelayTimeUnitIntegerKeyString];
+    GGKTimeUnit theDelayTimeUnit = anInteger;
+    return theDelayTimeUnit;
+}
+- (void)setDelayTimeUnit:(GGKTimeUnit)theDelayTimeUnit {
+    NSInteger anInteger = theDelayTimeUnit;
+    [[NSUserDefaults standardUserDefaults] setInteger:anInteger forKey:GGKDelayedSpacedPhotosDelayTimeUnitIntegerKeyString];
+}
 - (NSInteger)numberOfPhotosToTakeInteger {
     NSInteger theNumberOfPhotosToTakeInteger = [[NSUserDefaults standardUserDefaults] integerForKey:GGKDelayedSpacedPhotosNumberOfPhotosToTakeIntegerKeyString];
     return theNumberOfPhotosToTakeInteger;
@@ -38,5 +46,14 @@ NSString *GGKDelayedSpacedPhotosNumberOfTimeUnitsToSpaceIntegerKeyString = @"Tak
 }
 - (void)setNumberOfTimeUnitsToSpaceInteger:(NSInteger)theNumberOfTimeUnitsToSpaceInteger {
     [[NSUserDefaults standardUserDefaults] setInteger:theNumberOfTimeUnitsToSpaceInteger forKey:GGKDelayedSpacedPhotosNumberOfTimeUnitsToSpaceIntegerKeyString];
+}
+- (GGKTimeUnit)spaceTimeUnit {
+    NSInteger anInteger = [[NSUserDefaults standardUserDefaults] integerForKey:GGKDelayedSpacedPhotosSpaceTimeUnitIntegerKeyString];
+    GGKTimeUnit theSpaceTimeUnit = anInteger;
+    return theSpaceTimeUnit;
+}
+- (void)setSpaceTimeUnit:(GGKTimeUnit)theSpaceTimeUnit {
+    NSInteger anInteger = theSpaceTimeUnit;
+    [[NSUserDefaults standardUserDefaults] setInteger:anInteger forKey:GGKDelayedSpacedPhotosSpaceTimeUnitIntegerKeyString];
 }
 @end
