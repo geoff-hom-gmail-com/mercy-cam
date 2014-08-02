@@ -49,16 +49,7 @@
 // Stub.
 - (void)updateTimerUI {
 }
-// Whether the timer is currently needed before taking a photo. Presumably, if
-// presumably, if all photos have been taken, no timer needed. if all timers 0, no timer needed
-// Stub. Returns NO.
-- (BOOL)timerIsNeeded {
-    BOOL theTimerIsNeeded;
-    if ([self ]) {
-        <#statements#>
-    } else if (self.takePhotoModel.numberOfPhotosTakenInteger == [self number])
-    return NO;
-}
+
 // Should override.
 // Seconds to wait to take photo. When seconds waited matches this, handleEnoughTimePassedToTakePhoto is called.
 - (NSInteger)numberOfSecondsToWaitInteger {
@@ -66,13 +57,8 @@
 }
 - (IBAction)handleTriggerButtonTapped:(id)sender {
     self.model.appMode = GGKAppModeShooting;
-    self.takePhotoModel.numberOfPhotosTakenInteger = 0;
     [self updateUI];
-    if ([self timerIsNeeded]) {
-        [self.takePhotoModel startTimer];
-    } else {
-        [self takePhoto];
-    }
+    [self.takePhotoModel startTrigger];
 }
 - (void)handleUserTappedInCameraView:(UITapGestureRecognizer *)theTapGestureRecognizer {
     CGPoint theTapPoint = [theTapGestureRecognizer locationInView:theTapGestureRecognizer.view];
@@ -98,6 +84,10 @@
     // instantiateViewControllerWithIdentifier: doesn't result in viewDidLoad being called. However, viewDidLoad will be called sometime after pushViewController:.
     aSavedPhotoViewController.image = anImage;
     [theImagePickerController pushViewController:aSavedPhotoViewController animated:YES];
+}
+- (GGKTakePhotoModel *)makeTakePhotoModel {
+    GGKTakePhotoModel *theTakePhotoModel = [[GGKTakePhotoModel alloc] init];
+    return theTakePhotoModel;
 }
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)theOperation fromViewController:(UIViewController *)theFromVC toViewController:(UIViewController *)theToVC {
     if ((theOperation == UINavigationControllerOperationPush) && (theFromVC == self)) {
@@ -132,30 +122,36 @@
         [super prepareForSegue:theSegue sender:theSender];
     }
 }
-- (void)startTimer {
-    self.takePhotoModel.numberOfSecondsWaitedInteger = 0;
-    // Start a timer to count seconds.
-    NSTimer *aTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(handleOneSecondTimerFired) userInfo:nil repeats:YES];
-    self.takePhotoModel.oneSecondRepeatingTimer = aTimer;
-}
+
+//- (void)startTimer {
+//    self.takePhotoModel.numberOfSecondsWaitedInteger = 0;
+//    // Start a timer to count seconds.
+//    NSTimer *aTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(handleOneSecondTimerFired) userInfo:nil repeats:YES];
+//    self.takePhotoModel.oneSecondRepeatingTimer = aTimer;
+//}
+
 - (void)stopOneSecondRepeatingTimer {
     [self.takePhotoModel.oneSecondRepeatingTimer invalidate];
     self.takePhotoModel.oneSecondRepeatingTimer = nil;
 }
-- (void)takePhoto {
-    [self playButtonSound];
-    [self.takePhotoModel takePhoto];
-    // Give visual feedback that photo was taken: Flash the screen.
-    UIView *aFlashView = [[UIView alloc] initWithFrame:self.cameraPreviewView.frame];
-    aFlashView.backgroundColor = [UIColor whiteColor];
-    aFlashView.alpha = 0.8f;
-    [self.view addSubview:aFlashView];
-    [UIView animateWithDuration:0.6f animations:^{
-        aFlashView.alpha = 0.0f;
-    } completion:^(BOOL finished) {
-        [aFlashView removeFromSuperview];
-    }];
-}
+
+//- (void)takePhoto {
+//    [self playButtonSound];
+//    [self.takePhotoModel takePhoto];
+//    // Give visual feedback that photo was taken: Flash the screen.
+//    UIView *aFlashView = [[UIView alloc] initWithFrame:self.cameraPreviewView.frame];
+//    aFlashView.backgroundColor = [UIColor whiteColor];
+//    aFlashView.alpha = 0.8f;
+//    [self.view addSubview:aFlashView];
+//    [UIView animateWithDuration:0.6f animations:^{
+//        aFlashView.alpha = 0.0f;
+//    } completion:^(BOOL finished) {
+//        [aFlashView removeFromSuperview];
+//    }];
+//}
+
+
+
 - (void)takePhotoModelDidTakePhoto:(id)sender {
     [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
 }
@@ -179,6 +175,20 @@
     }
     self.tipLabel.text = aString;
 }
+- (void)takePhotoModelWillTakePhoto:(id)sender {
+    [self playButtonSound];
+    // Give visual feedback that photo was taken: Flash the screen.
+    UIView *aFlashView = [[UIView alloc] initWithFrame:self.cameraPreviewView.frame];
+    aFlashView.backgroundColor = [UIColor whiteColor];
+    aFlashView.alpha = 0.8f;
+    [self.view addSubview:aFlashView];
+    [UIView animateWithDuration:0.6f animations:^{
+        aFlashView.alpha = 0.0f;
+    } completion:^(BOOL finished) {
+        [aFlashView removeFromSuperview];
+    }];
+}
+
 - (void)updatePreviewOrientation {
     self.captureVideoPreviewLayer.frame = self.cameraPreviewView.bounds;
     self.captureVideoPreviewLayer.connection.videoOrientation = [self.takePhotoModel properCaptureVideoOrientation];
@@ -230,7 +240,10 @@
     aCaptureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspect;
     aCaptureVideoPreviewLayer.frame = self.cameraPreviewView.bounds;
     [self.cameraPreviewView.layer addSublayer:aCaptureVideoPreviewLayer];
-    GGKTakePhotoModel *theTakePhotoModel = [[GGKTakePhotoModel alloc] init];
+    
+    GGKTakePhotoModel *theTakePhotoModel = [self makeTakePhotoModel];
+//    GGKTakePhotoModel *theTakePhotoModel = [[GGKTakePhotoModel alloc] init];
+    
     theTakePhotoModel.delegate = self;
     [theTakePhotoModel makeCaptureSession];
     aCaptureVideoPreviewLayer.session = theTakePhotoModel.captureSession;
@@ -239,4 +252,8 @@
     // Watch for push onto this VC. If so, capture session will snapshot (undesired).
     self.navigationController.delegate = self;
 }
+
+
+
+
 @end

@@ -24,14 +24,8 @@
 - (NSInteger)numberOfSecondsToWaitInteger {
     return self.delayedPhotosModel.numberOfSecondsToWaitInteger;
 }
-// Override.
-- (BOOL)timerIsNeeded {
-    BOOL theTimerIsNeeded = NO;
-    if (self.delayedPhotosModel.numberOfSecondsToWaitInteger > 0) {
-        theTimerIsNeeded = YES;
-    }
-    return theTimerIsNeeded;
-}
+
+
 // Override.
 - (void)updateTimerUI {
     [super updateTimerUI];
@@ -45,10 +39,17 @@
     // Will stop photo taking.
     self.model.appMode = GGKAppModePlanning;
 }
+
+- (GGKTakePhotoModel *)makeTakePhotoModel {
+    GGKDelayedPhotosModel *theDelayedPhotosModel = [[GGKDelayedPhotosModel alloc] init];
+    return theDelayedPhotosModel;
+}
+
 //- (void)stopOneSecondRepeatingTimer {
 //    [self.delayedPhotosModel.oneSecondRepeatingTimer invalidate];
 //    self.delayedPhotosModel.oneSecondRepeatingTimer = nil;
 //}
+
 - (void)takePhoto {
     [super takePhoto];
     self.takePhotoModel.numberOfPhotosTakenInteger++;
@@ -106,6 +107,7 @@
     // Update UI for current mode.
     NSArray *aTriggerButtonArray = @[self.bottomTriggerButton, self.leftTriggerButton, self.rightTriggerButton];
     NSArray *aTextFieldArray = @[self.numberOfPhotosToTakeTextField, self.numberOfSecondsToWaitTextField];
+    NSArray *aLabelArray = @[self.numberOfPhotosTakenLabel, self.numberOfSecondsWaitedLabel];
     if (self.model.appMode == GGKAppModePlanning) {
         for (UIButton *aButton in aTriggerButtonArray) {
             aButton.enabled = YES;
@@ -114,8 +116,9 @@
         for (UITextField *aTextField in aTextFieldArray) {
             aTextField.enabled = YES;
         }
-        self.numberOfSecondsWaitedLabel.hidden = YES;
-        self.numberOfPhotosTakenLabel.hidden = YES;
+        for (UILabel *aLabel in aLabelArray) {
+            aLabel.hidden = YES;
+        }
     } else if (self.model.appMode == GGKAppModeShooting) {
         for (UIButton *aButton in aTriggerButtonArray) {
             aButton.enabled = NO;
@@ -124,16 +127,19 @@
         for (UITextField *aTextField in aTextFieldArray) {
             aTextField.enabled = NO;
         }
-        self.numberOfSecondsWaitedLabel.hidden = NO;
-        self.numberOfSecondsWaitedLabel.text = @"0";
-        self.numberOfPhotosTakenLabel.hidden = NO;
-        self.numberOfPhotosTakenLabel.text = @"";
+        for (UILabel *aLabel in aLabelArray) {
+            aLabel.hidden = NO;
+            aLabel.text = @"0";
+        }
     }
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    GGKMercyCamAppDelegate *theAppDelegate = (GGKMercyCamAppDelegate *)[UIApplication sharedApplication].delegate;
-    self.delayedPhotosModel = theAppDelegate.delayedPhotosModel;
+    
+//    GGKMercyCamAppDelegate *theAppDelegate = (GGKMercyCamAppDelegate *)[UIApplication sharedApplication].delegate;
+//    self.delayedPhotosModel = theAppDelegate.delayedPhotosModel;
+    self.delayedPhotosModel = (GGKDelayedPhotosModel *)self.takePhotoModel;
+    
     self.model.appMode = GGKAppModePlanning;
     // Orientation-specific layout constraints.
     self.portraitOnlyLayoutConstraintArray = @[self.proxyRightTriggerButtonTopGapPortraitLayoutConstraint, self.tipLabelRightGapPortraitLayoutConstraint];

@@ -172,7 +172,6 @@ const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWaitTimeU
 }
 - (void)updateUI {
     [super updateUI];
-    
     // Wait __, then take"
     NSInteger theNumberOfTimeUnitsToDelayInteger = self.delayedSpacedPhotosModel.numberOfTimeUnitsToDelayInteger;
     self.numberOfTimeUnitsToDelayTextField.text = [NSString stringWithFormat:@"%ld", (long)theNumberOfTimeUnitsToDelayInteger];
@@ -186,33 +185,44 @@ const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWaitTimeU
     NSInteger theNumberOfTimeUnitsToSpaceInteger = self.delayedSpacedPhotosModel.numberOfTimeUnitsToSpaceInteger;
     self.numberOfTimeUnitsToSpaceTextField.text = [NSString stringWithFormat:@"%ld", (long)theNumberOfTimeUnitsToSpaceInteger];
     [GGKTimeUnits setTitleForButton:self.timeUnitToSpaceButton withTimeUnit:self.delayedSpacedPhotosModel.spaceTimeUnit ofPlurality:self.delayedSpacedPhotosModel.numberOfTimeUnitsToSpaceInteger];
-    
     // Update UI for current mode.
     NSArray *aTriggerButtonArray = @[self.bottomTriggerButton, self.leftTriggerButton, self.rightTriggerButton];
-//    NSArray *aTextFieldArray = @[self.numberOfPhotosToTakeTextField, self.numberOfSecondsToWaitTextField];
-//    if (self.model.appMode == GGKAppModePlanning) {
-//        for (UIButton *aButton in aTriggerButtonArray) {
-//            aButton.enabled = YES;
-//        }
-//        self.cancelTimerButton.enabled = NO;
-//        for (UITextField *aTextField in aTextFieldArray) {
-//            aTextField.enabled = YES;
-//        }
-//        self.numberOfSecondsWaitedLabel.hidden = YES;
-//        self.numberOfPhotosTakenLabel.hidden = YES;
-//    } else if (self.model.appMode == GGKAppModeShooting) {
-//        for (UIButton *aButton in aTriggerButtonArray) {
-//            aButton.enabled = NO;
-//        }
-//        self.cancelTimerButton.enabled = YES;
-//        for (UITextField *aTextField in aTextFieldArray) {
-//            aTextField.enabled = NO;
-//        }
-//        self.numberOfSecondsWaitedLabel.hidden = NO;
-//        self.numberOfSecondsWaitedLabel.text = @"0";
-//        self.numberOfPhotosTakenLabel.hidden = NO;
-//        self.numberOfPhotosTakenLabel.text = @"";
-//    }
+    NSArray *aTextFieldArray = @[self.numberOfPhotosToTakeTextField, self.numberOfTimeUnitsToDelayTextField, self.numberOfTimeUnitsToSpaceTextField];
+    NSArray *aTimeUnitButtonArray = @[self.timeUnitToDelayButton, self.timeUnitToSpaceButton];
+    NSArray *aLabelArray = @[self.numberOfPhotosTakenLabel, self.numberOfTimeUnitsDelayedLabel, self.numberOfTimeUnitsSpacedLabel, self.timeUntilNextPhotoLabel];
+    if (self.model.appMode == GGKAppModePlanning) {
+        for (UIButton *aButton in aTriggerButtonArray) {
+            aButton.enabled = YES;
+        }
+        self.cancelTimerButton.enabled = NO;
+        for (UITextField *aTextField in aTextFieldArray) {
+            aTextField.enabled = YES;
+        }
+        for (UIButton *aButton in aTimeUnitButtonArray) {
+            aButton.enabled = YES;
+        }
+        for (UILabel *aLabel in aLabelArray) {
+            aLabel.hidden = YES;
+        }
+    } else if (self.model.appMode == GGKAppModeShooting) {
+        for (UIButton *aButton in aTriggerButtonArray) {
+            aButton.enabled = NO;
+        }
+        self.cancelTimerButton.enabled = YES;
+        for (UITextField *aTextField in aTextFieldArray) {
+            aTextField.enabled = NO;
+        }
+        for (UIButton *aButton in aTimeUnitButtonArray) {
+            aButton.enabled = NO;
+        }
+        for (UILabel *aLabel in aLabelArray) {
+            aLabel.hidden = NO;
+        }
+        self.numberOfTimeUnitsDelayedLabel.text = @"0";
+        self.numberOfPhotosTakenLabel.text = @"0";
+        self.numberOfTimeUnitsSpacedLabel.text = @"0";
+        self.timeUntilNextPhotoLabel.text = @"Next photo:";
+    }
 }
 - (void)viewDidLoad {
     [super viewDidLoad];

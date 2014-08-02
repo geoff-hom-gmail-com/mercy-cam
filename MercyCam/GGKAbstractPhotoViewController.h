@@ -52,7 +52,7 @@
 // What: Update timer UI. In subclass, determine whether to take photo and whether to stop timer.
 - (void)handleOneSecondTimerFired;
 // Called after user taps a trigger button.
-// What: Change to shooting mode. Update UI. Start timer or take photo.
+// What: Change to shooting mode. Update UI. Start trigger.
 - (IBAction)handleTriggerButtonTapped:(id)sender;
 // Notify take-photo model.
 - (void)handleUserTappedInCameraView:(UITapGestureRecognizer *)theTapGestureRecognizer;
@@ -62,21 +62,29 @@
 - (void)handleViewWillAppearToUser;
 // Show the image in the popover.
 - (void)imagePickerController:(UIImagePickerController *)theImagePickerController didFinishPickingMediaWithInfo:(NSDictionary *)theInfoDictionary;
+// Make and return a take-photo model. Subclasses may override to return a subclass of GGKTakePhotoModel.
+- (GGKTakePhotoModel *)makeTakePhotoModel;
 // Watching for several things: 1) If pushing onto this VC, destroy the capture session so it won't snapshot. 2) If popping to this VC, create a capture session to offset 1). 3) If this VC will be popped, nil this VC as the NC delegate. (-dealloc is too late.)
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC;
 // Override.
 // User tapped camera-roll button. User sees thumbnails in popover.
 - (void)prepareForSegue:(UIStoryboardSegue *)theSegue sender:(id)sender;
+
 // Assuming some sort of wait time is requested, this starts a timer to know when to take photos.
-- (void)startTimer;
+//- (void)startTimer;
+
 // Stops repeating timer.
 - (void)stopOneSecondRepeatingTimer;
+
 // Take a photo. Includes feedback via sound and a flash on the screen.
-- (void)takePhoto;
+//- (void)takePhoto;
+
 // Show the most recent photo thumbnail.
 - (void)takePhotoModelDidTakePhoto:(id)sender;
 // User sees current focus-and-exposure status. Also, she sees her options.
 - (void)takePhotoModelFocusAndExposureStatusDidChange:(id)sender;
+// Show feedback via sound and a flash on the screen.
+- (void)takePhotoModelWillTakePhoto:(id)sender;
 // Rotate the camera preview to the device's orientation. Resize the preview view.
 - (void)updatePreviewOrientation;
 // Override.

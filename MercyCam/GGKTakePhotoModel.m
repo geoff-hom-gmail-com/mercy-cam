@@ -26,6 +26,9 @@ NSString *ObserveFocusAndExposureStatusKeyPathString = @"focusAndExposureStatus"
     [self.captureSession stopRunning];
     self.captureSession = nil;
 }
+- (BOOL)doStartTimer {
+    return NO;
+}
 - (void)focusAtPoint:(CGPoint)thePoint {
     NSError *anError;
     BOOL aDeviceMayBeConfigured = [self.captureDevice lockForConfiguration:&anError];
@@ -83,9 +86,16 @@ NSString *ObserveFocusAndExposureStatusKeyPathString = @"focusAndExposureStatus"
         }
     }
 }
+
+// Notify delegate that photo taken. If no timer and more photos needed, take a photo.
+
 -(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
     [self.delegate takePhotoModelDidTakePhoto:self];
+    if (self.oneSecondRepeatingTimer == nil && self.numberOfPhotosTakenInteger < self.numberOfPhotosToTakeInteger) {
+        [self takePhoto];
+    }
 }
+
 - (id)init {
     self = [super init];
     if (self != nil) {
@@ -175,10 +185,25 @@ NSString *ObserveFocusAndExposureStatusKeyPathString = @"focusAndExposureStatus"
         [self.captureSession startRunning];
     }];
 }
+- (void)startTimer {
+    self.numberOfSecondsWaitedInteger = 0;
+    // Start a timer to count seconds.
+    NSTimer *aTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(handleOneSecondTimerFired) userInfo:nil repeats:YES];
+    self.oneSecondRepeatingTimer = aTimer;
+}
+- (void)startTrigger {
+    self.numberOfPhotosTakenInteger = 0;
+    if ([self doStartTimer]) {
+        [self startTimer];
+    } else {
+        [self takePhoto];
+    }
+}
 - (void)stopCaptureSession {
     [self.captureSession stopRunning];
 }
 - (void)takePhoto {
+    [self.delegate takePhotoModelWillTakePhoto:self];
     AVCaptureStillImageOutput *aCaptureStillImageOutput = (AVCaptureStillImageOutput *)self.captureSession.outputs[0];
     AVCaptureConnection *aCaptureConnection = [aCaptureStillImageOutput connectionWithMediaType:AVMediaTypeVideo];
     if (aCaptureConnection != nil) {

@@ -879,7 +879,7 @@ Photos</string>
                                     <action selector="playButtonSound" destination="BXz-Hw-S72" eventType="touchDown" id="ukk-Qo-tsl"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="m6d-Js-1ZA">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="m6d-Js-1ZA">
                                 <rect key="frame" x="8" y="160" width="81" height="600"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -895,7 +895,7 @@ Photos</string>
                                     <action selector="startTimer" destination="2ll-qK-FHt" eventType="touchUpInside" id="LRd-uJ-IAV"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="SpO-Z8-ZOk">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="SpO-Z8-ZOk">
                                 <rect key="frame" x="97" y="716" width="919" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1027,7 +1027,7 @@ Timer</string>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pVo-qf-f4p">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pVo-qf-f4p">
                                 <rect key="frame" x="97" y="183" width="699" height="524"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1560,10 +1560,13 @@ Timer</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Next photo: DDD:HH:MM:SS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nbZ-Rw-ibA">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Next photo: DDD:HH:MM:SS" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nbZ-Rw-ibA">
                                         <rect key="frame" x="469" y="50" width="223" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="223" id="Bgz-nJ-kIB"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1742,7 +1745,10 @@ Timer</string>
                         <outlet property="cameraRollButtonTopGapPortraitLayoutConstraint" destination="ii4-lI-q8K" id="4UX-ud-oax"/>
                         <outlet property="cancelTimerButton" destination="WDe-xp-anu" id="1jh-XB-Pim"/>
                         <outlet property="cancelTimerButtonWidthLayoutConstraint" destination="t8Q-6X-EMP" id="unC-Qd-dgV"/>
+                        <outlet property="numberOfPhotosTakenLabel" destination="fwv-t7-ZYd" id="mwB-jN-jfF"/>
                         <outlet property="numberOfPhotosToTakeTextField" destination="qgC-ZO-NKV" id="2Pf-JJ-6xY"/>
+                        <outlet property="numberOfTimeUnitsDelayedLabel" destination="Ysa-wk-iQ1" id="gWy-xD-Bz4"/>
+                        <outlet property="numberOfTimeUnitsSpacedLabel" destination="f05-Ag-oS2" id="b8a-g4-IFu"/>
                         <outlet property="numberOfTimeUnitsToDelayTextField" destination="KRM-EG-b9V" id="zky-qI-mnG"/>
                         <outlet property="numberOfTimeUnitsToSpaceTextField" destination="xDK-Mz-vlp" id="G8Y-kK-voo"/>
                         <outlet property="photosLabel" destination="ahy-EY-pFa" id="zdc-Q4-v9a"/>
@@ -1751,6 +1757,7 @@ Timer</string>
                         <outlet property="proxyRightTriggerButtonWidthLayoutConstraint" destination="8r1-oi-eQf" id="sVS-hL-BBB"/>
                         <outlet property="timeUnitToDelayButton" destination="IMl-Pq-BXM" id="MNn-jD-MFi"/>
                         <outlet property="timeUnitToSpaceButton" destination="baA-ad-HE5" id="ReS-AX-Xa2"/>
+                        <outlet property="timeUntilNextPhotoLabel" destination="nbZ-Rw-ibA" id="0gl-5b-0MQ"/>
                         <outlet property="timerSettingsView" destination="HI6-ow-i5J" id="nBM-2S-9Kw"/>
                         <outlet property="timerSettingsViewLeftGapPortraitLayoutConstraint" destination="8am-jA-KCV" id="FAd-7y-cPv"/>
                         <outlet property="tipLabel" destination="zJv-9o-UTo" id="BLo-1g-IMX"/>

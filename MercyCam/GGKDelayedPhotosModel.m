@@ -28,4 +28,12 @@ NSString *GGKDelayedPhotosNumberOfSecondsToWaitIntegerKeyString = @"Take delayed
 - (void)setNumberOfSecondsToWaitInteger:(NSInteger)theNumberOfSecondsToWaitInteger {
     [[NSUserDefaults standardUserDefaults] setInteger:theNumberOfSecondsToWaitInteger forKey:GGKDelayedPhotosNumberOfSecondsToWaitIntegerKeyString];
 }
+
+- (BOOL)doStartTimer {
+    BOOL doStartTimerBOOL = NO;
+    if (self.numberOfSecondsToWaitInteger > 0) {
+        doStartTimerBOOL = YES;
+    }
+    return doStartTimerBOOL;
+}
 @end

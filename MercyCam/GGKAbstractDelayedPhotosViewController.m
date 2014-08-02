@@ -265,7 +265,7 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
 //    aString = [NSDate ggk_dayHourMinuteSecondStringForTimeInterval:theNumberOfSecondsToInitiallyWait];
 //    self.timeRemainingUntilNextPhotoLabel.text = [NSString stringWithFormat:@"Next photo: %@", aString];
 //    self.timeRemainingUntilNextPhotoLabel.hidden = NO;
-//    
+//
 //    self.numberOfPhotosTakenInteger = 0;
 //    self.numberOfTotalSecondsToWaitInteger = theNumberOfSecondsToInitiallyWait;
 //    self.numberOfSecondsPassedInteger = 0;

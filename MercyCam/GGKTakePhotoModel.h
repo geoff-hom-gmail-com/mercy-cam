@@ -24,6 +24,8 @@ typedef NS_ENUM(NSInteger, GGKTakePhotoModelFocusAndExposureStatus) {
 - (void)takePhotoModelDidTakePhoto:(id)sender;
 // Sent after the camera's focus-and-exposure status has changed. (Focus and exposure are linked for convenience.)
 - (void)takePhotoModelFocusAndExposureStatusDidChange:(id)sender;
+// Sent before a photo is taken.
+- (void)takePhotoModelWillTakePhoto:(id)sender;
 @end
 
 @interface GGKTakePhotoModel : NSObject
@@ -43,6 +45,9 @@ typedef NS_ENUM(NSInteger, GGKTakePhotoModelFocusAndExposureStatus) {
 - (void)dealloc;
 // Remove current session from memory. (C.f., stopCaptureSession.)
 - (void)destroyCaptureSession;
+// Whether to start the timer.
+// Stub. Returns NO.
+- (BOOL)doStartTimer;
 // Focus at the given point (in device space). Also lock exposure.
 - (void)focusAtPoint:(CGPoint)thePoint;
 // Lock exposure. If the focus is also locked, then notify that both are locked.
@@ -50,8 +55,10 @@ typedef NS_ENUM(NSInteger, GGKTakePhotoModelFocusAndExposureStatus) {
 // Either focus at the point or unfocus.
 // Story: User taps on object. Focus and exposure auto-adjust and lock there. User taps again in view. Focus and exposure return to continuous. (If the user taps again before both focus and exposure lock, then the new tap will be the POI and both will relock.)
 - (void)handleUserTappedAtDevicePoint:(CGPoint)theDevicePoint;
-// Notify delegate.
+
+// Notify delegate. If more photos to take, continue.
 - (void)image:(UIImage *)theImage didFinishSavingWithError:(NSError *)theError contextInfo:(void *)theContextInfo;
+
 // Override.
 - (id)init;
 // Make a new capture session.
@@ -65,9 +72,13 @@ typedef NS_ENUM(NSInteger, GGKTakePhotoModelFocusAndExposureStatus) {
 - (AVCaptureVideoOrientation)properCaptureVideoOrientation;
 // Start the capture session. Asychronous.
 - (void)startCaptureSession;
+// Starts a timer to know when to take photos.
+- (void)startTimer;
+// Start timer or take photo.
+- (void)startTrigger;
 // Stop the capture session. (Remains in memory. C.f., destroyCaptureSession.)
 - (void)stopCaptureSession;
-// Take a photo.
+// Notify delegate that we will take photo. Take a photo.
 - (void)takePhoto;
 // Set focus, exposure and white balance to be continuous. (And reset points of interest.)
 - (void)unlockFocus;

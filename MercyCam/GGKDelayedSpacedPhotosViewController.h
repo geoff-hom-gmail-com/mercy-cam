@@ -42,8 +42,14 @@ extern const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWa
 // Button displaying the popover.
 @property (nonatomic, strong) UIButton *currentPopoverButton;
 @property (strong, nonatomic) GGKDelayedSpacedPhotosModel *delayedSpacedPhotosModel;
+// User taps trigger button. User sees label appear and increment with each photo taken. User implicitly understands when photos are taken, how many photos remain and how long it will take.
+@property (nonatomic, weak) IBOutlet UILabel *numberOfPhotosTakenLabel;
 // User taps trigger button. The number in the text field is how many photos are taken.
 @property (weak, nonatomic) IBOutlet UITextField *numberOfPhotosToTakeTextField;
+// User taps "Start timer." Sees label; it increments with each time unit. (If not seconds, increment to the tenth of a decimal.) User implicitly understands that the timer has started and can estimate when the first photo will be taken.
+@property (nonatomic, weak) IBOutlet UILabel *numberOfTimeUnitsDelayedLabel;
+// User taps "Start timer." Sees label; it increments with each time unit. (If not seconds, increment to the tenth of a decimal.) User implicitly understands that the timer has started and can estimate when the next photo (2nd–Nth) will be taken.
+@property (nonatomic, weak) IBOutlet UILabel *numberOfTimeUnitsSpacedLabel;
 // Number of time units to wait before taking the first photo.
 @property (weak, nonatomic) IBOutlet UITextField *numberOfTimeUnitsToDelayTextField;
 // Number of time units to wait between each photo.
@@ -61,6 +67,8 @@ extern const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWa
 // User sets number of time units to 1. She sees singular text for that time unit.
 // The type of time unit to wait between each photo.
 @property (weak, nonatomic) IBOutlet UIButton *timeUnitToSpaceButton;
+// User taps "Start timer." Regardless of how long-term the timer parameters are, the user understands that the timer has started and is still working (because of the counter in seconds). She also understands when the next photo will be taken.
+@property (nonatomic, weak) IBOutlet UILabel *timeUntilNextPhotoLabel;
 // Portrait-only constraint. Is set in storyboard to avoid compiler warnings.
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *timerSettingsViewLeftGapPortraitLayoutConstraint;
 // Override.
