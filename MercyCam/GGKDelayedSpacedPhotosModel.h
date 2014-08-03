@@ -37,7 +37,7 @@ extern NSString *GGKDelayedSpacedPhotosSpaceTimeUnitIntegerKeyString;
 // Depends on values for delay and space.
 - (BOOL)doStopTimer;
 // Override.
-// First photo: delay. Later photos: space.
+// Usually it's the spacing. Unless first photo (and delay > 0).
 - (NSInteger)numberOfSecondsToWaitInteger;
 // Override.
 // If delay = 0 but space > 0, then we should start the timer after the first photo here.

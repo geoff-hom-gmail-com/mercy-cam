@@ -32,32 +32,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *secondsLabel;
 // Portrait-only constraint. Is set in storyboard to avoid compiler warnings.
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tipLabelRightGapPortraitLayoutConstraint;
-
-// Called after user taps cancel-timer button.
-// What: Stop repeating timer. Stop taking photos. Change to planning mode.
-//- (IBAction)handleCancelTimerTapped;
-
-
-// Override.
-// Now that we can: Update timer labels. If enough time has passed, take a photo.
-
-// Now that we can: Show how many seconds have passed. If enough seconds, take the first photo.
-- (void)handleOneSecondTimerFired;
-
-
 // Override.
 // What: Stop repeating timer. Stop taking photos.
 - (void)handleViewDidDisappearFromUser;
-
 // Override.
 // Make a delayed-photos model.
 - (GGKTakePhotoModel *)makeTakePhotoModel;
-// Starts timer to take first photo.
-//- (void)startTimer;
-// Stops repeating timer.
-//- (void)stopOneSecondRepeatingTimer;
-
-
 // Override.
 // Now that we can: Show how many photos taken, including this one. Done here instead of takePhotoModelDidTakePhoto:, because latter didn't update screen in time.
 - (void)takePhotoModelWillTakePhoto:(id)sender;
@@ -70,6 +50,7 @@
 // Override.
 - (void)updateLayoutForPortrait;
 // Override.
+// Update number of seconds waited.
 - (void)updateTimerUI;
 // Override.
 - (void)updateUI;

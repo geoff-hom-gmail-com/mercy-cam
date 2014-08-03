@@ -15,43 +15,17 @@
 
 @implementation GGKAbstractPhotoViewController
 - (void)dealloc {
+    // why don't we just call this in the model's dealloc? test?
     [self.takePhotoModel destroyCaptureSession];
 }
 - (IBAction)handleCancelTimerTapped {
+    // should just relay this to take-photo model. it will switch the mode, which will automatically call updateUI
     [self stopOneSecondRepeatingTimer];
     self.model.appMode = GGKAppModePlanning;
     [self updateUI];
 }
-- (void)handleEnoughTimePassedToTakePhoto {
-    [self takePhoto];
-    // In subclass, determine whether to stop timer.
-    
-    // if delayed only, then stop timer here.
-    // if spaced and this will be last photo, stop timer.
-    
-    // if spaced and not last photo, need to set how many seconds to wait again
-    
-}
-- (void)handleOneSecondTimerFired {
-    // Each tick of this timer is 1 sec, so we can use that both to show how much time has passed and to determine if enough time has passed.
-    self.takePhotoModel.numberOfSecondsWaitedInteger++;
-    // notify delegate to do this?
-    [self updateTimerUI];
-    // shouldn't this be like [self.model numberOfSecondsToWaitInteger]?
-    if (self.takePhotoModel.numberOfSecondsWaitedInteger == [self.takePhotoModel numberOfSecondsToWaitInteger]) {
-        // and this one... we need the flash... use another delegate method? like takePhotoModelWillTakePhoto?
-        [self takePhoto];
-        if (![self.takePhotoModel timerIsNeeded]) {
-            [self.takePhotoModel stopOneSecondRepeatingTimer];
-        }
-    }
-}
 
-// Should override.
-// Seconds to wait to take photo. When seconds waited matches this, handleEnoughTimePassedToTakePhoto is called.
-- (NSInteger)numberOfSecondsToWaitInteger {
-    return 0;
-}
+
 - (IBAction)handleTriggerButtonTapped:(id)sender {
     [self.takePhotoModel startTrigger];
 }
@@ -175,6 +149,8 @@
 - (void)updatePreviewOrientation {
     self.captureVideoPreviewLayer.frame = self.cameraPreviewView.bounds;
     self.captureVideoPreviewLayer.connection.videoOrientation = [self.takePhotoModel properCaptureVideoOrientation];
+}
+- (void)updateTimerUI {
 }
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];

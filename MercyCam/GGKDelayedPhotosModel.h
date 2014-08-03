@@ -22,4 +22,7 @@ extern NSString *GGKDelayedPhotosNumberOfSecondsToWaitIntegerKeyString;
 // Override.
 // If a delay requested, return yes.
 - (BOOL)doStartTimer;
+// Override.
+// If first photo taken, return yes.
+- (BOOL)doStopTimer;
 @end

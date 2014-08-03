@@ -36,12 +36,6 @@ const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWaitTimeU
 
 - (void)handleOneSecondTimerFired {
     
-    if (self.takePhotoModel.numberOfSecondsWaitedInteger == self.takePhotoModel.numberOfSecondsToWaitInteger) {
-//        [self stopOneSecondRepeatingTimer];
-        [self takePhoto];
-    }
-    
-    // don't put in super?
     NSInteger theNumberOfSecondsWaitedInteger = self.takePhotoModel.numberOfSecondsWaitedInteger;
     NSInteger theNumberOfSecondsToWaitInteger;
 //    theNumberOfSecondsToWaitInteger = self.delayedPhotosModel.numberOfSecondsToWaitInteger
@@ -55,9 +49,6 @@ const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWaitTimeU
     NSInteger theNumberOfSecondsWaitedInteger = self.takePhotoModel.numberOfSecondsWaitedInteger;
     self.numberOfSecondsWaitedLabel.text = [NSString stringWithFormat:@"%ld", (long)theNumberOfSecondsWaitedInteger];
     [self.numberOfSecondsWaitedLabel setNeedsDisplay];
-    if (theNumberOfSecondsWaitedInteger == self.delayedPhotosModel.numberOfSecondsToWaitInteger) {
-        [self stopOneSecondRepeatingTimer];
-        [self takePhoto];
     }
 }
 
@@ -88,16 +79,6 @@ const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWaitTimeU
 //    }
 //}
 
-- (IBAction)handleTriggerButtonTapped:(id)sender {
-    [super handleTriggerButtonTapped:sender];
-    if (self.delayedSpacedPhotosModel.numberOfTimeUnitsToDelayInteger == 0 && self.delayedSpacedPhotosModel.numberOfTimeUnitsToSpaceInteger == 0) {
-        [self takePhoto];
-    } else {
-        NSInteger theNumberOfSecondsToWait = //calc from time units
-        self.takePhotoModel.numberOfSecondsToWaitInteger = theNumberOfSecondsToWait;
-        [self startTimer];
-    }
-}
 - (void)prepareForSegue:(UIStoryboardSegue *)theSegue sender:(id)theSender {
     if ([theSegue.identifier hasPrefix:@"ShowTimeUnitsSelector"]) {
         // Retain popover controller, to dismiss later.
@@ -177,6 +158,33 @@ const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWaitTimeU
     self.cancelTimerButtonWidthLayoutConstraint.constant = 66;
     self.proxyRightTriggerButtonWidthLayoutConstraint.constant = 80;
 }
+- (void)updateTimerUI {
+    [super updateTimerUI];
+    NSString *aString;
+    // It's usually space waited, unless 0 photos taken and delay > 0.
+    if (self.takePhotoModel.numberOfPhotosTakenInteger == 0 && self.delayedSpacedPhotosModel.numberOfTimeUnitsToDelayInteger > 0) {
+        if (self.delayedSpacedPhotosModel.delayTimeUnit == GGKTimeUnitSeconds) {
+            aString = [NSString stringWithFormat:@"%ld", (long)self.takePhotoModel.numberOfSecondsWaitedInteger];
+        } else {
+            CGFloat theNumberOfTimeUnitsWaitedFloat = [GGKTimeUnits numberOfTimeUnitsInTimeInterval:self.takePhotoModel.numberOfSecondsWaitedInteger timeUnit:self.delayedSpacedPhotosModel.delayTimeUnit];
+            aString = [NSString stringWithFormat:@"%.1f", theNumberOfTimeUnitsWaitedFloat];
+        }
+        self.numberOfTimeUnitsDelayedLabel.text = aString;
+    } else {
+        if (self.delayedSpacedPhotosModel.spaceTimeUnit == GGKTimeUnitSeconds) {
+            aString = [NSString stringWithFormat:@"%ld", (long)self.takePhotoModel.numberOfSecondsWaitedInteger];
+        } else {
+            CGFloat theNumberOfTimeUnitsWaitedFloat = [GGKTimeUnits numberOfTimeUnitsInTimeInterval:self.takePhotoModel.numberOfSecondsWaitedInteger timeUnit:self.delayedSpacedPhotosModel.spaceTimeUnit];
+            aString = [NSString stringWithFormat:@"%.1f", theNumberOfTimeUnitsWaitedFloat];
+        }
+        self.numberOfTimeUnitsSpacedLabel.text = aString;
+    }
+    // Countdown label.
+    // Time-to-wait may be 0, in which time passed will be greater.
+    NSInteger theNumberOfSecondsUntilNextPhotoInteger = MAX([self.takePhotoModel numberOfSecondsToWaitInteger], self.takePhotoModel.numberOfSecondsWaitedInteger) - self.takePhotoModel.numberOfSecondsWaitedInteger;
+    NSString *aString = [NSDate ggk_dayHourMinuteSecondStringForTimeInterval:theNumberOfSecondsUntilNextPhotoInteger];
+    self.timeUntilNextPhotoLabel.text = [NSString stringWithFormat:@"Next photo: %@", aString];
+}
 - (void)updateUI {
     [super updateUI];
     // Wait __, then take"
@@ -197,7 +205,7 @@ const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWaitTimeU
     NSArray *aTextFieldArray = @[self.numberOfPhotosToTakeTextField, self.numberOfTimeUnitsToDelayTextField, self.numberOfTimeUnitsToSpaceTextField];
     NSArray *aTimeUnitButtonArray = @[self.timeUnitToDelayButton, self.timeUnitToSpaceButton];
     NSArray *aLabelArray = @[self.numberOfPhotosTakenLabel, self.numberOfTimeUnitsDelayedLabel, self.numberOfTimeUnitsSpacedLabel, self.timeUntilNextPhotoLabel];
-    if (self.model.appMode == GGKAppModePlanning) {
+    if (self.takePhotoModel.mode == GGKTakePhotoModelModePlanning) {
         for (UIButton *aButton in aTriggerButtonArray) {
             aButton.enabled = YES;
         }
@@ -211,7 +219,7 @@ const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWaitTimeU
         for (UILabel *aLabel in aLabelArray) {
             aLabel.hidden = YES;
         }
-    } else if (self.model.appMode == GGKAppModeShooting) {
+    } else if (self.takePhotoModel.mode == GGKTakePhotoModelModeShooting) {
         for (UIButton *aButton in aTriggerButtonArray) {
             aButton.enabled = NO;
         }
@@ -233,7 +241,7 @@ const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWaitTimeU
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.delayedSpacedPhotosModel = [[GGKDelayedSpacedPhotosModel alloc] init];
+    self.delayedSpacedPhotosModel = (GGKDelayedSpacedPhotosModel *)self.takePhotoModel;
     // Orientation-specific layout constraints.
     self.portraitOnlyLayoutConstraintArray = @[self.cameraRollButtonTopGapPortraitLayoutConstraint, self.timerSettingsViewLeftGapPortraitLayoutConstraint];
     // Camera roll's top neighbor: top layout guide.

@@ -65,21 +65,22 @@ NSString *GGKDelayedSpacedPhotosSpaceTimeUnitIntegerKeyString = @"Take advanced 
     return doStartTimerBOOL;
 }
 - (BOOL)doStopTimer {
-    // possible values for delay, space: 0, 0: no timer; x, 0: stop timer after first wait; 0, y: stop after last (2nd to last?) photo taken; x, y: same as 0, y.
-    // If ....
-    BOOL doStopTimerBOOL = ??;
+    BOOL doStopTimerBOOL = NO;
+    // Whether to stop the timer depends on the number of photos taken and the values for delay and space. If delay and space = 0, timer won't be started. If space > 0, wait until all photos taken. If delay > 0 and space = 0, wait until first photo taken.
+    if (self.numberOfTimeUnitsToSpaceInteger > 0 && (self.numberOfPhotosTakenInteger == self.numberOfPhotosToTakeInteger)) {
+        doStopTimerBOOL = YES;
+    } else if (self.numberOfTimeUnitsToDelayInteger > 0 && self.numberOfTimeUnitsToSpaceInteger == 0 && self.numberOfPhotosTakenInteger > 0) {
+        doStopTimerBOOL = YES;
+    }
     return doStopTimerBOOL;
 }
-
-
-// Seconds to wait to take next photo. Relative to trigger start (for first photo) or time of previous photo (for later photos).
-// Subclasses should override.
-
-// First photo: delay. Later photos: space.
 - (NSInteger)numberOfSecondsToWaitInteger {
-//    return 0;
+    NSInteger theNumberOfSecondsToWaitInteger = self.numberOfTimeUnitsToSpaceInteger * [GGKTimeUnits numberOfSecondsInTimeUnit:self.spaceTimeUnit];
+    if (self.numberOfPhotosTakenInteger == 0 && self.numberOfTimeUnitsToDelayInteger > 0) {
+        theNumberOfSecondsToWaitInteger = self.numberOfTimeUnitsToDelayInteger * [GGKTimeUnits numberOfSecondsInTimeUnit:self.delayTimeUnit];
+    }
+    return theNumberOfSecondsToWaitInteger;
 }
-
 - (void)takePhoto {
     [super takePhoto];
     if (self.numberOfPhotosTakenInteger == 1 && self.numberOfTimeUnitsToDelayInteger == 0 && self.numberOfTimeUnitsToSpaceInteger > 0) {

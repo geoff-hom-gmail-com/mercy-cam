@@ -69,13 +69,10 @@ typedef NS_ENUM(NSInteger, GGKTakePhotoModelFocusAndExposureStatus) {
 - (void)focusAtPoint:(CGPoint)thePoint;
 // Lock exposure. If the focus is also locked, then notify that both are locked.
 - (void)handleLockRequestedAndExposureIsSteady:(NSTimer *)theTimer;
-
 // Called after the repeating one-second timer fires.
-// What: Notify delegate. In subclass, determine whether to take photo and whether to stop timer.
-
+// What: Notify delegate. If enough time passed, take photo and, if done, stop timer.
 - (void)handleOneSecondTimerFired;
-
-// Notify delegate. If no timer still going, then either take another photo or switch out of shooting mode.
+// Notify delegate. If no timer still going and still in shooting mode, then either take another photo or switch out of shooting mode.
 - (void)handlePhotoTaken;
 // Either focus at the point or unfocus.
 // Story: User taps on object. Focus and exposure auto-adjust and lock there. User taps again in view. Focus and exposure return to continuous. (If the user taps again before both focus and exposure lock, then the new tap will be the POI and both will relock.)
@@ -86,6 +83,9 @@ typedef NS_ENUM(NSInteger, GGKTakePhotoModelFocusAndExposureStatus) {
 - (id)init;
 // Make a new capture session.
 - (void)makeCaptureSession;
+// Seconds to wait to take next photo. Relative to trigger start (for first photo) or time of previous photo (for later photos).
+// Stub. Returns 0.
+- (NSInteger)numberOfSecondsToWaitInteger;
 // Override.
 // After setting the exposure POI, we want to know when the exposure is steady, so we can lock it. If the device's exposure stops adjusting, then we see if it stays steady long enough (via a timer).
 // Check if both focus and exposure are locked.

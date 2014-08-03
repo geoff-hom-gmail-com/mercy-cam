@@ -28,6 +28,7 @@ NSString *ModeKeyPathString = @"mode";
     [self removeObserver:self forKeyPath:CaptureDeviceFocusModeKeyPathString];
     [self removeObserver:self forKeyPath:FocusAndExposureStatusKeyPathString];
     [self removeObserver:self forKeyPath:ModeKeyPathString];
+    [self stopOneSecondRepeatingTimer];
 }
 - (void)destroyCaptureSession {
     [self.captureSession stopRunning];
@@ -83,7 +84,6 @@ NSString *ModeKeyPathString = @"mode";
         }
     }
 }
-
 - (void)handleOneSecondTimerFired {
     // Each tick of this timer is 1 sec, so we can use that both to show how much time has passed and to determine if enough time has passed.
     self.numberOfSecondsWaitedInteger++;
@@ -96,18 +96,9 @@ NSString *ModeKeyPathString = @"mode";
         }
     }
 }
-
-// Seconds to wait to take next photo. Relative to trigger start (for first photo) or time of previous photo (for later photos).
-// Subclasses should override.
-- (NSInteger)numberOfSecondsToWaitInteger {
-    return 0;
-}
-
-
-
 - (void)handlePhotoTaken {
     [self.delegate takePhotoModelDidTakePhoto:self];
-    if (self.oneSecondRepeatingTimer == nil) {
+    if (self.oneSecondRepeatingTimer == nil && self.mode == GGKTakePhotoModelModeShooting) {
         if (self.numberOfPhotosTakenInteger < self.numberOfPhotosToTakeInteger) {
             [self takePhoto];
         } else {
@@ -174,6 +165,9 @@ NSString *ModeKeyPathString = @"mode";
     }
     aCaptureSession.sessionPreset = AVCaptureSessionPresetPhoto;
     self.captureSession = aCaptureSession;
+}
+- (NSInteger)numberOfSecondsToWaitInteger {
+    return 0;
 }
 - (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([theKeyPath isEqualToString:CaptureDeviceAdjustingExposureKeyPathString]) {

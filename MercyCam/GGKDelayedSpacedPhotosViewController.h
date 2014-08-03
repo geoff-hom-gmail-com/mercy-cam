@@ -86,5 +86,10 @@ extern const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWa
 // Override.
 - (void)updateLayoutForPortrait;
 // Override.
+// Update delay waited or space waited. Update countdown label.
+- (void)updateTimerUI;
+// Override.
+- (void)updateUI;
+// Override.
 - (void)viewDidLoad;
 @end

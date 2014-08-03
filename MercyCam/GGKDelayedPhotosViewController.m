@@ -12,37 +12,21 @@
 #import "UIView+GGKAdditions.h"
 
 @implementation GGKDelayedPhotosViewController
-//- (IBAction)handleCancelTimerTapped {
-//    [self stopOneSecondRepeatingTimer];
-//    self.model.appMode = GGKAppModePlanning;
-//    [self updateUI];
-//}
-
-
-
-
-
-
 - (void)handleViewDidDisappearFromUser {
     [super handleViewDidDisappearFromUser];
-    [self stopOneSecondRepeatingTimer];
+    [self.takePhotoModel stopOneSecondRepeatingTimer];
     // Will stop photo taking.
-    self.model.appMode = GGKAppModePlanning;
+    self.takePhotoModel.mode = GGKTakePhotoModelModePlanning;
 }
-
 - (GGKTakePhotoModel *)makeTakePhotoModel {
     GGKDelayedPhotosModel *theDelayedPhotosModel = [[GGKDelayedPhotosModel alloc] init];
     return theDelayedPhotosModel;
 }
-
-
 - (void)takePhotoModelWillTakePhoto:(id)sender {
     [super takePhotoModelWillTakePhoto:sender];
     self.numberOfPhotosTakenLabel.text = [NSString stringWithFormat:@"%ld", (long)self.takePhotoModel.numberOfPhotosTakenInteger];
     [self.numberOfPhotosTakenLabel setNeedsDisplay];
 }
-
-
 - (void)textFieldDidEndEditing:(UITextField *)theTextField {
     // Ensure we have a valid value. Update model. Update view.
     NSInteger anOkayInteger;
