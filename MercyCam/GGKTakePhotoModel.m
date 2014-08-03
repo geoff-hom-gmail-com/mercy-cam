@@ -12,15 +12,22 @@
 BOOL GGKDebugCamera = NO;
 
 // For KVO.
-NSString *ObserveCaptureDeviceAdjustingExposureKeyPathString = @"captureDevice.adjustingExposure";
-NSString *ObserveCaptureDeviceFocusModeKeyPathString = @"captureDevice.focusMode";
-NSString *ObserveFocusAndExposureStatusKeyPathString = @"focusAndExposureStatus";
+NSString *CaptureDeviceAdjustingExposureKeyPathString = @"captureDevice.adjustingExposure";
+NSString *CaptureDeviceFocusModeKeyPathString = @"captureDevice.focusMode";
+NSString *FocusAndExposureStatusKeyPathString = @"focusAndExposureStatus";
+NSString *ModeKeyPathString = @"mode";
 
 @implementation GGKTakePhotoModel
+// Custom accessors.
+- (NSInteger)numberOfPhotosToTakeInteger {
+    return 1;
+}
+
 - (void)dealloc {
-    [self removeObserver:self forKeyPath:ObserveCaptureDeviceAdjustingExposureKeyPathString];
-    [self removeObserver:self forKeyPath:ObserveCaptureDeviceFocusModeKeyPathString];
-    [self removeObserver:self forKeyPath:ObserveFocusAndExposureStatusKeyPathString];
+    [self removeObserver:self forKeyPath:CaptureDeviceAdjustingExposureKeyPathString];
+    [self removeObserver:self forKeyPath:CaptureDeviceFocusModeKeyPathString];
+    [self removeObserver:self forKeyPath:FocusAndExposureStatusKeyPathString];
+    [self removeObserver:self forKeyPath:ModeKeyPathString];
 }
 - (void)destroyCaptureSession {
     [self.captureSession stopRunning];
@@ -28,6 +35,9 @@ NSString *ObserveFocusAndExposureStatusKeyPathString = @"focusAndExposureStatus"
 }
 - (BOOL)doStartTimer {
     return NO;
+}
+- (BOOL)doStopTimer {
+    return YES;
 }
 - (void)focusAtPoint:(CGPoint)thePoint {
     NSError *anError;
@@ -73,6 +83,38 @@ NSString *ObserveFocusAndExposureStatusKeyPathString = @"focusAndExposureStatus"
         }
     }
 }
+
+- (void)handleOneSecondTimerFired {
+    // Each tick of this timer is 1 sec, so we can use that both to show how much time has passed and to determine if enough time has passed.
+    self.numberOfSecondsWaitedInteger++;
+    [self.delegate takePhotoModelUpdateTimerDidFire:self];
+    if (self.numberOfSecondsWaitedInteger == [self numberOfSecondsToWaitInteger]) {
+        [self takePhoto];
+        self.numberOfSecondsWaitedInteger = 0;
+        if ([self doStopTimer]) {
+            [self stopOneSecondRepeatingTimer];
+        }
+    }
+}
+
+// Seconds to wait to take next photo. Relative to trigger start (for first photo) or time of previous photo (for later photos).
+// Subclasses should override.
+- (NSInteger)numberOfSecondsToWaitInteger {
+    return 0;
+}
+
+
+
+- (void)handlePhotoTaken {
+    [self.delegate takePhotoModelDidTakePhoto:self];
+    if (self.oneSecondRepeatingTimer == nil) {
+        if (self.numberOfPhotosTakenInteger < self.numberOfPhotosToTakeInteger) {
+            [self takePhoto];
+        } else {
+            self.mode = GGKTakePhotoModelModePlanning;
+        }
+    }
+}
 - (void)handleUserTappedAtDevicePoint:(CGPoint)theDevicePoint {
     AVCaptureDevice *aCaptureDevice = self.captureDevice;
     if (aCaptureDevice == nil) {
@@ -86,23 +128,17 @@ NSString *ObserveFocusAndExposureStatusKeyPathString = @"focusAndExposureStatus"
         }
     }
 }
-
-// Notify delegate that photo taken. If no timer and more photos needed, take a photo.
-
 -(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-    [self.delegate takePhotoModelDidTakePhoto:self];
-    if (self.oneSecondRepeatingTimer == nil && self.numberOfPhotosTakenInteger < self.numberOfPhotosToTakeInteger) {
-        [self takePhoto];
-    }
+    [self handlePhotoTaken];
 }
-
 - (id)init {
     self = [super init];
     if (self != nil) {
-        [self addObserver:self forKeyPath:ObserveCaptureDeviceAdjustingExposureKeyPathString options:NSKeyValueObservingOptionNew context:nil];
-        [self addObserver:self forKeyPath:ObserveCaptureDeviceFocusModeKeyPathString options:NSKeyValueObservingOptionNew context:nil];
+        [self addObserver:self forKeyPath:CaptureDeviceAdjustingExposureKeyPathString options:NSKeyValueObservingOptionNew context:nil];
+        [self addObserver:self forKeyPath:CaptureDeviceFocusModeKeyPathString options:NSKeyValueObservingOptionNew context:nil];
         // Report focus (and exposure) status in real time.
-        [self addObserver:self forKeyPath:ObserveFocusAndExposureStatusKeyPathString options:NSKeyValueObservingOptionNew context:nil];
+        [self addObserver:self forKeyPath:FocusAndExposureStatusKeyPathString options:NSKeyValueObservingOptionNew context:nil];
+        [self addObserver:self forKeyPath:ModeKeyPathString options:NSKeyValueObservingOptionNew context:nil];
     }
     return self;
 }
@@ -140,7 +176,7 @@ NSString *ObserveFocusAndExposureStatusKeyPathString = @"focusAndExposureStatus"
     self.captureSession = aCaptureSession;
 }
 - (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([theKeyPath isEqualToString:ObserveCaptureDeviceAdjustingExposureKeyPathString]) {
+    if ([theKeyPath isEqualToString:CaptureDeviceAdjustingExposureKeyPathString]) {
         if (self.focusAndExposureStatus == GGKTakePhotoModelFocusAndExposureStatusLocking) {
             // When the exposure isn't being adjusted, time it to see if it stays steady.
             if (self.captureDevice.adjustingExposure) {
@@ -152,14 +188,16 @@ NSString *ObserveFocusAndExposureStatusKeyPathString = @"focusAndExposureStatus"
                 self.exposureUnadjustedTimer = aTimer;
             }
         }
-    } else if ([theKeyPath isEqualToString:ObserveCaptureDeviceFocusModeKeyPathString]) {
+    } else if ([theKeyPath isEqualToString:CaptureDeviceFocusModeKeyPathString]) {
         if (self.focusAndExposureStatus == GGKTakePhotoModelFocusAndExposureStatusLocking &&
             self.captureDevice.focusMode == AVCaptureFocusModeLocked &&
             self.captureDevice.exposureMode == AVCaptureExposureModeLocked) {
             self.focusAndExposureStatus = GGKTakePhotoModelFocusAndExposureStatusLocked;
         }
-    } else if ([theKeyPath isEqualToString:ObserveFocusAndExposureStatusKeyPathString]) {
+    } else if ([theKeyPath isEqualToString:FocusAndExposureStatusKeyPathString]) {
         [self.delegate takePhotoModelFocusAndExposureStatusDidChange:self];
+    } else if ([theKeyPath isEqualToString:ModeKeyPathString]) {
+        [self.delegate takePhotoModelDidChangeMode:self];
     } else {
         [super observeValueForKeyPath:theKeyPath ofObject:object change:change context:context];
     }
@@ -192,6 +230,7 @@ NSString *ObserveFocusAndExposureStatusKeyPathString = @"focusAndExposureStatus"
     self.oneSecondRepeatingTimer = aTimer;
 }
 - (void)startTrigger {
+    self.mode = GGKTakePhotoModelModeShooting;
     self.numberOfPhotosTakenInteger = 0;
     if ([self doStartTimer]) {
         [self startTimer];
@@ -202,8 +241,13 @@ NSString *ObserveFocusAndExposureStatusKeyPathString = @"focusAndExposureStatus"
 - (void)stopCaptureSession {
     [self.captureSession stopRunning];
 }
+- (void)stopOneSecondRepeatingTimer {
+    [self.oneSecondRepeatingTimer invalidate];
+    self.oneSecondRepeatingTimer = nil;
+}
 - (void)takePhoto {
     [self.delegate takePhotoModelWillTakePhoto:self];
+    self.numberOfPhotosTakenInteger++;
     AVCaptureStillImageOutput *aCaptureStillImageOutput = (AVCaptureStillImageOutput *)self.captureSession.outputs[0];
     AVCaptureConnection *aCaptureConnection = [aCaptureStillImageOutput connectionWithMediaType:AVMediaTypeVideo];
     if (aCaptureConnection != nil) {
@@ -217,7 +261,9 @@ NSString *ObserveFocusAndExposureStatusKeyPathString = @"focusAndExposureStatus"
         }];
     } else {
         NSLog(@"GGK warning: aCaptureConnection nil");
-        UIImageWriteToSavedPhotosAlbum(nil, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+        // To avoid stalling. Didn't think about this much, so there's probably a more robust solution.
+        [self handlePhotoTaken];
+//        UIImageWriteToSavedPhotosAlbum(nil, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
     }
 }
 - (void)unlockFocus {

@@ -9,10 +9,6 @@
 #import "GGKNormalPhotoViewController.h"
 
 @implementation GGKNormalPhotoViewController
-- (IBAction)handleTriggerButtonTapped:(id)theSender {
-    [super handleTriggerButtonTapped:theSender];
-    [self takePhoto];
-}
 - (void)updateLayoutForLandscape {
     [super updateLayoutForLandscape];
     self.proxyRightTriggerButtonWidthLayoutConstraint.constant = 103;

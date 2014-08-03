@@ -45,14 +45,17 @@
 // Called after user taps cancel-timer button.
 // What: Stop repeating timer. Stop taking photos. Change to planning mode.
 - (IBAction)handleCancelTimerTapped;
+
 // Called after number of seconds waited equals number of seconds to wait.
 // Stub.
 - (void)handleEnoughTimePassedToTakePhoto;
+
 // Called after the repeating one-second timer fires.
 // What: Update timer UI. In subclass, determine whether to take photo and whether to stop timer.
 - (void)handleOneSecondTimerFired;
+
 // Called after user taps a trigger button.
-// What: Change to shooting mode. Update UI. Start trigger.
+// What: Start trigger.
 - (IBAction)handleTriggerButtonTapped:(id)sender;
 // Notify take-photo model.
 - (void)handleUserTappedInCameraView:(UITapGestureRecognizer *)theTapGestureRecognizer;
@@ -79,14 +82,21 @@
 // Take a photo. Includes feedback via sound and a flash on the screen.
 //- (void)takePhoto;
 
+// Update UI.
+- (void)takePhotoModelDidChangeMode:(id)sender;
 // Show the most recent photo thumbnail.
 - (void)takePhotoModelDidTakePhoto:(id)sender;
 // User sees current focus-and-exposure status. Also, she sees her options.
 - (void)takePhotoModelFocusAndExposureStatusDidChange:(id)sender;
+// Update timer UI.
+- (void)takePhotoModelUpdateTimerDidFire:(id)sender;
 // Show feedback via sound and a flash on the screen.
 - (void)takePhotoModelWillTakePhoto:(id)sender;
 // Rotate the camera preview to the device's orientation. Resize the preview view.
 - (void)updatePreviewOrientation;
+// Called regularly when timer is running (at least every second).
+// Stub.
+- (void)updateTimerUI;
 // Override.
 // Update things after constraints have been applied.
 // Device orientation may have changed. Make sure preview layer matches.

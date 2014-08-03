@@ -9,11 +9,4 @@
 #import "GGKModel.h"
 
 @implementation GGKModel
-- (id)init {
-    self = [super init];
-    if (self) {
-        self.appMode = GGKAppModePlanning;
-    }
-    return self;
-}
 @end

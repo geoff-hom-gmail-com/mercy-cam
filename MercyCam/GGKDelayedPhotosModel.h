@@ -13,13 +13,12 @@ extern NSString *GGKDelayedPhotosNumberOfPhotosToTakeIntegerKeyString;
 extern NSString *GGKDelayedPhotosNumberOfSecondsToWaitIntegerKeyString;
 
 @interface GGKDelayedPhotosModel : GGKTakePhotoModel
-//@property (assign, nonatomic) NSInteger numberOfPhotosTakenInteger;
+// Override.
 // Custom accessors.
 @property (assign, nonatomic) NSInteger numberOfPhotosToTakeInteger;
+// Override.
 // Custom accessors.
 @property (assign, nonatomic) NSInteger numberOfSecondsToWaitInteger;
-//@property (assign, nonatomic) NSInteger numberOfSecondsWaitedInteger;
-
 // Override.
 // If a delay requested, return yes.
 - (BOOL)doStartTimer;

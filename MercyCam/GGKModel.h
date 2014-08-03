@@ -9,16 +9,6 @@
 #import <Foundation/Foundation.h>
 
 
-// App mode.
-// Planning: default.
-// Shooting: user takes photo or starts photo timer.
-typedef NS_ENUM(NSInteger, GGKAppMode) {
-    GGKAppModePlanning,
-    GGKAppModeShooting
-};
 
 @interface GGKModel : NSObject
-@property (assign, nonatomic) GGKAppMode appMode;
-// Override.
-- (id)init;
 @end

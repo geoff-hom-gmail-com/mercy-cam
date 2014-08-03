@@ -20,18 +20,8 @@
 
 
 
-// Override.
-- (NSInteger)numberOfSecondsToWaitInteger {
-    return self.delayedPhotosModel.numberOfSecondsToWaitInteger;
-}
 
 
-// Override.
-- (void)updateTimerUI {
-    [super updateTimerUI];
-    self.numberOfSecondsWaitedLabel.text = [NSString stringWithFormat:@"%ld", (long)self.takePhotoModel.numberOfSecondsWaitedInteger];
-    [self.numberOfSecondsWaitedLabel setNeedsDisplay];
-}
 
 - (void)handleViewDidDisappearFromUser {
     [super handleViewDidDisappearFromUser];
@@ -45,28 +35,14 @@
     return theDelayedPhotosModel;
 }
 
-//- (void)stopOneSecondRepeatingTimer {
-//    [self.delayedPhotosModel.oneSecondRepeatingTimer invalidate];
-//    self.delayedPhotosModel.oneSecondRepeatingTimer = nil;
-//}
 
-- (void)takePhoto {
-    [super takePhoto];
-    self.takePhotoModel.numberOfPhotosTakenInteger++;
-    NSInteger theNumberOfPhotosTakenInteger = self.takePhotoModel.numberOfPhotosTakenInteger;
-    self.numberOfPhotosTakenLabel.text = [NSString stringWithFormat:@"%ld", (long)theNumberOfPhotosTakenInteger];
+- (void)takePhotoModelWillTakePhoto:(id)sender {
+    [super takePhotoModelWillTakePhoto:sender];
+    self.numberOfPhotosTakenLabel.text = [NSString stringWithFormat:@"%ld", (long)self.takePhotoModel.numberOfPhotosTakenInteger];
     [self.numberOfPhotosTakenLabel setNeedsDisplay];
 }
-- (void)takePhotoModelDidTakePhoto:(id)sender {
-    [super takePhotoModelDidTakePhoto:sender];
-    // If all photos taken, stop. Else, if still in shooting mode, take another photo. So, we can stop photo taking by changing the mode.
-    if (self.takePhotoModel.numberOfPhotosTakenInteger >= self.delayedPhotosModel.numberOfPhotosToTakeInteger) {
-        self.model.appMode = GGKAppModePlanning;
-        [self updateUI];
-    } else if (self.model.appMode == GGKAppModeShooting) {
-        [self takePhoto];
-    }
-}
+
+
 - (void)textFieldDidEndEditing:(UITextField *)theTextField {
     // Ensure we have a valid value. Update model. Update view.
     NSInteger anOkayInteger;
@@ -92,6 +68,11 @@
     [super updateLayoutForPortrait];
     self.proxyRightTriggerButtonWidthLayoutConstraint.constant = 70;
 }
+- (void)updateTimerUI {
+    [super updateTimerUI];
+    self.numberOfSecondsWaitedLabel.text = [NSString stringWithFormat:@"%ld", (long)self.takePhotoModel.numberOfSecondsWaitedInteger];
+    [self.numberOfSecondsWaitedLabel setNeedsDisplay];
+}
 - (void)updateUI {
     [super updateUI];
     // "Wait X second(s), then take"
@@ -108,7 +89,7 @@
     NSArray *aTriggerButtonArray = @[self.bottomTriggerButton, self.leftTriggerButton, self.rightTriggerButton];
     NSArray *aTextFieldArray = @[self.numberOfPhotosToTakeTextField, self.numberOfSecondsToWaitTextField];
     NSArray *aLabelArray = @[self.numberOfPhotosTakenLabel, self.numberOfSecondsWaitedLabel];
-    if (self.model.appMode == GGKAppModePlanning) {
+    if (self.takePhotoModel.mode == GGKTakePhotoModelModePlanning) {
         for (UIButton *aButton in aTriggerButtonArray) {
             aButton.enabled = YES;
         }
@@ -119,7 +100,7 @@
         for (UILabel *aLabel in aLabelArray) {
             aLabel.hidden = YES;
         }
-    } else if (self.model.appMode == GGKAppModeShooting) {
+    } else if (self.takePhotoModel.mode == GGKTakePhotoModelModeShooting) {
         for (UIButton *aButton in aTriggerButtonArray) {
             aButton.enabled = NO;
         }
@@ -135,12 +116,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-//    GGKMercyCamAppDelegate *theAppDelegate = (GGKMercyCamAppDelegate *)[UIApplication sharedApplication].delegate;
-//    self.delayedPhotosModel = theAppDelegate.delayedPhotosModel;
     self.delayedPhotosModel = (GGKDelayedPhotosModel *)self.takePhotoModel;
-    
-    self.model.appMode = GGKAppModePlanning;
     // Orientation-specific layout constraints.
     self.portraitOnlyLayoutConstraintArray = @[self.proxyRightTriggerButtonTopGapPortraitLayoutConstraint, self.tipLabelRightGapPortraitLayoutConstraint];
     // Proxy right button's top neighbor: top layout guide.

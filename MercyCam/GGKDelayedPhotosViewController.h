@@ -9,6 +9,8 @@
 
 @interface GGKDelayedPhotosViewController : GGKAbstractPhotoViewController <UITextFieldDelegate>
 
+// should comment in header to explain why we have two refs to same instance
+
 @property (strong, nonatomic) GGKDelayedPhotosModel *delayedPhotosModel;
 
 // User taps trigger button. User sees label appear and increment with each photo taken. User implicitly understands when photos are taken, how many photos remain and how long it will take.
@@ -42,9 +44,6 @@
 // Now that we can: Show how many seconds have passed. If enough seconds, take the first photo.
 - (void)handleOneSecondTimerFired;
 
-// Called after user taps a start-timer button.
-// What: Change to shooting mode. Either start taking photos or start timer to wait.
-//- (IBAction)handleTriggerButtonTapped:(id)sender;
 
 // Override.
 // What: Stop repeating timer. Stop taking photos.
@@ -53,18 +52,15 @@
 // Override.
 // Make a delayed-photos model.
 - (GGKTakePhotoModel *)makeTakePhotoModel;
-
 // Starts timer to take first photo.
 //- (void)startTimer;
 // Stops repeating timer.
 //- (void)stopOneSecondRepeatingTimer;
 
+
 // Override.
-// What: Show how many photos taken, including this one. Done here instead of captureManagerDidTakePhoto:, because latter didn't update screen in time.
-- (void)takePhoto;
-// Override.
-// Now that we can: If all photos taken, stop. Else, take another photo.
-- (void)takePhotoModelDidTakePhoto:(id)sender;
+// Now that we can: Show how many photos taken, including this one. Done here instead of takePhotoModelDidTakePhoto:, because latter didn't update screen in time.
+- (void)takePhotoModelWillTakePhoto:(id)sender;
 // Now that we can: Ensure we have a valid value.
 - (void)textFieldDidEndEditing:(UITextField *)textField;
 // Now that we can: Dismiss the keyboard.
@@ -73,6 +69,8 @@
 - (void)updateLayoutForLandscape;
 // Override.
 - (void)updateLayoutForPortrait;
+// Override.
+- (void)updateTimerUI;
 // Override.
 - (void)updateUI;
 // Override.

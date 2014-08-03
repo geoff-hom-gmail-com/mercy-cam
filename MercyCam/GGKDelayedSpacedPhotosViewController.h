@@ -22,16 +22,6 @@ extern const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitBetweenPhoto
 // The default time unit to use for the initial wait.
 extern const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWaitTimeUnit;
 
-// Key for storing the number of photos to take.
-//extern NSString *GGKTakeAdvancedDelayedPhotosNumberOfPhotosKeyString;
-//// Key for storing the number of time units between each photo.
-//extern NSString *GGKTakeAdvancedDelayedPhotosNumberOfTimeUnitsBetweenPhotosKeyString;
-//// Key for storing the number of time units to initially wait.
-//extern NSString *GGKTakeAdvancedDelayedPhotosNumberOfTimeUnitsToInitiallyWaitKeyString;
-//// Key for storing the time unit to use between each photo.
-//extern NSString *GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString;
-//// Key for storing the time unit to use for the initial wait.
-//extern NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString;
 
 @interface GGKDelayedSpacedPhotosViewController : GGKAbstractPhotoViewController <GGKTimeUnitsTableViewControllerDelegate, UITextFieldDelegate>
 // Portrait-only constraint. Is set in storyboard to avoid compiler warnings.
@@ -74,15 +64,17 @@ extern const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWa
 // Override.
 // Now that we can: Update timer labels. If enough time has passed, take a photo.
 - (void)handleOneSecondTimerFired;
-// Called after user taps a start-timer button.
-// What: Either start taking photos or start timer to wait.
-- (IBAction)handleTriggerButtonTapped:(id)sender;
 // Override.
 // Prepare for time-unit selector.
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender;
 // Override.
 // Now that we can: If all photos taken, stop. Else, if spacing time is 0, take another photo.
 - (void)takePhotoModelDidTakePhoto:(id)sender;
+
+// Override.
+// Now that we can: Show how many photos taken, including this one. Done here instead of takePhotoModelDidTakePhoto:, because latter didn't update screen in time.
+- (void)takePhotoModelWillTakePhoto:(id)sender;
+
 // Now that we can: Ensure we have a valid value.
 - (void)textFieldDidEndEditing:(UITextField *)textField;
 // Now that we can: Dismiss the keyboard.

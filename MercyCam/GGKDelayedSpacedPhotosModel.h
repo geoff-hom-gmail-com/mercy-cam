@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Geoff Hom. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "GGKTakePhotoModel.h"
 
 #import "GGKTimeUnits.h"
 
@@ -17,7 +17,7 @@ extern NSString *GGKDelayedSpacedPhotosNumberOfTimeUnitsToDelayIntegerKeyString;
 extern NSString *GGKDelayedSpacedPhotosNumberOfTimeUnitsToSpaceIntegerKeyString;
 extern NSString *GGKDelayedSpacedPhotosSpaceTimeUnitIntegerKeyString;
 
-@interface GGKDelayedSpacedPhotosModel : NSObject
+@interface GGKDelayedSpacedPhotosModel : GGKTakePhotoModel
 // The time unit to use (seconds/minutes/etc.) for the initial wait.
 // Custom accessors.
 @property (nonatomic, assign) GGKTimeUnit delayTimeUnit;
@@ -30,4 +30,16 @@ extern NSString *GGKDelayedSpacedPhotosSpaceTimeUnitIntegerKeyString;
 // The time unit to use (seconds/minutes/etc.) for waiting between photos.
 // Custom accessors.
 @property (nonatomic, assign) GGKTimeUnit spaceTimeUnit;
+// Override.
+// If a delay requested, return yes.
+- (BOOL)doStartTimer;
+// Override.
+// Depends on values for delay and space.
+- (BOOL)doStopTimer;
+// Override.
+// First photo: delay. Later photos: space.
+- (NSInteger)numberOfSecondsToWaitInteger;
+// Override.
+// If delay = 0 but space > 0, then we should start the timer after the first photo here.
+- (void)takePhoto;
 @end

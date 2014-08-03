@@ -56,4 +56,34 @@ NSString *GGKDelayedSpacedPhotosSpaceTimeUnitIntegerKeyString = @"Take advanced 
     NSInteger anInteger = theSpaceTimeUnit;
     [[NSUserDefaults standardUserDefaults] setInteger:anInteger forKey:GGKDelayedSpacedPhotosSpaceTimeUnitIntegerKeyString];
 }
+
+- (BOOL)doStartTimer {
+    BOOL doStartTimerBOOL = NO;
+    if (self.numberOfTimeUnitsToDelayInteger > 0) {
+        doStartTimerBOOL = YES;
+    }
+    return doStartTimerBOOL;
+}
+- (BOOL)doStopTimer {
+    // possible values for delay, space: 0, 0: no timer; x, 0: stop timer after first wait; 0, y: stop after last (2nd to last?) photo taken; x, y: same as 0, y.
+    // If ....
+    BOOL doStopTimerBOOL = ??;
+    return doStopTimerBOOL;
+}
+
+
+// Seconds to wait to take next photo. Relative to trigger start (for first photo) or time of previous photo (for later photos).
+// Subclasses should override.
+
+// First photo: delay. Later photos: space.
+- (NSInteger)numberOfSecondsToWaitInteger {
+//    return 0;
+}
+
+- (void)takePhoto {
+    [super takePhoto];
+    if (self.numberOfPhotosTakenInteger == 1 && self.numberOfTimeUnitsToDelayInteger == 0 && self.numberOfTimeUnitsToSpaceInteger > 0) {
+        [self startTimer];
+    }
+}
 @end

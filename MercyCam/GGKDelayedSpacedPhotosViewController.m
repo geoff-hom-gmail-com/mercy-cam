@@ -128,6 +128,13 @@ const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWaitTimeU
         [self takePhoto];
     }
 }
+
+- (void)takePhotoModelWillTakePhoto:(id)sender {
+    [super takePhotoModelWillTakePhoto:sender];
+    self.numberOfPhotosTakenLabel.text = [NSString stringWithFormat:@"%ld", (long)self.takePhotoModel.numberOfPhotosTakenInteger];
+    [self.numberOfPhotosTakenLabel setNeedsDisplay];
+}
+
 - (void)textFieldDidEndEditing:(UITextField *)theTextField {
     // Ensure we have a valid value. Update model. Update view.
     NSInteger anOkayInteger;

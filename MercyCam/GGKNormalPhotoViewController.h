@@ -16,9 +16,6 @@
 // Height changes depending on device rotation.
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tipLabelHeightLayoutConstraint;
 // Override.
-// What: take photo.
-- (IBAction)handleTriggerButtonTapped:(id)sender;
-// Override.
 - (void)updateLayoutForLandscape;
 // Override.
 - (void)updateLayoutForPortrait;

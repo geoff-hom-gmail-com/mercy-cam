@@ -46,9 +46,6 @@
         }
     }
 }
-// Stub.
-- (void)updateTimerUI {
-}
 
 // Should override.
 // Seconds to wait to take photo. When seconds waited matches this, handleEnoughTimePassedToTakePhoto is called.
@@ -56,8 +53,6 @@
     return 0;
 }
 - (IBAction)handleTriggerButtonTapped:(id)sender {
-    self.model.appMode = GGKAppModeShooting;
-    [self updateUI];
     [self.takePhotoModel startTrigger];
 }
 - (void)handleUserTappedInCameraView:(UITapGestureRecognizer *)theTapGestureRecognizer {
@@ -135,25 +130,14 @@
     self.takePhotoModel.oneSecondRepeatingTimer = nil;
 }
 
-//- (void)takePhoto {
-//    [self playButtonSound];
-//    [self.takePhotoModel takePhoto];
-//    // Give visual feedback that photo was taken: Flash the screen.
-//    UIView *aFlashView = [[UIView alloc] initWithFrame:self.cameraPreviewView.frame];
-//    aFlashView.backgroundColor = [UIColor whiteColor];
-//    aFlashView.alpha = 0.8f;
-//    [self.view addSubview:aFlashView];
-//    [UIView animateWithDuration:0.6f animations:^{
-//        aFlashView.alpha = 0.0f;
-//    } completion:^(BOOL finished) {
-//        [aFlashView removeFromSuperview];
-//    }];
-//}
-
-
-
+- (void)takePhotoModelDidChangeMode:(id)sender {
+    [self updateUI];
+}
 - (void)takePhotoModelDidTakePhoto:(id)sender {
     [self.savedPhotosManager showMostRecentPhotoOnButton:self.cameraRollButton];
+}
+- (void)takePhotoModelUpdateTimerDidFire:(id)sender {
+    [self updateTimerUI];
 }
 - (void)takePhotoModelFocusAndExposureStatusDidChange:(id)sender {
     NSString *aString = @"";
@@ -188,7 +172,6 @@
         [aFlashView removeFromSuperview];
     }];
 }
-
 - (void)updatePreviewOrientation {
     self.captureVideoPreviewLayer.frame = self.cameraPreviewView.bounds;
     self.captureVideoPreviewLayer.connection.videoOrientation = [self.takePhotoModel properCaptureVideoOrientation];
@@ -242,6 +225,7 @@
     [self.cameraPreviewView.layer addSublayer:aCaptureVideoPreviewLayer];
     
     GGKTakePhotoModel *theTakePhotoModel = [self makeTakePhotoModel];
+    theTakePhotoModel.mode = GGKTakePhotoModelModePlanning;
 //    GGKTakePhotoModel *theTakePhotoModel = [[GGKTakePhotoModel alloc] init];
     
     theTakePhotoModel.delegate = self;
