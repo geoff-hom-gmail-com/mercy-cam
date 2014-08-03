@@ -8,11 +8,8 @@
 @class GGKDelayedPhotosModel;
 
 @interface GGKDelayedPhotosViewController : GGKAbstractPhotoViewController <UITextFieldDelegate>
-
-// should comment in header to explain why we have two refs to same instance
-
+// Same instance as in takePhotoModel. This way, we can access the subclass while maintaining type-checking.
 @property (strong, nonatomic) GGKDelayedPhotosModel *delayedPhotosModel;
-
 // User taps trigger button. User sees label appear and increment with each photo taken. User implicitly understands when photos are taken, how many photos remain and how long it will take.
 @property (nonatomic, weak) IBOutlet UILabel *numberOfPhotosTakenLabel;
 // User taps trigger button. The number of photos showing in the text field are taken.
@@ -32,9 +29,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *secondsLabel;
 // Portrait-only constraint. Is set in storyboard to avoid compiler warnings.
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tipLabelRightGapPortraitLayoutConstraint;
-// Override.
-// What: Stop repeating timer. Stop taking photos.
-- (void)handleViewDidDisappearFromUser;
 // Override.
 // Make a delayed-photos model.
 - (GGKTakePhotoModel *)makeTakePhotoModel;

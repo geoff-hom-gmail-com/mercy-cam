@@ -37,10 +37,6 @@ NSString *GGKDelayedPhotosNumberOfSecondsToWaitIntegerKeyString = @"Take delayed
     return doStartTimerBOOL;
 }
 - (BOOL)doStopTimer {
-    BOOL doStopTimerBOOL = NO;
-    if (self.numberOfPhotosTakenInteger > 0) {
-        doStopTimerBOOL = YES;
-    }
-    return doStopTimerBOOL;
+    return YES;
 }
 @end

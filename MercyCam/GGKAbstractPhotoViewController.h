@@ -51,6 +51,7 @@
 // Notify take-photo model.
 - (void)handleUserTappedInCameraView:(UITapGestureRecognizer *)theTapGestureRecognizer;
 // Override.
+// What: Stop capture session. Stop repeating timer. Stop taking photos.
 - (void)handleViewDidDisappearFromUser;
 // Override.
 - (void)handleViewWillAppearToUser;

@@ -20,9 +20,9 @@ extern NSString *GGKDelayedPhotosNumberOfSecondsToWaitIntegerKeyString;
 // Custom accessors.
 @property (assign, nonatomic) NSInteger numberOfSecondsToWaitInteger;
 // Override.
-// If a delay requested, return yes.
+// If a delay requested, return YES.
 - (BOOL)doStartTimer;
 // Override.
-// If first photo taken, return yes.
+// This is called immediately before the first photo is taken, so return YES.
 - (BOOL)doStopTimer;
 @end

@@ -7,11 +7,12 @@
 #import "GGKMercyCamAppDelegate.h"
 
 #import "GGKDelayedPhotosModel.h"
+#import "GGKDelayedSpacedPhotosModel.h"
 #import "GGKInAppPurchaseManager.h"
 #import "GGKLongTermViewController.h"
-#import "GGKModel.h"
+//#import "GGKModel.h"
 #import "GGKSoundModel.h"
-#import "GGKDelayedSpacedPhotosViewController.h"
+//#import "GGKDelayedSpacedPhotosViewController.h"
 //#import "GGKDelayedPhotosViewController.h"
 #import "TestFlight.h"
 
@@ -29,7 +30,7 @@
     [self registerDefaults];
 //    [self handleIfFirstLaunch];
     self.delayedPhotosModel = [[GGKDelayedPhotosModel alloc] init];
-    self.model = [[GGKModel alloc] init];
+//    self.model = [[GGKModel alloc] init];
     self.soundModel = [[GGKSoundModel alloc] init];
     
     GGKInAppPurchaseManager *theInAppPurchaseManager = [[GGKInAppPurchaseManager alloc] init];
@@ -69,7 +70,13 @@
 }
 - (void)registerDefaults {
     NSDictionary *aDefaultsDictionary = @{GGKDelayedPhotosNumberOfPhotosToTakeIntegerKeyString:@3,
-                                          GGKDelayedPhotosNumberOfSecondsToWaitIntegerKeyString:@2};
+                                          GGKDelayedPhotosNumberOfSecondsToWaitIntegerKeyString:@2,
+                                          GGKDelayedSpacedPhotosNumberOfPhotosToTakeIntegerKeyString:@3,
+                                          GGKDelayedSpacedPhotosNumberOfTimeUnitsToDelayIntegerKeyString:@2,
+                                          GGKDelayedSpacedPhotosDelayTimeUnitIntegerKeyString:@(GGKTimeUnitSeconds),
+                                          GGKDelayedSpacedPhotosNumberOfTimeUnitsToSpaceIntegerKeyString:@1,
+                                          GGKDelayedSpacedPhotosSpaceTimeUnitIntegerKeyString:@(GGKTimeUnitMinutes)
+                                          };
     [[NSUserDefaults standardUserDefaults] registerDefaults:aDefaultsDictionary];
 }
 @end

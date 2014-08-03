@@ -33,6 +33,9 @@
 - (void)handleViewDidDisappearFromUser {
     [super handleViewDidDisappearFromUser];
     [self.takePhotoModel stopCaptureSession];
+    [self.takePhotoModel stopOneSecondRepeatingTimer];
+    // Will stop photo taking.
+    self.takePhotoModel.mode = GGKTakePhotoModelModePlanning;
 }
 - (void)handleViewWillAppearToUser {
     [super handleViewWillAppearToUser];

@@ -62,7 +62,7 @@ typedef NS_ENUM(NSInteger, GGKTakePhotoModelFocusAndExposureStatus) {
 // Whether to start the timer.
 // Stub. Returns NO.
 - (BOOL)doStartTimer;
-// Whether to stop the timer.
+// Whether to stop the timer. This is checked after the timer has fired and immediately before a photo will be taken.
 // Stub. Returns YES.
 - (BOOL)doStopTimer;
 // Focus at the given point (in device space). Also lock exposure.
@@ -70,9 +70,9 @@ typedef NS_ENUM(NSInteger, GGKTakePhotoModelFocusAndExposureStatus) {
 // Lock exposure. If the focus is also locked, then notify that both are locked.
 - (void)handleLockRequestedAndExposureIsSteady:(NSTimer *)theTimer;
 // Called after the repeating one-second timer fires.
-// What: Notify delegate. If enough time passed, take photo and, if done, stop timer.
+// What: Notify delegate. If enough time passed, check whether to stop timer but always take a photo.
 - (void)handleOneSecondTimerFired;
-// Notify delegate. If no timer still going and still in shooting mode, then either take another photo or switch out of shooting mode.
+// Notify delegate. Now, we should either wait for the timer, take another photo immediately or switch out of shooting mode.
 - (void)handlePhotoTaken;
 // Either focus at the point or unfocus.
 // Story: User taps on object. Focus and exposure auto-adjust and lock there. User taps again in view. Focus and exposure return to continuous. (If the user taps again before both focus and exposure lock, then the new tap will be the POI and both will relock.)

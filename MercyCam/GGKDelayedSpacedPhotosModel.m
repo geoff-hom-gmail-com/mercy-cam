@@ -66,10 +66,10 @@ NSString *GGKDelayedSpacedPhotosSpaceTimeUnitIntegerKeyString = @"Take advanced 
 }
 - (BOOL)doStopTimer {
     BOOL doStopTimerBOOL = NO;
-    // Whether to stop the timer depends on the number of photos taken and the values for delay and space. If delay and space = 0, timer won't be started. If space > 0, wait until all photos taken. If delay > 0 and space = 0, wait until first photo taken.
-    if (self.numberOfTimeUnitsToSpaceInteger > 0 && (self.numberOfPhotosTakenInteger == self.numberOfPhotosToTakeInteger)) {
+    // Whether to stop the timer depends on the number of photos taken and the values for delay and space. If delay and space = 0, timer won't be started. If space > 0, wait until last photo will be taken. If delay > 0 and space = 0, wait until first photo taken.
+    if (self.numberOfTimeUnitsToSpaceInteger > 0 && (self.numberOfPhotosTakenInteger == self.numberOfPhotosToTakeInteger - 1)) {
         doStopTimerBOOL = YES;
-    } else if (self.numberOfTimeUnitsToDelayInteger > 0 && self.numberOfTimeUnitsToSpaceInteger == 0 && self.numberOfPhotosTakenInteger > 0) {
+    } else if (self.numberOfTimeUnitsToDelayInteger > 0 && self.numberOfTimeUnitsToSpaceInteger == 0 && self.numberOfPhotosTakenInteger == 0) {
         doStopTimerBOOL = YES;
     }
     return doStopTimerBOOL;

@@ -1669,6 +1669,9 @@ Photos</string>
                                 </state>
                                 <connections>
                                     <action selector="playButtonSound" destination="BXz-Hw-S72" eventType="touchDown" id="bOI-YC-qHh"/>
+                                    <segue destination="AbV-MZ-YTc" kind="popover" identifier="ShowSavedPhotos3" popoverAnchorView="bO9-bn-kwy" id="jaF-Zc-HdC">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                    </segue>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Focus mode: Autofocus on center. To focus elsewhere, tap there." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zJv-9o-UTo">
@@ -1698,8 +1701,8 @@ Timer</string>
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="handleCancelTimerTapped" destination="2ll-qK-FHt" eventType="touchUpInside" id="Oq2-b0-4mD"/>
-                                    <action selector="playButtonSound" destination="2ll-qK-FHt" eventType="touchDown" id="cad-gx-ixJ"/>
+                                    <action selector="handleCancelTimerTapped" destination="fx6-eB-Ugt" eventType="touchUpInside" id="Ohn-9E-yZn"/>
+                                    <action selector="playButtonSound" destination="fx6-eB-Ugt" eventType="touchDown" id="REG-AZ-3kh"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1743,7 +1746,7 @@ Timer</string>
                         <outlet property="cameraPreviewView" destination="KC2-e3-9Yf" id="jyx-aA-mpB"/>
                         <outlet property="cameraRollButton" destination="bO9-bn-kwy" id="dUa-dv-ebp"/>
                         <outlet property="cameraRollButtonTopGapPortraitLayoutConstraint" destination="ii4-lI-q8K" id="4UX-ud-oax"/>
-                        <outlet property="cancelTimerButton" destination="WDe-xp-anu" id="1jh-XB-Pim"/>
+                        <outlet property="cancelTimerButton" destination="WDe-xp-anu" id="z6L-tO-ZU3"/>
                         <outlet property="cancelTimerButtonWidthLayoutConstraint" destination="t8Q-6X-EMP" id="unC-Qd-dgV"/>
                         <outlet property="numberOfPhotosTakenLabel" destination="fwv-t7-ZYd" id="mwB-jN-jfF"/>
                         <outlet property="numberOfPhotosToTakeTextField" destination="qgC-ZO-NKV" id="2Pf-JJ-6xY"/>
@@ -2274,6 +2277,6 @@ Photos</string>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="BTA-3R-MJr"/>
-        <segue reference="uhn-gS-RUd"/>
+        <segue reference="jaF-Zc-HdC"/>
     </inferredMetricsTieBreakers>
 </document>

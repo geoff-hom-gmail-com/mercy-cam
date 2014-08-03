@@ -7,6 +7,8 @@
 //
 // Abstract class for taking delayed photos. It should include most of what you need. Subclasses should work by blanking out features rather than adding them, so add new features here. 
 
+// DEPRECATE?
+
 #import "GGKAbstractPhotoViewController.h"
 #import "GGKTimeUnits.h"
 #import "GGKTimeUnitsTableViewController.h"
@@ -131,7 +133,6 @@ extern NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString;
 // Retrieve the timer settings from user defaults.
 // Stub.
 - (void)getSavedTimerSettings;
-
 // Override.
 - (void)handleViewWillAppearToUser;
 // Override.

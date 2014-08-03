@@ -11,14 +11,7 @@
 #import "NSNumber+GGKAdditions.h"
 #import "NSString+GGKAdditions.h"
 
-const NSInteger GGKTakeAdvancedDelayedPhotosDefaultNumberOfPhotosInteger = 5;
-const NSInteger GGKTakeAdvancedDelayedPhotosDefaultNumberOfTimeUnitsBetweenPhotosInteger = 7;
-const NSInteger GGKTakeAdvancedDelayedPhotosDefaultNumberOfTimeUnitsToInitiallyWaitInteger = 10;
-const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitBetweenPhotosTimeUnit = GGKTimeUnitSeconds;
-const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWaitTimeUnit = GGKTimeUnitSeconds;
-
 @implementation GGKDelayedSpacedPhotosViewController
-
 
 //- (void)handleOneSecondTimerFired {
 
@@ -46,6 +39,10 @@ const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWaitTimeU
 //    }
 //}
 
+- (GGKTakePhotoModel *)makeTakePhotoModel {
+    GGKDelayedSpacedPhotosModel *theDelayedSpacedPhotosModel = [[GGKDelayedSpacedPhotosModel alloc] init];
+    return theDelayedSpacedPhotosModel;
+}
 - (void)prepareForSegue:(UIStoryboardSegue *)theSegue sender:(id)theSender {
     if ([theSegue.identifier hasPrefix:@"ShowTimeUnitsSelector"]) {
         // Retain popover controller, to dismiss later.
@@ -66,13 +63,11 @@ const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWaitTimeU
         [super prepareForSegue:theSegue sender:theSender];
     }
 }
-
 - (void)takePhotoModelWillTakePhoto:(id)sender {
     [super takePhotoModelWillTakePhoto:sender];
-    self.numberOfPhotosTakenLabel.text = [NSString stringWithFormat:@"%ld", (long)self.takePhotoModel.numberOfPhotosTakenInteger];
+    self.numberOfPhotosTakenLabel.text = [NSString stringWithFormat:@"%ld", (long)self.takePhotoModel.numberOfPhotosTakenInteger + 1];
     [self.numberOfPhotosTakenLabel setNeedsDisplay];
 }
-
 - (void)textFieldDidEndEditing:(UITextField *)theTextField {
     // Ensure we have a valid value. Update model. Update view.
     NSInteger anOkayInteger;

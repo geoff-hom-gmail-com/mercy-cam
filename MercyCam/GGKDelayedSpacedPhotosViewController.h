@@ -1,7 +1,4 @@
 //
-//  GGKTakeAdvancedDelayedPhotosViewController.h
-//  Mercy Camera
-//
 //  Created by Geoff Hom on 5/6/13.
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
@@ -11,18 +8,6 @@
 
 @class GGKDelayedSpacedPhotosModel;
 
-// The default number of photos to take.
-extern const NSInteger GGKTakeAdvancedDelayedPhotosDefaultNumberOfPhotosInteger;
-// The default number of time units between each photo.
-extern const NSInteger GGKTakeAdvancedDelayedPhotosDefaultNumberOfTimeUnitsBetweenPhotosInteger;
-// The default number of time units to initially wait.
-extern const NSInteger GGKTakeAdvancedDelayedPhotosDefaultNumberOfTimeUnitsToInitiallyWaitInteger;
-// The default time unit to use between each photo.
-extern const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitBetweenPhotosTimeUnit;
-// The default time unit to use for the initial wait.
-extern const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWaitTimeUnit;
-
-
 @interface GGKDelayedSpacedPhotosViewController : GGKAbstractPhotoViewController <GGKTimeUnitsTableViewControllerDelegate, UITextFieldDelegate>
 // Portrait-only constraint. Is set in storyboard to avoid compiler warnings.
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *cameraRollButtonTopGapPortraitLayoutConstraint;
@@ -31,6 +16,7 @@ extern const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWa
 // User taps button. Popover appears. She selects item in popover and sees updated button.
 // Button displaying the popover.
 @property (nonatomic, strong) UIButton *currentPopoverButton;
+// Same instance as in takePhotoModel. This way, we can access the subclass while maintaining type-checking.
 @property (strong, nonatomic) GGKDelayedSpacedPhotosModel *delayedSpacedPhotosModel;
 // User taps trigger button. User sees label appear and increment with each photo taken. User implicitly understands when photos are taken, how many photos remain and how long it will take.
 @property (nonatomic, weak) IBOutlet UILabel *numberOfPhotosTakenLabel;
@@ -61,6 +47,9 @@ extern const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWa
 @property (nonatomic, weak) IBOutlet UILabel *timeUntilNextPhotoLabel;
 // Portrait-only constraint. Is set in storyboard to avoid compiler warnings.
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *timerSettingsViewLeftGapPortraitLayoutConstraint;
+// Override.
+// Make a delayed, spaced-photos model.
+- (GGKTakePhotoModel *)makeTakePhotoModel;
 // Override.
 // Prepare for time-unit selector.
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender;
