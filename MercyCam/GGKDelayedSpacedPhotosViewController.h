@@ -10,7 +10,10 @@
 
 @class GGKDelayedSpacedPhotosModel, GGKLongTermModel;
 
-@interface GGKDelayedSpacedPhotosViewController : GGKAbstractPhotoViewController <GGKLongTermModelDelegate, GGKTimeUnitsTableViewControllerDelegate, UITextFieldDelegate>
+@interface GGKDelayedSpacedPhotosViewController : GGKAbstractPhotoViewController <GGKLongTermModelDelegate, GGKTimeUnitsTableViewControllerDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate>
+// The gesture recognizer for detecting "when the user taps the screen" while allowing those taps through (e.g., on a button). (May not detect taps on the navigation bar or above.)
+// To reset long-term timer.
+@property (nonatomic, strong) UITapGestureRecognizer *anyTapOnScreenGestureRecognizer;
 // Portrait-only constraint. Is set in storyboard to avoid compiler warnings.
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *cameraRollButtonTopGapPortraitLayoutConstraint;
 // Width depends on device orientation/rotation.
@@ -33,6 +36,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *numberOfTimeUnitsToDelayTextField;
 // Number of time units to wait between each photo.
 @property (weak, nonatomic) IBOutlet UITextField *numberOfTimeUnitsToSpaceTextField;
+// A transparent view for detecting "when the user taps the screen" but not letting those taps through.
+// To undo the screen dim.
+@property (nonatomic, strong) UIView *overlayView;
 // In "Wait __, then take __ photo(s)," it's "photo(s)."
 // Story: User sets number of photos. User may see "photo" or "photos."
 @property (weak, nonatomic) IBOutlet UILabel *photosLabel;
@@ -52,12 +58,12 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *timerSettingsViewLeftGapPortraitLayoutConstraint;
 // One of our gesture recognizers is for taps but also allows them through. Allow that recognizer to work with other recognizers (e.g., the tap-to-focus recognizer).
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;
-// If the screen was dimmed (and the camera preview hidden), restore brightness and the preview. Also allow taps through again. Regardless, restart the long-term timer.
-- (void)handleATapOnScreen:(UIGestureRecognizer *)theGestureRecognizer;
-
-// Dim the screen and hide the camera preview. Also, block taps from going through (in case the user accidentally taps Cancel, for example).
+// Restart long-term timer.
+- (void)handleATapOnBrightScreen:(UIGestureRecognizer *)theGestureRecognizer;
+// Undo screen dim. Start new long-term timer.
+- (void)handleATapOnDimScreen:(UIGestureRecognizer *)theGestureRecognizer;
+// Dim the screen. 
 - (void)longTermModelTimerDidFire:(id)sender;
-
 // Override.
 // Make a delayed, spaced-photos model.
 - (GGKTakePhotoModel *)makeTakePhotoModel;
@@ -73,6 +79,8 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField;
 // Set the selected time unit, update UI and dismiss popover.
 - (void)timeUnitsTableViewControllerDidSelectTimeUnit:(id)sender;
+// Restore preview and screen brightness.
+- (void)undoScreenDim;
 // Override.
 - (void)updateLayoutForLandscape;
 // Override.

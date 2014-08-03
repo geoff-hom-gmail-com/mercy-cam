@@ -1,17 +1,14 @@
 //
-//  GGKViewController.h
-//  Mercy Camera
-//
 //  Created by Geoff Hom on 5/8/13.
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-#import "GGKModel.h"
+//#import "GGKModel.h"
 
 @interface GGKViewController : UIViewController
 // Constraints needed only when device in landscape. Stub.
 @property (nonatomic, strong) NSArray *landscapeOnlyLayoutConstraintArray;
-@property (strong, nonatomic) GGKModel *model;
+//@property (strong, nonatomic) GGKModel *model;
 // Constraints needed only when device in portrait. Stub.
 @property (nonatomic, strong) NSArray *portraitOnlyLayoutConstraintArray;
 // Override.

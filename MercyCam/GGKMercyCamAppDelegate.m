@@ -63,8 +63,8 @@
                                           GGKDelayedSpacedPhotosNumberOfTimeUnitsToSpaceIntegerKeyString:@1,
                                           GGKDelayedSpacedPhotosSpaceTimeUnitIntegerKeyString:@(GGKTimeUnitMinutes),
                                           // Long-term.
-                                          GGKLongTermNumberOfTimeUnitsToWaitIntegerKeyString:@2,
-                                          GGKLongTermTimeUnitIntegerKeyString:@(GGKTimeUnitHours)
+                                          GGKLongTermNumberOfTimeUnitsToWaitIntegerKeyString:@15,
+                                          GGKLongTermTimeUnitIntegerKeyString:@(GGKTimeUnitMinutes)
                                           };
     [[NSUserDefaults standardUserDefaults] registerDefaults:aDefaultsDictionary];
 }

@@ -37,8 +37,7 @@
     //    NSLog(@"VC hVATU1");
     [self updateUI];
 }
-- (IBAction)playButtonSound
-{
+- (IBAction)playButtonSound {
     GGKMercyCamAppDelegate *aCamAppDelegate = (GGKMercyCamAppDelegate *)[UIApplication sharedApplication].delegate;
     [aCamAppDelegate.soundModel playButtonTapSound];
 }
@@ -71,9 +70,6 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    GGKMercyCamAppDelegate *theAppDelegate = (GGKMercyCamAppDelegate *)[UIApplication sharedApplication].delegate;
-    self.model = theAppDelegate.model;
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];

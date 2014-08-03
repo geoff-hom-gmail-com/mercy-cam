@@ -16,13 +16,27 @@
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     return YES;
 }
-- (void)handleATapOnScreen:(UIGestureRecognizer *)theGestureRecognizer {
-    if (self.cameraPreviewView.hidden) {
-        self.cameraPreviewView.hidden = NO;
-        [UIScreen mainScreen].brightness = self.longTermModel.previousBrightnessFloat;
-        self.overlayView.hidden = YES;
-    }
+- (void)handleATapOnBrightScreen:(UIGestureRecognizer *)theGestureRecognizer {
+    // Stop previous long-term timer.
+    [self.longTermModel stopTimer];
     [self.longTermModel startTimer];
+}
+- (void)handleATapOnDimScreen:(UIGestureRecognizer *)theGestureRecognizer {
+    [self undoScreenDim];
+    self.overlayView.hidden = YES;
+    [self.longTermModel startTimer];
+    self.anyTapOnScreenGestureRecognizer.enabled = YES;
+}
+- (void)longTermModelTimerDidFire:(id)sender {
+    UIScreen *aScreen = [UIScreen mainScreen];
+    self.longTermModel.previousBrightnessFloat = aScreen.brightness;
+    aScreen.brightness = 0.0;
+    self.cameraPreviewView.hidden = YES;
+    // Stop detecting taps for bright screen. Start detecting taps for dim screen.
+    self.anyTapOnScreenGestureRecognizer.enabled = NO;
+    CGSize theViewSize = self.view.frame.size;
+    self.overlayView.frame = CGRectMake(0, 0, theViewSize.width, theViewSize.height);
+    self.overlayView.hidden = NO;
 }
 - (GGKTakePhotoModel *)makeTakePhotoModel {
     GGKDelayedSpacedPhotosModel *theDelayedSpacedPhotosModel = [[GGKDelayedSpacedPhotosModel alloc] init];
@@ -84,6 +98,10 @@
     }
     [self updateUI];
     [self.currentPopoverController dismissPopoverAnimated:YES];
+}
+- (void)undoScreenDim {
+    self.cameraPreviewView.hidden = NO;
+    [UIScreen mainScreen].brightness = self.longTermModel.previousBrightnessFloat;
 }
 - (void)updateLayoutForLandscape {
     [super updateLayoutForLandscape];
@@ -157,14 +175,12 @@
             aLabel.hidden = YES;
         }
         // Disable long-term dimming.
-        [UIApplication sharedApplication].idleTimerDisabled = NO;
+        if (self.cameraPreviewView.hidden) {
+            [self undoScreenDim];
+        }
         self.anyTapOnScreenGestureRecognizer.enabled = NO;
         [self.longTermModel stopTimer];
-        if (self.cameraPreviewView.hidden) {
-            self.overlayView.hidden = YES;
-            self.cameraPreviewView.hidden = NO;
-            [UIScreen mainScreen].brightness = self.longTermModel.previousBrightnessFloat;
-        }
+        [UIApplication sharedApplication].idleTimerDisabled = NO;
     } else if (self.takePhotoModel.mode == GGKTakePhotoModelModeShooting) {
         for (UIButton *aButton in aTriggerButtonArray) {
             aButton.enabled = NO;
@@ -186,8 +202,8 @@
         // Enable long-term dimming.
         // Detect taps to reset long-term timer but also allow those taps through.
         [UIApplication sharedApplication].idleTimerDisabled = YES;
-        self.anyTapOnScreenGestureRecognizer.enabled = YES;
         [self.longTermModel startTimer];
+        self.anyTapOnScreenGestureRecognizer.enabled = YES;
     }
 }
 - (void)viewDidLoad {
@@ -203,5 +219,19 @@
     // Camera roll's right neighbor: timer-settings view.
     NSArray *anArray2 = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[cameraRollButton]-[timerSettingsView]" options:0 metrics:nil views:aDictionary];
     self.landscapeOnlyLayoutConstraintArray = @[anArray1[0], anArray2[0]];
+    // Add gesture recognizer to reset long-term timer when screen tapped. Disabled for now.
+    UITapGestureRecognizer *aTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleATapOnBrightScreen:)];
+    aTapGestureRecognizer.cancelsTouchesInView = NO;
+    aTapGestureRecognizer.enabled = NO;
+    [self.view addGestureRecognizer:aTapGestureRecognizer];
+    aTapGestureRecognizer.delegate = self;
+    self.anyTapOnScreenGestureRecognizer = aTapGestureRecognizer;
+    // Add overlay view, inactive/hidden for now.
+    UIView *anOverlayView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 2, 2)];
+    aTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleATapOnDimScreen:)];
+    [anOverlayView addGestureRecognizer:aTapGestureRecognizer];
+    anOverlayView.hidden = YES;
+    [self.view addSubview:anOverlayView];
+    self.overlayView = anOverlayView;
 }
 @end

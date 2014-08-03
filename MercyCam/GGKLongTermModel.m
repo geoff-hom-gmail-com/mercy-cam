@@ -31,27 +31,20 @@ NSString *GGKLongTermTimeUnitIntegerKeyString = @"Long-term: Time unit.";
     [[NSUserDefaults standardUserDefaults] setInteger:anInteger forKey:GGKLongTermTimeUnitIntegerKeyString];
 }
 
-- (void)handleTimerFired {
-    UIScreen *aScreen = [UIScreen mainScreen];
-    self.previousBrightnessFloat = aScreen.brightness;
-    aScreen.brightness = 0.0;
-    [self.delegate longTermModelTimerDidFire:self];
-    
-    // do in delegate?
-    self.cameraPreviewView.hidden = YES;
-    self.overlayView.hidden = NO;
+- (void)dealloc {
+    [self stopTimer];
 }
-
+- (void)handleTimerFired {
+    [self.delegate longTermModelTimerDidFire:self];
+}
 - (void)startTimer {
-    // stop any previous timer? is this the place to do this?
-    [self.timer invalidate];
-    self.timer = nil;
-    
-    // For testing.
-    //    self.numberOfSecondsToWaitBeforeDimmingTheScreenInteger = 5;
-    
-    NSTimer *aTimer = [NSTimer scheduledTimerWithTimeInterval:self.numberOfSecondsToWaitBeforeDimmingTheScreenInteger target:self selector:@selector(handleLongTermTimerFired) userInfo:nil repeats:NO];
+    NSInteger theNumberOfSecondsToWaitToDimScreenInteger = self.numberOfTimeUnitsToWaitInteger * [GGKTimeUnits numberOfSecondsInTimeUnit:self.timeUnit];
+//    NSLog(@"LTM secToWaitToDimScreen: %ld", (long)theNumberOfSecondsToWaitToDimScreenInteger);
+    NSTimer *aTimer = [NSTimer scheduledTimerWithTimeInterval:theNumberOfSecondsToWaitToDimScreenInteger target:self selector:@selector(handleTimerFired) userInfo:nil repeats:NO];
     self.timer = aTimer;
 }
-
+- (void)stopTimer {
+    [self.timer invalidate];
+    self.timer = nil;
+}
 @end
