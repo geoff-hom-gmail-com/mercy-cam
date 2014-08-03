@@ -185,12 +185,8 @@
     aCaptureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspect;
     aCaptureVideoPreviewLayer.frame = self.cameraPreviewView.bounds;
     [self.cameraPreviewView.layer addSublayer:aCaptureVideoPreviewLayer];
-    
-    // testing
     GGKTakePhotoModel *theTakePhotoModel = [self makeTakePhotoModel];
     theTakePhotoModel.mode = GGKTakePhotoModelModePlanning;
-//    GGKTakePhotoModel *theTakePhotoModel = [[GGKTakePhotoModel alloc] init];
-    
     theTakePhotoModel.delegate = self;
     [theTakePhotoModel makeCaptureSession];
     aCaptureVideoPreviewLayer.session = theTakePhotoModel.captureSession;
@@ -199,8 +195,4 @@
     // Watch for push onto this VC. If so, capture session will snapshot (undesired).
     self.navigationController.delegate = self;
 }
-
-
-
-
 @end

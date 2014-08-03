@@ -14,21 +14,21 @@
 #import "NSString+GGKAdditions.h"
 #import "GGKUtilities.h"
 
-const NSInteger GGKTakeDelayedPhotosMinimumNumberOfPhotosInteger = 1;
+//const NSInteger GGKTakeDelayedPhotosMinimumNumberOfPhotosInteger = 1;
+//
+//const NSInteger GGKTakeDelayedPhotosMinimumNumberOfTimeUnitsBetweenPhotosInteger = 0;
+//
+//const NSInteger GGKTakeDelayedPhotosMinimumNumberOfTimeUnitsToInitiallyWaitInteger = 0;
 
-const NSInteger GGKTakeDelayedPhotosMinimumNumberOfTimeUnitsBetweenPhotosInteger = 0;
-
-const NSInteger GGKTakeDelayedPhotosMinimumNumberOfTimeUnitsToInitiallyWaitInteger = 0;
-
-NSString *GGKTakeDelayedPhotosNumberOfPhotosToTakeKeyPathString = @"numberOfPhotosToTakeInteger";
-
-NSString *GGKTakeDelayedPhotosNumberOfTimeUnitsBetweenPhotosKeyPathString = @"numberOfTimeUnitsBetweenPhotosInteger";
-
-NSString *GGKTakeDelayedPhotosNumberOfTimeUnitsToInitiallyWaitKeyPathString = @"numberOfTimeUnitsToInitiallyWaitInteger";
-
-NSString *GGKTakeDelayedPhotosTimeUnitBetweenPhotosKeyPathString = @"timeUnitBetweenPhotosTimeUnit";
-
-NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUnitForTheInitialWaitTimeUnit";
+//NSString *GGKTakeDelayedPhotosNumberOfPhotosToTakeKeyPathString = @"numberOfPhotosToTakeInteger";
+//
+//NSString *GGKTakeDelayedPhotosNumberOfTimeUnitsBetweenPhotosKeyPathString = @"numberOfTimeUnitsBetweenPhotosInteger";
+//
+//NSString *GGKTakeDelayedPhotosNumberOfTimeUnitsToInitiallyWaitKeyPathString = @"numberOfTimeUnitsToInitiallyWaitInteger";
+//
+//NSString *GGKTakeDelayedPhotosTimeUnitBetweenPhotosKeyPathString = @"timeUnitBetweenPhotosTimeUnit";
+//
+//NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUnitForTheInitialWaitTimeUnit";
 
 @interface GGKAbstractDelayedPhotosViewController ()
 
@@ -170,28 +170,6 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
 }
 
 
-- (void)prepareForSegue:(UIStoryboardSegue *)theSegue sender:(id)theSender {
-    
-    if ([theSegue.identifier hasPrefix:@"ShowTimeUnitsSelector"]) {
-        
-        // Retain popover controller, to dismiss later.
-        self.currentPopoverController = [(UIStoryboardPopoverSegue *)theSegue popoverController];
-        
-        GGKTimeUnitsTableViewController *aTimeUnitsTableViewController = (GGKTimeUnitsTableViewController *)self.currentPopoverController.contentViewController;
-        aTimeUnitsTableViewController.delegate = self;
-        
-        // Set the current time unit.
-        GGKTimeUnit theCurrentTimeUnit = (theSender == self.timeUnitsToInitiallyWaitButton) ? self.timeUnitForTheInitialWaitTimeUnit : self.timeUnitBetweenPhotosTimeUnit;
-        aTimeUnitsTableViewController.currentTimeUnit = theCurrentTimeUnit;
-        
-        // Note which button was tapped, to update later.
-        self.currentPopoverButton = theSender;
-    } else {
-        
-        [super prepareForSegue:theSegue sender:theSender];
-    }
-}
-
 - (void)startLongTermTimer
 {
 //    NSLog(@"TADPVC: startLongTermTimer");
@@ -233,57 +211,7 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
 //}
 //
 
-- (void)timeUnitsTableViewControllerDidSelectTimeUnit:(id)sender
-{
-    // Store the time unit for the proper setting.
-    
-    GGKTimeUnitsTableViewController *aTimeUnitsTableViewController = (GGKTimeUnitsTableViewController *)sender;
-    GGKTimeUnit theCurrentTimeUnit = aTimeUnitsTableViewController.currentTimeUnit;
-    NSInteger anOkayInteger = theCurrentTimeUnit;
-    
-    NSString *theKey = (self.currentPopoverButton == self.timeUnitsToInitiallyWaitButton) ? self.timeUnitForInitialWaitKeyString : self.timeUnitBetweenPhotosKeyString;
-    
-    // Set the new value, then update the entire UI.
-    [[NSUserDefaults standardUserDefaults] setInteger:anOkayInteger forKey:theKey];
-    [self getSavedTimerSettings];
-    
-    [self.currentPopoverController dismissPopoverAnimated:YES];
-}
 
-- (void)updateTimerLabels {
-    // Countdown label.
-    // Time-to-wait may be 0, in which time passed will be greater.
-    NSInteger theNumberOfSecondsUntilNextPhotoInteger = MAX(self.numberOfTotalSecondsToWaitInteger, self.numberOfSecondsPassedInteger) - self.numberOfSecondsPassedInteger;
-    NSString *aString = [NSDate ggk_dayHourMinuteSecondStringForTimeInterval:theNumberOfSecondsUntilNextPhotoInteger];
-    self.timeRemainingUntilNextPhotoLabel.text = [NSString stringWithFormat:@"Next photo: %@", aString];
-    
-    // Either initial-wait counter or between-photos counter.
-    if (self.numberOfPhotosTakenInteger == 0) {
-        
-        NSString *aString;
-        if (self.timeUnitForTheInitialWaitTimeUnit == GGKTimeUnitSeconds) {
-            
-            aString = [NSString stringWithFormat:@"%ld", (long)self.numberOfSecondsPassedInteger];
-        } else {
-            
-            CGFloat theNumberOfTimeUnitsPassedFloat = [GGKTimeUnits numberOfTimeUnitsInTimeInterval:self.numberOfSecondsPassedInteger timeUnit:self.timeUnitForTheInitialWaitTimeUnit];
-            aString = [NSString stringWithFormat:@"%.1f", theNumberOfTimeUnitsPassedFloat];
-        }
-        self.numberOfTimeUnitsInitiallyWaitedLabel.text = aString;
-    } else {
-        
-        NSString *aString;
-        if (self.timeUnitBetweenPhotosTimeUnit == GGKTimeUnitSeconds) {
-            
-            aString = [NSString stringWithFormat:@"%ld", (long)self.numberOfSecondsPassedInteger];
-        } else {
-            
-            CGFloat theNumberOfTimeUnitsPassedFloat = [GGKTimeUnits numberOfTimeUnitsInTimeInterval:self.numberOfSecondsPassedInteger timeUnit:self.timeUnitBetweenPhotosTimeUnit];
-            aString = [NSString stringWithFormat:@"%.1f", theNumberOfTimeUnitsPassedFloat];
-        }
-        self.numberOfTimeUnitsWaitedBetweenPhotosLabel.text = aString;
-    }
-}
 
 //- (void)updateToAllowStartTimer {
 //    // Undo stuff that allowed long-term dimming.
@@ -301,26 +229,12 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
 //    [self.oneSecondRepeatingTimer invalidate];
 //    self.oneSecondRepeatingTimer = nil;
 //}
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    [GGKUtilities matchFrameOfRotated90View:self.startTimerLeftButton withView:self.startTimerLeftProxyButton];
-    [GGKUtilities matchFrameOfRotated90View:self.startTimerRightButton withView:self.startTimerRightProxyButton];
-}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    self.maximumNumberOfTimeUnitsToInitiallyWaitInteger = 999;
-//    self.maximumNumberOfPhotosInteger = 999;
-//    self.maximumNumberOfTimeUnitsBetweenPhotosInteger = 999;
-
-//    [self updateToAllowStartTimer];
     
-    // Observe changes to the timer settings.
-//    [self addObserver:self forKeyPath:GGKTakeDelayedPhotosNumberOfTimeUnitsToInitiallyWaitKeyPathString options:NSKeyValueObservingOptionNew context:nil];
-//    [self addObserver:self forKeyPath:GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString options:NSKeyValueObservingOptionNew context:nil];
-//    [self addObserver:self forKeyPath:GGKTakeDelayedPhotosNumberOfPhotosToTakeKeyPathString options:NSKeyValueObservingOptionNew context:nil];
-//    [self addObserver:self forKeyPath:GGKTakeDelayedPhotosNumberOfTimeUnitsBetweenPhotosKeyPathString options:NSKeyValueObservingOptionNew context:nil];
-//    [self addObserver:self forKeyPath:GGKTakeDelayedPhotosTimeUnitBetweenPhotosKeyPathString options:NSKeyValueObservingOptionNew context:nil];
     
     // Add a (disabled) gesture recognizer to detect taps while letting them through.
     UITapGestureRecognizer *aTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleATapOnScreen:)];
@@ -337,39 +251,5 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
     anOverlayView.hidden = YES;
     [self.view addSubview:anOverlayView];
     self.overlayView = anOverlayView;
-
-    // Side buttons.
-    UIButton *aButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    aButton.transform = CGAffineTransformMakeRotation(M_PI_2);
-    aButton.titleLabel.font = self.startTimerLeftProxyButton.titleLabel.font;
-    [GGKUtilities matchFrameOfRotated90View:aButton withView:self.startTimerLeftProxyButton];
-    self.startTimerLeftButton = aButton;
-    aButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    aButton.transform = CGAffineTransformMakeRotation(-M_PI_2);
-    aButton.titleLabel.font = self.startTimerRightProxyButton.titleLabel.font;
-    [GGKUtilities matchFrameOfRotated90View:aButton withView:self.startTimerRightProxyButton];
-    self.startTimerRightButton = aButton;
-    NSString *aButtonTitleString = [self.startTimerBottomButton titleForState:UIControlStateNormal];
-    for (UIButton *aButton in @[self.startTimerLeftButton, self.startTimerRightButton]) {
-        aButton.backgroundColor = [UIColor whiteColor];
-        [aButton setTitle:aButtonTitleString forState:UIControlStateNormal];
-        [aButton addTarget:self action:@selector(playButtonSound) forControlEvents:UIControlEventTouchDown];
-//        [aButton addTarget:self action:@selector(startTimer) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:aButton];
-    }
-    self.startTimerLeftProxyButton.hidden = YES;
-    self.startTimerRightProxyButton.hidden = YES;
-    // Corner radii.
-    NSArray *aButtonArray = @[self.startTimerLeftButton, self.startTimerRightButton, self.startTimerBottomButton];
-    for (UIButton *aButton in aButtonArray) {
-        [GGKUtilities addBorderOfColor:[UIColor clearColor] toView:aButton];
-    }
-    self.tipLabel.layer.cornerRadius = 3.0f;
-    self.timerSettingsView.layer.cornerRadius = 3.0f;
-    self.cancelTimerButton.layer.cornerRadius = 5.0f;
-    
-    // Template for subclasses.
-    
-    // Set keys.
 }
 @end

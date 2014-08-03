@@ -40,15 +40,12 @@ extern NSString *GGKLongTermTimeUnitKeyString;
 // How many seconds/minutes/etc. to wait.
 // Could retrieve from user defaults each time, but want flexibility to assign without a key.
 @property (nonatomic, assign) NSInteger numberOfTimeUnitsInteger;
-
 // Number of time units to wait.
 @property (weak, nonatomic) IBOutlet UITextField *numberOfTimeUnitsTextField;
-
 // Story: User taps button. User can select seconds/minutes/hours/days/etc. from a popover. User taps selection and the button is updated.
 // Story: User sets number of time units to 1. User sees singular text for that time unit.
 // The time unit to use to wait.
 @property (weak, nonatomic) IBOutlet UIButton *timeUnitButton;
-
 // The time unit to use (seconds/minutes/etc.) for waiting.
 // Could retrieve from user defaults each time, but want flexibility to assign without a key.
 @property (nonatomic, assign) GGKTimeUnit timeUnit;
@@ -56,7 +53,6 @@ extern NSString *GGKLongTermTimeUnitKeyString;
 - (void)dealloc;
 // Override.
 - (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
-
 // Override.
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender;
 
@@ -74,5 +70,4 @@ extern NSString *GGKLongTermTimeUnitKeyString;
 
 // Override.
 - (void)viewDidLoad;
-
 @end

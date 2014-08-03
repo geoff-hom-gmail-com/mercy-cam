@@ -86,7 +86,6 @@ NSString *ModeKeyPathString = @"mode";
     }
 }
 - (void)handleOneSecondTimerFired {
-    NSLog(@"TPM handleOneSecondTimerFired");
     // Each tick of this timer is 1 sec, so we can use that both to show how much time has passed and to determine if enough time has passed.
     self.numberOfSecondsWaitedInteger++;
     [self.delegate takePhotoModelUpdateTimerDidFire:self];
@@ -100,9 +99,7 @@ NSString *ModeKeyPathString = @"mode";
 }
 - (void)handlePhotoTaken {
     [self.delegate takePhotoModelDidTakePhoto:self];
-    NSLog(@"TPM hPT1");
     if (self.oneSecondRepeatingTimer == nil && self.mode == GGKTakePhotoModelModeShooting) {
-        NSLog(@"TPM hPT2");
         if (self.numberOfPhotosTakenInteger < self.numberOfPhotosToTakeInteger) {
             [self takePhoto];
         } else {
@@ -240,12 +237,10 @@ NSString *ModeKeyPathString = @"mode";
     [self.captureSession stopRunning];
 }
 - (void)stopOneSecondRepeatingTimer {
-    NSLog(@"TPM stopOneSecondRepeatingTimer");
     [self.oneSecondRepeatingTimer invalidate];
     self.oneSecondRepeatingTimer = nil;
 }
 - (void)takePhoto {
-    NSLog(@"TPM takePhoto");
     [self.delegate takePhotoModelWillTakePhoto:self];
     self.numberOfPhotosTakenInteger++;
     AVCaptureStillImageOutput *aCaptureStillImageOutput = (AVCaptureStillImageOutput *)self.captureSession.outputs[0];
