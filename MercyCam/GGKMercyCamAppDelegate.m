@@ -3,43 +3,29 @@
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
 
-// Import order is modeled from http://qualitycoding.org/import-order/.
 #import "GGKMercyCamAppDelegate.h"
 
 #import "GGKDelayedPhotosModel.h"
 #import "GGKDelayedSpacedPhotosModel.h"
+#import "GGKLongTermModel.h"
 #import "GGKInAppPurchaseManager.h"
-#import "GGKLongTermViewController.h"
-//#import "GGKModel.h"
 #import "GGKSoundModel.h"
-//#import "GGKDelayedSpacedPhotosViewController.h"
-//#import "GGKDelayedPhotosViewController.h"
 #import "TestFlight.h"
-
-@interface GGKMercyCamAppDelegate ()
-@end
 
 @implementation GGKMercyCamAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    
     [TestFlight takeOff:@"7fe86397-6095-4614-b633-25e1d5831861"];
-    
     [self registerDefaults];
-//    [self handleIfFirstLaunch];
-    self.delayedPhotosModel = [[GGKDelayedPhotosModel alloc] init];
-//    self.model = [[GGKModel alloc] init];
+//    self.delayedPhotosModel = [[GGKDelayedPhotosModel alloc] init];
     self.soundModel = [[GGKSoundModel alloc] init];
-    
     GGKInAppPurchaseManager *theInAppPurchaseManager = [[GGKInAppPurchaseManager alloc] init];
     [[SKPaymentQueue defaultQueue] addTransactionObserver:theInAppPurchaseManager];
     self.inAppPurchaseManager = theInAppPurchaseManager;
-    
     return YES;
 }
-							
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -75,7 +61,10 @@
                                           GGKDelayedSpacedPhotosNumberOfTimeUnitsToDelayIntegerKeyString:@2,
                                           GGKDelayedSpacedPhotosDelayTimeUnitIntegerKeyString:@(GGKTimeUnitSeconds),
                                           GGKDelayedSpacedPhotosNumberOfTimeUnitsToSpaceIntegerKeyString:@1,
-                                          GGKDelayedSpacedPhotosSpaceTimeUnitIntegerKeyString:@(GGKTimeUnitMinutes)
+                                          GGKDelayedSpacedPhotosSpaceTimeUnitIntegerKeyString:@(GGKTimeUnitMinutes),
+                                          // Long-term.
+                                          GGKLongTermNumberOfTimeUnitsToWaitIntegerKeyString:@2,
+                                          GGKLongTermTimeUnitIntegerKeyString:@(GGKTimeUnitHours)
                                           };
     [[NSUserDefaults standardUserDefaults] registerDefaults:aDefaultsDictionary];
 }

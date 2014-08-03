@@ -6,39 +6,24 @@
 #import "GGKDelayedSpacedPhotosViewController.h"
 
 #import "GGKDelayedSpacedPhotosModel.h"
+#import "GGKLongTermModel.h"
 #import "GGKUtilities.h"
 #import "NSDate+GGKAdditions.h"
 #import "NSNumber+GGKAdditions.h"
 #import "NSString+GGKAdditions.h"
 
 @implementation GGKDelayedSpacedPhotosViewController
-
-//- (void)handleOneSecondTimerFired {
-
-//    // If enough time has passed, take a photo. Then set the counters for waiting between photos.
-//    // Note that using == instead of >= works properly if seconds-to-wait is 0, as it skips taking a photo here (and takes it instead after the capture manager returns).
-//    if (self.numberOfSecondsPassedInteger == self.numberOfTotalSecondsToWaitInteger) {
-//
-//        // If the first photo, then show the photos label and the between-photos label.
-//        if (self.numberOfPhotosTakenInteger == 0) {
-//
-//            self.numberOfPhotosTakenLabel.hidden = NO;
-//            self.numberOfTimeUnitsWaitedBetweenPhotosLabel.hidden = NO;
-//
-//            // The first time the between-photos label is shown, it should show 0. Subsequently, 0 will also be when the between-photos time for the previous photo has passed, and we want to show that value instead. So we'll initialize at 0 here, only.
-//            // If time is in seconds, then we don't need/want decimal precision.
-//            NSString *aString = (self.timeUnitBetweenPhotosTimeUnit == GGKTimeUnitSeconds) ? @"0" : @"0.0";
-//            self.numberOfTimeUnitsWaitedBetweenPhotosLabel.text = aString;
-//        }
-//
-//        self.numberOfSecondsPassedInteger = 0;
-//        self.numberOfTotalSecondsToWaitInteger = self.numberOfTimeUnitsBetweenPhotosInteger * [GGKTimeUnits numberOfSecondsInTimeUnit:self.timeUnitBetweenPhotosTimeUnit];
-//
-//        // We'll take the photo last, in case there's something there that causes significant delay.
-//        [self takePhoto];
-//    }
-//}
-
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
+}
+- (void)handleATapOnScreen:(UIGestureRecognizer *)theGestureRecognizer {
+    if (self.cameraPreviewView.hidden) {
+        self.cameraPreviewView.hidden = NO;
+        [UIScreen mainScreen].brightness = self.longTermModel.previousBrightnessFloat;
+        self.overlayView.hidden = YES;
+    }
+    [self.longTermModel startTimer];
+}
 - (GGKTakePhotoModel *)makeTakePhotoModel {
     GGKDelayedSpacedPhotosModel *theDelayedSpacedPhotosModel = [[GGKDelayedSpacedPhotosModel alloc] init];
     return theDelayedSpacedPhotosModel;
@@ -171,6 +156,15 @@
         for (UILabel *aLabel in aLabelArray) {
             aLabel.hidden = YES;
         }
+        // Disable long-term dimming.
+        [UIApplication sharedApplication].idleTimerDisabled = NO;
+        self.anyTapOnScreenGestureRecognizer.enabled = NO;
+        [self.longTermModel stopTimer];
+        if (self.cameraPreviewView.hidden) {
+            self.overlayView.hidden = YES;
+            self.cameraPreviewView.hidden = NO;
+            [UIScreen mainScreen].brightness = self.longTermModel.previousBrightnessFloat;
+        }
     } else if (self.takePhotoModel.mode == GGKTakePhotoModelModeShooting) {
         for (UIButton *aButton in aTriggerButtonArray) {
             aButton.enabled = NO;
@@ -189,11 +183,18 @@
         self.numberOfPhotosTakenLabel.text = @"0";
         self.numberOfTimeUnitsSpacedLabel.text = @"0";
         self.timeUntilNextPhotoLabel.text = @"Next photo:";
+        // Enable long-term dimming.
+        // Detect taps to reset long-term timer but also allow those taps through.
+        [UIApplication sharedApplication].idleTimerDisabled = YES;
+        self.anyTapOnScreenGestureRecognizer.enabled = YES;
+        [self.longTermModel startTimer];
     }
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.delayedSpacedPhotosModel = (GGKDelayedSpacedPhotosModel *)self.takePhotoModel;
+    self.longTermModel = [[GGKLongTermModel alloc] init];
+    self.longTermModel.delegate = self;
     // Orientation-specific layout constraints.
     self.portraitOnlyLayoutConstraintArray = @[self.cameraRollButtonTopGapPortraitLayoutConstraint, self.timerSettingsViewLeftGapPortraitLayoutConstraint];
     // Camera roll's top neighbor: top layout guide.

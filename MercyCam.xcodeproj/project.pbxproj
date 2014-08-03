@@ -54,6 +54,7 @@
 		93B7765C17192B31009CB475 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93B7765B17192B31009CB475 /* MobileCoreServices.framework */; };
 		93B7765F171B5B24009CB475 /* GGKTakePhotoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B7765E171B5B24009CB475 /* GGKTakePhotoModel.m */; };
 		93B77661171E09E4009CB475 /* GGKAppStoreInfo.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 93B77660171E09E4009CB475 /* GGKAppStoreInfo.rtf */; };
+		93C48D2D198E3730006318DB /* GGKLongTermModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C48D2C198E3730006318DB /* GGKLongTermModel.m */; };
 		93CE01B7173241CF0025ACB4 /* GGKHelpTheCreatorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CE01B6173241CF0025ACB4 /* GGKHelpTheCreatorsViewController.m */; };
 		93CE01BA1733B5D60025ACB4 /* GGKInAppPurchaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CE01B91733B5D50025ACB4 /* GGKInAppPurchaseManager.m */; };
 		93CE01BC1733B8F60025ACB4 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93CE01BB1733B8F60025ACB4 /* StoreKit.framework */; };
@@ -138,6 +139,8 @@
 		93B7765D171B5B24009CB475 /* GGKTakePhotoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKTakePhotoModel.h; sourceTree = "<group>"; };
 		93B7765E171B5B24009CB475 /* GGKTakePhotoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKTakePhotoModel.m; sourceTree = "<group>"; };
 		93B77660171E09E4009CB475 /* GGKAppStoreInfo.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = GGKAppStoreInfo.rtf; sourceTree = "<group>"; };
+		93C48D2B198E3730006318DB /* GGKLongTermModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKLongTermModel.h; sourceTree = "<group>"; };
+		93C48D2C198E3730006318DB /* GGKLongTermModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKLongTermModel.m; sourceTree = "<group>"; };
 		93CE01B5173241CF0025ACB4 /* GGKHelpTheCreatorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKHelpTheCreatorsViewController.h; sourceTree = "<group>"; };
 		93CE01B6173241CF0025ACB4 /* GGKHelpTheCreatorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKHelpTheCreatorsViewController.m; sourceTree = "<group>"; };
 		93CE01B81733B5D50025ACB4 /* GGKInAppPurchaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKInAppPurchaseManager.h; sourceTree = "<group>"; };
@@ -262,6 +265,8 @@
 				93CE01B6173241CF0025ACB4 /* GGKHelpTheCreatorsViewController.m */,
 				93CE01B81733B5D50025ACB4 /* GGKInAppPurchaseManager.h */,
 				93CE01B91733B5D50025ACB4 /* GGKInAppPurchaseManager.m */,
+				93C48D2B198E3730006318DB /* GGKLongTermModel.h */,
+				93C48D2C198E3730006318DB /* GGKLongTermModel.m */,
 				936804A017461F3E00155F07 /* GGKLongTermViewController.h */,
 				936804A117461F3F00155F07 /* GGKLongTermViewController.m */,
 				93306A4D16C1D19A00F22B0A /* GGKMercyCamAppDelegate.h */,
@@ -427,6 +432,7 @@
 				932BEE4B1738D6F4000A15CB /* GGKTimeUnitsTableViewController.m in Sources */,
 				932BEE54173B0F87000A15CB /* NSString+GGKAdditions.m in Sources */,
 				93498F4219695814009A7259 /* GGKModel.m in Sources */,
+				93C48D2D198E3730006318DB /* GGKLongTermModel.m in Sources */,
 				932BEE57173B72D2000A15CB /* GGKViewController.m in Sources */,
 				93DA21DE173C35B700636617 /* GGKAbstractPhotoViewController.m in Sources */,
 				93DA21E1173CB1F800636617 /* GGKAbstractDelayedPhotosViewController.m in Sources */,

@@ -879,7 +879,7 @@ Photos</string>
                                     <action selector="playButtonSound" destination="BXz-Hw-S72" eventType="touchDown" id="ukk-Qo-tsl"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="m6d-Js-1ZA">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="m6d-Js-1ZA">
                                 <rect key="frame" x="8" y="160" width="81" height="600"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -895,7 +895,7 @@ Photos</string>
                                     <action selector="startTimer" destination="2ll-qK-FHt" eventType="touchUpInside" id="LRd-uJ-IAV"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="SpO-Z8-ZOk">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="SpO-Z8-ZOk">
                                 <rect key="frame" x="97" y="716" width="919" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1027,7 +1027,7 @@ Timer</string>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pVo-qf-f4p">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pVo-qf-f4p">
                                 <rect key="frame" x="97" y="183" width="699" height="524"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1735,6 +1735,7 @@ Timer</string>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Delayed, Spaced Photos" id="yj8-fa-Pus">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="D4N-3o-A2C"/>
                         <barButtonItem key="rightBarButtonItem" title="Long-term" id="caU-n3-w4x">
                             <connections>
                                 <segue destination="M04-Ql-l0k" kind="push" identifier="" id="5z5-JX-4Vg"/>
@@ -2195,74 +2196,123 @@ Photos</string>
                     <view key="view" contentMode="scaleToFill" id="O1p-V9-Juq">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <userGuides>
-                            <userLayoutGuide location="43" affinity="minY"/>
-                            <userLayoutGuide location="85" affinity="minY"/>
-                            <userLayoutGuide location="114" affinity="minY"/>
-                        </userGuides>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="of inactivity." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nNV-4u-nOB">
-                                <rect key="frame" x="559" y="50" width="117" height="24"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yki-c2-IhA">
+                                <rect key="frame" x="97" y="20" width="562" height="56"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="999" borderStyle="bezel" placeholder="2" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="epv-J0-nGr">
-                                <rect key="frame" x="387" y="40" width="50" height="44"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="of inactivity." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nNV-4u-nOB">
+                                        <rect key="frame" x="444" y="17" width="110" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="999" borderStyle="bezel" placeholder="2" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="epv-J0-nGr">
+                                        <rect key="frame" x="294" y="6" width="55" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="Jv9-al-oep"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                        <connections>
+                                            <action selector="playButtonSound" destination="M04-Ql-l0k" eventType="touchDown" id="9f8-MQ-2C0"/>
+                                            <outlet property="delegate" destination="M04-Ql-l0k" id="Dyi-0S-SiK"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Stop the camera preview after" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="njs-zc-euY">
+                                        <rect key="frame" x="8" y="17" width="278" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JWQ-2p-NSn">
+                                        <rect key="frame" x="357" y="7" width="79" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="BnU-eY-7ed"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <state key="normal" title="seconds">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="playButtonSound" destination="M04-Ql-l0k" eventType="touchDown" id="cep-8W-WjB"/>
+                                            <segue destination="n0L-k4-fCs" kind="popover" identifier="ShowTimeUnitsSelector3" popoverAnchorView="JWQ-2p-NSn" id="vc6-di-tqf">
+                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                            </segue>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="JWQ-2p-NSn" firstAttribute="leading" secondItem="epv-J0-nGr" secondAttribute="trailing" constant="8" id="D5S-aQ-S6J"/>
+                                    <constraint firstItem="njs-zc-euY" firstAttribute="baseline" secondItem="epv-J0-nGr" secondAttribute="baseline" id="GVU-Xi-4hy"/>
+                                    <constraint firstItem="njs-zc-euY" firstAttribute="leading" secondItem="yki-c2-IhA" secondAttribute="leading" constant="8" id="GVd-eg-b7A"/>
+                                    <constraint firstItem="epv-J0-nGr" firstAttribute="leading" secondItem="njs-zc-euY" secondAttribute="trailing" constant="8" id="NDE-y2-ifv"/>
+                                    <constraint firstItem="nNV-4u-nOB" firstAttribute="leading" secondItem="JWQ-2p-NSn" secondAttribute="trailing" constant="8" id="Zye-5W-yvn"/>
+                                    <constraint firstItem="JWQ-2p-NSn" firstAttribute="baseline" secondItem="epv-J0-nGr" secondAttribute="baseline" id="aFs-Hb-QoS"/>
+                                    <constraint firstItem="epv-J0-nGr" firstAttribute="top" secondItem="yki-c2-IhA" secondAttribute="top" constant="6" id="d2H-fS-7Rl"/>
+                                    <constraint firstAttribute="height" constant="56" id="dYj-di-Sab"/>
+                                    <constraint firstAttribute="bottom" secondItem="epv-J0-nGr" secondAttribute="bottom" constant="6" id="gpc-wV-IsR"/>
+                                    <constraint firstItem="JWQ-2p-NSn" firstAttribute="baseline" secondItem="nNV-4u-nOB" secondAttribute="baseline" id="w8W-ji-hYs"/>
+                                    <constraint firstAttribute="trailing" secondItem="nNV-4u-nOB" secondAttribute="trailing" constant="8" id="wQN-ix-ig6"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MLA-Ts-0te">
+                                <rect key="frame" x="163" y="132" width="443" height="262"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                                <connections>
-                                    <action selector="playButtonSound" destination="M04-Ql-l0k" eventType="touchDown" id="9f8-MQ-2C0"/>
-                                    <outlet property="delegate" destination="M04-Ql-l0k" id="Dyi-0S-SiK"/>
-                                </connections>
-                            </textField>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Stop the camera preview after" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="njs-zc-euY">
-                                <rect key="frame" x="90" y="50" width="289" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JWQ-2p-NSn">
-                                <rect key="frame" x="445" y="40" width="106" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <state key="normal" title="seconds">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="playButtonSound" destination="M04-Ql-l0k" eventType="touchDown" id="cep-8W-WjB"/>
-                                    <segue destination="n0L-k4-fCs" kind="popover" identifier="ShowTimeUnitsSelector3" popoverAnchorView="JWQ-2p-NSn" id="vc6-di-tqf">
-                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                    </segue>
-                                </connections>
-                            </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="422" translatesAutoresizingMaskIntoConstraints="NO" id="QAe-2f-hTw">
-                                <rect key="frame" x="173" y="114" width="422" height="96"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <string key="text">When taking photos, your iPad needs to be on. So, when taking delayed photos, your iPad's auto-lock/sleep timer is disabled, and the screen stays on.</string>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="422" translatesAutoresizingMaskIntoConstraints="NO" id="WN9-n8-2Ng">
-                                <rect key="frame" x="173" y="240" width="422" height="96"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <string key="text">However, to reduce power consumption, the camera preview will stop and the screen will dim after the time above. (To restore the preview, tap the screen.)</string>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="403" translatesAutoresizingMaskIntoConstraints="NO" id="QAe-2f-hTw">
+                                        <rect key="frame" x="20" y="20" width="403" height="96"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="96" id="ZKu-2s-vrI"/>
+                                        </constraints>
+                                        <string key="text">When taking photos, your iPad needs to be on. So when the camera timer starts, your iPad's sleep timer is disabled, and the screen stays on.</string>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="403" translatesAutoresizingMaskIntoConstraints="NO" id="WN9-n8-2Ng">
+                                        <rect key="frame" x="20" y="146" width="403" height="96"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="96" id="Xf8-k3-fgl"/>
+                                        </constraints>
+                                        <string key="text">To use less power while the screen is on, the camera preview will stop and the screen will dim, as set above. To restore the preview at any time, tap the screen.</string>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="QAe-2f-hTw" firstAttribute="leading" secondItem="MLA-Ts-0te" secondAttribute="leading" constant="20" id="G1D-cE-FEs"/>
+                                    <constraint firstItem="QAe-2f-hTw" firstAttribute="width" secondItem="WN9-n8-2Ng" secondAttribute="width" id="Unm-FU-op1"/>
+                                    <constraint firstItem="QAe-2f-hTw" firstAttribute="centerX" secondItem="WN9-n8-2Ng" secondAttribute="centerX" id="apD-dn-kHJ"/>
+                                    <constraint firstItem="QAe-2f-hTw" firstAttribute="top" secondItem="MLA-Ts-0te" secondAttribute="top" constant="20" id="eEp-vO-89P"/>
+                                    <constraint firstItem="WN9-n8-2Ng" firstAttribute="top" secondItem="QAe-2f-hTw" secondAttribute="bottom" constant="30" id="goZ-fn-cUs"/>
+                                    <constraint firstAttribute="centerX" secondItem="QAe-2f-hTw" secondAttribute="centerX" id="iL6-Je-wHL"/>
+                                    <constraint firstAttribute="trailing" secondItem="QAe-2f-hTw" secondAttribute="trailing" constant="20" id="mW7-d5-pPV"/>
+                                    <constraint firstAttribute="bottom" secondItem="WN9-n8-2Ng" secondAttribute="bottom" constant="20" id="spR-QI-vwd"/>
+                                </constraints>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.067454613750000003" blue="0.4239279628" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="MLA-Ts-0te" firstAttribute="top" secondItem="yki-c2-IhA" secondAttribute="bottom" constant="56" id="5os-Fa-Zag"/>
+                            <constraint firstAttribute="centerX" secondItem="yki-c2-IhA" secondAttribute="centerX" constant="5.5" id="fIT-dk-jA5"/>
+                            <constraint firstItem="yki-c2-IhA" firstAttribute="top" secondItem="GTw-kk-ev6" secondAttribute="bottom" constant="20" id="jgJ-k3-X7v"/>
+                            <constraint firstAttribute="centerX" secondItem="MLA-Ts-0te" secondAttribute="centerX" constant="-0.5" id="p8o-aM-aKh"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Long-term" id="Rn2-l0-yNW"/>
                     <connections>
-                        <outlet property="numberOfTimeUnitsTextField" destination="epv-J0-nGr" id="XLL-ip-u7j"/>
+                        <outlet property="explanationView" destination="MLA-Ts-0te" id="drT-rS-kSI"/>
+                        <outlet property="numberOfTimeUnitsToWaitTextField" destination="epv-J0-nGr" id="aq1-e0-tXT"/>
                         <outlet property="timeUnitButton" destination="JWQ-2p-NSn" id="7vs-Qz-lbl"/>
+                        <outlet property="timerSettingsView" destination="yki-c2-IhA" id="9vE-Vi-ok9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Km1-Ip-MaR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2276,7 +2326,7 @@ Photos</string>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="BTA-3R-MJr"/>
         <segue reference="jaF-Zc-HdC"/>
+        <segue reference="vc6-di-tqf"/>
     </inferredMetricsTieBreakers>
 </document>
