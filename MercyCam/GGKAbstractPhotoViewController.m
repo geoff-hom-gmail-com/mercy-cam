@@ -16,16 +16,12 @@
 @implementation GGKAbstractPhotoViewController
 - (void)dealloc {
     // why don't we just call this in the model's dealloc? test?
-    [self.takePhotoModel destroyCaptureSession];
+//    [self.takePhotoModel destroyCaptureSession];
 }
 - (IBAction)handleCancelTimerTapped {
-    // should just relay this to take-photo model. it will switch the mode, which will automatically call updateUI
-    [self stopOneSecondRepeatingTimer];
-    self.model.appMode = GGKAppModePlanning;
-    [self updateUI];
+    [self.takePhotoModel stopOneSecondRepeatingTimer];
+    self.takePhotoModel.mode = GGKTakePhotoModelModePlanning;
 }
-
-
 - (IBAction)handleTriggerButtonTapped:(id)sender {
     [self.takePhotoModel startTrigger];
 }
@@ -91,19 +87,6 @@
         [super prepareForSegue:theSegue sender:theSender];
     }
 }
-
-//- (void)startTimer {
-//    self.takePhotoModel.numberOfSecondsWaitedInteger = 0;
-//    // Start a timer to count seconds.
-//    NSTimer *aTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(handleOneSecondTimerFired) userInfo:nil repeats:YES];
-//    self.takePhotoModel.oneSecondRepeatingTimer = aTimer;
-//}
-
-- (void)stopOneSecondRepeatingTimer {
-    [self.takePhotoModel.oneSecondRepeatingTimer invalidate];
-    self.takePhotoModel.oneSecondRepeatingTimer = nil;
-}
-
 - (void)takePhotoModelDidChangeMode:(id)sender {
     [self updateUI];
 }
@@ -200,6 +183,7 @@
     aCaptureVideoPreviewLayer.frame = self.cameraPreviewView.bounds;
     [self.cameraPreviewView.layer addSublayer:aCaptureVideoPreviewLayer];
     
+    // testing
     GGKTakePhotoModel *theTakePhotoModel = [self makeTakePhotoModel];
     theTakePhotoModel.mode = GGKTakePhotoModelModePlanning;
 //    GGKTakePhotoModel *theTakePhotoModel = [[GGKTakePhotoModel alloc] init];

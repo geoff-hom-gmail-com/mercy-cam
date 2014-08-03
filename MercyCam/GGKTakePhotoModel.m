@@ -24,6 +24,8 @@ NSString *ModeKeyPathString = @"mode";
 }
 
 - (void)dealloc {
+    NSLog(@"TPM dealloc");
+    [self destroyCaptureSession];
     [self removeObserver:self forKeyPath:CaptureDeviceAdjustingExposureKeyPathString];
     [self removeObserver:self forKeyPath:CaptureDeviceFocusModeKeyPathString];
     [self removeObserver:self forKeyPath:FocusAndExposureStatusKeyPathString];

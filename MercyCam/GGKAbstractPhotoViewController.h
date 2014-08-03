@@ -43,17 +43,8 @@
 // Override.
 - (void)dealloc;
 // Called after user taps cancel-timer button.
-// What: Stop repeating timer. Stop taking photos. Change to planning mode.
+// What: Stop repeating timer. Change to planning mode.
 - (IBAction)handleCancelTimerTapped;
-
-// Called after number of seconds waited equals number of seconds to wait.
-// Stub.
-- (void)handleEnoughTimePassedToTakePhoto;
-
-// Called after the repeating one-second timer fires.
-// What: Update timer UI. In subclass, determine whether to take photo and whether to stop timer.
-- (void)handleOneSecondTimerFired;
-
 // Called after user taps a trigger button.
 // What: Start trigger.
 - (IBAction)handleTriggerButtonTapped:(id)sender;
@@ -72,16 +63,6 @@
 // Override.
 // User tapped camera-roll button. User sees thumbnails in popover.
 - (void)prepareForSegue:(UIStoryboardSegue *)theSegue sender:(id)sender;
-
-// Assuming some sort of wait time is requested, this starts a timer to know when to take photos.
-//- (void)startTimer;
-
-// Stops repeating timer.
-- (void)stopOneSecondRepeatingTimer;
-
-// Take a photo. Includes feedback via sound and a flash on the screen.
-//- (void)takePhoto;
-
 // Update UI.
 - (void)takePhotoModelDidChangeMode:(id)sender;
 // Show the most recent photo thumbnail.

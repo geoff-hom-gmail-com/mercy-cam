@@ -121,11 +121,6 @@ extern NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString;
 @property (weak, nonatomic) IBOutlet UIButton *timeUnitsToInitiallyWaitButton;
 // View showing the timer settings.
 @property (weak, nonatomic) IBOutlet UIView *timerSettingsView;
-// Update UI to take photos again.
-- (IBAction)cancelTimer;
-
-// Override.
-- (void)takePhotoModelDidTakePhoto:(id)sender;
 
 // Override.
 - (void)dealloc;
@@ -137,41 +132,16 @@ extern NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString;
 // Stub.
 - (void)getSavedTimerSettings;
 
-// Story: User starts timer and leaves. User returns and glances at the screen for only a second or two. User still gets feedback that the app is running properly.
-// We also use the timer to know when to take photos.
-- (void)handleOneSecondTimerFired;
 // Override.
 - (void)handleViewWillAppearToUser;
 // Override.
-- (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
-
-// Override.
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender;
-
-// Story: User sees UI and knows to wait for photos to be taken, or to tap "Cancel."
-// Update UI to allow canceling. Start timer for updating UI.
-- (IBAction)startTimer;
-
-// Override.
-- (void)takePhoto;
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField;
-// So, note which text field is being edited. (To know whether to shift the screen up when the keyboard shows.)
-
-- (void)textFieldDidEndEditing:(UITextField *)textField;
-// So, if an invalid value was entered, then use the previous value. Also, note that no text field is being edited now.
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField;
-// So, dismiss the keyboard.
-
 - (void)timeUnitsTableViewControllerDidSelectTimeUnit:(id)sender;
 // So, store the selected time unit and dismiss the popover.
 
 // Update the labels showing the timers counting up and down.
 - (void)updateTimerLabels;
 
-// Story: User sees UI and knows she can tap "Start timer."
-- (void)updateToAllowStartTimer;
 // Override.
 // Update things after constraints have been applied. (E.g., rotate buttons.)
 - (void)viewDidLayoutSubviews;

@@ -1,7 +1,4 @@
 //
-//  GGKTakeAdvancedDelayedPhotosViewController.m
-//  Mercy Camera
-//
 //  Created by Geoff Hom on 5/6/13.
 //  Copyright (c) 2013 Geoff Hom. All rights reserved.
 //
@@ -10,6 +7,7 @@
 
 #import "GGKDelayedSpacedPhotosModel.h"
 #import "GGKUtilities.h"
+#import "NSDate+GGKAdditions.h"
 #import "NSNumber+GGKAdditions.h"
 #import "NSString+GGKAdditions.h"
 
@@ -19,42 +17,11 @@ const NSInteger GGKTakeAdvancedDelayedPhotosDefaultNumberOfTimeUnitsToInitiallyW
 const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitBetweenPhotosTimeUnit = GGKTimeUnitSeconds;
 const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWaitTimeUnit = GGKTimeUnitSeconds;
 
-//NSString *GGKTakeAdvancedDelayedPhotosNumberOfPhotosKeyString = @"Take advanced delayed photos: number of photos.";
-//NSString *GGKTakeAdvancedDelayedPhotosNumberOfTimeUnitsBetweenPhotosKeyString = @"Take advanced delayed photos: number of time units between photos.";
-//NSString *GGKTakeAdvancedDelayedPhotosNumberOfTimeUnitsToInitiallyWaitKeyString = @"Take advanced delayed photos: number of time units to initially wait.";
-//NSString *GGKTakeAdvancedDelayedPhotosTimeUnitBetweenPhotosKeyString = @"Take advanced delayed photos: time unit to use between photos.";
-//NSString *GGKTakeAdvancedDelayedPhotosTimeUnitForInitialWaitKeyString = @"Take advanced delayed photos: time unit to use to initially wait.";
-
 @implementation GGKDelayedSpacedPhotosViewController
 
-// Override.
-- (NSInteger)numberOfSecondsToWaitInteger {
-    // well, if photos taken = 0, this is delay seconds
-    // else, it's the space time
-    return self.delayedPhotosModel.numberOfSecondsToWaitInteger;
-}
-
-- (void)handleOneSecondTimerFired {
-    
-    NSInteger theNumberOfSecondsWaitedInteger = self.takePhotoModel.numberOfSecondsWaitedInteger;
-    NSInteger theNumberOfSecondsToWaitInteger;
-//    theNumberOfSecondsToWaitInteger = self.delayedPhotosModel.numberOfSecondsToWaitInteger
-    //    theNumberOfSecondsToWaitInteger = self.takePhotosModel.numberOfSecondsToWaitInteger
-    theNumberOfSecondsToWaitInteger = // either delay time or space time
-    if (theNumberOfSecondsWaitedInteger == theNumberOfSecondsToWaitInteger) {
-        <#statements#>
-    }
-    //
-    
-    NSInteger theNumberOfSecondsWaitedInteger = self.takePhotoModel.numberOfSecondsWaitedInteger;
-    self.numberOfSecondsWaitedLabel.text = [NSString stringWithFormat:@"%ld", (long)theNumberOfSecondsWaitedInteger];
-    [self.numberOfSecondsWaitedLabel setNeedsDisplay];
-    }
-}
 
 //- (void)handleOneSecondTimerFired {
-//    self.numberOfSecondsPassedInteger += 1;
-//    [self updateTimerLabels];
+
 //    // If enough time has passed, take a photo. Then set the counters for waiting between photos.
 //    // Note that using == instead of >= works properly if seconds-to-wait is 0, as it skips taking a photo here (and takes it instead after the capture manager returns).
 //    if (self.numberOfSecondsPassedInteger == self.numberOfTotalSecondsToWaitInteger) {
@@ -97,16 +64,6 @@ const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWaitTimeU
         self.currentPopoverButton = theSender;
     } else {
         [super prepareForSegue:theSegue sender:theSender];
-    }
-}
-- (void)takePhotoModelDidTakePhoto:(id)sender {
-    [super takePhotoModelDidTakePhoto:sender];
-    // If all photos taken, stop. Else, if still in shooting mode, take another photo. So, we can stop photo taking by changing the mode.
-    if (self.takePhotoModel.numberOfPhotosTakenInteger >= self.delayedSpacedPhotosModel.numberOfPhotosToTakeInteger) {
-        self.model.appMode = GGKAppModePlanning;
-        [self updateUI];
-    } else if (self.model.appMode == GGKAppModeShooting) {
-        [self takePhoto];
     }
 }
 
@@ -182,7 +139,7 @@ const GGKTimeUnit GGKTakeAdvancedDelayedPhotosDefaultTimeUnitForInitialWaitTimeU
     // Countdown label.
     // Time-to-wait may be 0, in which time passed will be greater.
     NSInteger theNumberOfSecondsUntilNextPhotoInteger = MAX([self.takePhotoModel numberOfSecondsToWaitInteger], self.takePhotoModel.numberOfSecondsWaitedInteger) - self.takePhotoModel.numberOfSecondsWaitedInteger;
-    NSString *aString = [NSDate ggk_dayHourMinuteSecondStringForTimeInterval:theNumberOfSecondsUntilNextPhotoInteger];
+    aString = [NSDate ggk_dayHourMinuteSecondStringForTimeInterval:theNumberOfSecondsUntilNextPhotoInteger];
     self.timeUntilNextPhotoLabel.text = [NSString stringWithFormat:@"Next photo: %@", aString];
 }
 - (void)updateUI {

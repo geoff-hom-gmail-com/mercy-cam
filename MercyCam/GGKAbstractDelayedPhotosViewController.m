@@ -86,15 +86,8 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
 
 @implementation GGKAbstractDelayedPhotosViewController
 
-//- (IBAction)cancelTimer {
-//    [self updateToAllowStartTimer];
-//}
+
 //- (void)captureManagerDidTakePhoto:(id)sender {
-//    [super captureManagerDidTakePhoto:sender];
-//    // If all photos taken, stop.
-//    // Else, if the wait time between photos is 0, then take another photo right away.
-//    if (self.numberOfPhotosTakenInteger >= self.numberOfPhotosToTakeInteger) {
-//        [self updateToAllowStartTimer];
 //    } else if (self.numberOfTotalSecondsToWaitInteger == 0 && [self.oneSecondRepeatingTimer isValid]) {
 //        [self takePhoto];
 //    }
@@ -176,32 +169,6 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
 //    [self getSavedTimerSettings];
 }
 
-- (void)observeValueForKeyPath:(NSString *)theKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-//    } else if ([theKeyPath isEqualToString:GGKTakeDelayedPhotosNumberOfTimeUnitsToInitiallyWaitKeyPathString]) {
-//        
-//        self.numberOfTimeUnitsToInitiallyWaitTextField.text = [NSString stringWithFormat:@"%ld", (long)self.numberOfTimeUnitsToInitiallyWaitInteger];
-//    } else if ([theKeyPath isEqualToString:GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString]) {
-//        
-//        [GGKTimeUnits setTitleForButton:self.timeUnitsToInitiallyWaitButton withTimeUnit:self.timeUnitForTheInitialWaitTimeUnit ofPlurality:self.numberOfTimeUnitsToInitiallyWaitInteger];
-//        
-//    } else if ([theKeyPath isEqualToString:GGKTakeDelayedPhotosNumberOfPhotosToTakeKeyPathString]) {
-//        
-//        self.numberOfPhotosToTakeTextField.text = [NSString stringWithFormat:@"%ld", (long)self.numberOfPhotosToTakeInteger];
-//        
-//        // "photo(s)."
-//        NSString *aPhotosString = [@"photos" ggk_stringPerhapsWithoutS:self.numberOfPhotosToTakeInteger];
-//        self.afterNumberOfPhotosTextFieldLabel.text = [NSString stringWithFormat:@"%@ with", aPhotosString];
-//    } else if ([theKeyPath isEqualToString:GGKTakeDelayedPhotosNumberOfTimeUnitsBetweenPhotosKeyPathString]) {
-//        
-//        self.numberOfTimeUnitsBetweenPhotosTextField.text = [NSString stringWithFormat:@"%ld", (long)self.numberOfTimeUnitsBetweenPhotosInteger];
-    if ([theKeyPath isEqualToString:GGKTakeDelayedPhotosTimeUnitBetweenPhotosKeyPathString]) {
-        
-        [GGKTimeUnits setTitleForButton:self.timeUnitsBetweenPhotosButton withTimeUnit:self.timeUnitBetweenPhotosTimeUnit ofPlurality:self.numberOfTimeUnitsBetweenPhotosInteger];
-    } else {
-        
-        [super observeValueForKeyPath:theKeyPath ofObject:object change:change context:context];
-    }
-}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)theSegue sender:(id)theSender {
     
@@ -240,20 +207,7 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
 }
 
 //- (IBAction)startTimer {
-//    // Update UI.
-//    // switch mode to timer mode
-//    // call updateUI
-//    
-//    // show timer labels
-//    
-//    self.startTimerBottomButton.enabled = NO;
-//    self.cancelTimerButton.enabled = YES;
-//    
-//    self.numberOfTimeUnitsToInitiallyWaitTextField.enabled = NO;
-//    self.timeUnitsToInitiallyWaitButton.enabled = NO;
-//    self.numberOfPhotosToTakeTextField.enabled = NO;
-//    self.numberOfTimeUnitsBetweenPhotosTextField.enabled = NO;
-//    self.timeUnitsBetweenPhotosButton.enabled = NO;
+//
 //    
 //    // Show initial-wait label. If time is in seconds, then we don't need/want decimal precision.
 //    NSString *aString = (self.timeUnitForTheInitialWaitTimeUnit == GGKTimeUnitSeconds) ? @"0" : @"0.0";
@@ -275,58 +229,9 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
 //    [UIApplication sharedApplication].idleTimerDisabled = YES;
 //    self.anyTapOnScreenGestureRecognizer.enabled = YES;
 //    [self startLongTermTimer];
-//    
-//    // Start the photo timer.
-//    NSTimer *aTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(handleOneSecondTimerFired) userInfo:nil repeats:YES];
-//    self.oneSecondRepeatingTimer = aTimer;
-//}
-
-//- (void)takePhoto {
-//    self.numberOfPhotosTakenInteger += 1;
-//    self.numberOfPhotosTakenLabel.text = [NSString stringWithFormat:@"%ld", (long)self.numberOfPhotosTakenInteger];
-//    [super takePhoto];
-//}
-
-//- (void)textFieldDidBeginEditing:(UITextField *)theTextField
-//{    
-//    self.activeTextField = theTextField;
+//
 //}
 //
-//- (void)textFieldDidEndEditing:(UITextField *)theTextField
-//{    
-//    self.activeTextField = nil;
-//    
-//    // Behavior depends on which text field was edited.
-//    // Check the entered value. If not okay, set to an appropriate value. Store the value.
-//    
-//    NSInteger anOkayInteger = -1;
-//    NSString *theKey;
-//    
-//    NSInteger theCurrentInteger = [theTextField.text integerValue];
-//    if (theTextField == self.numberOfTimeUnitsToInitiallyWaitTextField) {
-//        
-//        anOkayInteger = [NSNumber ggk_integerBoundedByRange:theCurrentInteger minimum:GGKTakeDelayedPhotosMinimumNumberOfTimeUnitsToInitiallyWaitInteger maximum:self.maximumNumberOfTimeUnitsToInitiallyWaitInteger];
-//        theKey = self.numberOfTimeUnitsToInitiallyWaitKeyString;
-//    } else if (theTextField == self.numberOfPhotosToTakeTextField) {
-//        
-//        anOkayInteger = [NSNumber ggk_integerBoundedByRange:theCurrentInteger minimum:GGKTakeDelayedPhotosMinimumNumberOfPhotosInteger maximum:self.maximumNumberOfPhotosInteger];
-//        theKey = self.numberOfPhotosToTakeKeyString;
-//    } else if (theTextField == self.numberOfTimeUnitsBetweenPhotosTextField) {
-//        
-//        anOkayInteger = [NSNumber ggk_integerBoundedByRange:theCurrentInteger minimum:GGKTakeDelayedPhotosMinimumNumberOfTimeUnitsBetweenPhotosInteger maximum:self.maximumNumberOfTimeUnitsBetweenPhotosInteger];
-//        theKey = self.numberOfTimeUnitsBetweenPhotosKeyString;
-//    }
-//    
-//    // Set the new value, then update.
-//    [[NSUserDefaults standardUserDefaults] setInteger:anOkayInteger forKey:theKey];
-//    [self getSavedTimerSettings];
-//}
-//
-//- (BOOL)textFieldShouldReturn:(UITextField *)textField
-//{
-//    [textField resignFirstResponder];
-//    return YES;
-//}
 
 - (void)timeUnitsTableViewControllerDidSelectTimeUnit:(id)sender
 {
@@ -392,20 +297,6 @@ NSString *GGKTakeDelayedPhotosTimeUnitForTheInitialWaitKeyPathString = @"timeUni
 //        self.cameraPreviewView.hidden = NO;
 //        [UIScreen mainScreen].brightness = self.previousBrightnessFloat;
 //    }
-//    
-//    self.startTimerBottomButton.enabled = YES;
-//    self.cancelTimerButton.enabled = NO;
-//    
-//    self.numberOfTimeUnitsToInitiallyWaitTextField.enabled = YES;
-//    self.timeUnitsToInitiallyWaitButton.enabled = YES;
-//    self.numberOfPhotosToTakeTextField.enabled = YES;
-//    self.numberOfTimeUnitsBetweenPhotosTextField.enabled = YES;
-//    self.timeUnitsBetweenPhotosButton.enabled = YES;
-//    
-//    self.numberOfTimeUnitsInitiallyWaitedLabel.hidden = YES;
-//    self.numberOfPhotosTakenLabel.hidden = YES;
-//    self.numberOfTimeUnitsWaitedBetweenPhotosLabel.hidden = YES;
-//    self.timeRemainingUntilNextPhotoLabel.hidden = YES;
 //    
 //    [self.oneSecondRepeatingTimer invalidate];
 //    self.oneSecondRepeatingTimer = nil;
