@@ -11,14 +11,6 @@
 		931DA8F418AF68540005AD44 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 931DA8EE18AF68540005AD44 /* libTestFlight.a */; };
 		931DA8F518AF68540005AD44 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 931DA8EF18AF68540005AD44 /* README.md */; };
 		931DA8F618AF68540005AD44 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 931DA8F018AF68540005AD44 /* release_notes.md */; };
-		932BEE3E17378226000A15CB /* icon-29px.png in Resources */ = {isa = PBXBuildFile; fileRef = 932BEE3617378226000A15CB /* icon-29px.png */; };
-		932BEE3F17378226000A15CB /* icon-29px@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 932BEE3717378226000A15CB /* icon-29px@2x.png */; };
-		932BEE4017378226000A15CB /* icon-50px.png in Resources */ = {isa = PBXBuildFile; fileRef = 932BEE3817378226000A15CB /* icon-50px.png */; };
-		932BEE4117378226000A15CB /* icon-50px@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 932BEE3917378226000A15CB /* icon-50px@2x.png */; };
-		932BEE4217378226000A15CB /* icon-57px.png in Resources */ = {isa = PBXBuildFile; fileRef = 932BEE3A17378226000A15CB /* icon-57px.png */; };
-		932BEE4317378226000A15CB /* icon-57px@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 932BEE3B17378226000A15CB /* icon-57px@2x.png */; };
-		932BEE4417378226000A15CB /* icon-72px.png in Resources */ = {isa = PBXBuildFile; fileRef = 932BEE3C17378226000A15CB /* icon-72px.png */; };
-		932BEE4517378226000A15CB /* icon-72px@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 932BEE3D17378226000A15CB /* icon-72px@2x.png */; };
 		932BEE4817379F21000A15CB /* GGKDelayedSpacedPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 932BEE4717379F21000A15CB /* GGKDelayedSpacedPhotosViewController.m */; };
 		932BEE4B1738D6F4000A15CB /* GGKTimeUnitsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 932BEE4A1738D6F4000A15CB /* GGKTimeUnitsTableViewController.m */; };
 		932BEE54173B0F87000A15CB /* NSString+GGKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 932BEE53173B0F87000A15CB /* NSString+GGKAdditions.m */; };
@@ -30,9 +22,6 @@
 		93306A4916C1D19A00F22B0A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 93306A4716C1D19A00F22B0A /* InfoPlist.strings */; };
 		93306A4B16C1D19A00F22B0A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93306A4A16C1D19A00F22B0A /* main.m */; };
 		93306A4F16C1D19A00F22B0A /* GGKMercyCamAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93306A4E16C1D19A00F22B0A /* GGKMercyCamAppDelegate.m */; };
-		93306A5116C1D19A00F22B0A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 93306A5016C1D19A00F22B0A /* Default.png */; };
-		93306A5316C1D19A00F22B0A /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93306A5216C1D19A00F22B0A /* Default@2x.png */; };
-		93306A5516C1D19A00F22B0A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93306A5416C1D19A00F22B0A /* Default-568h@2x.png */; };
 		93306A5816C1D19A00F22B0A /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93306A5616C1D19A00F22B0A /* MainStoryboard_iPhone.storyboard */; };
 		93306A5B16C1D19A00F22B0A /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93306A5916C1D19A00F22B0A /* MainStoryboard_iPad.storyboard */; };
 		93306A5E16C1D19A00F22B0A /* GGKMercyCamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93306A5D16C1D19A00F22B0A /* GGKMercyCamViewController.m */; };
@@ -41,6 +30,7 @@
 		93306A7416CBD6CA00F22B0A /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93306A7316CBD6CA00F22B0A /* AssetsLibrary.framework */; };
 		9343AE2C1743618F000D241E /* UIView+GGKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9343AE2B1743618F000D241E /* UIView+GGKAdditions.m */; };
 		9343AE2F17436BE6000D241E /* NSAttributedString+GGKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9343AE2E17436BE6000D241E /* NSAttributedString+GGKAdditions.m */; };
+		93455EBA198F190E006A4237 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93455EB9198F190E006A4237 /* Images.xcassets */; };
 		93471CB51718843800E20F65 /* GGKSoundModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 93471CB41718843800E20F65 /* GGKSoundModel.m */; };
 		936804A217461F3F00155F07 /* GGKLongTermViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 936804A117461F3F00155F07 /* GGKLongTermViewController.m */; };
 		937A1E271752089F00951401 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 937A1E261752089F00951401 /* libz.dylib */; };
@@ -73,14 +63,6 @@
 		931DA8F118AF68540005AD44 /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
 		931DA8F218AF68540005AD44 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
 		931DA8F318AF68540005AD44 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
-		932BEE3617378226000A15CB /* icon-29px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-29px.png"; path = "icons/icon-29px.png"; sourceTree = "<group>"; };
-		932BEE3717378226000A15CB /* icon-29px@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-29px@2x.png"; path = "icons/icon-29px@2x.png"; sourceTree = "<group>"; };
-		932BEE3817378226000A15CB /* icon-50px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-50px.png"; path = "icons/icon-50px.png"; sourceTree = "<group>"; };
-		932BEE3917378226000A15CB /* icon-50px@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-50px@2x.png"; path = "icons/icon-50px@2x.png"; sourceTree = "<group>"; };
-		932BEE3A17378226000A15CB /* icon-57px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-57px.png"; path = "icons/icon-57px.png"; sourceTree = "<group>"; };
-		932BEE3B17378226000A15CB /* icon-57px@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-57px@2x.png"; path = "icons/icon-57px@2x.png"; sourceTree = "<group>"; };
-		932BEE3C17378226000A15CB /* icon-72px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-72px.png"; path = "icons/icon-72px.png"; sourceTree = "<group>"; };
-		932BEE3D17378226000A15CB /* icon-72px@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-72px@2x.png"; path = "icons/icon-72px@2x.png"; sourceTree = "<group>"; };
 		932BEE4617379F21000A15CB /* GGKDelayedSpacedPhotosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKDelayedSpacedPhotosViewController.h; sourceTree = "<group>"; };
 		932BEE4717379F21000A15CB /* GGKDelayedSpacedPhotosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKDelayedSpacedPhotosViewController.m; sourceTree = "<group>"; };
 		932BEE491738D6F4000A15CB /* GGKTimeUnitsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKTimeUnitsTableViewController.h; sourceTree = "<group>"; };
@@ -101,9 +83,6 @@
 		93306A4C16C1D19A00F22B0A /* GGKMercyCam-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GGKMercyCam-Prefix.pch"; sourceTree = "<group>"; };
 		93306A4D16C1D19A00F22B0A /* GGKMercyCamAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GGKMercyCamAppDelegate.h; sourceTree = "<group>"; };
 		93306A4E16C1D19A00F22B0A /* GGKMercyCamAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GGKMercyCamAppDelegate.m; sourceTree = "<group>"; };
-		93306A5016C1D19A00F22B0A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		93306A5216C1D19A00F22B0A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		93306A5416C1D19A00F22B0A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		93306A5716C1D19A00F22B0A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		93306A5A16C1D19A00F22B0A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		93306A5C16C1D19A00F22B0A /* GGKMercyCamViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GGKMercyCamViewController.h; sourceTree = "<group>"; };
@@ -116,6 +95,7 @@
 		9343AE2B1743618F000D241E /* UIView+GGKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+GGKAdditions.m"; sourceTree = "<group>"; };
 		9343AE2D17436BE5000D241E /* NSAttributedString+GGKAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+GGKAdditions.h"; sourceTree = "<group>"; };
 		9343AE2E17436BE6000D241E /* NSAttributedString+GGKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+GGKAdditions.m"; sourceTree = "<group>"; };
+		93455EB9198F190E006A4237 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		93471CB31718843800E20F65 /* GGKSoundModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKSoundModel.h; sourceTree = "<group>"; };
 		93471CB41718843800E20F65 /* GGKSoundModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKSoundModel.m; sourceTree = "<group>"; };
 		936804A017461F3E00155F07 /* GGKLongTermViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKLongTermViewController.h; sourceTree = "<group>"; };
@@ -188,21 +168,6 @@
 				931DA8F318AF68540005AD44 /* TestFlight.h */,
 			);
 			path = TestFlightSDK2;
-			sourceTree = "<group>";
-		};
-		932BEE3517378216000A15CB /* icons */ = {
-			isa = PBXGroup;
-			children = (
-				932BEE3617378226000A15CB /* icon-29px.png */,
-				932BEE3717378226000A15CB /* icon-29px@2x.png */,
-				932BEE3817378226000A15CB /* icon-50px.png */,
-				932BEE3917378226000A15CB /* icon-50px@2x.png */,
-				932BEE3A17378226000A15CB /* icon-57px.png */,
-				932BEE3B17378226000A15CB /* icon-57px@2x.png */,
-				932BEE3C17378226000A15CB /* icon-72px.png */,
-				932BEE3D17378226000A15CB /* icon-72px@2x.png */,
-			);
-			name = icons;
 			sourceTree = "<group>";
 		};
 		93306A3216C1D19A00F22B0A = {
@@ -303,14 +268,11 @@
 		93306A4516C1D19A00F22B0A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				932BEE3517378216000A15CB /* icons */,
-				93306A5016C1D19A00F22B0A /* Default.png */,
-				93306A5216C1D19A00F22B0A /* Default@2x.png */,
-				93306A5416C1D19A00F22B0A /* Default-568h@2x.png */,
 				93B77660171E09E4009CB475 /* GGKAppStoreInfo.rtf */,
 				93306A4616C1D19A00F22B0A /* GGKMercyCam-Info.plist */,
 				93306A4C16C1D19A00F22B0A /* GGKMercyCam-Prefix.pch */,
 				931458FA1751DF8200683821 /* GGKUserStories.rtf */,
+				93455EB9198F190E006A4237 /* Images.xcassets */,
 				93306A4716C1D19A00F22B0A /* InfoPlist.strings */,
 				93306A4A16C1D19A00F22B0A /* main.m */,
 				93B776551718897C009CB475 /* sounds */,
@@ -379,23 +341,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				93306A4916C1D19A00F22B0A /* InfoPlist.strings in Resources */,
-				93306A5116C1D19A00F22B0A /* Default.png in Resources */,
+				93455EBA198F190E006A4237 /* Images.xcassets in Resources */,
 				931DA8F618AF68540005AD44 /* release_notes.md in Resources */,
-				93306A5316C1D19A00F22B0A /* Default@2x.png in Resources */,
-				93306A5516C1D19A00F22B0A /* Default-568h@2x.png in Resources */,
 				93306A5816C1D19A00F22B0A /* MainStoryboard_iPhone.storyboard in Resources */,
 				93306A5B16C1D19A00F22B0A /* MainStoryboard_iPad.storyboard in Resources */,
 				931DA8F518AF68540005AD44 /* README.md in Resources */,
 				93B776571718899E009CB475 /* tap.aif in Resources */,
 				93B77661171E09E4009CB475 /* GGKAppStoreInfo.rtf in Resources */,
-				932BEE3E17378226000A15CB /* icon-29px.png in Resources */,
-				932BEE3F17378226000A15CB /* icon-29px@2x.png in Resources */,
-				932BEE4017378226000A15CB /* icon-50px.png in Resources */,
-				932BEE4117378226000A15CB /* icon-50px@2x.png in Resources */,
-				932BEE4217378226000A15CB /* icon-57px.png in Resources */,
-				932BEE4317378226000A15CB /* icon-57px@2x.png in Resources */,
-				932BEE4417378226000A15CB /* icon-72px.png in Resources */,
-				932BEE4517378226000A15CB /* icon-72px@2x.png in Resources */,
 				931458FB1751DF8200683821 /* GGKUserStories.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -527,6 +479,8 @@
 		93306A6216C1D19A00F22B0A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MercyCam/GGKMercyCam-Prefix.pch";
@@ -544,6 +498,8 @@
 		93306A6316C1D19A00F22B0A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MercyCam/GGKMercyCam-Prefix.pch";

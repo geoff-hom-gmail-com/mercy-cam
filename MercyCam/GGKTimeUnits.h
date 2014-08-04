@@ -9,22 +9,19 @@
 #import <Foundation/Foundation.h>
 
 // The currently selected time unit.
-typedef enum {
+typedef NS_ENUM(NSInteger, GGKTimeUnit) {
     GGKTimeUnitSeconds,
     GGKTimeUnitMinutes,
     GGKTimeUnitHours,
     GGKTimeUnitDays
-} GGKTimeUnit;
+};
 
 // String corresponding to the time unit for days.
 extern NSString *GGKTimeUnitDaysString;
-
 // String corresponding to the time unit for hours.
 extern NSString *GGKTimeUnitHoursString;
-
 // String corresponding to the time unit for minutes.
 extern NSString *GGKTimeUnitMinutesString;
-
 // String corresponding to the time unit for seconds.
 extern NSString *GGKTimeUnitSecondsString;
 
