@@ -1072,7 +1072,7 @@ Timer</string>
             </objects>
             <point key="canvasLocation" x="2621" y="1059"/>
         </scene>
-        <!--Help The Creators View Controller - Mercy Cam: Help the creators-->
+        <!--Help The Creators View Controller - Rate/Donate/Contact-->
         <scene sceneID="NNi-QC-1Ab">
             <objects>
                 <viewController id="wMX-Uo-2b2" customClass="GGKHelpTheCreatorsViewController" sceneMemberID="viewController">
@@ -1083,133 +1083,88 @@ Timer</string>
                     <view key="view" contentMode="scaleToFill" id="2Zi-cq-rcj">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <userGuides>
-                            <userLayoutGuide location="168" affinity="minY"/>
-                            <userLayoutGuide location="246" affinity="minY"/>
-                            <userLayoutGuide location="379" affinity="minX"/>
-                            <userLayoutGuide location="434" affinity="minX"/>
-                            <userLayoutGuide location="411" affinity="minX"/>
-                        </userGuides>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="&lt;deprecate>" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ttl-IO-k0U">
-                                <rect key="frame" x="153" y="40" width="463" height="24"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RFz-JF-9Lp">
+                                <rect key="frame" x="20" y="84" width="728" height="166"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Below are 3 ways you can help: &quot;Rate us,&quot; &quot;Donate,&quot; and &quot;Give feedback.&quot;" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="421" translatesAutoresizingMaskIntoConstraints="NO" id="SLP-hg-chB">
-                                <rect key="frame" x="20" y="196" width="421" height="48"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Donate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ufd-TD-vyq">
+                                        <rect key="frame" x="20" y="8" width="74" height="28"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="305" translatesAutoresizingMaskIntoConstraints="NO" id="jOp-nn-QKx">
+                                        <rect key="frame" x="20" y="44" width="305" height="48"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <string key="text">If you like MercyCam, please give! 
+Each time, you'll see a star below.</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fGS-Sh-p3Z">
+                                        <rect key="frame" x="543" y="46" width="125" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="125" id="1W2-F0-nPb"/>
+                                            <constraint firstAttribute="height" constant="44" id="pnz-kb-Rt5"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="Give $0.97">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="giveADollar" destination="wMX-Uo-2b2" eventType="touchUpInside" id="eY2-M8-FfM"/>
+                                            <action selector="playButtonSound" destination="wMX-Uo-2b2" eventType="touchDown" id="6UG-qR-mLV"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="⭐⭐⭐⭐(No stars yet.)" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c6F-zQ-2vK">
+                                        <rect key="frame" x="20" y="100" width="688" height="58"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="AppleColorEmoji" family="Apple Color Emoji" pointSize="44"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="c6F-zQ-2vK" secondAttribute="bottom" constant="8" id="2R5-xp-IFz"/>
+                                    <constraint firstItem="Ufd-TD-vyq" firstAttribute="top" secondItem="RFz-JF-9Lp" secondAttribute="top" constant="8" id="Fwe-fk-Jgj"/>
+                                    <constraint firstItem="c6F-zQ-2vK" firstAttribute="leading" secondItem="RFz-JF-9Lp" secondAttribute="leading" constant="20" id="GxV-66-mLQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="fGS-Sh-p3Z" secondAttribute="trailing" constant="60" id="H0P-Vp-rM1"/>
+                                    <constraint firstItem="jOp-nn-QKx" firstAttribute="leading" secondItem="Ufd-TD-vyq" secondAttribute="leading" id="IE3-Fe-Hpf"/>
+                                    <constraint firstItem="c6F-zQ-2vK" firstAttribute="top" secondItem="jOp-nn-QKx" secondAttribute="bottom" constant="8" id="Klp-D8-udp"/>
+                                    <constraint firstAttribute="width" constant="728" id="LFT-Dh-Um9"/>
+                                    <constraint firstAttribute="trailing" secondItem="c6F-zQ-2vK" secondAttribute="trailing" constant="20" id="TaA-yb-aoh"/>
+                                    <constraint firstItem="Ufd-TD-vyq" firstAttribute="leading" secondItem="RFz-JF-9Lp" secondAttribute="leading" constant="20" id="Xph-jU-fdQ"/>
+                                    <constraint firstItem="fGS-Sh-p3Z" firstAttribute="centerY" secondItem="jOp-nn-QKx" secondAttribute="centerY" id="bkt-cd-sdI"/>
+                                    <constraint firstItem="jOp-nn-QKx" firstAttribute="top" secondItem="Ufd-TD-vyq" secondAttribute="bottom" constant="8" id="o5C-cR-32H"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yec-IG-Ltx">
+                                <rect key="frame" x="222" y="20" width="325" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Rate us" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Tq-Qn-KkT">
-                                <rect key="frame" x="20" y="284" width="92" height="28"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
-                                <color key="textColor" red="1" green="1" blue="0.041410073637962341" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Donate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ufd-TD-vyq">
-                                <rect key="frame" x="20" y="384" width="92" height="28"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
-                                <color key="textColor" red="1" green="1" blue="0.041410073637962341" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Give feedback" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yw0-ZU-Aef">
-                                <rect key="frame" x="20" y="698" width="173" height="28"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
-                                <color key="textColor" red="1" green="1" blue="0.041410073637962341" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Rate Mercy Cam on the App Store!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y65-cF-ue1">
-                                <rect key="frame" x="20" y="320" width="421" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yec-IG-Ltx">
-                                <rect key="frame" x="414" y="320" width="227" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="Rate ">
-                                            <attributes>
-                                                <color key="NSColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                <font key="NSFont" size="20" name="Helvetica-Bold"/>
-                                            </attributes>
-                                        </fragment>
-                                        <fragment content="Mercy Cam">
-                                            <attributes>
-                                                <color key="NSColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                <font key="NSFont" size="20" name="Helvetica-Bold"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
-                                </state>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="jdY-4Z-cFl"/>
+                                    <constraint firstAttribute="width" constant="325" id="ygn-Vx-EWG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Rate MercyCam on the App Store"/>
                                 <connections>
                                     <action selector="playButtonSound" destination="wMX-Uo-2b2" eventType="touchDown" id="HTX-RM-5Zv"/>
                                     <action selector="rateOrReview" destination="wMX-Uo-2b2" eventType="touchUpInside" id="3hA-vr-3qr"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="We hope to continue to improve Mercy Cam, while keeping it free and without ads. Your donations encourage that." lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="421" translatesAutoresizingMaskIntoConstraints="NO" id="Ks8-31-BrY">
-                                <rect key="frame" x="20" y="420" width="421" height="72"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="we5-79-rxt">
+                                <rect key="frame" x="292" y="270" width="185" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="If you like Mercy Cam, here are 3 ways you can help...." lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="307" translatesAutoresizingMaskIntoConstraints="NO" id="VaL-TI-rrq">
-                                <rect key="frame" x="20" y="94" width="307" height="48"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="You can give $0.97 at a time. Each time you give, you'll see a thank-you star (⭐) below." lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="421" translatesAutoresizingMaskIntoConstraints="NO" id="jOp-nn-QKx">
-                                <rect key="frame" x="20" y="522" width="421" height="48"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fGS-Sh-p3Z">
-                                <rect key="frame" x="469" y="522" width="133" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <state key="normal" title="Give $0.97">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="giveADollar" destination="wMX-Uo-2b2" eventType="touchUpInside" id="eY2-M8-FfM"/>
-                                    <action selector="playButtonSound" destination="wMX-Uo-2b2" eventType="touchDown" id="6UG-qR-mLV"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="⭐⭐⭐⭐⭐⭐(No stars yet.)" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c6F-zQ-2vK">
-                                <rect key="frame" x="20" y="600" width="717" height="58"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="AppleColorEmoji" family="Apple Color Emoji" pointSize="44"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="You can give feedback by writing a review on the App Store or by emailing us." lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="398" translatesAutoresizingMaskIntoConstraints="NO" id="fgX-Tu-z5X">
-                                <rect key="frame" x="20" y="734" width="398" height="72"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="we5-79-rxt">
-                                <rect key="frame" x="446" y="747" width="216" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <state key="normal" title="Email the creators">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="185" id="JUN-5g-8UX"/>
+                                    <constraint firstAttribute="height" constant="44" id="Khy-l7-eLx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Email the Creators">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -1217,203 +1172,29 @@ Timer</string>
                                     <action selector="playButtonSound" destination="wMX-Uo-2b2" eventType="touchDown" id="77t-tY-RnR"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zW5-id-1kI">
-                                <rect key="frame" x="432" y="715" width="138" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Add a review button">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.067454613745212555" blue="0.42392796277999878" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="yec-IG-Ltx" secondAttribute="centerX" constant="-0.5" id="Blj-yD-l8D"/>
+                            <constraint firstAttribute="centerX" secondItem="we5-79-rxt" secondAttribute="centerX" id="Op1-Hd-N5S"/>
+                            <constraint firstItem="yec-IG-Ltx" firstAttribute="top" secondItem="rZy-r9-gzB" secondAttribute="bottom" constant="20" id="RcT-lA-o29"/>
+                            <constraint firstItem="RFz-JF-9Lp" firstAttribute="top" secondItem="yec-IG-Ltx" secondAttribute="bottom" constant="20" id="VWl-JR-PpH"/>
+                            <constraint firstItem="we5-79-rxt" firstAttribute="top" secondItem="RFz-JF-9Lp" secondAttribute="bottom" constant="20" id="cNY-d7-hSR"/>
+                            <constraint firstAttribute="centerX" secondItem="RFz-JF-9Lp" secondAttribute="centerX" id="dV1-zX-qq4"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Mercy Cam: Help the creators" id="GXh-wQ-E0l"/>
+                    <navigationItem key="navigationItem" title="Rate/Donate/Contact" id="GXh-wQ-E0l"/>
                     <connections>
-                        <outlet property="donateHeaderLabel" destination="Ufd-TD-vyq" id="e4g-IY-ZPP"/>
-                        <outlet property="donateTextLabel" destination="Ks8-31-BrY" id="13F-32-O8f"/>
+                        <outlet property="donateView" destination="RFz-JF-9Lp" id="HcK-N3-9af"/>
                         <outlet property="emailTheCreatorsButton" destination="we5-79-rxt" id="HBV-6U-iAt"/>
                         <outlet property="giveADollarButton" destination="fGS-Sh-p3Z" id="Pxt-we-NhL"/>
-                        <outlet property="giveADollarLabel" destination="jOp-nn-QKx" id="icB-OT-ybR"/>
-                        <outlet property="giveFeedbackHeaderLabel" destination="Yw0-ZU-Aef" id="y97-ja-zNc"/>
-                        <outlet property="giveFeedbackTextLabel" destination="fgX-Tu-z5X" id="f0c-PM-FbV"/>
-                        <outlet property="greeting1Label" destination="Ttl-IO-k0U" id="anP-3x-Bmp"/>
-                        <outlet property="greeting2Label" destination="VaL-TI-rrq" id="1Lk-2e-7L3"/>
-                        <outlet property="greeting3Label" destination="SLP-hg-chB" id="tHP-CQ-C6I"/>
                         <outlet property="rateUsButton" destination="yec-IG-Ltx" id="Kdu-nM-44P"/>
-                        <outlet property="rateUsHeaderLabel" destination="5Tq-Qn-KkT" id="BJt-R4-s9w"/>
-                        <outlet property="rateUsTextLabel" destination="y65-cF-ue1" id="SDX-qw-q4K"/>
                         <outlet property="starsLabel" destination="c6F-zQ-2vK" id="jT8-fh-hRr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tbw-8s-fnh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1789" y="3151"/>
-        </scene>
-        <!--Help The Creators View Controller - Mercy Camera: Help the creators-->
-        <scene sceneID="8hx-0z-0Zi">
-            <objects>
-                <viewController storyboardIdentifier="dummyIDDoNotUse5" id="pL4-vm-pik" customClass="GGKHelpTheCreatorsViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="cpL-T9-96c"/>
-                        <viewControllerLayoutGuide type="bottom" id="55e-Uc-HX9"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="dBL-C2-V2d">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <userGuides>
-                            <userLayoutGuide location="168" affinity="minY"/>
-                            <userLayoutGuide location="236" affinity="minY"/>
-                            <userLayoutGuide location="512" affinity="minX"/>
-                            <userLayoutGuide location="436" affinity="minX"/>
-                            <userLayoutGuide location="411" affinity="minX"/>
-                        </userGuides>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cGd-8w-B4v">
-                                <rect key="frame" x="277" y="40" width="470" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <string key="text">If you like Mercy Camera, then please help us!
-</string>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Below are 3 ways you can help: &quot;Rate us,&quot; &quot;Donate,&quot; and &quot;Give feedback.&quot;" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="421" translatesAutoresizingMaskIntoConstraints="NO" id="jnC-5v-LoX">
-                                <rect key="frame" x="546" y="94" width="421" height="48"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Rate us" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aG4-8e-gDG">
-                                <rect key="frame" x="20" y="236" width="92" height="28"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
-                                <color key="textColor" red="1" green="1" blue="0.041410073640000003" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Donate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WGN-9Z-VUq">
-                                <rect key="frame" x="20" y="411" width="92" height="28"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
-                                <color key="textColor" red="1" green="1" blue="0.041410073640000003" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Give feedback" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jxe-iV-uI3">
-                                <rect key="frame" x="546" y="236" width="173" height="28"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
-                                <color key="textColor" red="1" green="1" blue="0.041410073640000003" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Rate Mercy Camera on the App Store!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eoP-Bx-dsE">
-                                <rect key="frame" x="20" y="272" width="421" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7zI-fe-FtB">
-                                <rect key="frame" x="155" y="311" width="227" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="Rate ">
-                                            <attributes>
-                                                <color key="NSColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                <font key="NSFont" size="20" name="Helvetica-Bold"/>
-                                            </attributes>
-                                        </fragment>
-                                        <fragment content="Mercy Camera">
-                                            <attributes>
-                                                <color key="NSColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                <font key="NSFont" size="20" name="Helvetica-Bold"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
-                                </state>
-                                <connections>
-                                    <action selector="playButtonSound" destination="pL4-vm-pik" eventType="touchDown" id="9Td-HM-Oc8"/>
-                                    <action selector="rateOrReview" destination="pL4-vm-pik" eventType="touchUpInside" id="DgC-xe-gtT"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="We hope to continue to improve Mercy Camera, while keeping it free and without ads. Your donations encourage that." lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="421" translatesAutoresizingMaskIntoConstraints="NO" id="1ed-Ty-CZC">
-                                <rect key="frame" x="20" y="447" width="421" height="72"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="421" translatesAutoresizingMaskIntoConstraints="NO" id="PS5-G6-csr">
-                                <rect key="frame" x="55" y="94" width="421" height="72"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <string key="text">Hello! This is Geoff Hom, the lead designer of Mercy Camera. If you like Mercy Camera, then we appreciate any help you can give.</string>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="You can give $0.97 at a time. Each time you give, you'll see a thank-you star (⭐) below." lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="421" translatesAutoresizingMaskIntoConstraints="NO" id="DEj-QO-BMJ">
-                                <rect key="frame" x="20" y="549" width="421" height="48"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MWJ-k9-Z9W">
-                                <rect key="frame" x="469" y="549" width="133" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <state key="normal" title="Give $0.97">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="giveADollar" destination="pL4-vm-pik" eventType="touchUpInside" id="Q5w-LU-6Le"/>
-                                    <action selector="playButtonSound" destination="pL4-vm-pik" eventType="touchDown" id="ASM-B7-fTr"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="⭐⭐⭐(No stars yet.)" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yz5-Pd-wPf">
-                                <rect key="frame" x="20" y="627" width="984" height="58"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="AppleColorEmoji" family="Apple Color Emoji" pointSize="44"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="You can give feedback on Mercy Camera by writing a review on the App Store or by emailing us." lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="398" translatesAutoresizingMaskIntoConstraints="NO" id="tPN-jd-Eps">
-                                <rect key="frame" x="546" y="273" width="398" height="72"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vpI-Fk-F99">
-                                <rect key="frame" x="728" y="360" width="216" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <state key="normal" title="Email the creators">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="emailTheCreators" destination="pL4-vm-pik" eventType="touchUpInside" id="FHJ-B5-dhN"/>
-                                    <action selector="playButtonSound" destination="pL4-vm-pik" eventType="touchDown" id="Swe-Zl-Kmj"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.067454613750000003" blue="0.4239279628" alpha="1" colorSpace="calibratedRGB"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Mercy Camera: Help the creators" id="lXK-0P-w1k"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                    <connections>
-                        <outlet property="emailTheCreatorsButton" destination="vpI-Fk-F99" id="JmE-o7-77p"/>
-                        <outlet property="giveADollarButton" destination="MWJ-k9-Z9W" id="M4G-aL-040"/>
-                        <outlet property="giveADollarLabel" destination="DEj-QO-BMJ" id="ZKu-C6-d7e"/>
-                        <outlet property="starsLabel" destination="yz5-Pd-wPf" id="7Oo-iv-FLv"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5Oy-bG-gT1" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2666" y="3143"/>
         </scene>
         <!--Delayed Spaced Photos View Controller - Delayed, Spaced Photos-->
         <scene sceneID="naP-rK-kmE">
@@ -1736,7 +1517,7 @@ Timer</string>
                     </view>
                     <navigationItem key="navigationItem" title="Delayed, Spaced Photos" id="yj8-fa-Pus">
                         <barButtonItem key="backBarButtonItem" title="Back" id="D4N-3o-A2C"/>
-                        <barButtonItem key="rightBarButtonItem" title="Long-term" id="caU-n3-w4x">
+                        <barButtonItem key="rightBarButtonItem" title="Long-Term" id="caU-n3-w4x">
                             <connections>
                                 <segue destination="M04-Ql-l0k" kind="push" identifier="" id="5z5-JX-4Vg"/>
                             </connections>
@@ -2185,7 +1966,7 @@ Photos</string>
             </objects>
             <point key="canvasLocation" x="2585" y="2246"/>
         </scene>
-        <!--Long Term View Controller - Long-term-->
+        <!--Long Term View Controller - Long-Term-->
         <scene sceneID="bIe-ub-LQx">
             <objects>
                 <viewController id="M04-Ql-l0k" customClass="GGKLongTermViewController" sceneMemberID="viewController">
@@ -2308,7 +2089,7 @@ Photos</string>
                             <constraint firstAttribute="centerX" secondItem="MLA-Ts-0te" secondAttribute="centerX" constant="-0.5" id="p8o-aM-aKh"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Long-term" id="Rn2-l0-yNW"/>
+                    <navigationItem key="navigationItem" title="Long-Term" id="Rn2-l0-yNW"/>
                     <connections>
                         <outlet property="explanationView" destination="MLA-Ts-0te" id="drT-rS-kSI"/>
                         <outlet property="numberOfTimeUnitsToWaitTextField" destination="epv-J0-nGr" id="aq1-e0-tXT"/>
@@ -2328,6 +2109,6 @@ Photos</string>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="jaF-Zc-HdC"/>
-        <segue reference="vc6-di-tqf"/>
+        <segue reference="MQT-mB-3ID"/>
     </inferredMetricsTieBreakers>
 </document>
