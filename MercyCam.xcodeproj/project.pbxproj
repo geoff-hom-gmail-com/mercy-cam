@@ -8,9 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		931458FB1751DF8200683821 /* GGKUserStories.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 931458FA1751DF8200683821 /* GGKUserStories.rtf */; };
-		931DA8F418AF68540005AD44 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 931DA8EE18AF68540005AD44 /* libTestFlight.a */; };
-		931DA8F518AF68540005AD44 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 931DA8EF18AF68540005AD44 /* README.md */; };
-		931DA8F618AF68540005AD44 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 931DA8F018AF68540005AD44 /* release_notes.md */; };
 		932BEE4817379F21000A15CB /* GGKDelayedSpacedPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 932BEE4717379F21000A15CB /* GGKDelayedSpacedPhotosViewController.m */; };
 		932BEE4B1738D6F4000A15CB /* GGKTimeUnitsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 932BEE4A1738D6F4000A15CB /* GGKTimeUnitsTableViewController.m */; };
 		932BEE54173B0F87000A15CB /* NSString+GGKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 932BEE53173B0F87000A15CB /* NSString+GGKAdditions.m */; };
@@ -33,6 +30,9 @@
 		93455EBA198F190E006A4237 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93455EB9198F190E006A4237 /* Images.xcassets */; };
 		93471CB51718843800E20F65 /* GGKSoundModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 93471CB41718843800E20F65 /* GGKSoundModel.m */; };
 		936804A217461F3F00155F07 /* GGKLongTermViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 936804A117461F3F00155F07 /* GGKLongTermViewController.m */; };
+		9370924519A493D00098225D /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9370923F19A493D00098225D /* libTestFlight.a */; };
+		9370924619A493D00098225D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9370924019A493D00098225D /* README.md */; };
+		9370924719A493D00098225D /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 9370924119A493D00098225D /* release_notes.md */; };
 		937A1E271752089F00951401 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 937A1E261752089F00951401 /* libz.dylib */; };
 		937A1E2A175221FD00951401 /* GGKSavedPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 937A1E29175221FD00951401 /* GGKSavedPhotoViewController.m */; };
 		938A0064172E75A900709AA4 /* GGKSavedPhotosManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 938A0063172E75A900709AA4 /* GGKSavedPhotosManager.m */; };
@@ -57,12 +57,6 @@
 
 /* Begin PBXFileReference section */
 		931458FA1751DF8200683821 /* GGKUserStories.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = GGKUserStories.rtf; sourceTree = "<group>"; };
-		931DA8EE18AF68540005AD44 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
-		931DA8EF18AF68540005AD44 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		931DA8F018AF68540005AD44 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
-		931DA8F118AF68540005AD44 /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
-		931DA8F218AF68540005AD44 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
-		931DA8F318AF68540005AD44 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		932BEE4617379F21000A15CB /* GGKDelayedSpacedPhotosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKDelayedSpacedPhotosViewController.h; sourceTree = "<group>"; };
 		932BEE4717379F21000A15CB /* GGKDelayedSpacedPhotosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKDelayedSpacedPhotosViewController.m; sourceTree = "<group>"; };
 		932BEE491738D6F4000A15CB /* GGKTimeUnitsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKTimeUnitsTableViewController.h; sourceTree = "<group>"; };
@@ -100,6 +94,12 @@
 		93471CB41718843800E20F65 /* GGKSoundModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKSoundModel.m; sourceTree = "<group>"; };
 		936804A017461F3E00155F07 /* GGKLongTermViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKLongTermViewController.h; sourceTree = "<group>"; };
 		936804A117461F3F00155F07 /* GGKLongTermViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKLongTermViewController.m; sourceTree = "<group>"; };
+		9370923F19A493D00098225D /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		9370924019A493D00098225D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		9370924119A493D00098225D /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
+		9370924219A493D00098225D /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
+		9370924319A493D00098225D /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
+		9370924419A493D00098225D /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		937A1E261752089F00951401 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		937A1E28175221FC00951401 /* GGKSavedPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGKSavedPhotoViewController.h; sourceTree = "<group>"; };
 		937A1E29175221FD00951401 /* GGKSavedPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGKSavedPhotoViewController.m; sourceTree = "<group>"; };
@@ -142,10 +142,10 @@
 			files = (
 				93306A7416CBD6CA00F22B0A /* AssetsLibrary.framework in Frameworks */,
 				93306A7216C472E000F22B0A /* AVFoundation.framework in Frameworks */,
+				9370924519A493D00098225D /* libTestFlight.a in Frameworks */,
 				93306A4316C1D19A00F22B0A /* CoreGraphics.framework in Frameworks */,
 				93306A4116C1D19A00F22B0A /* Foundation.framework in Frameworks */,
 				937A1E271752089F00951401 /* libz.dylib in Frameworks */,
-				931DA8F418AF68540005AD44 /* libTestFlight.a in Frameworks */,
 				93CE01C1173649AD0025ACB4 /* MessageUI.framework in Frameworks */,
 				93B7765C17192B31009CB475 /* MobileCoreServices.framework in Frameworks */,
 				93A3FF4018EEAB2500A8E21F /* QuartzCore.framework in Frameworks */,
@@ -157,26 +157,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		931DA8ED18AF68540005AD44 /* TestFlightSDK2 */ = {
-			isa = PBXGroup;
-			children = (
-				931DA8EE18AF68540005AD44 /* libTestFlight.a */,
-				931DA8EF18AF68540005AD44 /* README.md */,
-				931DA8F018AF68540005AD44 /* release_notes.md */,
-				931DA8F118AF68540005AD44 /* TestFlight+AsyncLogging.h */,
-				931DA8F218AF68540005AD44 /* TestFlight+ManualSessions.h */,
-				931DA8F318AF68540005AD44 /* TestFlight.h */,
-			);
-			path = TestFlightSDK2;
-			sourceTree = "<group>";
-		};
 		93306A3216C1D19A00F22B0A = {
 			isa = PBXGroup;
 			children = (
 				93306A3D16C1D19A00F22B0A /* Frameworks */,
 				93306A4416C1D19A00F22B0A /* MercyCam */,
 				93306A3C16C1D19A00F22B0A /* Products */,
-				931DA8ED18AF68540005AD44 /* TestFlightSDK2 */,
+				9370923E19A493D00098225D /* TestFlightSDK3 */,
 			);
 			sourceTree = "<group>";
 		};
@@ -280,6 +267,19 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		9370923E19A493D00098225D /* TestFlightSDK3 */ = {
+			isa = PBXGroup;
+			children = (
+				9370923F19A493D00098225D /* libTestFlight.a */,
+				9370924019A493D00098225D /* README.md */,
+				9370924119A493D00098225D /* release_notes.md */,
+				9370924219A493D00098225D /* TestFlight+AsyncLogging.h */,
+				9370924319A493D00098225D /* TestFlight+ManualSessions.h */,
+				9370924419A493D00098225D /* TestFlight.h */,
+			);
+			path = TestFlightSDK3;
+			sourceTree = "<group>";
+		};
 		93B776551718897C009CB475 /* sounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -340,14 +340,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9370924719A493D00098225D /* release_notes.md in Resources */,
 				93306A4916C1D19A00F22B0A /* InfoPlist.strings in Resources */,
 				93455EBA198F190E006A4237 /* Images.xcassets in Resources */,
-				931DA8F618AF68540005AD44 /* release_notes.md in Resources */,
 				93306A5816C1D19A00F22B0A /* MainStoryboard_iPhone.storyboard in Resources */,
 				93306A5B16C1D19A00F22B0A /* MainStoryboard_iPad.storyboard in Resources */,
-				931DA8F518AF68540005AD44 /* README.md in Resources */,
 				93B776571718899E009CB475 /* tap.aif in Resources */,
 				93B77661171E09E4009CB475 /* GGKAppStoreInfo.rtf in Resources */,
+				9370924619A493D00098225D /* README.md in Resources */,
 				931458FB1751DF8200683821 /* GGKUserStories.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -488,7 +488,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/geoffrey2/personal/projects/MercyCam/TestFlightSDK2,
+					/Users/geoffrey2/personal/projects/MercyCam/TestFlightSDK3,
+					"$(PROJECT_DIR)/TestFlightSDK3",
 				);
 				PRODUCT_NAME = MercyCam;
 				WRAPPER_EXTENSION = app;
@@ -507,7 +508,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/geoffrey2/personal/projects/MercyCam/TestFlightSDK2,
+					/Users/geoffrey2/personal/projects/MercyCam/TestFlightSDK3,
+					"$(PROJECT_DIR)/TestFlightSDK3",
 				);
 				PRODUCT_NAME = MercyCam;
 				PROVISIONING_PROFILE = "9895E6C7-E95D-499C-B298-82F40176AF63";
