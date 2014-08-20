@@ -154,11 +154,14 @@
     aButton.transform = CGAffineTransformMakeRotation(M_PI_2);
     aButton.titleLabel.font = self.proxyLeftTriggerButton.titleLabel.font;
     [GGKUtilities matchFrameOfRotated90View:aButton withView:self.proxyLeftTriggerButton];
+    // The side buttons are weak refs, so we should add to view hierarchy before assigning elsewhere.
+    [self.view addSubview:aButton];
     self.leftTriggerButton = aButton;
     aButton = [UIButton buttonWithType:UIButtonTypeSystem];
     aButton.transform = CGAffineTransformMakeRotation(-M_PI_2);
     aButton.titleLabel.font = self.proxyRightTriggerButton.titleLabel.font;
     [GGKUtilities matchFrameOfRotated90View:aButton withView:self.proxyRightTriggerButton];
+    [self.view addSubview:aButton];
     self.rightTriggerButton = aButton;
     NSString *aButtonTitleString = [self.bottomTriggerButton titleForState:UIControlStateNormal];
     for (UIButton *aButton in @[self.leftTriggerButton, self.rightTriggerButton]) {
@@ -166,7 +169,6 @@
         [aButton setTitle:aButtonTitleString forState:UIControlStateNormal];
         [aButton addTarget:self action:@selector(playButtonSound) forControlEvents:UIControlEventTouchDown];
         [aButton addTarget:self action:@selector(handleTriggerButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:aButton];
     }
     self.proxyLeftTriggerButton.hidden = YES;
     self.proxyRightTriggerButton.hidden = YES;
