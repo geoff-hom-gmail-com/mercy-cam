@@ -1089,8 +1089,8 @@ Each time, you'll see a star below.</string>
                                 <rect key="frame" x="292" y="270" width="185" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="185" id="JUN-5g-8UX"/>
                                     <constraint firstAttribute="height" constant="44" id="Khy-l7-eLx"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="185" id="Uzm-GE-cVx"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Email the Creators">

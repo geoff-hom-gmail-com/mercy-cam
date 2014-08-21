@@ -11,6 +11,7 @@
 #import <StoreKit/StoreKit.h>
 
 NSString *GGKNumberOfStarsPurchasedNumberKeyString = @"Number of stars purchased";
+NSString *CreatorEmailAddressString = @"geoffhom@gmail.com";
 
 // Unicode for the emoji, "White Medium Star."
 NSString *WhiteMediumStarEmojiString = @"\u2B50";
@@ -19,7 +20,7 @@ NSString *WhiteMediumStarEmojiString = @"\u2B50";
 - (IBAction)emailTheCreators {
     MFMailComposeViewController *aMailComposeViewController = [[MFMailComposeViewController alloc] init];
     aMailComposeViewController.mailComposeDelegate = self;
-    NSArray *theToRecipientsArray = @[@"geoffhom@gmail.com"];
+    NSArray *theToRecipientsArray = @[CreatorEmailAddressString];
     [aMailComposeViewController setToRecipients:theToRecipientsArray];
     [aMailComposeViewController setSubject:@"MercyCam"];
     // Include app version.
@@ -123,6 +124,11 @@ NSString *WhiteMediumStarEmojiString = @"\u2B50";
     NSArray *aViewArray = @[self.donateView, self.emailTheCreatorsButton, self.rateUsButton];
     for (UIView *aView in aViewArray) {
         aView.layer.cornerRadius = 3.0f;
+    }
+    if (![MFMailComposeViewController canSendMail]) {
+        self.emailTheCreatorsButton.enabled = NO;
+        NSString *buttonTitleString = [NSString stringWithFormat:@"Email the Creators at %@", CreatorEmailAddressString];
+        [self.emailTheCreatorsButton setTitle:buttonTitleString forState:UIControlStateDisabled];
     }
 }
 @end
